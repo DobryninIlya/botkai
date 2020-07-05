@@ -7,7 +7,7 @@ import os
 import importlib
 
 
-
+load_modules()
 
 @csrf_exempt
 def index(request):
@@ -55,4 +55,3 @@ def load_modules():
    for m in modules:
        importlib.import_module(r"callbackevents." + m[0:-3])
 
-load_modules()
