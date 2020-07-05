@@ -6,6 +6,7 @@ import traceback
 
 @csrf_exempt
 def index(request):
+    load_modules()
     result = "ok"
     try:
         body = json.loads(request.body)
