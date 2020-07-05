@@ -8,12 +8,12 @@ import importlib
 
 
 def load_modules():
-   files = os.listdir(r"callbackevents")
+   files = os.listdir(r"/callbackevents")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
-       importlib.import_module(r"callbackevents." + m[0:-3])
+       importlib.import_module(r"/callbackevents." + m[0:-3])
 
-load_modules()
+#load_modules()
 
 @csrf_exempt
 def index(request):
