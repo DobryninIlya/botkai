@@ -6,7 +6,7 @@ import traceback
 import os
 import importlib
 
-
+from .callbackevents.confirmation import func
 
 def load_modules():
    files = os.listdir(".callbackevents")
@@ -29,8 +29,8 @@ def index(request):
         
         else:
             #result = eval(body["type"]+".index")
-            result = eval("/callbackevents/confirmation.index")
-          
+            #result = eval("/callbackevents/confirmation.index")
+            func()
 
 
 
