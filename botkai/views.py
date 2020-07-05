@@ -47,7 +47,7 @@ def index(request):
 
 
 def load_modules():
-   files = os.listdir(".callback_events")
+   files = os.listdir("callback_events")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
-       importlib.import_module(".callback_events" + m[0:-3])
+       importlib.import_module("callback_events" + m[0:-3])
