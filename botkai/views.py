@@ -28,7 +28,7 @@ def index(request):
         
         else:
             #result = eval(body["type"]+".index")
-            result = eval(body["callbackevents.confirmation.index")
+            result = eval(body"callbackevents.confirmation.index")
           
 
 
