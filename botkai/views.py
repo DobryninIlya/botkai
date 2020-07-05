@@ -6,10 +6,33 @@ import traceback
 
 @csrf_exempt
 def index(request):
+    result = "ok"
     try:
-        print(request.body)
-        print(request.method)
-        print(request.META)
+        body = request.body
+        print(body, body.keys())
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     except:
         print('Ошибка:\n', traceback.format_exc())
-    return HttpResponse("ok")
+    return HttpResponse(result)
