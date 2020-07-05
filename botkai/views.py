@@ -10,6 +10,11 @@ def index(request):
     try:
         body = json.loads(request.body)
         print(body, body.keys())
+        if 'type' not in body.keys():
+            result = "Неа."
+        
+        else:
+            eval("callback_events."+body["type"]+".index")
           
 
 
@@ -36,3 +41,10 @@ def index(request):
     except:
         print('Ошибка:\n', traceback.format_exc())
     return HttpResponse(result)
+
+
+def load_modules():
+   files = os.listdir("callback_events")
+   modules = filter(lambda x: x.endswith('.py'), files)
+   for m in modules:
+       importlib.import_module("callback_events" + m[0:-3])
