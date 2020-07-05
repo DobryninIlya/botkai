@@ -6,9 +6,12 @@ import traceback
 import os
 import importlib
 
+
+
+
 @csrf_exempt
 def index(request):
-    load_modules()
+
     result = "ok"
     try:
         body = json.loads(request.body)
@@ -51,3 +54,5 @@ def load_modules():
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
        importlib.import_module(r"callbackevents." + m[0:-3])
+
+load_modules()
