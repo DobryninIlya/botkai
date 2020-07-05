@@ -15,7 +15,7 @@ def load_modules():
        importlib.import_module("events." + m[0:-3])
        
 
-#load_modules()
+load_modules()
 
 @csrf_exempt
 def index(request):
