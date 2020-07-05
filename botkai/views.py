@@ -6,13 +6,13 @@ import traceback
 import os
 import importlib
 
-from .callbackevents.confirmation import func
+from .events.confirmation import func
 
 def load_modules():
-   files = os.listdir(".callbackevents")
+   files = os.listdir("events")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
-       importlib.import_module(r".callbackevents." + m[0:-3])
+       importlib.import_module("events." + m[0:-3])
        
 
 #load_modules()
