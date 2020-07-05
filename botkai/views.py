@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import json
 import traceback
 
-@csrf_exempt
+
 def index(request):
     try:
         pass
