@@ -8,7 +8,7 @@ import traceback
 def index(request):
     result = "ok"
     try:
-        body = request.body
+        body = json.loads(request.body)
         print(body, body.keys())
           
 
