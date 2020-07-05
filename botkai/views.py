@@ -9,13 +9,13 @@ import importlib
 from .events.confirmation import func
 
 def load_modules():
-   files = os.listdir("botkai.events")
+   files = os.listdir("/app/botkai/events")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
        importlib.import_module("events." + m[0:-3])
 
 
-#load_modules()
+load_modules()
 
 @csrf_exempt
 def index(request):
