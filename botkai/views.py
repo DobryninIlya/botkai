@@ -9,13 +9,13 @@ import importlib
 from .events.confirmation import func
 
 def load_modules():
-   files = os.listdir("events")
+   files = os.listdir("botkai.events")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
        importlib.import_module("events." + m[0:-3])
 
 
-load_modules()
+#load_modules()
 
 @csrf_exempt
 def index(request):
@@ -30,6 +30,7 @@ def index(request):
         else:
             #result = eval(body["type"]+".index")
             #result = eval("/callbackevents/confirmation.index")
+            print(os.path.abspath(__file__))
             result = func()
 
 
