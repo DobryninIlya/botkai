@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 import json
 import traceback
 
@@ -9,4 +10,4 @@ def index(request):
         print(request.META)
     except:
         print('Ошибка:\n', traceback.format_exc())
-    return "ЩЛ"
+    return HttpResponse("ok")
