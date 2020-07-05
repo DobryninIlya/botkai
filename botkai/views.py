@@ -13,7 +13,7 @@ def load_modules():
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
        importlib.import_module("events." + m[0:-3])
-       
+
 
 load_modules()
 
