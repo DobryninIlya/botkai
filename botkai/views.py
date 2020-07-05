@@ -14,7 +14,7 @@ def load_modules():
        importlib.import_module(r"/callbackevents." + m[0:-3])
        
 
-load_modules()
+#load_modules()
 
 @csrf_exempt
 def index(request):
@@ -27,7 +27,8 @@ def index(request):
             result = "Неа."
         
         else:
-            result = eval(body["type"]+".index")
+            #result = eval(body["type"]+".index")
+            result = eval(body["callbackevents.confirmation.index")
           
 
 
