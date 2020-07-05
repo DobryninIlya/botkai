@@ -26,7 +26,7 @@ def index(request):
             result = "Неа."
         
         else:
-            result = eval(".callbackevents."+body["type"]+".index")
+            result = eval(body["type"]+".index")
           
 
 
