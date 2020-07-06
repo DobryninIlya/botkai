@@ -28,7 +28,7 @@ def index(request):
             result = "Неа."
         
         else:
-            result = eval(".events." + body["type"]+".func")
+            result = eval("events." + body["type"]+".func")
             #result = eval("/callbackevents/confirmation.index")
             #rint(os.path.abspath(__file__))
             #result = func()
