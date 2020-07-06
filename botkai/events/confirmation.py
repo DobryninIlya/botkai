@@ -1,2 +1,2 @@
 def confirmation():
-    return "2d3a42df"
+    return "00a792c3"
