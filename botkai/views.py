@@ -5,11 +5,12 @@ import json
 import traceback
 import os
 import importlib
-import events
-#from .events.confirmation import func
+from .events.confirmation import confirmation
 
 
-events
+events = {
+    "confirmation" : confirmation
+}
 
 def load_modules():
    files = os.listdir("/app/botkai/events")
@@ -31,7 +32,7 @@ def index(request):
             result = "Неа."
         
         else:
-            result = eval("events." + body["type"]+".func")
+            result = events[body["type"]]()
             #result = eval("/callbackevents/confirmation.index")
             #rint(os.path.abspath(__file__))
             #result = func()
