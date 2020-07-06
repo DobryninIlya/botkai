@@ -5,7 +5,7 @@ import json
 import traceback
 import os
 import importlib
-import .events
+import events
 #from .events.confirmation import func
 
 
