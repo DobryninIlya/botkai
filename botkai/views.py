@@ -28,9 +28,9 @@ def index(request):
             result = "Неа."
         
         else:
-            result = eval("botkai." + body["type"]+".func")
+            result = eval("botkai.events." + body["type"]+".func")
             #result = eval("/callbackevents/confirmation.index")
-            #print(os.path.abspath(__file__))
+            #rint(os.path.abspath(__file__))
             #result = func()
 
 
