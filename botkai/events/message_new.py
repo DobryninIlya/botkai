@@ -1,9 +1,15 @@
-from .. import classes 
+from .. import classes
+
+import sqlite3
+import datetime 
 
 
 cursor = classes.connections().cursor
 cursorR = classes.connections().cursorR
+
+today = datetime.date.today()
 message_params = {}
+
 vk = classes.vk_interface().vk
 
 def message_new(request):

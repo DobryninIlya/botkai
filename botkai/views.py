@@ -15,7 +15,7 @@ events = {
 }
 
 def load_modules():
-   files = os.listdir("/app/botkai/events")
+   files = os.listdir("botkai/events")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
        importlib.import_module("botkai.events." + m[0:-3])
