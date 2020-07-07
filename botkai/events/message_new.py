@@ -19,7 +19,7 @@ vk = classes.vk_interface().vk
 
 def message_new(request):
     global message_params
-    message_params = json.loads(request.body)
+    message_params = json.loads(request.body)["object"]["message"]
 
     if IsRegistred():
         print("Зарегистрирован")
