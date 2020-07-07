@@ -30,6 +30,7 @@ def message_new(request):
 
 
 def IsRegistred():
+    print(message_params["object"]["message"])
     body = message_params["object"]["message"]["text"]
     id = message_params["object"]["message"]["from_id"]
     if InBase(id):
