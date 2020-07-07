@@ -10,6 +10,6 @@ class connections:
 
 class vk_interface:
     def __init__(self):
-        token = "464ef8b3e89a0963631f63fc198ce51fa7dd368ade4e99fa8a6d45f6f8f628b6086bf35f0e720ad9b6d4c"
+        token = "ef9001337c74ad42b2cab874c87a2fd4bc3723bcec00355cff15130e3fb7e1643df17d9a1e4d717762780"
         vk = vk_api.VkApi(token=token)
 
