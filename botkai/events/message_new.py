@@ -1,11 +1,16 @@
 from .. import classes
 
 import sqlite3
-import datetime 
-
+import datetime
+import json
+import random 
+import requests
+import traceback
 
 cursor = classes.connections().cursor
 cursorR = classes.connections().cursorR
+conn = classes.connections().conn
+connection = classes.connections().connection
 
 today = datetime.date.today()
 message_params = {}
