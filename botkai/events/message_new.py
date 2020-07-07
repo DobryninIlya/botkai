@@ -1,9 +1,10 @@
 from .. import classes 
 
 
-cursor = classes.connections.cursor
+cursor = classes.connections().cursor
+cursorR = classes.connections().cursorR
 message_params = {}
-vk = classes.vk_interface.vk
+vk = classes.vk_interface().vk
 
 def message_new(request):
     global message_params
