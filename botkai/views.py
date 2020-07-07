@@ -9,7 +9,8 @@ from .events.confirmation import confirmation
 
 
 events = {
-    "confirmation" : confirmation
+    "confirmation" : confirmation,
+    "message_new" :
 }
 
 def load_modules():
@@ -33,24 +34,6 @@ def index(request):
         
         else:
             result = events[body["type"]]()
-            #result = eval("/callbackevents/confirmation.index")
-            #rint(os.path.abspath(__file__))
-            #result = func()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
