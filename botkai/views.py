@@ -34,7 +34,7 @@ def index(request):
             result = "Неа."
         
         else:
-            result = events[body["type"]]()
+            result = events[body["type"]](request)
 
 
 
