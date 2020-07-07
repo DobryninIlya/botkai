@@ -19,7 +19,7 @@ vk = classes.vk_interface().vk
 
 def message_new(request):
     global message_params
-    message_params = json.loads(request.body)["object"]["message"]
+    message_params = json.loads(request.body)
 
     if IsRegistred():
         print("Зарегистрирован")
@@ -30,8 +30,8 @@ def message_new(request):
 
 
 def IsRegistred():
-    body = message_params["text"]
-    id = message_params["from_id"]
+    body = message_params["object"]["message"]["text"]
+    id = message_params["object"]["message"]["from_id"]
     if InBase(id):
         #print("Зарегистрироан")
         return True
