@@ -97,14 +97,14 @@ def message_new(request):
                                 key = k
                                 #print(c.role, UserParams.role)
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
-                                    c.process(message_params)
+                                    c.process()
                                     return "ok"
                 if distance < len(message_params["object"]["message"]["text"])*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
                     
                     mesg = 'Я понял ваш запрос как "%s"' % key 
                     vk.method("messages.send",
                             {"peer_id": int(message_params["object"]["message"]["from_id"]), "message": mesg, "random_id": random.randint(1, 2147483647)})
-                    command.process(message_params)
+                    command.process()
                     return "ok"
 
         

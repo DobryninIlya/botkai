@@ -14,7 +14,7 @@ today = datetime.date.today()
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
-def info(request):
+def info():
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
     group = UserParams.getGroup()
