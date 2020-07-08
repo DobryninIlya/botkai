@@ -28,12 +28,12 @@ def message_new(request):
     try:
         global message_params
         message_params = json.loads(request.body)
-        #if IsRegistred():
-        #    print("Зарегистрирован")
-        #    UserParams.update(int(message_params["object"]["message"]["from_id"]))
+        if IsRegistred():
+            print("Зарегистрирован")
+            UserParams.update(int(message_params["object"]["message"]["from_id"]))
         
-        print(cursor.execute("INSERT INTO Users VALUES (159773942, '', 0 , 1, 1, 0, '2020-07-08',0 , 0, 0, '2020-01-01', 0, 0,1);"))
-        connection.commit()
+        #print(cursor.execute("INSERT INTO Users VALUES (159773942, '', 0 , 1, 1, 0, '2020-07-08',0 , 0, 0, '2020-01-01', 0, 0,1);"))
+        #connection.commit()
 
         
     except:  
