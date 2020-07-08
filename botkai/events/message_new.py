@@ -299,6 +299,8 @@ def InBase(id): ### Проверка на зарегестрированност
         sql = "SELECT Groupp, login, role FROM Users WHERE ID_VK=" + str(id) + ";"
         cursor.execute(sql)
         res=cursor.fetchone()
+        if res == None:
+            return False
         group = res[0]
         login = ""
         try:
