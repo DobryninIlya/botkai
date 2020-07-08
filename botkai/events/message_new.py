@@ -25,6 +25,7 @@ vk = classes.vk_interface().vk
 
 UserParams = classes.User()
 command_list = classes.command_list
+
 def message_new(request):
     try:
         global message_params
@@ -32,7 +33,23 @@ def message_new(request):
         if IsRegistred():
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
-            if button != "" and button not in exc:
+
+            button = ""
+            try:
+                print("msg payload", message_params["object"]["message"]['payload'])
+                payload = message['payload']
+                payload = json.loads(payload)
+                button = payload["button"]
+                # print(button, payload)
+                ##MessageSettings.button = button
+                ##MessageSettings.payload = payload
+
+
+            except Exception as E:
+                pass
+
+
+            if button != "":
                 for c in command_list:
                     crole = c.role
                     if button == c.payload and c.admlevel<=UserParams.getAdminLevel():
@@ -58,7 +75,7 @@ def message_new(request):
                     if UserParams.role in c.role:
                         
                         for k in c.keys:
-                            d = damerau_levenshtein_distance((MessageSettings.getText()).lower(), k)
+                            d = damerau_levenshtein_distance((message_params["object"]["message"]["text"]).lower(), k)
                             if d < distance:
                                 distance = d
                                 command = c
@@ -71,7 +88,7 @@ def message_new(request):
                     
                     mesg = 'Я понял ваш запрос как "%s"' % key 
                     vk.method("messages.send",
-                            {"peer_id": MessageSettings.getId(), "message": mesg, "random_id": random.randint(1, 2147483647)})
+                            {"peer_id": int(message_params["object"]["message"]["from_id"]), "message": mesg, "random_id": random.randint(1, 2147483647)})
                     command.process()
                     return "ok"
 
@@ -403,3 +420,27 @@ def StatusR(id): ### Текущий статус в таблице Status (RAM)
     else:
         return
     
+
+
+def damerau_levenshtein_distance(s1, s2):
+    d = {}
+    lenstr1 = len(s1)
+    lenstr2 = len(s2)
+    for i in range(-1, lenstr1 + 1):
+        d[(i, -1)] = i + 1
+    for j in range(-1, lenstr2 + 1):
+        d[(-1, j)] = j + 1
+    for i in range(lenstr1):
+        for j in range(lenstr2):
+            if s1[i] == s2[j]:
+                cost = 0
+            else:
+                cost = 1
+            d[(i, j)] = min(
+                d[(i - 1, j)] + 1,  # deletion
+                d[(i, j - 1)] + 1,  # insertion
+                d[(i - 1, j - 1)] + cost,  # substitution
+            )
+            if i and j and s1[i] == s2[j - 1] and s1[i - 1] == s2[j]:
+                d[(i, j)] = min(d[(i, j)], d[i - 2, j - 2] + cost)  # transposition
+    return d[lenstr1 - 1, lenstr2 - 1]
