@@ -26,6 +26,20 @@ vk = classes.vk_interface().vk
 UserParams = classes.User()
 command_list = classes.command_list
 
+
+
+def load_modules():
+   files = os.listdir("/app/botkai/commands")
+   modules = filter(lambda x: x.endswith('.py'), files)
+   for m in modules:
+       importlib.import_module("commands." + m[0:-3])
+
+
+load_modules()
+
+
+
+
 def message_new(request):
     try:
         global message_params
