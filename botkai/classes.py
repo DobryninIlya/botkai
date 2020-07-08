@@ -46,7 +46,6 @@ class User:
             sql = "SELECT * FROM Users WHERE ID_VK = " + str(id)
             cursor.execute(sql)
             res = cursor.fetchone()
-
         self.groupId = res[2]
         self.adminLevel = res[4]
         self.name = res[1]

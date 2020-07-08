@@ -32,6 +32,7 @@ def message_new(request):
         if IsRegistred():
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
+        connection.commit()
     except:  
         print('Ошибка:\n', traceback.format_exc())  
     
