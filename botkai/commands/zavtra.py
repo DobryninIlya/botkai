@@ -1,4 +1,4 @@
-import classes as command_class
+from .. import classes as command_class
 import vk_api
 import random
 import datetime
