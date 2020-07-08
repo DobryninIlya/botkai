@@ -4,7 +4,7 @@ import random
 import datetime
 import json
 import requests
-from keyboards import GetButtonTask
+from ..keyboards import GetButtonTask
 from main import vk
 from message_class import MessageSettings
 from user_class import UserParams
