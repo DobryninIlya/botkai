@@ -4,7 +4,7 @@ import random
 import datetime
 import json
 import requests
-import ..keyboards
+from .. import keyboards
 from ..classes import vk as vk
 from ..classes import MessageSettings
 from ..classes import UserParams
