@@ -183,8 +183,10 @@ class Message:
         self.text = message_params["object"]["message"]["text"]
         self.peer_id = int(message_params["object"]["message"]["peer_id"])
         self.keyboard = False
-        
-        self.payload = json.dumps(message_params["object"]["message"]["payload"])
+        try:
+            self.payload = json.dumps(message_params["object"]["message"]["payload"])
+        except TypeError:
+            self.payload = None
         self.messageId = message_params["object"]["message"]["id"]
         if message_params["object"]["message"]["attachments"]:
             res = vk.method("messages.getById",{"message_ids": self.messageId})
