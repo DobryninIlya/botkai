@@ -30,7 +30,9 @@ def message_new(request):
 
 
 def IsRegistred():
-
+    print(message_params["object"]["message"])
+    body = message_params["object"]["message"]["text"]
+    id = message_params["object"]["message"]["from_id"]
     if InBase(id):
         #print("Зарегистрироан")
         return True
@@ -275,20 +277,20 @@ def InBaseR(id): ### Проверка на зарегестрированнос�
 
 def InBase(id): ### Проверка на зарегестрированность и наличие в базе Users
     try:
-        global allCommands, statUser
+        #global allCommands, statUser
         #if MessageSettings.statUser.count(id)>1:
         #    MessageSettings.statUser.remove(id)
         #elif MessageSettings.statUser.count(id)==1:
         #    pass;
         #else:
         #    MessageSettings.statUser.append(id)
-        if statUser.count(id) == 0:
-            statUser.append(id)
-            MessageSettings.statUser = len(statUser)
-            print(MessageSettings.statUser)
+        #if statUser.count(id) == 0:
+        #    statUser.append(id)
+        #    MessageSettings.statUser = len(statUser)
+        #    print(MessageSettings.statUser)
             
-        allCommands += 1
-        MessageSettings.allCommands = allCommands
+        #allCommands += 1
+        #MessageSettings.allCommands = allCommands
         sql = "SELECT Groupp, login, role FROM Users WHERE ID_VK=" + str(id) + ";"
         cursor.execute(sql)
         res=cursor.fetchone()
@@ -306,7 +308,7 @@ def InBase(id): ### Проверка на зарегестрированност
         if len(str(group)) == 0:
             print(1)
             return False
-        elif int(group) == 0 and int(MessageSettings.peer_id)<2000000000:
+        elif int(group) == 0 and int(message_params["object"]["message"]["from_id"])<2000000000:
             print(2)
             return False
         else:
@@ -315,7 +317,7 @@ def InBase(id): ### Проверка на зарегестрированност
     except TypeError:
         print('!Ошибка:\n', traceback.format_exc())
         print(4)
-        if int(MessageSettings.peer_id)>2000000000:
+        if int(message_params["object"]["message"]["from_id"])>2000000000:
             print(5)
             return True
         print(6)
