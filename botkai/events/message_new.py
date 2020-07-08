@@ -1,4 +1,5 @@
 from .. import classes
+from .. import keyboards
 
 import sqlite3
 import datetime

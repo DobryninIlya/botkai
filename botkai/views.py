@@ -11,7 +11,8 @@ from .events.message_new import message_new
 
 events = {
     "confirmation" : confirmation,
-    "message_new" : message_new
+    "message_new" : message_new,
+    'message_reply' : message_new
 }
 
 def load_modules():
