@@ -1,6 +1,6 @@
 import json
-from user_class import UserParams
-from message_class import MessageSettings
+#from user_class import UserParams
+#from message_class import MessageSettings
 import psycopg2
 #######################################Keyboards#####################################################
 
