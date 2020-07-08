@@ -7,10 +7,14 @@ import random
 import requests
 import traceback
 
+
 cursor = classes.connections().cursor
 cursorR = classes.connections().cursorR
 conn = classes.connections().conn
 connection = classes.connections().connection
+
+cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
+conn.commit()
 
 today = datetime.date.today()
 message_params = {}
