@@ -22,7 +22,7 @@ message_params = {}
 
 vk = classes.vk_interface().vk
 
-UserParams = classes.Users()
+UserParams = classes.User()
 
 def message_new(request):
     try:
