@@ -22,10 +22,13 @@ message_params = {}
 
 vk = classes.vk_interface().vk
 
+UserParams = classes.Users()
+
 def message_new(request):
     try:
         global message_params
         message_params = json.loads(request.body)
+        UserParams.update(int(message_params["object"]["message"]["from_id"]))
         if IsRegistred():
             print("Зарегистрирован")
     except:  
@@ -243,7 +246,7 @@ def IsRegistred():
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 def showGroupId(groupNumber):
-    id = MessageSettings.peer_id
+    id = int(message_params["object"]["message"]["from_id"])
     try:
         response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 5 )
         print(response.status_code, response)
