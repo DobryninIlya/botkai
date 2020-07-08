@@ -97,3 +97,104 @@ class Command:
             command_list.remove(self)
     def process(self):
         pass
+
+
+
+class Message:
+    def __init__(self):
+       self.id = 0
+       self.text = ""
+       self.peer_id = 0
+       self.keyboard = False
+       self.att = []
+       self.payload = []
+       self.button = ""
+       self.messageId = 0
+       self.statUser = 0
+       self.allCommands = 0
+    def getId(self):
+        return self.id
+    def getText(self):
+        return self.text
+    def getPeer_id(self):
+        return self.peer_id
+    def getKeyboard(self):
+        return self.keyboard
+
+    def GetAttachments(self):
+        print(self.att)
+        attachment = ""
+        for elem in self.att:
+            if elem["type"] == "photo":
+                photo = elem["photo"]
+                attachment += "photo" + str(photo["owner_id"]) + "_" + str(photo["id"]) + ","
+            elif elem["type"] == "video":
+                video = elem["video"]
+                attachment += "video" + str(video["owner_id"]) + "_" + str(video["id"]) + ","
+            elif elem["type"] == "audio":
+                audio = elem["audio"]
+                attachment += "audio" + str(audio["owner_id"]) + "_" + str(audio["id"]) + ","
+            elif elem["type"] == "doc":
+                doc = elem["doc"]
+                attachment += "doc" + str(doc["owner_id"]) + "_" + str(doc["id"]) + ","
+                #attachment += str(doc["url"]) + ","
+
+            try:
+                attachmentRes = attachment[:-1]
+                attachmentRes += "_" + elem[elem["type"]]["access_key"] + ","
+                attachment = attachmentRes
+            except Exception as E:
+                pass
+        
+        return attachment[:-1]
+    def GetTaskCount(self, date, group):
+        connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
+        cursor = connection.cursor()
+        sql = "SELECT COUNT(*) FROM Task WHERE GroupID = " + str(group) + " AND Datee = '" + date + "'"
+        cursor.execute(sql)
+        res = cursor.fetchone()
+        connection.close()
+        return res[0]
+    def GetAdv(self, date, group):
+        connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
+        cursor = connection.cursor()
+        sql = 'SELECT textfield FROM "Adv" WHERE groupid = ' + str(group) + " AND date = '" + date + "' ORDER BY id DESC"
+        cursor.execute(sql)
+        res = cursor.fetchone()
+        connection.close()
+        try:
+            return str(res[0])
+        except Exception as E:
+            pass
+        return ""
+    def Clear(self):
+        self.id = 0
+        self.text = ""
+        self.peer_id = 0
+        self.keyboard = False
+        self.att = []
+        self.payload = []
+        self.button = ""
+
+        return
+    def update(self, message_params):
+        self.id = int(message_params["object"]["message"]["from_id"])
+        self.text = message_params["object"]["message"]["text"]
+        self.peer_id = int(message_params["object"]["message"]["peer_id"])
+        self.keyboard = False
+        
+        self.payload = json.dumps(message_params["object"]["message"]["payload"])
+        self.messageId = message_params["object"]["message"]["id"]
+        if message_params["object"]["message"]["attachments"]:
+            res = vk.method("messages.getById",{"message_ids": self.messageId})
+            res = res["items"][0]["attachments"]
+            self.att = res
+        else:
+            self.att = ""
+
+
+        self.statUser = 0
+        self.allCommands = 0
+        
+
+MessageSettings = Message()
