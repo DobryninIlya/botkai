@@ -36,204 +36,206 @@ def message_new(request):
 
 
 def IsRegistred():
+    try:
+        body = message_params["object"]["message"]["text"]
+        id = int(message_params["object"]["message"]["from_id"])
+        if InBase(id):
+            #print("Зарегистрироан")
+            return True
+        else:
 
-    body = message_params["object"]["message"]["text"]
-    id = int(message_params["object"]["message"]["from_id"])
-    if InBase(id):
-        #print("Зарегистрироан")
-        return True
-    else:
-
-        #print("Не зарегистрирован")
-        if InBaseR(id):
-            vk.method("messages.send",
-                        {"peer_id": id, "message": "test" , "sticker_id" : 6864 , "random_id": random.randint(1, 2147483647)})
-            vk.method("messages.send", {"peer_id": id, "message": "Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню", "keyboard" : keyboards.roleMenu,
-                                "random_id": random.randint(1, 2147483647)})
-            #vk.method("messages.send", {"peer_id": id, "message": "Давай познакомимся? Как тебя зовут? \n(Отправь сообщение с твоим именем)",
-            #                   "random_id": random.randint(1, 2147483647)})
-            sql = "INSERT INTO Status VALUES (" + str(id) + ", 3);"
-            cursorR.execute(sql)
-            conn.commit()
-            return False
-        elif StatusR(id) == 3:
-            
-            today = datetime.date.today()
-            role = 1
-            print(body)
-            if body == "Преподаватель":
-                role = 2
-                vk.method("messages.send", {"peer_id": id, "message": "Регистрация для преподавателя временно недоступна", 
-                                "random_id": random.randint(1, 2147483647)})
+            #print("Не зарегистрирован")
+            if InBaseR(id):
+                vk.method("messages.send",
+                            {"peer_id": id, "message": "test" , "sticker_id" : 6864 , "random_id": random.randint(1, 2147483647)})
+                vk.method("messages.send", {"peer_id": id, "message": "Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню", "keyboard" : keyboards.roleMenu,
+                                    "random_id": random.randint(1, 2147483647)})
+                #vk.method("messages.send", {"peer_id": id, "message": "Давай познакомимся? Как тебя зовут? \n(Отправь сообщение с твоим именем)",
+                #                   "random_id": random.randint(1, 2147483647)})
+                sql = "INSERT INTO Status VALUES (" + str(id) + ", 3);"
+                cursorR.execute(sql)
+                conn.commit()
                 return False
-            elif body == "Студент":
+            elif StatusR(id) == 3:
+                
+                today = datetime.date.today()
                 role = 1
-            elif body == "Родитель":
-                role = 3
-            elif body == "Абитуриент (поступающий)":
-                role = 4
-                vk.method("messages.send", {"peer_id": id, "message": "Регистрация для абитуриента временно недоступна", 
-                                "random_id": random.randint(1, 2147483647)})
-                return False
-            elif body == "Справка":
-                msg = """На данном этапе необходимо указать свою роль. 
-                Если вы студент, вам будут доступно свое расписание, список преподавателей. Вас могут видеть одногруппники в списке группы.
-                Если вы родитель, то вам будет доступно расписание и список преподавателей. Ваш аккаунт будет скрыт от вашего ребенка. Вам также будет доступен список других родителей данной группы.
-                Если вы преподаватель, вам будет доступно ваше расписание и рассылка объявлений группе.
-                
-                """
-                vk.method("messages.send", {"peer_id": id, "message": msg, "keyboard" : keyboards.roleMenu, 
-                                "random_id": random.randint(1, 2147483647)})
-                return False
-            else:
-                vk.method("messages.send", {"peer_id": id, "message": "Выберите кнопку меню.", "keyboard" : keyboards.roleMenu, 
-                                "random_id": random.randint(1, 2147483647)})
-                return False
-                
-                
-            sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"
-            print(sql)
-            cursor.execute(sql)
-            connection.commit()
-            if role == 1 or role == 3:
-                
-                sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
-                cursorR.execute(sql)
-                conn.commit()
-                vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", 
-                                "random_id": random.randint(1, 2147483647)})
-            elif role == 2:
-                sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
-                cursorR.execute(sql)
-                conn.commit()
-                vk.method("messages.send", {"peer_id": id, "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)", 
-                                "random_id": random.randint(1, 2147483647)})
-            elif role == 4:
-                sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
-                cursorR.execute(sql)
-                sql = "UPDATE Users SET Groupp = 7777 WHERE ID_VK = " + str(id) + ";"
+                print(body)
+                if body == "Преподаватель":
+                    role = 2
+                    vk.method("messages.send", {"peer_id": id, "message": "Регистрация для преподавателя временно недоступна", 
+                                    "random_id": random.randint(1, 2147483647)})
+                    return False
+                elif body == "Студент":
+                    role = 1
+                elif body == "Родитель":
+                    role = 3
+                elif body == "Абитуриент (поступающий)":
+                    role = 4
+                    vk.method("messages.send", {"peer_id": id, "message": "Регистрация для абитуриента временно недоступна", 
+                                    "random_id": random.randint(1, 2147483647)})
+                    return False
+                elif body == "Справка":
+                    msg = """На данном этапе необходимо указать свою роль. 
+                    Если вы студент, вам будут доступно свое расписание, список преподавателей. Вас могут видеть одногруппники в списке группы.
+                    Если вы родитель, то вам будет доступно расписание и список преподавателей. Ваш аккаунт будет скрыт от вашего ребенка. Вам также будет доступен список других родителей данной группы.
+                    Если вы преподаватель, вам будет доступно ваше расписание и рассылка объявлений группе.
+                    
+                    """
+                    vk.method("messages.send", {"peer_id": id, "message": msg, "keyboard" : keyboards.roleMenu, 
+                                    "random_id": random.randint(1, 2147483647)})
+                    return False
+                else:
+                    vk.method("messages.send", {"peer_id": id, "message": "Выберите кнопку меню.", "keyboard" : keyboards.roleMenu, 
+                                    "random_id": random.randint(1, 2147483647)})
+                    return False
+                    
+                    
+                sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"
+                print(sql)
                 cursor.execute(sql)
-                conn.commit()
                 connection.commit()
-                vk.method("messages.send", {"peer_id": id, "message": "Теперь я знаю о тебе достаточно). \n Используй кнопки клавиатуры.", "keyboard" : keyboards.getMainKeyboard(role = 4),
-                                "random_id": random.randint(1, 2147483647)})
-            
-            return False
-        elif StatusR(id) == 1:
-            if body.lower() == "справка":
-                vk.method("messages.send", {"peer_id": id, "message": "По вопросам сотрудничества писать на почту mr.woodysimpson@gmail.com \n Чтобы позвать администратора, введите Позвать.", "keyboard" : keyboards.keyboardRef1, 
-                                "random_id": random.randint(1, 2147483647)})
-                sql = "UPDATE Status SET Status = 15 WHERE ID_VK = " + str(id) + ";"
+                if role == 1 or role == 3:
+                    
+                    sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
+                    cursorR.execute(sql)
+                    conn.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", 
+                                    "random_id": random.randint(1, 2147483647)})
+                elif role == 2:
+                    sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
+                    cursorR.execute(sql)
+                    conn.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)", 
+                                    "random_id": random.randint(1, 2147483647)})
+                elif role == 4:
+                    sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
+                    cursorR.execute(sql)
+                    sql = "UPDATE Users SET Groupp = 7777 WHERE ID_VK = " + str(id) + ";"
+                    cursor.execute(sql)
+                    conn.commit()
+                    connection.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "Теперь я знаю о тебе достаточно). \n Используй кнопки клавиатуры.", "keyboard" : keyboards.getMainKeyboard(role = 4),
+                                    "random_id": random.randint(1, 2147483647)})
+                
+                return False
+            elif StatusR(id) == 1:
+                if body.lower() == "справка":
+                    vk.method("messages.send", {"peer_id": id, "message": "По вопросам сотрудничества писать на почту mr.woodysimpson@gmail.com \n Чтобы позвать администратора, введите Позвать.", "keyboard" : keyboards.keyboardRef1, 
+                                    "random_id": random.randint(1, 2147483647)})
+                    sql = "UPDATE Status SET Status = 15 WHERE ID_VK = " + str(id) + ";"
+                    cursorR.execute(sql)
+                    conn.commit()
+                    return False
+                elif body.lower() == "продолжить регистрацию":
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : "", 
+                                    "random_id": random.randint(1, 2147483647)})
+                    sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
+                    cursorR.execute(sql)
+                    conn.commit()
+                    return False
+                today = datetime.date.today()
+                sql = "UPDATE users SET name = '" + str(body) + "' WHERE ID_VK = " + str(id)
+                cursor.execute(sql)
+                connection.commit()
+                sql = "UPDATE Status SET Status = 2 WHERE ID_VK = " + str(id) + ";"
                 cursorR.execute(sql)
                 conn.commit()
+                vk.method("messages.send", {"peer_id": id, "message": "Очень приятно, " + str(body) + "",
+                                    "random_id": random.randint(1, 2147483647)})
+                vk.method("messages.send", {"peer_id": id, "message": "Расписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
+                                    "random_id": random.randint(1, 2147483647)})
                 return False
-            elif body.lower() == "продолжить регистрацию":
-                vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : "", 
-                                "random_id": random.randint(1, 2147483647)})
-                sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
-                cursorR.execute(sql)
-                conn.commit()
-                return False
-            today = datetime.date.today()
-            sql = "UPDATE users SET name = '" + str(body) + "' WHERE ID_VK = " + str(id)
-            cursor.execute(sql)
-            connection.commit()
-            sql = "UPDATE Status SET Status = 2 WHERE ID_VK = " + str(id) + ";"
-            cursorR.execute(sql)
-            conn.commit()
-            vk.method("messages.send", {"peer_id": id, "message": "Очень приятно, " + str(body) + "",
-                                "random_id": random.randint(1, 2147483647)})
-            vk.method("messages.send", {"peer_id": id, "message": "Расписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
-                                "random_id": random.randint(1, 2147483647)})
-            return False
-        elif StatusR(id) == 2:
-            try:
-                if showGroupId(body):
-                    if int(body) > 1100 and int(body)<10000:
-                        sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
+            elif StatusR(id) == 2:
+                try:
+                    if showGroupId(body):
+                        if int(body) > 1100 and int(body)<10000:
+                            sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
+                            cursor.execute(sql)
+                            connection.commit()
+                            sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
+                            cursorR.execute(sql)
+                            conn.commit()
+                            UserParams.update()
+                            vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
+                                                "random_id": random.randint(1, 2147483647)})
+                            vk.method("messages.send",
+                                    {"peer_id": id, "message": "test" , "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
+                            vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
+
+                        elif int(body) > 10000:
+                            vk.method("messages.send",
+                                {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "random_id": random.randint(1, 2147483647)})
+                        else:
+                            vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ", 
+                                                "random_id": random.randint(1, 2147483647)})
+                        return False
+                    else:
+                        vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.", 
+                                                    "random_id": random.randint(1, 2147483647)})
+                                
+                except Exception as E:
+                    return False
+            elif StatusR(id) == 4:
+                try:
+
+                    body = body.lower()
+                    response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
+                    #print(len(response.json()))
+                    if not len(response.json()):
+                        vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", 
+                                                    "random_id": random.randint(1, 2147483647)})
+                    else:
+                        sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
+                        cursor.execute(sql)
+                        connection.commit()
+                        sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
                         cursor.execute(sql)
                         connection.commit()
                         sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
                         UserParams.update()
-                        vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
-                                            "random_id": random.randint(1, 2147483647)})
-                        vk.method("messages.send",
-                                {"peer_id": id, "message": "test" , "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
-                        vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
-
-                    elif int(body) > 10000:
-                        vk.method("messages.send",
-                            {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "random_id": random.randint(1, 2147483647)})
-                    else:
-                        vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ", 
-                                            "random_id": random.randint(1, 2147483647)})
+                        vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                                                    "random_id": random.randint(1, 2147483647)})
+                        #print(UserParams.login, UserParams.role)
+                except Exception as E:
+                    print('Ошибка:\n', traceback.format_exc())
                     return False
-                else:
-                    vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.", 
-                                                "random_id": random.randint(1, 2147483647)})
+
+
+
+
+
+            elif StatusR(id) == 15:
+                try:
+                    if body.lower() == "позвать":
+                        vk.method("messages.send", {"peer_id": 159773942, "message": "Пользователь @id"+str(id) + " просит помощи" , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+                        vk.method("messages.send", {"peer_id": id, "message": "Сообщение администратору отправлено", "keyboard": keyboards.keyboardRef1, "random_id": random.randint(1, 2147483647)})
+                        return False
+                    elif body.lower() == "справка":
+                        vk.method("messages.send", {"peer_id": id, "message": "По вопросам сотрудничества писать на почту mr.woodysimpson@gmail.com \n Чтобы позвать администратора, введите Позвать.", "keyboard" : keyboards.keyboardRef, 
+                                        "random_id": random.randint(1, 2147483647)})
+                        sql = "UPDATE Status SET Status = 15 WHERE ID_VK = " + str(id) + ";"
+                        cursor.execute(sql)
+                        conn.commit()
+                        return False
+                    elif body.lower() == "продолжить регистрацию":
+                        vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.keyboardNull, 
+                                        "random_id": random.randint(1, 2147483647)})
+                        sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
+                        cursorR.execute(sql)
+                        conn.commit()
+                        return False
                             
-            except Exception as E:
-                return False
-        elif StatusR(id) == 4:
-            try:
-
-                body = body.lower()
-                response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
-                #print(len(response.json()))
-                if not len(response.json()):
-                    vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", 
-                                                "random_id": random.randint(1, 2147483647)})
-                else:
-                    sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
-                    cursor.execute(sql)
-                    connection.commit()
-                    sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
-                    cursor.execute(sql)
-                    connection.commit()
-                    sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
-                    cursorR.execute(sql)
-                    conn.commit()
-                    UserParams.update()
-                    vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(UserParams.role),
-                                                "random_id": random.randint(1, 2147483647)})
-                    #print(UserParams.login, UserParams.role)
-            except Exception as E:
-                print('Ошибка:\n', traceback.format_exc())
-                return False
-
-
-
-
-
-        elif StatusR(id) == 15:
-            try:
-                if body.lower() == "позвать":
-                    vk.method("messages.send", {"peer_id": 159773942, "message": "Пользователь @id"+str(id) + " просит помощи" , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
-                    vk.method("messages.send", {"peer_id": id, "message": "Сообщение администратору отправлено", "keyboard": keyboards.keyboardRef1, "random_id": random.randint(1, 2147483647)})
+                                
                     return False
-                elif body.lower() == "справка":
-                    vk.method("messages.send", {"peer_id": id, "message": "По вопросам сотрудничества писать на почту mr.woodysimpson@gmail.com \n Чтобы позвать администратора, введите Позвать.", "keyboard" : keyboards.keyboardRef, 
-                                    "random_id": random.randint(1, 2147483647)})
-                    sql = "UPDATE Status SET Status = 15 WHERE ID_VK = " + str(id) + ";"
-                    cursor.execute(sql)
-                    conn.commit()
-                    return False
-                elif body.lower() == "продолжить регистрацию":
-                    vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.keyboardNull, 
-                                    "random_id": random.randint(1, 2147483647)})
-                    sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
-                    cursorR.execute(sql)
-                    conn.commit()
-                    return False
-                        
-                            
+                except Exception as E:
+                    vk.method("messages.send", {"peer_id": id, "message": "Error status 15 in reg", 
+                                        "random_id": random.randint(1, 2147483647)})
                 return False
-            except Exception as E:
-                vk.method("messages.send", {"peer_id": id, "message": "Error status 15 in reg", 
-                                    "random_id": random.randint(1, 2147483647)})
-            return False
+    except:  
+        print('Ошибка:\n', traceback.format_exc())  
 
 
 
