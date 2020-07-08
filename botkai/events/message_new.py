@@ -67,7 +67,7 @@ def message_new(request):
                 #        return "ok"
                 #    else:
                 #        print("no")
-                distance = len(body)
+                distance = len(message_params["object"]["message"]["text"])
                 command = None
                 key = ''
                 for c in command_list:
@@ -84,7 +84,7 @@ def message_new(request):
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
                                     c.process()
                                     return "ok"
-                if distance < len(body)*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
+                if distance < len(message_params["object"]["message"]["text"])*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
                     
                     mesg = 'Я понял ваш запрос как "%s"' % key 
                     vk.method("messages.send",
