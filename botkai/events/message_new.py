@@ -44,7 +44,7 @@ def message_new(request):
     try:
         global message_params
         message_params = json.loads(request.body)
-        MessageSettings.update()
+        classes.MessageSettings.update()
         if IsRegistred():
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
