@@ -67,7 +67,7 @@ class User:
         chetn = 0 ### Четность изм. 28.01.2020
         return chetn
 
-
+UserParams = classes.User()
 
 command_list = []
 command_list_beseda = []

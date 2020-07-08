@@ -23,7 +23,7 @@ message_params = {}
 
 vk = classes.vk
 
-UserParams = classes.User()
+UserParams = classes.UserParams
 command_list = classes.command_list
 
 
