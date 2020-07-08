@@ -175,6 +175,7 @@ def IsRegistred():
                                                     "random_id": random.randint(1, 2147483647)})
                                 
                 except Exception as E:
+                    print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 4:
                 try:
