@@ -32,7 +32,7 @@ def message_new(request):
 def IsRegistred():
     print(message_params["object"]["message"])
     body = message_params["object"]["message"]["text"]
-    id = message_params["object"]["message"]["from_id"]
+    id = int(message_params["object"]["message"]["from_id"])
     if InBase(id):
         #print("Зарегистрироан")
         return True
@@ -308,7 +308,7 @@ def InBase(id): ### Проверка на зарегестрированност
         if len(str(group)) == 0:
             print(1)
             return False
-        elif int(group) == 0 and int(message_params["object"]["message"]["from_id"])<2000000000:
+        elif int(group) == 0 and int(id)<2000000000:
             print(2)
             return False
         else:
@@ -317,7 +317,7 @@ def InBase(id): ### Проверка на зарегестрированност
     except TypeError:
         print('!Ошибка:\n', traceback.format_exc())
         print(4)
-        if int(message_params["object"]["message"]["from_id"])>2000000000:
+        if int(id)>2000000000:
             print(5)
             return True
         print(6)
