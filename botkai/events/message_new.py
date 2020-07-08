@@ -1,6 +1,6 @@
 from .. import classes
 from .. import keyboards
-from classes import command_list
+
 
 import sqlite3
 import datetime
@@ -24,7 +24,7 @@ message_params = {}
 vk = classes.vk_interface().vk
 
 UserParams = classes.User()
-
+command_list = classes.command_list
 def message_new(request):
     try:
         global message_params
