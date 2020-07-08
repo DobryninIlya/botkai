@@ -1,6 +1,7 @@
 from .. import classes as command_class
 import vk_api
 import random
+import datetime
 from .. import keyboards
 from ..classes import vk as vk
 from ..classes import MessageSettings
