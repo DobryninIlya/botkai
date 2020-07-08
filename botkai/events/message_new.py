@@ -25,7 +25,6 @@ vk = classes.vk_interface().vk
 def message_new(request):
     global message_params
     message_params = json.loads(request.body)
-    print('\n',message_params["object"]["message"])
     if IsRegistred():
         print("Зарегистрирован")
     
@@ -35,7 +34,7 @@ def message_new(request):
 
 
 def IsRegistred():
-    print(message_params["object"]["message"])
+
     body = message_params["object"]["message"]["text"]
     id = int(message_params["object"]["message"]["from_id"])
     if InBase(id):
@@ -81,7 +80,7 @@ def IsRegistred():
                 Если вы преподаватель, вам будет доступно ваше расписание и рассылка объявлений группе.
                 
                 """
-                vk.method("messages.send", {"peer_id": id, "message": msg, 
+                vk.method("messages.send", {"peer_id": id, "message": msg, "keyboard" : keyboards.roleMenu, 
                                 "random_id": random.randint(1, 2147483647)})
                 return False
             else:
