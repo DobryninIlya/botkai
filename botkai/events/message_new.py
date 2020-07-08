@@ -21,7 +21,7 @@ conn.commit()
 today = datetime.date.today()
 message_params = {}
 
-vk = classes.vk_interface().vk
+vk = classes.vk
 
 UserParams = classes.User()
 command_list = classes.command_list

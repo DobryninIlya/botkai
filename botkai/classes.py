@@ -16,6 +16,7 @@ class vk_interface:
         self.token = "ef9001337c74ad42b2cab874c87a2fd4bc3723bcec00355cff15130e3fb7e1643df17d9a1e4d717762780"
         self.vk = vk_api.VkApi(token=self.token)
 
+vk = vk_interface().vk
 
 class User:
 
