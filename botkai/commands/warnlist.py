@@ -1,4 +1,4 @@
-import command_class
+import classes as command_class
 import vk_api
 import random
 from keyboards import warnInfo
