@@ -7,7 +7,7 @@ import requests
 from ..keyboards import GetButtonTask
 from ..classes import vk as vk
 from ..classes import MessageSettings
-from user_class import UserParams
+from ..classes import UserParams
 import traceback
 
 today = datetime.date.today()
