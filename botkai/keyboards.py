@@ -385,7 +385,7 @@ mafiahub = str(mafiahub.decode('utf-8'))
 
 
 roleMenu = {
-    "one_time": True,
+    "one_time": False,
     "buttons": [
         [get_button(label="Абитуриент (поступающий)", color="positive")],
         [get_button(label="Студент", color="positive")],
