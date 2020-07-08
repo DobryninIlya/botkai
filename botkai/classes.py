@@ -185,7 +185,7 @@ class Message:
         self.keyboard = False
         try:
             self.payload = json.dumps(message_params["object"]["message"]["payload"])
-        except TypeError:
+        except KeyError:
             self.payload = None
         self.messageId = message_params["object"]["message"]["id"]
         if message_params["object"]["message"]["attachments"]:
