@@ -34,7 +34,7 @@ def info():
         Timetable =  showTimetable(group, 2)
         if Timetable:
             vk.method("messages.send",
-                        {"peer_id": id, "message": "Расписание на послезавтра:\n" + Timetable + task, "keyboard": keyboards.GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Расписание на послезавтра:\n" + Timetable + task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
         else:
             vk.method("messages.send",
                         {"peer_id": id, "message": "Послезавтра занятий нет 😎\n" + frazi[random.randint(1, len(frazi))], "random_id": random.randint(1, 2147483647)})
@@ -42,7 +42,7 @@ def info():
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
         vk.method("messages.send",
-                    {"peer_id": id, "message": "Послезавтра можно отдохнуть :]", "keyboard": keyboards.GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
+                    {"peer_id": id, "message": "Послезавтра можно отдохнуть :]", "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
