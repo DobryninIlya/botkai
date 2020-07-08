@@ -1,4 +1,4 @@
-import classes as command_class
+import .classes as command_class
 import vk_api
 import keyboards
 import random
