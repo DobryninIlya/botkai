@@ -54,7 +54,7 @@ class User:
         self.balance = res[7]
         self.role = res[13]
         self.login = res[14]
-        connection.close()
+        #connection.close()
 
         
         
