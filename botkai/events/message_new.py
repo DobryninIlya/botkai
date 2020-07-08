@@ -160,7 +160,7 @@ def IsRegistred():
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
-                            UserParams.update()
+                            UserParams.update(int(message_params["object"]["message"]["from_id"]))
                             vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
                                                 "random_id": random.randint(1, 2147483647)})
                             vk.method("messages.send",
