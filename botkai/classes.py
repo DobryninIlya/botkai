@@ -1,6 +1,7 @@
 import psycopg2
 import vk_api
 import sqlite3
+import json
 
 class connections:
     def __init__(self):
