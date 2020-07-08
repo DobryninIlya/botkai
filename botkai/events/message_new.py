@@ -23,11 +23,13 @@ message_params = {}
 vk = classes.vk_interface().vk
 
 def message_new(request):
-    global message_params
-    message_params = json.loads(request.body)
-    if IsRegistred():
-        print("Зарегистрирован")
-    
+    try:
+        global message_params
+        message_params = json.loads(request.body)
+        if IsRegistred():
+            print("Зарегистрирован")
+    except:  
+        print('Ошибка:\n', traceback.format_exc())  
     
     return "ok"
 
