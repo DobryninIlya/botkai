@@ -94,11 +94,13 @@ def IsRegistred():
                                     "random_id": random.randint(1, 2147483647)})
                     return False
                     
-                    
-                sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"
-                print(sql)
-                cursor.execute(sql)
-                connection.commit()
+                try:
+                    sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"
+                    print(sql)
+                    cursor.execute(sql)
+                    connection.commit()
+                except Exception as E:
+                    print('Ошибка commit:\n', traceback.format_exc())
                 if role == 1 or role == 3:
                     
                     sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
