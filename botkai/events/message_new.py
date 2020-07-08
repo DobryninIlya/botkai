@@ -1,5 +1,6 @@
 from .. import classes
 from .. import keyboards
+from classes import command_list
 
 import sqlite3
 import datetime
@@ -31,9 +32,48 @@ def message_new(request):
         if IsRegistred():
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
-        
-        #print(cursor.execute("INSERT INTO Users VALUES (159773942, '', 0 , 1, 1, 0, '2020-07-08',0 , 0, 0, '2020-01-01', 0, 0,1);"))
-        #connection.commit()
+            if button != "" and button not in exc:
+                for c in command_list:
+                    crole = c.role
+                    if button == c.payload and c.admlevel<=UserParams.getAdminLevel():
+                        #print("role (command, user) :", crole, UserParams.role)
+                        #print("first")
+                        if UserParams.role in crole:
+                            c.process()
+                        return "ok"
+                    else:
+                        pass
+            else:
+                #for c in command_list:
+                #    if body in c.keys:
+                #        c.process()
+                #        return "ok"
+                #    else:
+                #        print("no")
+                distance = len(body)
+                command = None
+                key = ''
+                for c in command_list:
+                    
+                    if UserParams.role in c.role:
+                        
+                        for k in c.keys:
+                            d = damerau_levenshtein_distance((MessageSettings.getText()).lower(), k)
+                            if d < distance:
+                                distance = d
+                                command = c
+                                key = k
+                                #print(c.role, UserParams.role)
+                                if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
+                                    c.process()
+                                    return "ok"
+                if distance < len(body)*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
+                    
+                    mesg = 'Я понял ваш запрос как "%s"' % key 
+                    vk.method("messages.send",
+                            {"peer_id": MessageSettings.getId(), "message": mesg, "random_id": random.randint(1, 2147483647)})
+                    command.process()
+                    return "ok"
 
         
     except:  
@@ -58,8 +98,6 @@ def IsRegistred():
                             {"peer_id": id, "message": "test" , "sticker_id" : 6864 , "random_id": random.randint(1, 2147483647)})
                 vk.method("messages.send", {"peer_id": id, "message": "Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню", "keyboard" : keyboards.roleMenu,
                                     "random_id": random.randint(1, 2147483647)})
-                #vk.method("messages.send", {"peer_id": id, "message": "Давай познакомимся? Как тебя зовут? \n(Отправь сообщение с твоим именем)",
-                #                   "random_id": random.randint(1, 2147483647)})
                 sql = "INSERT INTO Status VALUES (" + str(id) + ", 3);"
                 cursorR.execute(sql)
                 conn.commit()
@@ -102,7 +140,7 @@ def IsRegistred():
                     sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"
                     print(sql)
                     cursor.execute(sql)
-                    connection.commit()
+                    
                 except Exception as E:
                     print('Ошибка commit:\n', traceback.format_exc())
                 if role == 1 or role == 3:
@@ -124,7 +162,7 @@ def IsRegistred():
                     sql = "UPDATE Users SET Groupp = 7777 WHERE ID_VK = " + str(id) + ";"
                     cursor.execute(sql)
                     conn.commit()
-                    connection.commit()
+                    
                     vk.method("messages.send", {"peer_id": id, "message": "Теперь я знаю о тебе достаточно). \n Используй кнопки клавиатуры.", "keyboard" : keyboards.getMainKeyboard(role = 4),
                                     "random_id": random.randint(1, 2147483647)})
                 
@@ -147,7 +185,7 @@ def IsRegistred():
                 today = datetime.date.today()
                 sql = "UPDATE users SET name = '" + str(body) + "' WHERE ID_VK = " + str(id)
                 cursor.execute(sql)
-                connection.commit()
+                
                 sql = "UPDATE Status SET Status = 2 WHERE ID_VK = " + str(id) + ";"
                 cursorR.execute(sql)
                 conn.commit()
@@ -162,7 +200,7 @@ def IsRegistred():
                         if int(body) > 1100 and int(body)<10000:
                             sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
-                            connection.commit()
+                            
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
@@ -199,10 +237,10 @@ def IsRegistred():
                     else:
                         sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
                         cursor.execute(sql)
-                        connection.commit()
+                        
                         sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
                         cursor.execute(sql)
-                        connection.commit()
+                        
                         sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
@@ -358,9 +396,6 @@ def StatusR(id): ### Текущий статус в таблице Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id)
     cursorR.execute(sql)
     res=cursorR.fetchone()
-    #print(int((str(res))[2:-3]))
-    
-    
     if res == None:
         return
     if int(res[0]) > 0:

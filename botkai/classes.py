@@ -66,3 +66,33 @@ class User:
         chetn = 0 ### Четность изм. 28.01.2020
         return chetn
 
+
+
+command_list = []
+command_list_beseda = []
+class Command:
+    def __init__(self):
+       self.__keys = []
+       self.description = ''
+       self.payload = ""
+       self.admlevel = 0
+       self.role = []
+       command_list.append(self)
+       self.role.append(1)
+       self.role.append(3)
+    def keys(self):
+        return self.__keys
+
+    def keys(self, array):
+        for k in array:
+            self.__keys.append(k.lower())
+    def role(self, array):
+        self.__role = []
+        for k in array:
+            self.__role.append(k)
+    def Beseda(self, flag):
+        if flag:
+            command_list_beseda.append(self)
+            command_list.remove(self)
+    def process(self):
+        pass
