@@ -43,15 +43,13 @@ class User:
             sql = "SELECT * FROM Users WHERE ID_VK = " + str(id)
             cursor.execute(sql)
             res = cursor.fetchone()
+            print("RESULT", res)
         except sqlite3.OperationalError:
             connection.commit()
             sql = "SELECT * FROM Users WHERE ID_VK = " + str(id)
             cursor.execute(sql)
             res = cursor.fetchone()
-        try:
-            self.groupId = res[2]
-        except:
-            self.groupId = None
+        self.groupId = res[2]
         self.adminLevel = res[4]
         self.name = res[1]
         self.RealGroup = res[5]
