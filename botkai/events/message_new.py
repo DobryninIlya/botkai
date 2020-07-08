@@ -32,7 +32,7 @@ def load_modules():
    files = os.listdir("/app/botkai/commands")
    modules = filter(lambda x: x.endswith('.py'), files)
    for m in modules:
-       importlib.import_module("commands." + m[0:-3])
+       importlib.import_module("botkai.commands." + m[0:-3])
 
 
 load_modules()
