@@ -18,7 +18,7 @@ connection = classes.connection
 
 cursorR.execute("""CREATE TABLE storage (id INT NOT NULL PRIMARY KEY, media_id INT NOT NULL); """)
 cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
-cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
+#cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
 conn.commit()
 
 today = datetime.date.today()
