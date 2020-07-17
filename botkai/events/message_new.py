@@ -49,21 +49,19 @@ def message_new(request):
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
 
-            payload = ""
             button = ""
             try:
-                print("msg payload", message_params['payload'])
-                payload = message_params['payload']
+                print("msg payload", message_params["object"]["message"]['payload'])
+                payload = message_params["object"]["message"]['payload']
                 payload = json.loads(payload)
                 button = payload["button"]
                 # print(button, payload)
-                MessageSettings.button = button
-                MessageSettings.payload = payload
+                ##MessageSettings.button = button
+                ##MessageSettings.payload = payload
 
 
             except Exception as E:
-                print('Ошибка:\n', traceback.format_exc())
-
+                pass
 
 
             if button != "":
