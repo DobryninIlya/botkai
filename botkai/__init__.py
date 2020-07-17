@@ -1,4 +1,4 @@
-import .classes
+import classes
 
 cursorR = classes.cursorR
 conn = classes.conn
