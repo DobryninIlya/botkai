@@ -1,5 +1,5 @@
 from .. import classes as command_class
-from ..keyboards import keyboarddonate
+from ..keyboards import keyboarddonate, get_button
 from ..classes import vk, MessageSettings, UserParams
 import random
 
