@@ -2,6 +2,7 @@ from .. import classes as command_class
 from .. import keyboards
 from ..classes import vk, MessageSettings, UserParams
 import random
+import datetime
 import requests
 
 today = datetime.date.today()
