@@ -1,15 +1,12 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import getMainKeyboard
+from ..classes import vk, MessageSettings, UserParams
 import random
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
-from keyboards import getMainKeyboard
 
 
 def info():
 
-    message = """Чат-бот расписание занятий уже почти год служит студентам и показывает персональное расписание занятий. 
+    message = """Чат-бот расписание занятий уже год служит студентам и показывает персональное расписание занятий. 
     Он используется исключительно в информационных целях, оперирует данными с сайта kai.ru и не является официальным сервисом КНИТУ-КАИ.
     Будучи абитуриентом вы здесь можете узнать лишь ссылки на официальные источники, сайты и чаты КАИ.
     Для перехода в официальные источники воспользуйтесь клавиатурой ВКонтакте.

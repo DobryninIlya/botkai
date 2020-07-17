@@ -1,12 +1,10 @@
 from .. import classes as command_class
-import vk_api
 import random
 import datetime
 from .. import keyboards
 from ..classes import vk as vk
 from ..classes import MessageSettings
 from ..classes import UserParams
-import traceback
 
 def info():
     today = datetime.date.today()

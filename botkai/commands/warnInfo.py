@@ -1,15 +1,6 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
 import random
-from keyboards import warnInfo
-from main import vk, cursor, connection
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
-import datetime
 
 ##################################                Добавить блокировку от 3 варнов 
 def info():

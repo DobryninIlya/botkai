@@ -1,10 +1,7 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import getMainKeyboard
+from ..classes import vk, MessageSettings, UserParams
 import random
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
-from keyboards import getMainKeyboard
 
 
 def info():

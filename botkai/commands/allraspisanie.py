@@ -1,11 +1,10 @@
-import classes as command_class
+from .. import classes as command_class
 import vk_api
 import random
 import json
 import requests
-from keyboards import keyboard
-from main import vk
-from message_class import MessageSettings
+from ..keyboards import keyboard
+from ..classes import vk, MessageSettings
 from user_class import UserParams
 
 

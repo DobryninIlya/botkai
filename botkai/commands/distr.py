@@ -1,22 +1,14 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
 import random
-import keyboards
-from main import vk, cursor, connection
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
-import keyboards
+from ..keyboards import KeyboardProfile
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 
 def info():
     
     id = MessageSettings.getId()
     
     vk.method("messages.send",
-                        {"peer_id": id, "message": "Управление подписками происходит в профиле.","keyboard" : keyboards.KeyboardProfile(), "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Управление рассылками происходит в профиле.","keyboard" : KeyboardProfile(), "random_id": random.randint(1, 2147483647)})
 
     
       
@@ -29,7 +21,7 @@ command = command_class.Command()
 
 
 
-command.keys = []
+command.keys = ["рассылки", "управление рассылками"]
 command.desciption = ''
 command.process = info
 command.payload = "distr"

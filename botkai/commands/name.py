@@ -1,12 +1,7 @@
-import classes as command_class
-import vk_api
-import json
+from .. import classes as command_class
+from ..keyboards import get_button
+from ..classes import vk, MessageSettings, UserParams
 import random
-import datetime
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
-from keyboards import get_button
 
 
 keyboard = {

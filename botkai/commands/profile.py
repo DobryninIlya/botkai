@@ -1,5 +1,4 @@
 from .. import classes as command_class
-import vk_api
 import random
 from ..keyboards import KeyboardProfile
 from ..classes import vk as vk

@@ -1,18 +1,12 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+import ..keyboards
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-import keyboards
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
 import datetime
-import sqlite3
-import psycopg2
-import traceback
+
 
 def info():
-    connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-    cursor = connection.cursor()
+
     try:
         today = datetime.date.today()
         id = MessageSettings.getId()
@@ -23,25 +17,20 @@ def info():
         print(date, payload)
         if date == "tomorrow":
             ShowTask(id, group, datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
-            connection.close()
             return "ok"
         elif date == "today":
             ShowTask(id, group, datetime.date(today.year, today.month, today.day))
-            connection.close()
             return "ok"
         elif date == "after":
-            connection.close()
             ShowTask(id, group, datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=2))
             return "ok"
         elif date == "all":
-            connection.close()
             pass
         elif button == "task":
             date = payload["date"]
-            connection.close()
             ShowTask(id, group, date)
             return "ok"
-        connection.close()
+
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
        
@@ -51,8 +40,7 @@ def info():
 
 
 def ShowTask(id, groupId, date):
-    connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-    cursor = connection.cursor()
+
 
 
     sql="SELECT * FROM Task WHERE" + " GroupID = " + str(groupId) + " AND Datee = '" + str(date) + "'"
@@ -61,7 +49,6 @@ def ShowTask(id, groupId, date):
     att = ""
     print("ЭТАП 1")
     curs = cursor.fetchall()
-    connection.close()
     if len(curs) == 0:
         vk.method("messages.send", {"peer_id": id, "message": "Заданий нет. Самое время добавить!" , "keyboard": keyboards.keyboardTasks, "random_id": random.randint(1, 2147483647)})
     

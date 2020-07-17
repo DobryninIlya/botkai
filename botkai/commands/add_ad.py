@@ -1,10 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
 import random
 import ..keyboards
 from ..classes import vk, MessageSettings, UserParams, conn, cursorR
-import datetime
-import sqlite3
+
 
 def info():
     today = datetime.date.today()

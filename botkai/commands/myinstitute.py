@@ -1,15 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import KeyboardProfile
+from ..classes import vk, MessageSettings, UserParams
 import random
-import keyboards
-from main import vk, uptime
-from message_class import MessageSettings
-from user_class import UserParams
-from keyboards import KeyboardProfile
-import datetime
-import sqlite3
-import psycopg2
-import traceback
+
 
 
 def info():

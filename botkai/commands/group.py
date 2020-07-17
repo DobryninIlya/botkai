@@ -1,14 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import keyboarddonate
+from ..classes import vk, MessageSettings, UserParams
 import random
-import datetime
-import json
-import requests
-from keyboards import get_button
 
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
 
 
 

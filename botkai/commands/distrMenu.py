@@ -1,16 +1,7 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
 import random
-import keyboards
-from main import vk, cursor, connection
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
-import keyboards
-import json
+from ..keyboards import KeyboardProfile
+from ..classes import vk, MessageSettings, connection, cursor
 
 
 def KeyboardDistr():

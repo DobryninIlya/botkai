@@ -1,15 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
-import keyboards
-from main import vk, cursorR, conn
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
 import json
+
 
 
 def get_button(label, color, payload=""):

@@ -1,14 +1,7 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
 import random
-from keyboards import GetAdminPanel
-from main import vk, connection, cursor
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
+from ..keyboards import GetAdminPanel
+from ..classes import vk, MessageSettings, UserParams
 
 
 def info():

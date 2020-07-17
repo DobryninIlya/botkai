@@ -1,13 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+import ..keyboards
+from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
-import datetime
-import json
 import requests
-from keyboards import GetButtonTask
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()

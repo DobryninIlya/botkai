@@ -1,13 +1,8 @@
-import .classes as command_class
-import vk_api
-import keyboards
+from .. import classes as command_class
+from ..keyboards import keyboarddonate
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import json
-import datetime
-from keyboards import get_button
-from main import vk
-from message_class import MessageSettings
-from user_class import UserParams
 
 keyboarddonate = {
     "one_time": False,

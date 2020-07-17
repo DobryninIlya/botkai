@@ -1,5 +1,4 @@
 from .. import classes as command_class
-import vk_api
 import random
 import datetime
 import json

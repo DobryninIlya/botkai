@@ -1,18 +1,10 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import GetDeleteTaskButton, keyboardTasks
+from ..classes import vk, MessageSettings
 import random
-import keyboards
-from main import vk, uptime
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
 import sys
 
 def info():
-    statUser = MessageSettings.statUser
     id = MessageSettings.getId()
 
     vk.method("messages.send",

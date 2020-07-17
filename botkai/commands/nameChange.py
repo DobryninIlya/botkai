@@ -1,13 +1,7 @@
-import classes as command_class
-import vk_api
-import json
+from .. import classes as command_class
+from ..keyboards import keyboardNull
+from ..classes import vk, MessageSettings, conn, cursorR
 import random
-import datetime
-import sqlite3
-from main import vk, cursorR, conn
-from message_class import MessageSettings
-from user_class import UserParams
-from keyboards import keyboardNull
 
 
 

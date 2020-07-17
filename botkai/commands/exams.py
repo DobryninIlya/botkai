@@ -1,8 +1,5 @@
 from .. import classes as command_class
-import vk_api
 import random
-import datetime
-import json
 import requests
 from ..keyboards import GetButtonTask
 from ..classes import vk as vk

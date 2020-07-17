@@ -1,20 +1,12 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import GetDeleteTaskButton, keyboardTasks
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-import keyboards
-from main import vk, uptime
-from message_class import MessageSettings
-from user_class import UserParams
 import datetime
-import sqlite3
-import psycopg2
-import traceback
 
 
 def info():
     id = MessageSettings.getId()
-    connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-    cursor = connection.cursor()
     sql = "SELECT COUNT(ID_VK) FROM Users;"
     cursor.execute(sql)
     res = "Количество зарегистрированных пользователей: " + str(cursor.fetchall()[0][0]) + '\n'

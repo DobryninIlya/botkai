@@ -1,17 +1,10 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import GetDeleteTaskButton, keyboardTasks
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-from keyboards import GetDeleteTaskButton, keyboardTasks
-from main import vk
-import psycopg2
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
+
 
 def info():
-    connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-    cursor = connection.cursor()
     UserID = MessageSettings.getId()
     sql = "SELECT * FROM Task WHERE" + " UserID = " + str(UserID)
     cursor.execute(sql)
@@ -19,8 +12,6 @@ def info():
     att = ""
 
     curs = cursor.fetchall()
-    print(curs)
-    connection.close()
     if len(curs) == 0:
         vk.method("messages.send", {"peer_id": UserID, "message": "Заданий нет. Самое время добавить!" , "keyboard": keyboardTasks, "random_id": random.randint(1, 2147483647)})
     

@@ -1,33 +1,16 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import keyboardAddTasks2
+from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
-import datetime
-import json
-import requests
-from keyboards import keyboardNull
-import sqlite3
-from main import vk, cursorR, conn
-from message_class import MessageSettings
-from user_class import UserParams
-from keyboards import keyboardNull, keyboardAddTasks2
 import traceback
 
-today = datetime.date.today()
-chetn = UserParams.getChetn()
-BASE_URL = 'https://kai.ru/raspisanie' 
-
-
-
 def info():
-    #conn = sqlite3.connect("bot.db")
-    #cursorR = conn.cursor()
     id = MessageSettings.getId()
 
     try:
         sql = "INSERT INTO Status VALUES (" + str(id) + ", 56);"
         cursorR.execute(sql)
         conn.commit()
-        #conn.close()
         vk.method("messages.send",
             {"peer_id": id, "message": "Введи группу в чат", "keyboard": keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
     except Exception as E:
