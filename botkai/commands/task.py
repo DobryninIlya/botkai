@@ -3,7 +3,7 @@ from .. import keyboards
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import datetime
-
+import traceback
 
 def info():
 
