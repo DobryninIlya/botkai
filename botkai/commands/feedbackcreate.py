@@ -1,7 +1,8 @@
 from .. import classes as command_class
-from ..keyboards import keyboarddonate
+from ..keyboards import keyboard
 from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
+import json
 
 
 
