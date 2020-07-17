@@ -10,10 +10,10 @@ import requests
 import traceback
 import os, importlib
 
-cursor = classes.connections().cursor
-cursorR = classes.connections().cursorR
-conn = classes.connections().conn
-connection = classes.connections().connection
+cursor = classes.cursor
+cursorR = classes.cursorR
+conn = classes.conn
+connection = classes.connection
 
 cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
 conn.commit()

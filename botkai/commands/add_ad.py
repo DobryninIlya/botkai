@@ -1,10 +1,8 @@
 import classes as command_class
 import vk_api
 import random
-import keyboards
-from main import vk, cursorR, conn
-from message_class import MessageSettings
-from user_class import UserParams
+import ..keyboards
+from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import datetime
 import sqlite3
 
