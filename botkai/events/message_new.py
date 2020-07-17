@@ -680,6 +680,7 @@ def CheckStatus():
                 if len(MessageSettings.getText()) > 250:
                     vk.method("messages.send", {"peer_id": id, "message": "Превышена максимаьная длина объявления" , "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                                     "random_id": random.randint(1, 2147483647)})
+                    return "ok"
                 #print(count)
 
                 if (count > 10 and level < 2):
