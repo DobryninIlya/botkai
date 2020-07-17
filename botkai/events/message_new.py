@@ -283,7 +283,7 @@ def IsRegistred():
                         sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
-                        UserParams.update()
+                         
                         vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                                     "random_id": random.randint(1, 2147483647)})
                         #print(UserParams.login, UserParams.role)
@@ -727,7 +727,7 @@ def CheckStatus():
             cursor.execute(sql)
             cursor.execute('UPDATE users SET ischeked = 0 WHERE ID_VK = ' + str(id))
             connection.commit()
-            UserParams.update()
+             
             vk.method("messages.send", {"peer_id": id, "message": "Имя успешно изменено на: " + str(body), "keyboard": keyboards.KeyboardProfile(),
                                                 "random_id": random.randint(1, 2147483647)})
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
@@ -750,7 +750,7 @@ def CheckStatus():
                     cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
                     conn.commit()
                     connection.commit()
-                    UserParams.update()
+                     
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Изменено", "keyboard" : keyboards.KeyboardProfile(),
                             "random_id": random.randint(1, 2147483647)})
