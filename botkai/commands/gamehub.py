@@ -1,5 +1,5 @@
 from .. import classes as command_class
-import ..keyboards
+from .. import keyboards
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import json
