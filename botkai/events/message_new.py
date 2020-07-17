@@ -52,8 +52,8 @@ def message_new(request):
             payload = ""
             button = ""
             try:
-                print("msg payload", message['payload'])
-                payload = message['payload']
+                print("msg payload", message_params['payload'])
+                payload = message_params['payload']
                 payload = json.loads(payload)
                 button = payload["button"]
                 # print(button, payload)
