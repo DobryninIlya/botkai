@@ -4,8 +4,7 @@ import random
 import json
 import requests
 from ..keyboards import keyboard
-from ..classes import vk, MessageSettings
-from user_class import UserParams
+from ..classes import vk, MessageSettings,UserParams
 
 
 chetn = UserParams.getChetn()
