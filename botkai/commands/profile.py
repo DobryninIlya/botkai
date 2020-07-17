@@ -7,7 +7,6 @@ from ..classes import UserParams
 
 
 def info():
-    UserParams.update()
     id = MessageSettings.getPeer_id()
     message = "Профиль"
     vk.method("messages.send",
