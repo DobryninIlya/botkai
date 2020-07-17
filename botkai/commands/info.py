@@ -4,7 +4,7 @@ import random
 from ..classes import vk as vk
 from ..classes import MessageSettings
 from ..classes import UserParams
-from ..keyboards import GetButtonTask
+from ..keyboards import getMainKeyboard
 
 
 def info():
