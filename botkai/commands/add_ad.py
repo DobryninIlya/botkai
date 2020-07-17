@@ -6,6 +6,7 @@ import datetime
 
 def info():
     id = MessageSettings.getId()
+    today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=7))[5:]
     date = date.split('-')
     date = date[1] + "." + date[0]
