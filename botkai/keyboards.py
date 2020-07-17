@@ -248,7 +248,7 @@ def getMainKeyboard(role):
         keyboard = {
             "one_time": False,
             "buttons": [
-            [get_button(label="Карантин, коронавирус...", color="negative", payload = {'button': 'coronavirusfull'})],
+            #[get_button(label="Карантин, коронавирус...", color="negative", payload = {'button': 'coronavirusfull'})],
             [
                 get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}),
                 get_button(label="Экзамены", color="positive", payload = {'button': 'exams'})],
