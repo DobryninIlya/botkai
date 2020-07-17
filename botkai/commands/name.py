@@ -2,6 +2,7 @@ from .. import classes as command_class
 from ..keyboards import get_button
 from ..classes import vk, MessageSettings, UserParams
 import random
+import json
 
 
 keyboard = {
