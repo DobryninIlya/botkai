@@ -26,7 +26,7 @@ vk = classes.vk
 UserParams = classes.UserParams
 command_list = classes.command_list
 
-
+MessageSettings=classes.MessageSettings
 
 def load_modules():
    files = os.listdir("/app/botkai/commands")
