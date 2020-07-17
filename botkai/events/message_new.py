@@ -50,8 +50,8 @@ def message_new(request):
         MessageSettings.update(message_params)
         if IsRegistred():
             print("Зарегистрирован")
-            CheckStatus()
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
+            CheckStatus()
 
             button = ""
             try:
@@ -395,7 +395,6 @@ def InBase(id): ### Проверка на зарегестрированност
             login = res[1]
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())
-        print("Result: ", res)
         if login:
             print(login)
             return True
@@ -470,8 +469,6 @@ def CheckStatus():
     #print("CheckStatus")
     body = MessageSettings.getText()
     id = MessageSettings.getId()
-    connection.commit()
-    conn.commit()
     button = MessageSettings.button
     try:
         today = datetime.date.today()
