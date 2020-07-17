@@ -51,6 +51,7 @@ def message_new(request):
         if IsRegistred():
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
+            UserParams.Status = StatusR(MessageSettings.getId())
             CheckStatus()
             cursorR.execute("SELECT * FROM Status")
             print(cursorR.fetchall())
