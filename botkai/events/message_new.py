@@ -52,8 +52,9 @@ def message_new(request):
             print("Зарегистрирован")
             UserParams.update(int(message_params["object"]["message"]["from_id"]))
             CheckStatus()
-            print(cursorR.execute("SELECT * FROM Status").fetchall)()
-            
+            cursorR.execute("SELECT * FROM Status")
+            print(cursorR.fetchall())
+
             button = ""
             try:
                 print("msg payload", message_params["object"]["message"]['payload'])
