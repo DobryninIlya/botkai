@@ -44,7 +44,7 @@ def message_new(request):
     try:
         global message_params
         message_params = json.loads(request.body)
-        classes.MessageSettings.update(message_params)
+        MessageSettings.update(message_params)
         if IsRegistred():
             print("Зарегистрирован")
             CheckStatus()
