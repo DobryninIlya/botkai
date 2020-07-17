@@ -9,9 +9,8 @@ class connections:
         self.connection.autocommit=True
         self.cursor = self.connection.cursor()
         self.conn = sqlite3.connect("bot.db")
-        self.conn.autocommit=True
         self.cursorR = self.conn.cursor()
-        
+
 connect = connections()
 cursor = connect.cursor
 cursorR = connect.cursorR
