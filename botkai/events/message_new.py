@@ -62,7 +62,7 @@ def message_new(request):
 
 
             except Exception as E:
-                pass
+                print('Ошибка:\n', traceback.format_exc())
 
 
 
