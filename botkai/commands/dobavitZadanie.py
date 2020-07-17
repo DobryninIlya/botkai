@@ -1,7 +1,7 @@
 from .. import classes as command_class
 import random
 from ..keyboards import KeyboardProfile, keyboardAddTasks
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
+from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import sqlite3
 import datetime
 
