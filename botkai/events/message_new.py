@@ -57,8 +57,8 @@ def message_new(request):
                 payload = json.loads(payload)
                 button = payload["button"]
                 # print(button, payload)
-                ##MessageSettings.button = button
-                ##MessageSettings.payload = payload
+                MessageSettings.button = button
+                MessageSettings.payload = payload
 
 
             except Exception as E:

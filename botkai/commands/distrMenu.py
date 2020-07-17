@@ -2,7 +2,7 @@ from .. import classes as command_class
 import random
 from ..keyboards import KeyboardProfile, get_button
 from ..classes import vk, MessageSettings, connection, cursor
-
+import json
 
 def KeyboardDistr():
 
