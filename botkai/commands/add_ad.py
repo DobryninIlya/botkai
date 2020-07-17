@@ -2,7 +2,7 @@ from .. import classes as command_class
 import random
 from .. import keyboards
 from ..classes import vk, MessageSettings, UserParams, conn, cursorR
-
+import datetime
 
 def info():
     id = MessageSettings.getId()
