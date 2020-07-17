@@ -5,14 +5,7 @@ from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 
 
 def info():
-    today = datetime.date.today()
-    #conn = sqlite3.connect("bot.db")
-    #cursorR = conn.cursor()
     id = MessageSettings.getId()
-    if UserParams.adminLevel < -10: #убрать потом
-        vk.method("messages.send",
-            {"peer_id": id, "message": 'Временно недоступно.', "random_id": random.randint(1, 2147483647)})
-        return "ok"
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=7))[5:]
     date = date.split('-')
     date = date[1] + "." + date[0]
