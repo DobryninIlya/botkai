@@ -9,7 +9,7 @@ def info():
     try:
         id = MessageSettings.getPeer_id()
         vk.method("messages.send",
-            {"peer_id": id, "message": 'Выберите пункт меню:', "keyboard" : keyboardTasks, "random_id": random.rndint(1, 2147483647)})
+            {"peer_id": id, "message": 'Выберите пункт меню:', "keyboard" : keyboardTasks, "random_id": random.randint(1, 2147483647)})
     except:
         print('Ошибка:\n', traceback.format_exc())
 
