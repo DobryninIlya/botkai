@@ -6,7 +6,7 @@ from ..classes import vk as vk
 from ..classes import MessageSettings
 from ..classes import UserParams
 import traceback
-
+import datetime
 today = datetime.date.today()
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
