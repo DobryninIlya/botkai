@@ -6,7 +6,6 @@ import json
 
 
 def info():
-    today = datetime.date.today()
     id = MessageSettings.getId()
     group = UserParams.groupId
     if group != 19733:

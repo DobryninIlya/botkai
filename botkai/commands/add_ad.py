@@ -32,7 +32,7 @@ command = command_class.Command()
 
 
 
-command.keys = ['добавить задание']
-command.desciption = 'добавить задание на определенный день'
+command.keys = ['добавить объявление']
+command.desciption = 'добавить объявление на определенный день'
 command.process = info
 command.payload = "add ad"
