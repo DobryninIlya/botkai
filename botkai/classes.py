@@ -188,7 +188,7 @@ class Message:
             self.id = message_params["object"]["user_id"]
             self.peer_id = message_params["object"]["peer_id"]
             try:
-                self.payload = json.loads(message_params["object"]["payload"])
+                self.payload = message_params["object"]["payload"]
             except KeyError:
                 self.payload = None
             return
