@@ -21,7 +21,7 @@ def get_button_callback(label, color, payload=""):
     return {
         "action": {
             "type": "callback",
-            "payload": json.dumps(payload),
+            "payload": payload,
             "label": label
         },
         "color": color
@@ -271,16 +271,16 @@ def getMainKeyboard(role):
             [
                 get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}),
                 get_button(label="Задания и объявления", color="primary", payload = {'button': 'task menu'}),
-                get_button(label="Мини-игры", color="default", payload = {'button': 'gamehub'}),
+                get_button_callback(label="Мини-игры", color="default", payload = {'button': 'gamehub'}),
                 ],
             [
-                get_button(label="Команды", color="default", payload = {'button': 'commands'}),
+                get_button_callback(label="Команды", color="default", payload = {'button': 'commands'}),
                 get_button_callback(label="Преподы", color="default", payload = {'button': 'prepod'}),
                 get_button_callback(label="Хранилище", color="positive", payload = {'button': 'storagemain'})
                 ],
             [
-                get_button_callback(label="Обратная связь", color="primary", payload = {'button': 'feedback'}),
-                get_button_callback(label="Профиль", color="positive", payload = {'button': 'profile'})
+                get_button_callback(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}""),
+                get_button_callback(label="Профиль", color="positive", payload = "{'button': 'profile'}")
                 ]
 
 
