@@ -58,7 +58,7 @@ def message_new(request):
 
             button = ""
             try:
-                print("msg payload", MessageSettings.payload)
+                print("msg payload", json.loads(MessageSettings.payload), json.dumps(MessageSettings.payload))
                 payload = MessageSettings.payload
                 button = json.loads(payload["button"])
                 # print(button, payload)
