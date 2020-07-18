@@ -10,7 +10,7 @@ def info():
     id = MessageSettings.getPeer_id()
     message = "Профиль"
     vk.method("messages.send",
-                    {"peer_id": id, "message": message, "keyboard" : KeyboardProfile(),
+                    {"peer_id": id, "keyboard" : KeyboardProfile(),
                         "random_id": random.randint(1, 2147483647)})
 
 command = command_class.Command()
