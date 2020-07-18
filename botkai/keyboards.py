@@ -279,7 +279,7 @@ def getMainKeyboard(role):
                 get_button_callback(label="Хранилище", color="positive", payload = {'button': 'storagemain'})
                 ],
             [
-                get_button_callback(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}""),
+                get_button_callback(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}"),
                 get_button_callback(label="Профиль", color="positive", payload = "{'button': 'profile'}")
                 ]
 
