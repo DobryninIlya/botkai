@@ -17,6 +17,15 @@ def get_button(label, color, payload=""):
         "color": color
     }
 
+def get_button_callback(label, color, payload=""):
+    return {
+        "action": {
+            "type": "callback",
+            "payload": json.dumps(payload),
+            "label": label
+        },
+        "color": color
+    }
 
 def GetButtonTask(date):
 
@@ -271,7 +280,7 @@ def getMainKeyboard(role):
                 ],
             [
                 get_button(label="Обратная связь", color="primary", payload = {'button': 'feedback'}),
-                get_button(label="Профиль", color="positive", payload = {'button': 'profile'})
+                get_button_callback(label="Профиль", color="positive", payload = {'button': 'profile'})
                 ]
 
 
