@@ -6,12 +6,23 @@ from ..classes import MessageSettings
 from ..classes import UserParams
 
 
+event_data = {
+    "type": "show_snackbar",
+    "text": "Покажи исчезающее сообщение на экране"
+  }
+
 def info():
     id = MessageSettings.getPeer_id()
     message = "Профиль"
     vk.method("messages.send",
-                    {"peer_id": id, "keyboard" : KeyboardProfile(),
+                    {"peer_id": id, "message": message, "keyboard" : KeyboardProfile(),
                         "random_id": random.randint(1, 2147483647)})
+    vk.method("messages.sendMessageEventAnswer",
+                    {"event_id": id,
+                    "user_id": MessageSettings.id,
+                    "peer_id": MessageSettings.peer_id,
+                    "event_data": event_data
+                    })
 
 command = command_class.Command()
 
