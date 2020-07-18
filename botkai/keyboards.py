@@ -3,7 +3,7 @@ import json
 #from message_class import MessageSettings
 import psycopg2
 from .classes import MessageSettings, UserParams
-
+from pprint import pprint
 #######################################Keyboards#####################################################
 
 
@@ -280,7 +280,7 @@ def getMainKeyboard(role):
                 ],
             [
                 get_button(label="Обратная связь", color="primary", payload = {'button': 'feedback'}),
-                get_button(label="Профиль", color="positive", payload = {'button': 'profile'})
+                get_button_callback(label="Профиль", color="positive", payload = {'button': 'profile'})
                 ]
 
 
@@ -288,7 +288,7 @@ def getMainKeyboard(role):
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
-
+        pprint(keyboard)
     return keyboard
 
 
