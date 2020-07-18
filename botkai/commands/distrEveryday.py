@@ -2,6 +2,7 @@ from .. import classes as command_class
 import random
 import json
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
+from ..keyboards import get_button
 
 
 def KeyboardDistr():
@@ -15,8 +16,8 @@ def KeyboardDistr():
     keyboard = {
         "one_time": False,
         "buttons": [
-            [keyboards.get_button(label="Ежедневная рассылка", color=colorDaily, payload = {'button': 'distrEveryday', "action" : str(distr)})],
-                [keyboards.get_button(label="Назад", color="primary")]
+            [get_button(label="Ежедневная рассылка", color=colorDaily, payload = {'button': 'distrEveryday', "action" : str(distr)})],
+                [get_button(label="Назад", color="primary")]
             ]
             
     }

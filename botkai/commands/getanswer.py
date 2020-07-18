@@ -2,7 +2,7 @@ from .. import classes as command_class
 from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
 import json
-
+import traceback
 
 
 def get_button(label, color, payload=""):
@@ -42,7 +42,7 @@ def info():
         cursorR.execute(sql)
         conn.commit()
     except Exception:
-        pass
+        print('Ошибка:\n', traceback.format_exc())
     
       
     return "ok"
