@@ -50,7 +50,7 @@ def message_new(request):
         MessageSettings.update(message_params)
         if IsRegistred():
             print("Зарегистрирован")
-            UserParams.update(int(message_params["object"]["message"]["from_id"]))
+            UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
             CheckStatus()
             cursorR.execute("SELECT * FROM Status")
@@ -58,8 +58,8 @@ def message_new(request):
 
             button = ""
             try:
-                print("msg payload", message_params["object"]["message"]['payload'])
-                payload = message_params["object"]["message"]['payload']
+                print("msg payload", MessageSettings.payload)
+                payload = MessageSettings.payload
                 payload = json.loads(payload)
                 button = payload["button"]
                 # print(button, payload)
@@ -89,7 +89,7 @@ def message_new(request):
                 #        return "ok"
                 #    else:
                 #        print("no")
-                distance = len(message_params["object"]["message"]["text"])
+                distance = len(MessageSettings.getText())
                 command = None
                 key = ''
                 for c in command_list:
@@ -97,7 +97,7 @@ def message_new(request):
                     if UserParams.role in c.role:
                         
                         for k in c.keys:
-                            d = damerau_levenshtein_distance((message_params["object"]["message"]["text"]).lower(), k)
+                            d = damerau_levenshtein_distance(MessageSettings.getText()).lower(), k)
                             if d < distance:
                                 distance = d
                                 command = c
@@ -106,11 +106,11 @@ def message_new(request):
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
                                     c.process()
                                     return "ok"
-                if distance < len(message_params["object"]["message"]["text"])*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
+                if distance < len(MessageSettings.getText())*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
                     
                     mesg = 'Я понял ваш запрос как "%s"' % key 
                     vk.method("messages.send",
-                            {"peer_id": int(message_params["object"]["message"]["from_id"]), "message": mesg, "random_id": random.randint(1, 2147483647)})
+                            {"peer_id": int(MessageSettings.id), "message": mesg, "random_id": random.randint(1, 2147483647)})
                     command.process()
                     return "ok"
 
@@ -124,8 +124,8 @@ def message_new(request):
 
 def IsRegistred():
     try:
-        body = message_params["object"]["message"]["text"]
-        id = int(message_params["object"]["message"]["from_id"])
+        body = MessageSettings.getText()
+        id = int(MessageSettings.id)
         if InBase(id):
             #print("Зарегистрироан")
             return True
@@ -243,7 +243,7 @@ def IsRegistred():
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
-                            UserParams.update(int(message_params["object"]["message"]["from_id"]))
+                            UserParams.update(int(MessageSettings.id))
                             vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
                                                 "random_id": random.randint(1, 2147483647)})
                             vk.method("messages.send",
@@ -330,7 +330,7 @@ def IsRegistred():
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 def showGroupId(groupNumber):
-    id = int(message_params["object"]["message"]["from_id"])
+    id = int(MessageSettings.id)
     try:
         response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 5 )
         print(response.status_code, response)
