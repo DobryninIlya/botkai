@@ -8,7 +8,7 @@ from ..classes import UserParams
 
 event_data = """{
     "type": "show_snackbar",
-    "text": "Покажи исчезающее сообщение на экране"
+    "text": "СОЗДАТЕЛИ CALLBACK КНОПОК СОСУТ ЧЛЕНЫ ДРУГ ДРУГУ"
   }"""
 
 def info():
