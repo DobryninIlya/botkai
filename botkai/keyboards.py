@@ -275,11 +275,11 @@ def getMainKeyboard(role):
                 ],
             [
                 get_button(label="Команды", color="default", payload = {'button': 'commands'}),
-                get_button(label="Преподы", color="default", payload = {'button': 'prepod'}),
-                get_button(label="Хранилище", color="positive", payload = {'button': 'storagemain'})
+                get_button_callback(label="Преподы", color="default", payload = {'button': 'prepod'}),
+                get_button_callback(label="Хранилище", color="positive", payload = {'button': 'storagemain'})
                 ],
             [
-                get_button(label="Обратная связь", color="primary", payload = {'button': 'feedback'}),
+                get_button_callback(label="Обратная связь", color="primary", payload = {'button': 'feedback'}),
                 get_button_callback(label="Профиль", color="positive", payload = {'button': 'profile'})
                 ]
 
