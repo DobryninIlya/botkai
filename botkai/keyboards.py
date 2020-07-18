@@ -20,7 +20,7 @@ def get_button(label, color, payload=""):
 def get_button_callback(label, color, payload=""):
     return {
         "action": {
-            "type": "callback",
+            "type": "callback1",
             "payload": json.dumps(payload),
             "label": label
         },
