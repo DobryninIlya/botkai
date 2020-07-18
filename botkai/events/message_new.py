@@ -97,7 +97,7 @@ def message_new(request):
                     if UserParams.role in c.role:
                         
                         for k in c.keys:
-                            d = damerau_levenshtein_distance(MessageSettings.getText()).lower(), k)
+                            d = damerau_levenshtein_distance(( MessageSettings.getText()).lower(), k)
                             if d < distance:
                                 distance = d
                                 command = c
