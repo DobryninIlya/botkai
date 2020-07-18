@@ -7,7 +7,7 @@ import os
 import importlib
 from .events.confirmation import confirmation
 from .events.message_new import message_new
-
+from pprint import pprint
 
 events = {
     "confirmation" : confirmation,
@@ -30,7 +30,7 @@ def index(request):
     result = "ok"
     try:
         body = json.loads(request.body)
-        print(body, body.keys())
+        pprint(body)
         if 'type' not in body.keys():
             result = "Неа."
         

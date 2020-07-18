@@ -58,4 +58,4 @@ command.keys = []
 command.desciption = ''
 command.process = info
 command.payload = "getanswer"
-#command.admlevel = 90
+command.admlevel = 90
