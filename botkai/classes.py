@@ -185,6 +185,7 @@ class Message:
     def update(self, message_params):
         if message_params["type"] == "message_event":
             __message_event_update(message_params)
+            return
         self.id = int(message_params["object"]["message"]["from_id"])
         self.text = message_params["object"]["message"]["text"]
         self.peer_id = int(message_params["object"]["message"]["peer_id"])
