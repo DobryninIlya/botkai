@@ -6,10 +6,10 @@ from ..classes import MessageSettings
 from ..classes import UserParams
 
 
-event_data = {
+event_data = """{
     "type": "show_snackbar",
     "text": "Покажи исчезающее сообщение на экране"
-  }
+  }"""
 
 def info():
     id = MessageSettings.getPeer_id()
