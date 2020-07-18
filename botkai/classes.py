@@ -188,7 +188,7 @@ class Message:
             self.id = message_params["object"]["user_id"]
             self.peer_id = message_params["object"]["peer_id"]
             try:
-                self.payload = json.loads(json.dumps(message_params["object"]["payload"]))
+                self.payload = json.loads(message_params["object"]["payload"])
             except KeyError:
                 self.payload = None
             return
@@ -197,7 +197,7 @@ class Message:
         self.peer_id = int(message_params["object"]["message"]["peer_id"])
         self.keyboard = False
         try:
-            self.payload = json.loads(json.dumps(message_params["object"]["message"]["payload"]))
+            self.payload = json.loads(message_params["object"]["message"]["payload"])
         except KeyError:
             self.payload = None
         self.messageId = message_params["object"]["message"]["id"]
