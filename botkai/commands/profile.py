@@ -18,7 +18,7 @@ def info():
                     {"peer_id": id, "message": message, "keyboard" : KeyboardProfile(),
                         "random_id": random.randint(1, 2147483647)})
     vk.method("messages.sendMessageEventAnswer",
-                    {"event_id": id,
+                    {"event_id": MessageSettings.event_id,
                     "user_id": MessageSettings.id,
                     "peer_id": MessageSettings.peer_id,
                     "event_data": event_data
