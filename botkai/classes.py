@@ -2,6 +2,7 @@ import psycopg2
 import vk_api
 import sqlite3
 import json
+import traceback
 
 class connections:
     def __init__(self):
@@ -191,6 +192,8 @@ class Message:
                 self.payload = message_params["object"]["payload"]
             except KeyError:
                 self.payload = None
+            except:
+                print('Ошибка:\n', traceback.format_exc())  
             return
         self.id = int(message_params["object"]["message"]["from_id"])
         self.text = message_params["object"]["message"]["text"]
