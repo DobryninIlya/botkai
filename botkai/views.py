@@ -11,7 +11,8 @@ from pprint import pprint
 
 events = {
     "confirmation" : confirmation,
-    "message_new" : message_new
+    "message_new" : message_new,
+    "message_event" : message_new
    
 }
 

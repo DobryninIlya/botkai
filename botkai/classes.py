@@ -114,6 +114,9 @@ class Message:
        self.messageId = 0
        self.statUser = 0
        self.allCommands = 0
+
+       self.event_id = ""
+
     def getId(self):
         return self.id
     def getText(self):
@@ -180,6 +183,8 @@ class Message:
 
         return
     def update(self, message_params):
+        if message_params["type"] == "message_event":
+            __message_event_update(message_params)
         self.id = int(message_params["object"]["message"]["from_id"])
         self.text = message_params["object"]["message"]["text"]
         self.peer_id = int(message_params["object"]["message"]["peer_id"])
@@ -199,6 +204,12 @@ class Message:
 
         self.statUser = 0
         self.allCommands = 0
-        
-
+    def __message_event_update(self, message_params):
+        self.event_id = message_params["object"]["event_id"]
+        self.id = message_params["object"]["user_id"]
+        self.peer_id = message_params["object"]["peer_id"]
+        try:
+            self.payload = json.dumps(message_params["object"]["payload"])
+        except KeyError:
+            self.payload = None
 MessageSettings = Message()
