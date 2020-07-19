@@ -271,7 +271,7 @@ def getMainKeyboard(role):
             [
                 get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}),
                 get_button(label="Задания и объявления", color="primary", payload = {'button': 'task menu'}),
-                get_button(label="Мини-игры", color="default", payload = {'button': 'gamehub'}),
+                #get_button(label="Мини-игры", color="default", payload = {'button': 'gamehub'}),
                 ],
             [
                 get_button(label="Команды", color="default", payload = {'button': 'commands'}),
