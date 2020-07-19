@@ -7,10 +7,10 @@ from pprint import pprint
 #######################################Keyboards#####################################################
 
 
-def get_button(label, color, payload=""):
+def get_button(label, color, payload="", type = "text"):
     return {
         "action": {
-            "type": "text",
+            "type": type,
             "payload": json.dumps(payload),
             "label": label
         },
@@ -21,7 +21,7 @@ def get_button_callback(label, color, payload=""):
     return {
         "action": {
             "type": "callback",
-            "payload": json.loads(payload),
+            "payload": json.dumps(payload),
             "label": label
         },
         "color": color
@@ -279,8 +279,8 @@ def getMainKeyboard(role):
                 get_button(label="Хранилище", color="positive", payload = {'button': 'storagemain'})
                 ],
             [
-                get_button_callback(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}"),
-                get_button_callback(label="Профиль", color="positive", payload = "{'button': 'profile'}")
+                get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}"),
+                get_button_callget_buttonback(label="Профиль", color="positive", payload = "{'button': 'profile'}", type = "callback")
                 ]
 
 
