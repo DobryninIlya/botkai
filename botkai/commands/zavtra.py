@@ -47,17 +47,12 @@ def info():
 
 def showTimetable(groupId, tomorrow=0):
     try:
-        getResponse(groupId)
-        print(1/0)
+        response = getResponse(groupId)
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        print("RESPONSE ZAVTRA")
-        response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-        print("TEST")
-        print("Response: ", response.status_code)
+        
         if str(response.status_code) != '200':
             return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
-        response = response.json()
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
@@ -109,9 +104,10 @@ def getResponse(groupId):
     if result == None:
         response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
         response = response.json()
-        sql = "INSER INTO saved_timetable VALUES ({}, {}, {})".format(groupId, datetime.date.today(), json.loads(response))
-        print("INSERT operator: ", sql)
-    
+        sql = "INSER INTO saved_timetable VALUES ({}, {}, {})".format(groupId, datetime.date.today(), json.dumps(response))
+        cursor.execute(sql)
+        connection.commit()
+        return response    
     
     
     response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
