@@ -52,7 +52,8 @@ def showTimetable(groupId, tomorrow=0):
             return response
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-
+        if str(response.status_code) != '200':
+            return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
 
         response = response.json()
         if len(response) == 0:
@@ -125,20 +126,20 @@ def getResponse(groupId):
             try:
                 raise Exception
                 response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-            except ConnectionError as err:
-                return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
-            except requests.exceptions.Timeout as err:
-                return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
+                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
+                cursor.execute(sql)
+                connection.commit()
+                return True, response
             except:
-                return False, ""
-            sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
-            cursor.execute(sql)
-            connection.commit()
-            return True, response
+                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+                cursor.execute(sql)
+                result = cursor.fetchone()[0]
+                print(result)
+                return True, result
         else:
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
-            result = cursor.fetchone()
+            result = cursor.fetchone()[0]
             print(result)
             return True, result
     
