@@ -12,7 +12,7 @@ import traceback
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()
-BASE_URL = 'https://kai.ru/raspisanie' 
+BASE_URL = 'https://lklsdlskai.ru/raspisanie' 
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
 def info():
     today = datetime.date.today()
