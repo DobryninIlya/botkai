@@ -49,19 +49,16 @@ def message_new(request):
         message_params = json.loads(request.body)
         MessageSettings.update(message_params)
         if IsRegistred():
-            print("Зарегистрирован")
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
             CheckStatus()
             cursorR.execute("SELECT * FROM Status")
-            print(cursorR.fetchall())
 
             button = ""
             try:
                 print("msg payload", MessageSettings.payload)
                 payload = MessageSettings.payload
                 button = payload["button"]
-                # print(button, payload)
                 MessageSettings.button = button
 
 
@@ -73,20 +70,12 @@ def message_new(request):
                 for c in command_list:
                     crole = c.role
                     if button == c.payload and c.admlevel<=UserParams.getAdminLevel():
-                        #print("role (command, user) :", crole, UserParams.role)
-                        #print("first")
                         if UserParams.role in crole:
                             c.process()
                         return "ok"
                     else:
                         pass
             else:
-                #for c in command_list:
-                #    if body in c.keys:
-                #        c.process()
-                #        return "ok"
-                #    else:
-                #        print("no")
                 distance = len(MessageSettings.getText())
                 command = None
                 key = ''
@@ -100,11 +89,10 @@ def message_new(request):
                                 distance = d
                                 command = c
                                 key = k
-                                #print(c.role, UserParams.role)
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
                                     c.process()
                                     return "ok"
-                if distance < len(MessageSettings.getText())*0.4 and c.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in c.role):
+                if distance < len(MessageSettings.getText())*0.4 and command.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in command.role):
                     
                     mesg = 'Я понял ваш запрос как "%s"' % key 
                     vk.method("messages.send",
@@ -143,7 +131,6 @@ def IsRegistred():
                 
                 today = datetime.date.today()
                 role = 1
-                print(body)
                 if body == "Преподаватель":
                     role = 2
                     vk.method("messages.send", {"peer_id": id, "message": "Регистрация для преподавателя временно недоступна", 
@@ -174,9 +161,7 @@ def IsRegistred():
                     return False
                     
                 try:
-                    sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"
-                    print(sql)
-                    cursor.execute(sql)
+                    sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"                    cursor.execute(sql)
                     
                 except Exception as E:
                     print('Ошибка commit:\n', traceback.format_exc())
@@ -267,7 +252,6 @@ def IsRegistred():
 
                     body = body.lower()
                     response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
-                    #print(len(response.json()))
                     if not len(response.json()):
                         vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", 
                                                     "random_id": random.randint(1, 2147483647)})
@@ -284,7 +268,6 @@ def IsRegistred():
                          
                         vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                                     "random_id": random.randint(1, 2147483647)})
-                        #print(UserParams.login, UserParams.role)
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
                     return False
@@ -339,13 +322,12 @@ def showGroupId(groupNumber):
                     {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
             return False
         response = response.json()[0]
-        print(response)
         return response['id']
     except IndexError:
         vk.method("messages.send",
                 {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
-    except (ConnectionError, TimeoutError, requests.exceptions.Timeout):
+    except (ConnectionError, TimeoutError):
         vk.method("messages.send",
                 {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
         vk.method("messages.send",
@@ -397,29 +379,21 @@ def InBase(id): ### Проверка на зарегестрированност
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())
         if login:
-            print(login)
             return True
 
         if len(str(group)) == 0:
-            print(1)
             return False
         elif int(group) == 0 and int(id)<2000000000:
-            print(2)
             return False
         else:
-            print(3)
             return True
     except TypeError:
-        print('!Ошибка:\n', traceback.format_exc())
-        print(4)
         if int(id)>2000000000:
-            print(5)
             return True
-        print(6)
         return False
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
-        print("err...............................")
+        print("GLOBAL ERROR - RESTART ")
         vk.method("messages.send", {"peer_id": id, "message": "Что-то пошло не так.", 
                                     "random_id": random.randint(1, 2147483647)})
         vk.method("messages.send",
@@ -467,7 +441,6 @@ def damerau_levenshtein_distance(s1, s2):
 
 
 def CheckStatus():
-    #print("CheckStatus")
     body = MessageSettings.getText()
     id = MessageSettings.getId()
     button = MessageSettings.button
@@ -476,7 +449,6 @@ def CheckStatus():
         body = MessageSettings.getText()
         status = UserParams.Status
         id = MessageSettings.getId()
-        print("status: "+ str(status))
         if body.lower() == "выход" or body.lower() == "назад" or body.lower() == "выйти":
             try:
                 vk.method("messages.send",
@@ -789,10 +761,8 @@ def CheckStatus():
             try:
             
                 sql = "SELECT userId FROM answers WHERE id = " + str(id)
-                print(sql)
                 cursorR.execute(sql)
                 idUser = cursorR.fetchone()[0]
-                print("IdUser ", idUser)
                 vk.method("messages.send",
                     {"peer_id": idUser, "message": "Ответ администратора:\n" + body, "random_id": random.randint(1, 2147483647)})
                 vk.method("messages.send",
@@ -948,7 +918,6 @@ def CheckStatus():
                     sql += "description LIKE '%" + str(elem) + "%' or "
                     
                 sql = sql[:-3] + ")"
-                #print(sql)
 
                 cursor.execute(sql)
                 msg = "Результат поиска: \n"
@@ -972,16 +941,6 @@ def CheckStatus():
         elif status == 191:
             id = MessageSettings.getId()
             try:
-                #sql = "SELECT balance FROM Users WHERE ID_VK=" + str(idUser) + ';'
-                #cursor.execute(sql)
-                #realAmount = cursor.fetchone()
-                #realAmount = realAmount[0]
-                #realAmount = (str(realAmount))[1:]
-                #amount = (int)(realAmount.replace(',', ''))
-                #if amount >= 50:
-                #    sql = "UPDATE Users SET balance=" + str(float(amount-50)) + " WHERE ID_VK=" + str(id) + ';'
-                #    cursor.execute(sql)
-                #    connection.commit()
                 media = MessageSettings.getText()
                 try:
                     if int(media) > 0:
@@ -1021,7 +980,6 @@ def CheckStatus():
             return "ok"
 
         elif status == 199:
-            #print()
             Gamehub(id, vk, button)
             return "ok"
 
@@ -1038,12 +996,10 @@ def CheckStatus():
                     sql = "INSERT INTO mafiaRooms VALUES (" + str(int(idRoom)+1) + "," + str(body) + ",0,0)"
                     cursorR.execute(sql)
                     sql = "INSERT INTO mafiaUsers VALUES (1," + str(int(idRoom)+1) + "," + str(id) + ",0,0)"
-                    #print(sql)
                     cursorR.execute(sql)
                     sql = "UPDATE Status SET Status = 199 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
-                    #print("INSERTED STATUS 199")
                     vk.method("messages.send", {"peer_id": id, "message": "[МАФИЯ]: Ожидаем подключения остальных игроков. Вы уже можете начать общаться в чате - просто отправь любое текстовое сообщение", "random_id": random.randint(1, 2147483647)})
                 else:
                     vk.method("messages.send", {"peer_id": id, "message": "Выберите число участников от 3 до 20, либо введите 'Выход'" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
