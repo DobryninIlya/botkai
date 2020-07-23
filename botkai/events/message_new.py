@@ -161,7 +161,8 @@ def IsRegistred():
                     return False
                     
                 try:
-                    sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"                    cursor.execute(sql)
+                    sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"                    
+                    cursor.execute(sql)
                     
                 except Exception as E:
                     print('Ошибка commit:\n', traceback.format_exc())
