@@ -103,7 +103,6 @@ def getResponse(groupId):
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
-    print(result)
     if result == None:
         try:
             response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
@@ -120,8 +119,8 @@ def getResponse(groupId):
     else:
         date_update = result[1]
         timetable = result[2]
-        print(datetime.strptime(date_time))
-        if datetime.strptime(date_time) + datetime.timedelta(days=10) > today:
+        print(datetime.date(date_update))
+        if datetime.date(date_update) + datetime.timedelta(days=10) > today:
             try:
                 response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
             except ConnectionError as err:
