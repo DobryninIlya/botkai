@@ -129,7 +129,7 @@ def getResponse(groupId):
                 return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
             except:
                 return False, ""
-            sql = "UPDATE saved_timetable SET shedule = '{}, date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
+            sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
             cursor.execute(sql)
             connection.commit()
             return response
