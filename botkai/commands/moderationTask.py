@@ -11,15 +11,11 @@ chetn = UserParams.getChetn()
 
 
 def info():
-    #conn = sqlite3.connect("bot.db")
-    #cursorR = conn.cursor()
+
     id = MessageSettings.getId()
 
     try:
-        #sql = "INSERT INTO Status VALUES (" + str(id) + ", 100);"
-        #cursorR.execute(sql)
-        conn.commit()
-        #conn.close()
+
         cursor.execute('SELECT * FROM Task WHERE "IsCheked" < 1 LIMIT 1')
         res = cursor.fetchone()
         

@@ -11,15 +11,8 @@ chetn = UserParams.getChetn()
 
 
 def info():
-    #conn = sqlite3.connect("bot.db")
-    #cursorR = conn.cursor()
     id = MessageSettings.getId()
-
     try:
-        #sql = "INSERT INTO Status VALUES (" + str(id) + ", 100);"
-        #cursorR.execute(sql)
-        conn.commit()
-        #conn.close()
         cursor.execute('SELECT * FROM Users WHERE ischeked < 1 LIMIT 1')
         res = cursor.fetchone()
         
@@ -36,7 +29,6 @@ def info():
                 {"peer_id": id, "message": "Все проверено", "random_id": random.randint(1, 2147483647)})
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
-        #conn.rollback()
         vk.method("messages.send",
             {"peer_id": id, "message": "Произошла ошибка. Модерация", "random_id": random.randint(1, 2147483647)})
 
