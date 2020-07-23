@@ -5,7 +5,7 @@ import datetime
 import json
 import requests
 from ..keyboards import GetButtonTask
-from ..classes import vk as vk
+from ..classes import vk, cursor, connection
 from ..classes import MessageSettings
 from ..classes import UserParams
 import traceback
