@@ -769,4 +769,47 @@ mafia_acceptgame = json.dumps(mafia_acceptgame, ensure_ascii=False).encode('utf-
 mafia_acceptgame = str(mafia_acceptgame.decode('utf-8'))
 
 
+
+
+
+
+testButtons = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),],
+        [get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),],
+        [get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),],
+        [get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),],
+        [get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),],
+        [get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),
+        get_button(label="test buttons", color="negative", payload={}),],
+    ]
+
+}
+coronavirus = json.dumps(coronavirus, ensure_ascii=False).encode('utf-8')
+coronavirus = str(coronavirus.decode('utf-8'))
+
 #######################################Keyboards#####################################################
