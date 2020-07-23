@@ -110,7 +110,7 @@ def getResponse(groupId):
         response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
         response = response.json()
         sql = "INSER INTO saved_timetable VALUES ({}, {}, {})".format(groupId, datetime.date.today(), json.dumps(response))
-        print(sql)
+        print("INSERT operator: ", sql)
     
     
     
