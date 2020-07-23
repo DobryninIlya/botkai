@@ -94,6 +94,8 @@ def showTimetable(groupId, tomorrow=0):
     except KeyError as err:
         return False
     except Exception as E:
+        print('Ошибка:\n', traceback.format_exc())
+
         return ""
     
 
