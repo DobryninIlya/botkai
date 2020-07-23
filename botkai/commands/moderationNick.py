@@ -1,14 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import GetModerAdvButton
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-from keyboards import GetModerNickButton
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
-from main import vk, cursorR, conn, cursor
+
 
 
 today = datetime.date.today()

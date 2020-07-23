@@ -1,15 +1,8 @@
-import classes as command_class
-import vk_api
+from .. import classes as command_class
+from ..keyboards import GetModerAdvButton
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-import keyboards
-from main import vk, cursor, connection
-from message_class import MessageSettings
-from user_class import UserParams
-import datetime
-import sqlite3
-import psycopg2
-import traceback
-import datetime
+
 
 ##################################                Добавить блокировку от 3 варнов 
 def info():
@@ -30,7 +23,7 @@ def info():
             ans += "\n date: " + str(res[3])
             ans += "\n" + str(res[4])
             vk.method("messages.send",
-                {"peer_id": id, "message": str(ans), "keyboard": keyboards.GetModerTaskButton(res[0]), "attachment": str(res[5]), "random_id": random.randint(1, 2147483647)})
+                {"peer_id": id, "message": str(ans), "keyboard": GetModerTaskButton(res[0]), "attachment": str(res[5]), "random_id": random.randint(1, 2147483647)})
         else:
             vk.method("messages.send",
                 {"peer_id": id, "message": "Все проверено", "random_id": random.randint(1, 2147483647)})
