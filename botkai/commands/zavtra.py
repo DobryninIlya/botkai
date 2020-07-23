@@ -12,7 +12,7 @@ import traceback
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()
-BASE_URL = 'https://lklsdlskai.ru/raspisanie' 
+BASE_URL = 'https://kai.ru/raspisanie' 
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
 def info():
     today = datetime.date.today()
@@ -120,7 +120,7 @@ def getResponse(groupId):
         date_update = result[1]
         timetable = result[2]
         print(date_update)
-        if date_update + datetime.timedelta(days=10) < today:
+        if date_update + datetime.timedelta(days=-1) < today:
             try:
                 raise Exception
                 response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
