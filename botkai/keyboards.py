@@ -261,26 +261,26 @@ def getMainKeyboard(role):
             "buttons": [
             #[get_button(label="Карантин, коронавирус...", color="negative", payload = {'button': 'coronavirusfull'})],
             [
-                get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "callback"),
-                get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "callback")],
+                get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text"),
+                get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "text")],
             [
-                get_button(label="На сегодня", color="primary", payload = {'button': 'today'}, type = "callback"),
-                get_button(label="На послезавтра", color="primary", payload = {'button': 'after'}, type = "callback"),
-                get_button(label="Полностью", color="primary", payload = {'button': 'all'}, type = "callback")
+                get_button(label="На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
+                get_button(label="На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
+                get_button(label="Полностью", color="primary", payload = {'button': 'all'}, type = "text")
                 ],
             [
-                get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}, type = "callback"),
-                get_button(label="Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "callback"),
-                get_button(label="Мини-игры", color="default", payload = {'button': 'gamehub'}, type = "callback"),
+                get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text"),
+                get_button(label="Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "text"),
+                get_button(label="Мини-игры", color="default", payload = {'button': 'gamehub'}, type = "text"),
                 ],
             [
-                get_button(label="Команды", color="default", payload = {'button': 'commands'}, type = "callback"),
-                get_button(label="Преподы", color="default", payload = {'button': 'prepod'}, type = "callback"),
-                get_button(label="Хранилище", color="positive", payload = {'button': 'storagemain'}, type = "callback")
+                get_button(label="Команды", color="default", payload = {'button': 'commands'}, type = "text"),
+                get_button(label="Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
+                get_button(label="Хранилище", color="positive", payload = {'button': 'storagemain'}, type = "text")
                 ],
             [
-                get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "callback"),
-                get_button(label="Профиль", color="positive", payload = "{'button': 'profile'}", type = "callback")
+                get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
+                get_button(label="Профиль", color="positive", payload = "{'button': 'profile'}", type = "text")
                 ]
 
 

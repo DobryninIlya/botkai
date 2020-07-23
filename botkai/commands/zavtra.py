@@ -47,6 +47,8 @@ def info():
 
 def showTimetable(groupId, tomorrow=0):
     try:
+        getResponse(groupId)
+        print(1/0)
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
         print("RESPONSE ZAVTRA")
@@ -94,6 +96,26 @@ def showTimetable(groupId, tomorrow=0):
     except Exception as E:
         return ""
     
+
+
+    def getResponse(groupId):
+        
+        sql = "SELECT * FROM saved_timetable WHERE group = {}".format(groupId)
+        cursor.execute(sql)
+        result = cursor.fetchone()
+        print(result)
+        if not len(result):
+            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+            response = response.json()
+            sql = "INSER INTO saved_timetable VALUES ({}, {}, {})".format(groupId, datetime.date.today(), json.dumps(response))
+            print(sql)
+        
+        
+        
+        response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+
+
+        return response
 
 command = command_class.Command()
 
