@@ -809,7 +809,7 @@ testButtons = {
     ]
 
 }
-coronavirus = json.dumps(coronavirus, ensure_ascii=False).encode('utf-8')
-coronavirus = str(coronavirus.decode('utf-8'))
+testButtons = json.dumps(testButtons, ensure_ascii=False).encode('utf-8')
+testButtons = str(testButtons.decode('utf-8'))
 
 #######################################Keyboards#####################################################
