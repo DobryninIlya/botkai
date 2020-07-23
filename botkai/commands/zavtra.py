@@ -47,7 +47,9 @@ def info():
 
 def showTimetable(groupId, tomorrow=0):
     try:
-        response = getResponse(groupId)
+        isNormal, response = getResponse(groupId)
+        if not isNormal:
+            return response
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
@@ -103,11 +105,24 @@ def getResponse(groupId):
     result = cursor.fetchone()
     print(result)
     if result == None:
-        response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+        try:
+            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+        except ConnectionError as err:
+            return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
+        except False, requests.exceptions.Timeout as err:
+            return "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
+        except:
+            return False, ""
         sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
         cursor.execute(sql)
         connection.commit()
-        return response    
+        return response
+    else:
+        date_update = result[1]
+        timetable = result[2]
+        print(datetime.strptime(date_time))
+        if datetime.strptime(date_time) + datetime.timedelta(days=10) > today:
+            pass
     
     
     response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
