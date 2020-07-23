@@ -50,11 +50,12 @@ def showTimetable(groupId, tomorrow=0):
         response = getResponse(groupId)
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        
+
         if str(response.status_code) != '200':
             return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
+        response = response.json()
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
@@ -103,8 +104,7 @@ def getResponse(groupId):
     print(result)
     if result == None:
         response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-        response = response.json()
-        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response))
+        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
         cursor.execute(sql)
         connection.commit()
         return response    
