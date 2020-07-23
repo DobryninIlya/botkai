@@ -53,7 +53,7 @@ def showTimetable(groupId, tomorrow=0):
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
-        response = response.json()
+
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
         
@@ -115,7 +115,7 @@ def getResponse(groupId):
         sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
         cursor.execute(sql)
         connection.commit()
-        return True, response
+        return True, response.json()
     else:
         date_update = result[1]
         timetable = result[2]
@@ -127,25 +127,24 @@ def getResponse(groupId):
                 sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
                 cursor.execute(sql)
                 connection.commit()
-                return True, response
+                return True, response.json()
             except:
                 sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
                 cursor.execute(sql)
                 result = cursor.fetchone()[0]
                 print(result)
-                return True, result
+                return True, json.loads(result)
         else:
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
             print(result)
-            return True, result
+            return True, json.loads(result)
     
     
-    response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
 
 
-    return response
+    return 
 
 command = command_class.Command()
 
