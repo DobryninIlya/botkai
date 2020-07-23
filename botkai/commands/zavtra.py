@@ -36,7 +36,7 @@ def info():
                         {"peer_id": id, "message": "Расписание на завтра:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
         else:
             vk.method("messages.send",
-                        {"peer_id": id, "message": "Завтра занятий нет 😎\n" + frazi[random.randint(1, len(frazi))], "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Завтра занятий нет 😎\n" + frazi[random.randint(0, len(frazi)-1)], "random_id": random.randint(1, 2147483647)})
                         
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
@@ -55,9 +55,11 @@ def showTimetable(groupId, tomorrow=0):
 
         if str(response.status_code) != '200':
             return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
+            
+        response = response.json()
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
-        response = response.json()
+        
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
