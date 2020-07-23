@@ -119,8 +119,8 @@ def getResponse(groupId):
     else:
         date_update = result[1]
         timetable = result[2]
-        print(datetime.date(year = date_update[0:3], month = date_update[5:6], day = date_update[8:9]))
-        if datetime.date(year = date_update[0:3], month = date_update[5:6], day = date_update[8:9]) + datetime.timedelta(days=10) > today:
+        print(datetime.datetime(year = date_update[0:3], month = date_update[5:6], day = date_update[8:9]))
+        if datetime.datetime(year = date_update[0:3], month = date_update[5:6], day = date_update[8:9]) + datetime.timedelta(days=10) > today:
             try:
                 response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
             except ConnectionError as err:
