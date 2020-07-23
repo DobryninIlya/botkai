@@ -115,7 +115,7 @@ def getResponse(groupId):
         sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
         cursor.execute(sql)
         connection.commit()
-        return response
+        return True, response
     else:
         date_update = result[1]
         timetable = result[2]
@@ -132,7 +132,7 @@ def getResponse(groupId):
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
             cursor.execute(sql)
             connection.commit()
-            return response
+            return True, response
         else:
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
