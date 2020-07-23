@@ -5,7 +5,6 @@ import random
 
 
 
-today = datetime.date.today()
 chetn = UserParams.getChetn()
 
 

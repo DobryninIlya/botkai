@@ -3,11 +3,7 @@ from ..keyboards import GetModerAdvButton
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 
-
-today = datetime.date.today()
 chetn = UserParams.getChetn()
-BASE_URL = 'https://kai.ru/raspisanie' 
-
 
 
 def info():
