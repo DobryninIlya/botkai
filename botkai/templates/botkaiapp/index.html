@@ -18,6 +18,15 @@
         <script>
         // Sends event to client
             vkBridge.send('VKWebAppInit');
+            bridge
+                .send('VKWebAppGetEmail')
+                .then(data => {
+                    // Handling received data
+                    console.log(data.email);
+                })
+                .catch(error => {
+                    // Handling an error
+                });
         </script>
     </body>
 </html>
