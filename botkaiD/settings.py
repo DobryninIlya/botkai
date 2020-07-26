@@ -71,7 +71,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'botkaiD.wsgi.application'
 
 
-# Database
+# 
+Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {

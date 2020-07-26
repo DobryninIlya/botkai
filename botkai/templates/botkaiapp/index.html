@@ -17,16 +17,16 @@
 
         <script>
         // Sends event to client
-            vkBridge.send('VKWebAppInit');
-            bridge
-                .send('VKWebAppGetEmail')
-                .then(data => {
-                    // Handling received data
-                    console.log(data.email);
-                })
-                .catch(error => {
-                    // Handling an error
-                });
+        bridge.subscribe((e) => console.log(e));
+
+// Отправляет событие нативному клиенту
+        bridge.send("VKWebAppInit", {});
+
+        // Проверяет, поддерживается ли событие на текущей платформе.
+        if (bridge.supports("VKWebAppResizeWindow")) {
+            bridge.send("VKWebAppResizeWindow", {"width": 800, "height": 1000});
+        }
+
         </script>
     </body>
 </html>
