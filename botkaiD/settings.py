@@ -25,7 +25,7 @@ SECRET_KEY = 'liu2agg0tn5b5#j8&4q#9+m9oyt()3(6%w(-82ahmtc!hu1_so'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'botkaid.herokuapp.com', "127.0.0.1"]
+ALLOWED_HOSTS = ['localhost', 'botkaid.herokuapp.com', "127.0.0.1", "vk.com"]
 
 
 # Application definition
