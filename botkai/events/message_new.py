@@ -15,12 +15,13 @@ cursorR = classes.cursorR
 conn = classes.conn
 connection = classes.connection
 
-
-cursorR.execute("""CREATE TABLE storage (id INT NOT NULL PRIMARY KEY, media_id INT NOT NULL); """)
-cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
-#cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
-conn.commit()
-
+try:
+    cursorR.execute("""CREATE TABLE storage (id INT NOT NULL PRIMARY KEY, media_id INT NOT NULL); """)
+    cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
+    #cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
+    conn.commit()
+except:
+    pass
 today = datetime.date.today()
 message_params = {}
 
@@ -32,10 +33,13 @@ command_list = classes.command_list
 MessageSettings=classes.MessageSettings
 
 def load_modules():
-   files = os.listdir("/app/botkai/commands")
-   modules = filter(lambda x: x.endswith('.py'), files)
-   for m in modules:
-       importlib.import_module("botkai.commands." + m[0:-3])
+    try:
+        files = os.listdir("/app/botkai/commands")
+    except:
+        files = os.listdir("botkai/commands")
+    modules = filter(lambda x: x.endswith('.py'), files)
+    for m in modules:
+        importlib.import_module("botkai.commands." + m[0:-3])
 
 
 load_modules()

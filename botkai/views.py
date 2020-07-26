@@ -49,4 +49,9 @@ def index(request):
     return HttpResponse(result)
 
 
+def miniapp(request):
+    return render(request, 'botkaiapp/index.html')
+
+
+
 
