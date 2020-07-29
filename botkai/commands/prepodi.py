@@ -24,12 +24,12 @@ def info():
 
     prepodList = GetPrepodList()
     try:
-        raise Exception
+        
         vk.method("messages.send",
             {"peer_id": id, "message": prepodList, "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
     except:
         st = "&#128104;&#8205;&#127979;"
-        pos = prepodList[1400:].rfind(st)
+        pos = prepodList[2400:].rfind(st)
         vk.method("messages.send",
             {"peer_id": id, "message": prepodList[:pos], "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
         vk.method("messages.send",
@@ -86,9 +86,22 @@ def GetPrepodList():
             Prepod.disciplType = elem["disciplType"]
             Prepod.prepodName = elem["prepodName"]
             if elem["prepodName"].rstrip() == "":
-                Prepod.prepodName = ":не задан:"
+                Prepod.prepodName = ":не-задан:"
             prepodList.append(Prepod)
     prepodList.sort(key=lambda Prepodi: Prepodi.disciplName)
+    i = 0
+    for prepod in prepodList:
+        disciplType = []
+        while prepod.disciplType == prepodList.index(i+1).disciplType:
+            disciplType.append(prepod.disciplType)
+            prepod.pop(i)
+        i+=1
+        if not disciplType:
+            st = ""
+            for discipl in disciplType:
+                st += str(discipl) + ", "
+            st = st[:-2]
+
 
     resultList = []
     for elem in prepodList:
