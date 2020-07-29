@@ -2,7 +2,7 @@ from .. import classes as command_class
 from ..keyboards import GetModerAdvButton
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-
+import traceback
 chetn = UserParams.getChetn()
 
 

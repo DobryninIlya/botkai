@@ -77,7 +77,7 @@ def GetAdminPanel(level):
         buttons.append([get_button(label="moder nick", color="default", payload={'button': 'modernick'})])
         buttons.append([get_button(label="moder adv", color="default", payload={'button': 'moderadv'})])
         buttons.append([get_button(label="moder task", color="default", payload={'button': 'modertask'})])
-        buttons.append([get_button(label="moder storage", color="default", payload={'button': 'moderstorage'})])
+        #buttons.append([get_button(label="moder storage", color="default", payload={'button': 'moderstorage'})])
         buttons.append([get_button(label="Statistic", color="default", payload={'button': 'statistic'})])
     if level >= 20:
         buttons.append([get_button(label="reload", color="negative", payload={'button': 'reload'})])
