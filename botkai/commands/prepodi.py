@@ -33,8 +33,9 @@ def info():
         i = 0
         for c in prepodList[1400:]:
             if c == st[b]:
-                b+=1
+                
                 print(c, " == ", st[b])
+                b+=1
             else:
                 b = 0
             i+=1
