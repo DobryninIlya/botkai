@@ -39,7 +39,8 @@ def info():
             else:
                 b = 0
             i+=1
-            
+            if i = len(st):
+                print(i)
 
 
             
