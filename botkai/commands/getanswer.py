@@ -29,7 +29,7 @@ keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
 def info():
-    
+    try:
     id = MessageSettings.id
     vk.method("messages.send",
                         {"peer_id": id, "message": "Введите ответ", "keyboard" : keyboard,  "random_id": random.randint(1, 2147483647)})
@@ -42,8 +42,8 @@ def info():
         cursorR.execute(sql)
         conn.commit()
     except Exception:
-        #print('Ошибка:\n', traceback.format_exc())
-        pass
+        print('Ошибка:\n', traceback.format_exc())
+        #pass
       
     return "ok"
 

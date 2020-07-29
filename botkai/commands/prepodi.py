@@ -116,10 +116,6 @@ def GetPrepodList():
     isNormal, response = getResponse(groupId)
     if not isNormal:
             return response
-    #print("TEST")
-    #print("Response: ", response.status_code)
-
-
     if len(response) == 0:
         return "\n&#10060;\tРасписание еще не доступно.&#10060;"
     result = ''
@@ -150,7 +146,7 @@ def GetPrepodList():
             for discipl in disciplType:
                 st += str(discipl).rstrip() + ", "
             st = st[:-2]
-
+ 
             prepod.disciplType = st
         res = "&#128104;&#8205;&#127979;[" + str(prepod.disciplType) + "] " + (str(prepod.disciplName)).rstrip() + " \n" + ((str(prepod.prepodName)).rstrip()).title()
         if res not in resultList:
