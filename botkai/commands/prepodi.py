@@ -97,7 +97,7 @@ def GetPrepodList():
                 disciplType.append(prepod.disciplType)
                 prepod.pop(i)
         except:
-            pass
+            print('Ошибка:\n', traceback.format_exc())  
         i+=1
         if not disciplType:
             st = ""
