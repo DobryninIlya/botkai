@@ -103,7 +103,7 @@ def GetPrepodList():
         if len(disciplType)>1:
             st = ""
             for discipl in disciplType:
-                st += str(discipl) + ", "
+                st += str(discipl).rstrip() + ", "
             st = st[:-2]
             print(prepod.disciplName, st)
             prepod.disciplType = st
@@ -112,7 +112,7 @@ def GetPrepodList():
     resultList = []
     for elem in prepodList:
         
-        res = "&#128104;&#8205;&#127979;[" + (str(elem.disciplType)).rstrip() + "] " + (str(elem.disciplName)).rstrip() + " \n" + ((str(elem.prepodName)).rstrip()).title()
+        res = "&#128104;&#8205;&#127979;[" + str(elem.disciplType) + "] " + (str(elem.disciplName)).rstrip() + " \n" + ((str(elem.prepodName)).rstrip()).title()
         if res not in resultList:
             resultList.append(res)
     for row in resultList:
