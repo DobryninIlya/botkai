@@ -101,11 +101,11 @@ def GetPrepodList():
             pass  
         i+=1
         if len(disciplType)>1:
-            print(disciplType)
             st = ""
             for discipl in disciplType:
                 st += str(discipl) + ", "
             st = st[:-2]
+            print(prepod.disciplName, st)
             prepod.disciplType = st
 
 
