@@ -139,7 +139,8 @@ def GetPrepodList():
         disciplType.append(prepod.disciplType)
         try:
             while prepod.prepodName == prepodList[i+1].prepodName:
-                disciplType.append(prepodList[i+1].disciplType)
+                if prepodList[i+1].disciplType not in disciplType:
+                    disciplType.append(prepodList[i+1].disciplType)
                 prepodList.pop(i)
         except:
             pass  
@@ -149,7 +150,7 @@ def GetPrepodList():
             for discipl in disciplType:
                 st += str(discipl).rstrip() + ", "
             st = st[:-2]
-            print(prepod.disciplName, st)
+
             prepod.disciplType = st
         res = "&#128104;&#8205;&#127979;[" + str(prepod.disciplType) + "] " + (str(prepod.disciplName)).rstrip() + " \n" + ((str(prepod.prepodName)).rstrip()).title()
         if res not in resultList:
