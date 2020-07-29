@@ -30,13 +30,13 @@ keyboard = str(keyboard.decode('utf-8'))
 
 def info():
     try:
-    id = MessageSettings.id
-    vk.method("messages.send",
-                        {"peer_id": id, "message": "Введите ответ", "keyboard" : keyboard,  "random_id": random.randint(1, 2147483647)})
-    sql = "INSERT INTO Status VALUES (" + str(id) + ", 59);"
-    cursorR.execute(sql)
-    conn.commit()
-    try:
+        id = MessageSettings.id
+        vk.method("messages.send",
+                            {"peer_id": id, "message": "Введите ответ", "keyboard" : keyboard,  "random_id": random.randint(1, 2147483647)})
+        sql = "INSERT INTO Status VALUES (" + str(id) + ", 59);"
+        cursorR.execute(sql)
+        conn.commit()
+    
         sql = "INSERT INTO answers VALUES (" + str(id) + "," + str(MessageSettings.payload["id"]) + ");"
         print(sql)
         cursorR.execute(sql)
