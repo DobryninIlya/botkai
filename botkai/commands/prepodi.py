@@ -152,7 +152,7 @@ def GetPrepodList():
             prepod.disciplType = st
 
     for prepod in prepodList:
-        print(prepod.prepodName, prepod.disciplType)
+        print(prepod.disciplName, prepod.disciplType)
     resultList = []
     for elem in prepodList:
         
