@@ -111,6 +111,7 @@ def getResponse(groupId):
 
 def GetPrepodList():
     prepodList.clear()
+    resultList = []
     groupId = UserParams.getGroup()
     isNormal, response = getResponse(groupId)
     if not isNormal:
@@ -150,15 +151,13 @@ def GetPrepodList():
             st = st[:-2]
             print(prepod.disciplName, st)
             prepod.disciplType = st
-
-    for prepod in prepodList:
-        print(prepod.disciplName, prepod.disciplType)
-    resultList = []
-    for elem in prepodList:
-        
-        res = "&#128104;&#8205;&#127979;[" + str(elem.disciplType) + "] " + (str(elem.disciplName)).rstrip() + " \n" + ((str(elem.prepodName)).rstrip()).title()
+        res = "&#128104;&#8205;&#127979;[" + str(prepod.disciplType) + "] " + (str(prepod.disciplName)).rstrip() + " \n" + ((str(prepod.prepodName)).rstrip()).title()
         if res not in resultList:
             resultList.append(res)
+
+
+
+
     for row in resultList:
         result += "\n---------------------------------------------------\n" + row
     del Prepod
