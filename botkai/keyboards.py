@@ -2,7 +2,7 @@ import json
 #from user_class import UserParams
 #from message_class import MessageSettings
 import psycopg2
-from .classes import MessageSettings, UserParams
+from .classes import MessageSettings, UserParams, connection, cursor
 from pprint import pprint
 #######################################Keyboards#####################################################
 
@@ -306,12 +306,9 @@ def KeyboardProfile():
         GroupColor = "negative"
         inst = ":Не указана группа"
     Balance = UserParams.balance
-    connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-    cursor = connection.cursor()
     sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(MessageSettings.getId())
     cursor.execute(sql)
     TaskCount = cursor.fetchone()[0]
-    connection.close()
     
     keyboard =  {
     "one_time": False,
@@ -602,25 +599,6 @@ keyboardNull = str(keyboardNull.decode('utf-8'))
 
 
 
-
-keyboardServices = {
-    "one_time": True,
-    "buttons": [
-
-
-        [get_button(label="Программирование", color="primary")],
-        [get_button(label="Инженерная графика (пусто)", color="negative")],
-        [get_button(label="Высшая математика (пусто)", color="negative")],
-        [
-            get_button(label="Выход", color="default"),
-            get_button(label="Инфо", color="default"),
-            ]
-
-
-    ]
-}
-keyboardServices = json.dumps(keyboardServices, ensure_ascii=False).encode('utf-8')
-keyboardServices = str(keyboardServices.decode('utf-8'))
 
 keyboardContinio = {
     "one_time": True,

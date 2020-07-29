@@ -1,10 +1,11 @@
 from .. import classes as command_class
+import vk_api
 import random
 import datetime
 import json
 import requests
 from ..keyboards import GetButtonTask
-from ..classes import vk as vk
+from ..classes import vk, cursor, connection
 from ..classes import MessageSettings
 from ..classes import UserParams
 import traceback
@@ -13,11 +14,9 @@ today = datetime.date.today()
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
-
-
 def info():
     today = datetime.date.today()
-    date = str(datetime.date(today.year, today.month, today.day))
+    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=0))
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
@@ -31,13 +30,13 @@ def info():
     if advert:
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
     try:
-        Timetable =  showTimetable(group, 0)
+        Timetable =  showTimetable(group)
         if Timetable:
             vk.method("messages.send",
-                        {"peer_id": id, "message": "Расписание на сегодня:\n" + Timetable + adv + task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Расписание на сегодня:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
         else:
             vk.method("messages.send",
-                        {"peer_id": id, "message": "Сегодня занятий нет 😎\n" + frazi[random.randint(1, len(frazi))], "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Сегодня занятий нет 😎\n" + frazi[random.randint(0, len(frazi)-1)], "random_id": random.randint(1, 2147483647)})
                         
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
@@ -48,17 +47,16 @@ def info():
 
 def showTimetable(groupId, tomorrow=0):
     try:
+        isNormal, response = getResponse(groupId)
+        if not isNormal:
+            return response
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        print("RESPONSE ZAVTRA")
-        response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 4)
-        print("TEST")
-        print("Response: ", response.status_code)
-        if str(response.status_code) != '200':
-            return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
-        response = response.json()
+
+
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
+        
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
@@ -93,10 +91,64 @@ def showTimetable(groupId, tomorrow=0):
     except KeyError as err:
         return False
     except Exception as E:
+        print('Ошибка:\n', traceback.format_exc())
+
         return ""
+    
+
+
+def getResponse(groupId):
+    
+    sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if result == None:
+        try:
+            
+            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+        except ConnectionError as err:
+            return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
+        except requests.exceptions.Timeout as err:
+            return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
+        except:
+            return False, ""
+        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
+        cursor.execute(sql)
+        connection.commit()
+        return True, response.json()
+    else:
+        date_update = result[1]
+        timetable = result[2]
+        print(date_update)
+        if date_update + datetime.timedelta(days=4) >= today:
+            try:
+                raise Exception
+                response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
+                cursor.execute(sql)
+                connection.commit()
+                return True, response.json()
+            except:
+                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+                cursor.execute(sql)
+                result = cursor.fetchone()[0]
+                print(result)
+                return True, json.loads(result)
+        else:
+            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+            cursor.execute(sql)
+            result = cursor.fetchone()[0]
+            print(result)
+            return True, json.loads(result)
+    
+    
+
+
+    return 
+
 command = command_class.Command()
 
-command.keys = ['на сегодня', 'расписание на сегодня', 'сегодня', 'расписание сегодня']
+command.keys = ['на сегодня', 'расписание на сегодня', 'сегодня']
 command.desciption = 'Расписание на сегодня (с учетом четности)'
 command.process = info
 command.payload = "today"
