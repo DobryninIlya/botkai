@@ -93,7 +93,7 @@ def GetPrepodList():
     for prepod in prepodList:
         disciplType = []
         try:
-            while prepod.disciplType == prepodList[i+1].disciplType:
+            while prepod.prepodName == prepodList[i+1].prepodName:
                 disciplType.append(prepod.disciplType)
                 prepod.pop(i)
         except:
