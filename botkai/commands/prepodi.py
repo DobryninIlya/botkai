@@ -117,9 +117,8 @@ def GetPrepodList():
             return response
     #print("TEST")
     #print("Response: ", response.status_code)
-    if str(response.status_code) != '200':
-        return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
-    response = response.json()
+
+
     if len(response) == 0:
         return "\n&#10060;\tРасписание еще не доступно.&#10060;"
     result = ''
