@@ -6,7 +6,7 @@ import requests
 from ..keyboards import getMainKeyboard
 from ..classes import vk as vk
 from ..classes import MessageSettings
-from ..classes import UserParams
+from ..classes import UserParams, cursor
 import traceback
 
 
