@@ -24,6 +24,7 @@ def info():
 
     prepodList = GetPrepodList()
     try:
+        raise Exception
         vk.method("messages.send",
             {"peer_id": id, "message": prepodList, "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
     except:

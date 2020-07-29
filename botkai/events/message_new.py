@@ -64,8 +64,6 @@ def message_new(request):
                 payload = MessageSettings.payload
                 button = payload["button"]
                 MessageSettings.button = button
-
-
             except Exception as E:
                 pass
 
