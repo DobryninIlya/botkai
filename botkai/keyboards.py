@@ -271,12 +271,10 @@ def getMainKeyboard(role):
             [
                 get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text"),
                 get_button(label="Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "text"),
-                get_button(label="Мини-игры", color="default", payload = {'button': 'gamehub'}, type = "text"),
                 ],
             [
                 get_button(label="Команды", color="default", payload = {'button': 'commands'}, type = "text"),
                 get_button(label="Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
-                get_button(label="Хранилище", color="positive", payload = {'button': 'storagemain'}, type = "text")
                 ],
             [
                 get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
