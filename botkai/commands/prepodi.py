@@ -95,11 +95,12 @@ def GetPrepodList():
         try:
             while prepod.prepodName == prepodList[i+1].prepodName:
                 disciplType.append(prepod.disciplType)
-                prepod.pop(i)
+                prepodList.pop(i)
         except:
             print('Ошибка:\n', traceback.format_exc())  
         i+=1
         if not disciplType:
+            print(disciplType)
             st = ""
             for discipl in disciplType:
                 st += str(discipl) + ", "
