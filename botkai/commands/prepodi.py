@@ -30,7 +30,7 @@ def info():
         st = "&#128104;&#8205;&#127979;"
         b = 0
         i = 0
-        for c in prepodList[2400:]:
+        for c in prepodList[1400:]:
             if c == st[b]:
                 b+=1
                 print(c, " == ", st[b])
