@@ -105,6 +105,7 @@ def GetPrepodList():
             for discipl in disciplType:
                 st += str(discipl) + ", "
             st = st[:-2]
+            prepod.disciplType = st
 
 
     resultList = []
