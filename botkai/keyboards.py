@@ -6,7 +6,7 @@ from .classes import MessageSettings, UserParams, connection, cursor
 from pprint import pprint
 import datetime
 #######################################Keyboards#####################################################
-exams_months = [1, 5, 6, 8, 11, 12]
+exams_months = [1, 5, 6, 7, 8, 11, 12]
 
 def get_button(label, color, payload="", type = "text"):
     return {

@@ -119,7 +119,6 @@ def getResponse(groupId):
     else:
         date_update = result[1]
         timetable = result[2]
-        print(date_update)
         if date_update + datetime.timedelta(days=4) >= today:
             try:
                 raise Exception
@@ -132,13 +131,11 @@ def getResponse(groupId):
                 sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
                 cursor.execute(sql)
                 result = cursor.fetchone()[0]
-                print(result)
                 return True, json.loads(result)
         else:
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
-            print(result)
             return True, json.loads(result)
     
     

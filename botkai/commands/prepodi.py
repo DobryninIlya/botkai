@@ -23,15 +23,34 @@ def info():
     #        {"peer_id": id, "message": GetPrepodList() , "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
     prepodList = GetPrepodList()
-
-    if len(prepodList) > 2400:
-        vk.method("messages.send",
-            {"peer_id": id, "message": prepodList[:3000] , "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
-        vk.method("messages.send",
-            {"peer_id": id, "message": prepodList[3000:] , "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
-    else:
+    try:
         vk.method("messages.send",
             {"peer_id": id, "message": prepodList, "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+    except:
+        st = "&#128104;&#8205;&#127979;"
+        b = 0
+        i = 0
+        for c in prepodList[2400:]:
+            if c == st[b]:
+                b+=1
+                print(c, " == ", st[b])
+            else:
+                b = 0
+            i+=1
+            
+
+
+            
+
+
+    #if len(prepodList) > 2400:
+    #    vk.method("messages.send",
+    #        {"peer_id": id, "message": prepodList[:3000] , "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+    #    vk.method("messages.send",
+    #        {"peer_id": id, "message": prepodList[3000:] , "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+    #else:
+    #    vk.method("messages.send",
+    #        {"peer_id": id, "message": prepodList, "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
