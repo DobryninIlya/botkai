@@ -16,7 +16,7 @@ def info():
         #conn.close()
         cursor.execute('SELECT * FROM "Adv" WHERE ischeked < 1 LIMIT 1')
         res = cursor.fetchone()
-        connection.comit()
+        connection.commit()
         if res:
             ans = "Объявление §\n"
             ans += "\nid " + str(res[0]) + " from @id" + str(res[2])

@@ -16,7 +16,8 @@ def info():
         #conn.close()
         cursor.execute('SELECT * FROM Task WHERE "IsCheked" < 1 LIMIT 1')
         res = cursor.fetchone()
-       
+        connection.commit()
+
         if res:
             ans = "Задание §\n"
             ans += "\nid " + str(res[0]) + " from @id" + str(res[2])

@@ -16,6 +16,7 @@ def info():
         # conn.close()
         cursor.execute('SELECT * FROM users WHERE ischeked < 1 LIMIT 1')
         res = cursor.fetchone()
+        connection.commit()
 
         if res:
             ans = "Ник §\n"
