@@ -63,7 +63,8 @@ class Prepodi:
 
 
 def getResponse(groupId):
-    
+    today = datetime.date.today()
+
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
