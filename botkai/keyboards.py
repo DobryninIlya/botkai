@@ -4,8 +4,9 @@ import json
 import psycopg2
 from .classes import MessageSettings, UserParams, connection, cursor
 from pprint import pprint
+import datetime
 #######################################Keyboards#####################################################
-
+exams_months = [1, 5, 6, 7, 8, 11, 12]
 
 def get_button(label, color, payload="", type = "text"):
     return {
@@ -256,13 +257,13 @@ def getMainKeyboard(role):
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
     else:
+        first_row =[get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
+        if datetime.date.today().month in exams_months:
+            first_row.append(get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "text"))
         keyboard = {
             "one_time": False,
             "buttons": [
-            #[get_button(label="Карантин, коронавирус...", color="negative", payload = {'button': 'coronavirusfull'})],
-            [
-                get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text"),
-                get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "text")],
+            first_row,
             [
                 get_button(label="На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
                 get_button(label="На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
