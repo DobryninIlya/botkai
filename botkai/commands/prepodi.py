@@ -100,7 +100,7 @@ def GetPrepodList():
         except:
             pass  
         i+=1
-        if len(disciplType)>1:
+        if disciplType:
             st = ""
             for discipl in disciplType:
                 st += str(discipl).rstrip() + ", "
