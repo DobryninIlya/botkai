@@ -81,7 +81,7 @@ def message_new(request):
                         if UserParams.role in crole:
                             c.process()
                         return "ok"
-
+                return "ok"
             else:
                 distance = len(MessageSettings.getText())
                 command = None

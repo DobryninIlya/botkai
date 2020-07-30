@@ -48,7 +48,6 @@ class User:
             sql = "SELECT * FROM Users WHERE ID_VK = " + str(id)
             cursor.execute(sql)
             res = cursor.fetchone()
-            print("RESULT", res)
         except sqlite3.OperationalError:
             connection.commit()
             sql = "SELECT * FROM Users WHERE ID_VK = " + str(id)
@@ -62,7 +61,6 @@ class User:
         self.balance = res[7]
         self.role = res[13]
         self.login = res[14]
-        #connection.close()
 
         
         
@@ -117,7 +115,8 @@ class Message:
        self.allCommands = 0
 
        self.event_id = ""
-
+       self.buttons = []
+        
     def getId(self):
         return self.id
     def getText(self):
@@ -214,5 +213,9 @@ class Message:
 
         self.statUser = 0
         self.allCommands = 0
+        if message_params["type"] == "message_new":
+            self.buttons = message_params["object"]["client_info"]["button_actions"]
+        else:
+            self.buttons = []
     
 MessageSettings = Message()
