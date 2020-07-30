@@ -13,7 +13,7 @@ def info():
     task = ""
     att = ""
 
-    curs = cursor.fetchall()[0]
+    curs = cursor.fetchall()
     if len(curs) == 0:
        vk.method("messages.send", {"peer_id": UserID, "message": "Заданий не создано" , "keyboard": keyboardTasks, "random_id": random.randint(1, 2147483647)})
     first = True
