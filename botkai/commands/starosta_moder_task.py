@@ -19,7 +19,7 @@ def info():
     first = True
     next_task_id = -1 
     for row in curs:
-        if fisrt:
+        if first:
             task = "❗зᴀдᴀниᴇ❗\n"
             task += str(row[4])
             idvk = "@id" + str(row[2])

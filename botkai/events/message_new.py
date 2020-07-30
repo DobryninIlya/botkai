@@ -55,7 +55,8 @@ def message_new(request):
         if IsRegistred():
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
-            CheckStatus()
+            if CheckStatus() == "ok":
+                return "ok"
             cursorR.execute("SELECT * FROM Status")
 
             button = ""
