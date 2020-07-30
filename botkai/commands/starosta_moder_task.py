@@ -27,7 +27,7 @@ def info():
             att = str(row[5])
             first = False
         else:
-            next_task_id = (int)row[0]
+            next_task_id = int(row[0])
 
         
     vk.method("messages.send", {"peer_id": UserID, "message": task , "keyboard": GetModerTaskStarostaFirst(id = (int)(row[0]), next_id = next_task_id), "attachment" : att, "random_id": random.randint(1, 2147483647)})
