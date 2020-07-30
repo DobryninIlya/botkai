@@ -8,7 +8,7 @@ import traceback
 def info():
 
     UserID = MessageSettings.getId()
-        if "callback" not in MessageSettings.buttons.keys():
+    if "callback" not in MessageSettings.buttons.keys():
         vk.method("messages.send", {"peer_id": UserID, "message": "Команда доступна только в мобильной версии сайта m.vk.com и в последней версии официального мобильного приложения." , "keyboard": GetModerTaskStarostaFirst(id = (int)(row[0]), next_id = next_task_id), "attachment" : att, "random_id": random.randint(1, 2147483647)})
         return
     groupId = UserParams.getGroup()
