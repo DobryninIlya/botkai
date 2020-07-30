@@ -1,0 +1,43 @@
+from .. import classes as command_class
+from ..keyboards import GetModerAdvButton
+from ..classes import vk, MessageSettings, UserParams, connection, cursor
+import random
+import traceback
+
+
+def info():
+    UserID = MessageSettings.getId()
+    groupId = UserParams.getGroup()
+    sql = "SELECT * FROM Task WHERE" + " groupid = " + str(groupId) + " LIMIT 2"
+    cursor.execute(sql)
+    task = ""
+    att = ""
+
+    curs = cursor.fetchall()[0]
+    if len(curs) == 0:
+       vk.method("messages.send", {"peer_id": UserID, "message": "Заданий не создано" , "keyboard": keyboardTasks, "random_id": random.randint(1, 2147483647)})
+    first = True
+    next_task_id = -1 
+    for row in curs:
+        if fisrt:
+            task = "❗зᴀдᴀниᴇ❗\n"
+            task += str(row[4])
+            idvk = "@id" + str(row[2])
+            task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
+            att = str(row[5])
+            first = False
+        else:
+            next_task_id = (int)row[0]
+
+        
+    vk.method("messages.send", {"peer_id": UserID, "message": task , "keyboard": GetModerTaskStarostaFirst(id = (int)(row[0]), next_id = next_task_id), "attachment" : att, "random_id": random.randint(1, 2147483647)})
+
+    return "ok"
+
+command = command_class.Command()
+
+command.keys = ['проверка заданий']
+command.desciption = ''
+command.process = info
+command.payload = "starostatask"
+command.admlevel = 2
