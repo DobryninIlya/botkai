@@ -53,10 +53,16 @@ def message_new(request):
         message_params = json.loads(request.body)
         MessageSettings.update(message_params)
         if IsRegistred():
+
+            if MessageSettings.peer_id > 2000000000:
+                return "ok"
+
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
-            if CheckStatus() == "ok":
+            stat = CheckStatus()
+            if stat == "ok":
                 return "ok"
+            
             cursorR.execute("SELECT * FROM Status")
 
             button = ""
@@ -75,8 +81,7 @@ def message_new(request):
                         if UserParams.role in crole:
                             c.process()
                         return "ok"
-                    else:
-                        pass
+
             else:
                 distance = len(MessageSettings.getText())
                 command = None
