@@ -51,7 +51,7 @@ def info():
                 next_task_id = int(row[0])
 
         print("prev id ", prev_id_task)
-        print("next id ", next_id_task)
+        print("next id ", next_task_id)
 
 
         vk.method("messages.edit", {
