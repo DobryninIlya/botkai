@@ -30,7 +30,8 @@ def info():
                 "random_id": random.randint(1, 2147483647)})
         first = True
         second = False
-        next_task_id = prev_id_task = -1
+        next_task_id = -1
+        prev_id_task = 1
         id = -1 
         for row in curs:
             if first and int(val_id) != 1:
