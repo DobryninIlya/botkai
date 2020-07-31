@@ -42,7 +42,7 @@ def info():
                 task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
                 att = str(row[5])
                 first = second = False
-                break
+                
                 
             if first :
                 prev_id_task = int(row[0])
