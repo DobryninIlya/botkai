@@ -48,7 +48,7 @@ def info():
             "random_id": random.randint(1, 2147483647)})
 
         return "ok"
-    except
+    except:
         print('Ошибка:\n', traceback.format_exc())  
 
 command = command_class.Command()
