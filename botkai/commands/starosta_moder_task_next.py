@@ -8,7 +8,7 @@ import traceback
 def info():
     try:
         UserID = MessageSettings.getId()
-        if "callback" not in MessageSettings.buttons:
+        if "callback" not in MessageSettings.buttons and False:
             vk.method("messages.send", {"peer_id": UserID, "message": "Команда доступна только в мобильной версии сайта m.vk.com и в последней версии официального мобильного приложения." , "random_id": random.randint(1, 2147483647)})
             return
         groupId = UserParams.getGroup()
