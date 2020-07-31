@@ -23,10 +23,10 @@ def info():
         if len(curs) == 0:
             vk.method("messages.edit", {
                 "peer_id": UserID, 
-            "message": "Задания закончились",
-            "conversation_message_id" : 1792, #MessageSettings.conversation_message_id,
-            "message_id" : 2058, #message_id,
-            "random_id": random.randint(1, 2147483647)})
+                "message": "Задания закончились",
+                "conversation_message_id" : 1792, #MessageSettings.conversation_message_id,
+                "message_id" : 2058, #message_id,
+                "random_id": random.randint(1, 2147483647)})
         first = True
         next_task_id = -1 
         for row in curs:
