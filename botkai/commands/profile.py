@@ -6,10 +6,7 @@ from ..classes import MessageSettings
 from ..classes import UserParams
 
 
-event_data = """{
-    "type": "show_snackbar",
-    "text": "СОЗДАТЕЛИ CALLBACK КНОПОК СОСУТ ЧЛЕНЫ ДРУГ ДРУГУ"
-  }"""
+
 
 def info():
     id = MessageSettings.getPeer_id()
@@ -17,12 +14,7 @@ def info():
     vk.method("messages.send",
                     {"peer_id": id, "message": message, "keyboard" : KeyboardProfile(),
                         "random_id": random.randint(1, 2147483647)})
-    vk.method("messages.sendMessageEventAnswer",
-                    {"event_id": MessageSettings.event_id,
-                    "user_id": MessageSettings.id,
-                    "peer_id": MessageSettings.peer_id,
-                    "event_data": event_data
-                    })
+    
 
 command = command_class.Command()
 

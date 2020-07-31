@@ -4,19 +4,29 @@ from ..keyboards import KeyboardProfile
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import traceback
 
+event_data = """{
+    "type": "show_snackbar",
+    "text": "Задание удалено"
+  }"""
+
 def info():
     groupId = UserParams.groupId
     payload = MessageSettings.payload
     id = payload["id"]
     print(id)
     try:
-        sql = "DELETE FROM Task WHERE" + " id = " + str(id) + " AND userid = " + str(MessageSettings.getId()) + ";"
+        sql = "DELETE FROM Task WHERE" + " id = " + str(id)
         print(sql)
         cursor.execute(sql)
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
-    vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Удалено" , "keyboard": KeyboardProfile(), "random_id": random.randint(1, 2147483647)})
-    
+    #vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Удалено" , "keyboard": KeyboardProfile(), "random_id": random.randint(1, 2147483647)})
+    vk.method("messages.sendMessageEventAnswer",
+                    {"event_id": MessageSettings.event_id,
+                    "user_id": MessageSettings.id,
+                    "peer_id": MessageSettings.peer_id,
+                    "event_data": event_data
+                    })
 
     return "ok"
 
