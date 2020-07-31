@@ -42,6 +42,9 @@ def info():
                 task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
                 att = str(row[5])
                 first = second = False
+                next_task_id = curs[1][0]
+                prev_id_task = 0
+                break
                 
                 
             if first :
