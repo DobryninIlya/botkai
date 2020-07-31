@@ -35,6 +35,7 @@ def info():
         for row in curs:
             if first:
                 prev_id_task = int(row[0])
+                print("prev id ", prev_id_task)
                 first = False
                 second = True
             elif second:
