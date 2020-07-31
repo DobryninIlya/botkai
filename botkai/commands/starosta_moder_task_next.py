@@ -42,7 +42,7 @@ def info():
             else:
                 next_task_id = int(row[0])
 
-        print(task)            
+        print(curs, task)            
         vk.method("messages.edit", {
             "peer_id": UserID,
             "message": task , 
