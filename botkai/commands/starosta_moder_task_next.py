@@ -34,12 +34,13 @@ def info():
         prev_id_task = 1
         id = -1 
         for row in curs:
-            if first and int(val_id) != 1:
+            if first :
                 prev_id_task = int(row[0])
                 print("prev id ", prev_id_task)
                 first = False
                 second = True
             elif second or int(val_id) == 1:
+
                 id =  (int)(row[0])
                 task = "❗зᴀдᴀниᴇ❗\n"
                 task += str(row[4])
