@@ -14,7 +14,7 @@ def info():
         groupId = UserParams.getGroup()
         val_id = MessageSettings.payload["id"]
         #message_id = MessageSettings.payload["msg_id"]
-        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 2 OFFSET {}".format(groupId, int(val_id)-1)
+        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 2 OFFSET {}".format(groupId, 0 if int(val_id)-2 < 0 else int(val_id)-2)
         print(sql)
         cursor.execute(sql)
         task = ""
@@ -27,20 +27,24 @@ def info():
                 "peer_id": UserID, 
                 "message": "Задания закончились",
                 "conversation_message_id" : MessageSettings.conversation_message_id,
-                #"message_id" : 2058, #message_id,
                 "random_id": random.randint(1, 2147483647)})
         first = True
+        second = False
         next_task_id = -1
         id = -1 
         for row in curs:
             if first:
+                prev_id_task = int(row[0])
+                first = False
+                second = True
+            elif second:
                 id =  (int)(row[0])
                 task = "❗зᴀдᴀниᴇ❗\n"
                 task += str(row[4])
                 idvk = "@id" + str(row[2])
                 task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
                 att = str(row[5])
-                first = False
+                second = False
             else:
                 next_task_id = int(row[0])
 
@@ -48,9 +52,8 @@ def info():
         vk.method("messages.edit", {
             "peer_id": UserID,
             "message": task , 
-            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = 0, message_id = 0),
+            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = prev_id_task),
             "conversation_message_id" : MessageSettings.conversation_message_id,
-            #"message_id" : 2058, #message_id, 
             "attachment" : att, 
             "random_id": random.randint(1, 2147483647)})
 
