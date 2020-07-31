@@ -179,6 +179,20 @@ def GetModerTaskStarostaFirst(id, next_id ):
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
 
+def GetModerTaskStarosta(id, next_id, prev_id):
+    buttons = [get_button(label="Удалить задание", color="positive", payload = {'button': 'deletetask_starosta', 'id' : str(id)}, type = "callback")]
+    if next_id != -1:
+        buttons.append(get_button(label="Следующее", color="positive", payload = {'button': 'next_task_starosta', 'id' : str(next_id)}, type = "callback"))
+    keyboard = {
+        "inline": True,
+        "buttons": [
+            buttons
+            ]
+            
+    }
+    keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+    keyboard = str(keyboard.decode('utf-8'))
+    return keyboard
 
 keyboard = {
     "one_time": False,

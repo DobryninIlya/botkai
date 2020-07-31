@@ -116,6 +116,7 @@ class Message:
 
        self.event_id = ""
        self.buttons = []
+       self.conversation_message_id = 0
         
     def getId(self):
         return self.id
@@ -215,7 +216,9 @@ class Message:
         self.allCommands = 0
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]
+            self.conversation_message_id = 0
         else:
             self.buttons = []
+            self.conversation_message_id = int(message_params["object"]["conversation_message_id"])
     
 MessageSettings = Message()
