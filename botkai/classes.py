@@ -188,6 +188,8 @@ class Message:
             self.event_id = message_params["object"]["event_id"]
             self.id = message_params["object"]["user_id"]
             self.peer_id = message_params["object"]["peer_id"]
+            self.buttons = []
+            self.conversation_message_id = int(message_params["object"]["conversation_message_id"])
             try:
                 self.payload = message_params["object"]["payload"]
             except KeyError:
@@ -217,8 +219,7 @@ class Message:
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]
             self.conversation_message_id = 0
-        else:
-            self.buttons = []
-            self.conversation_message_id = int(message_params["object"]["conversation_message_id"])
+
+            
     
 MessageSettings = Message()
