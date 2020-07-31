@@ -39,7 +39,7 @@ def info():
                 print("prev id ", prev_id_task)
                 first = False
                 second = True
-            elif second or int(val_id) == 1:
+            elif second:
 
                 id =  (int)(row[0])
                 task = "❗зᴀдᴀниᴇ❗\n"
