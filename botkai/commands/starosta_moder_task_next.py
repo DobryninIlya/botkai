@@ -66,7 +66,7 @@ def info():
 
         print("prev id ", prev_id_task)
         print("next id ", next_task_id)
-
+        print(task)
 
         vk.method("messages.edit", {
             "peer_id": UserID,
