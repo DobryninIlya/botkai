@@ -13,6 +13,7 @@ def info():
             return
         groupId = UserParams.getGroup()
         val_id = MessageSettings.payload["id"]
+        message_id = MessageSettings.payload["msg_id"]
         sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 2 OFFSET {}".format(groupId, val_id )
         cursor.execute(sql)
         task = ""
@@ -24,6 +25,7 @@ def info():
                 "peer_id": UserID, 
             "message": "Задания закончились",
             "conversation_message_id" : MessageSettings.conversation_message_id,
+            "message_id" : message_id,
             "random_id": random.randint(1, 2147483647)})
         first = True
         next_task_id = -1 
@@ -43,7 +45,8 @@ def info():
             "peer_id": UserID,
             "message": task , 
             "keyboard": GetModerTaskStarostaFirst(id = (int)(row[0]), next_id = next_task_id),
-            "conversation_message_id" : MessageSettings.conversation_message_id, 
+            "conversation_message_id" : MessageSettings.conversation_message_id,
+            "message_id" : message_id, 
             "attachment" : att, 
             "random_id": random.randint(1, 2147483647)})
 
