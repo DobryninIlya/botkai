@@ -46,7 +46,7 @@ def info():
         vk.method("messages.edit", {
             "peer_id": UserID,
             "message": task , 
-            "keyboard": GetModerTaskStarostaFirst(id = id, next_id = next_task_id),
+            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id),
             "conversation_message_id" : 1792, #MessageSettings.conversation_message_id,
             #"message_id" : 2058, #message_id, 
             "attachment" : att, 
