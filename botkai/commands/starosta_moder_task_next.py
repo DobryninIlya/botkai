@@ -24,7 +24,7 @@ def info():
             vk.method("messages.edit", {
                 "peer_id": UserID, 
             "message": "Задания закончились",
-            "conversation_message_id" : MessageSettings.conversation_message_id,
+            #"conversation_message_id" : MessageSettings.conversation_message_id,
             "message_id" : message_id,
             "random_id": random.randint(1, 2147483647)})
         first = True
@@ -45,7 +45,7 @@ def info():
             "peer_id": UserID,
             "message": task , 
             "keyboard": GetModerTaskStarostaFirst(id = (int)(row[0]), next_id = next_task_id),
-            "conversation_message_id" : MessageSettings.conversation_message_id,
+            #"conversation_message_id" : MessageSettings.conversation_message_id,
             "message_id" : message_id, 
             "attachment" : att, 
             "random_id": random.randint(1, 2147483647)})
