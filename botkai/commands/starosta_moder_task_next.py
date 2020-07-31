@@ -14,12 +14,14 @@ def info():
         groupId = UserParams.getGroup()
         val_id = MessageSettings.payload["id"]
         #message_id = MessageSettings.payload["msg_id"]
-        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 2 OFFSET {}".format(groupId, val_id )
+        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 2 OFFSET {}".format(groupId, val_id)
+        print(sql)
         cursor.execute(sql)
         task = ""
         att = ""
 
         curs = cursor.fetchall()
+        print(curs, task)    
         if len(curs) == 0:
             vk.method("messages.edit", {
                 "peer_id": UserID, 
@@ -42,7 +44,7 @@ def info():
             else:
                 next_task_id = int(row[0])
 
-        print(curs, task)            
+        
         vk.method("messages.edit", {
             "peer_id": UserID,
             "message": task , 
