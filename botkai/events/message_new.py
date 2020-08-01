@@ -9,6 +9,8 @@ import random
 import requests
 import traceback
 import os, importlib
+import sys
+
 
 cursor = classes.cursor
 cursorR = classes.cursorR

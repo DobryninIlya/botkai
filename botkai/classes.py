@@ -157,13 +157,12 @@ class Message:
         sql = "SELECT COUNT(*) FROM Task WHERE GroupID = " + str(group) + " AND Datee = '" + date + "'"
         cursor.execute(sql)
         res = cursor.fetchone()
-        connection.close()
+
         return res[0]
     def GetAdv(self, date, group):
         sql = 'SELECT textfield FROM "Adv" WHERE groupid = ' + str(group) + " AND date = '" + date + "' ORDER BY id DESC"
         cursor.execute(sql)
         res = cursor.fetchone()
-        connection.close()
         try:
             return str(res[0])
         except Exception as E:
