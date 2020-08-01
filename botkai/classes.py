@@ -3,10 +3,10 @@ import vk_api
 import sqlite3
 import json
 import traceback
-
+import os
 class connections:
     def __init__(self):
-        self.connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
+        self.connection = psycopg2.connect(dbname=os.getenv('DB_NAME'), user= os.getenv('DB_USER'), password= os.getenv('DB_PASSWORD'), host= os.getenv('DB_HOST'))
         self.connection.autocommit=True
         self.cursor = self.connection.cursor()
         self.conn = sqlite3.connect("bot.db")
@@ -20,7 +20,7 @@ conn = connect.conn
 
 class vk_interface:
     def __init__(self):
-        self.token = "ef9001337c74ad42b2cab874c87a2fd4bc3723bcec00355cff15130e3fb7e1643df17d9a1e4d717762780"
+        self.token = os.getenv("VK_TOKEN")
         self.vk = vk_api.VkApi(token=self.token)
 
 vk = vk_interface().vk
@@ -154,16 +154,12 @@ class Message:
         
         return attachment[:-1]
     def GetTaskCount(self, date, group):
-        connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-        cursor = connection.cursor()
         sql = "SELECT COUNT(*) FROM Task WHERE GroupID = " + str(group) + " AND Datee = '" + date + "'"
         cursor.execute(sql)
         res = cursor.fetchone()
         connection.close()
         return res[0]
     def GetAdv(self, date, group):
-        connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-        cursor = connection.cursor()
         sql = 'SELECT textfield FROM "Adv" WHERE groupid = ' + str(group) + " AND date = '" + date + "' ORDER BY id DESC"
         cursor.execute(sql)
         res = cursor.fetchone()
