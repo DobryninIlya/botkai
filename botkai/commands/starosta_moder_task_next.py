@@ -34,7 +34,7 @@ def info():
         prev_id_task = 1
         id = -1 
         for row in curs:
-            if int(val_id) == 1:
+            if int(val_id) == 1 or next_task_id = -1:
                 id =  (int)(row[0])
                 task = "❗зᴀдᴀниᴇ❗\n"
                 task += str(row[4])
