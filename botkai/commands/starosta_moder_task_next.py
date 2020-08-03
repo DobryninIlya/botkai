@@ -35,7 +35,10 @@ def info():
         prev_id_task = 1
         id = -1
 
-
+        if MessageSettings.payload["type"] == "next":
+            pos_id += 1
+        else:
+            pos_id -= 1 if pos_id >0 else pos_id = 0
 
 
 
@@ -62,7 +65,7 @@ def info():
                 first = False
                 second = True
             elif second:
-
+                
                 id =  (int)(row[0])
                 task = "❗зᴀдᴀниᴇ❗\n"
                 task += str(row[4])
@@ -80,7 +83,7 @@ def info():
         vk.method("messages.edit", {
             "peer_id": UserID,
             "message": task , 
-            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = prev_id_task, pos_id = pos_id+1),
+            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = prev_id_task, pos_id = pos_id),
             "conversation_message_id" : MessageSettings.conversation_message_id,
             "attachment" : att, 
             "random_id": random.randint(1, 2147483647)})

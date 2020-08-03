@@ -182,10 +182,10 @@ def GetModerTaskStarostaFirst(id, next_id, pos_id):
 def GetModerTaskStarosta(id, next_id, prev_id, pos_id):
     buttons = [get_button(label="Удалить задание", color="negative", payload = {'button': 'deletetask_starosta', 'id' : str(id), "pos_id": pos_id}, type = "callback")]
     if prev_id > 0:
-        buttons.append(get_button(label="Предыдущее", color="primary", payload = {'button': 'next_task_starosta', 'id' : str(prev_id), "pos_id": pos_id}, type = "callback"))
+        buttons.append(get_button(label="Предыдущее", color="primary", payload = {'button': 'next_task_starosta', 'id' : str(prev_id), "pos_id": pos_id, "type": "prev"}, type = "callback"))
     
     if next_id != -1:
-        buttons.append(get_button(label="Следующее", color="primary", payload = {'button': 'next_task_starosta', 'id' : str(next_id), "pos_id": pos_id}, type = "callback"))
+        buttons.append(get_button(label="Следующее", color="primary", payload = {'button': 'next_task_starosta', 'id' : str(next_id), "pos_id": pos_id, "type": "next"}, type = "callback"))
     
     keyboard = {
         "inline": True,
