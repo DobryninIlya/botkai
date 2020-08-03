@@ -49,7 +49,7 @@ def info():
 
 
         for row in curs:
-            if int(val_id) == 1 or len(curs) <=1:
+            if int(val_id) == 1 or len(curs) <=1 or not pos_id:
                 id =  (int)(row[0])
                 task = "❗зᴀдᴀниᴇ❗\n"
                 task += str(row[4])
