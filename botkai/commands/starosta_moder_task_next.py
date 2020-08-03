@@ -14,7 +14,7 @@ def info():
         groupId = UserParams.getGroup()
         val_id = MessageSettings.payload["id"]
         #message_id = MessageSettings.payload["msg_id"]
-        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(val_id)-2 < 0 else int(val_id)-2)
+        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(val_id)-1 < 0 else int(val_id)-1)
         print(sql)
         cursor.execute(sql)
         task = ""
