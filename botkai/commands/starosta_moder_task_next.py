@@ -80,7 +80,7 @@ def info():
         vk.method("messages.edit", {
             "peer_id": UserID,
             "message": task , 
-            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = prev_id_task),
+            "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = prev_id_task, pos_id = pos_id+1),
             "conversation_message_id" : MessageSettings.conversation_message_id,
             "attachment" : att, 
             "random_id": random.randint(1, 2147483647)})
