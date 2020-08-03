@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from botkai.views import index
+from botkai.views import index, web_yandex
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('botkai/', include("botkai.urls"))
-]
+    path('botkai/', path('botkai/', web_yandex)
