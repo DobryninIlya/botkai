@@ -24,7 +24,7 @@ def info():
                 pos_id = 0
         else:
             pos_id = 0
-        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(pos_id) < 0 else int(pos_id))
+        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(pos_id) < 0 else int(pos_id)-1)
         print(sql)
         cursor.execute(sql)
         task = ""
@@ -82,6 +82,7 @@ def info():
             else:
                 next_task_id = int(row[0])
 
+        print("pos_id ", pos_id)
         print("prev id ", prev_id_task)
         print("next id ", next_task_id)
         print(task)
