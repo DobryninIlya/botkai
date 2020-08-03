@@ -13,8 +13,9 @@ def info():
             return
         groupId = UserParams.getGroup()
         val_id = MessageSettings.payload["id"]
+        pos_id = MessageSettings.payload["pos_id"]
         #message_id = MessageSettings.payload["msg_id"]
-        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(val_id)-1 < 0 else int(val_id)-1)
+        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(pos_id)-1 < 0 else int(pos_id)-1)
         print(sql)
         cursor.execute(sql)
         task = ""
@@ -32,7 +33,12 @@ def info():
         second = False
         next_task_id = -1
         prev_id_task = 1
-        id = -1 
+        id = -1
+
+
+
+
+
         for row in curs:
             if int(val_id) == 1 or len(curs) <=1:
                 id =  (int)(row[0])
