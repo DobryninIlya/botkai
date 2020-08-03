@@ -37,11 +37,13 @@ def info():
 
         if MessageSettings.payload["type"] == "next":
             pos_id += 1
-        else:
+        elif MessageSettings.payload["type"] == "prev":
             if pos_id > 0:
                 pos_id -= 1
             else:
                 pos_id = 0
+        else:
+            pos_id = 0
 
 
 
