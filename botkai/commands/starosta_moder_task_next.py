@@ -15,7 +15,7 @@ def info():
         val_id = MessageSettings.payload["id"]
         pos_id = MessageSettings.payload["pos_id"]
         #message_id = MessageSettings.payload["msg_id"]
-        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(pos_id)-1 < 0 else int(pos_id)-1)
+        sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(pos_id) < 0 else int(pos_id))
         print(sql)
         cursor.execute(sql)
         task = ""
