@@ -24,18 +24,13 @@ def main(request):
             "end_session": False
         }
     }
-    return HttpResponse( json.dumps({
-  "response": {
-    "text": "Здравствуйте! Это мы, хороводоведы.",
-    "tts": "Здравствуйте! Это мы, хоров+одо в+еды.",
-    
-    "end_session": False
-  },
-  "version": "1.0"
-}))
+
+    handle_dialog(body,request)
+
+    return HttpResponse( json.dumps( response))
 
 
-def handle_dialog(body, response):
+def handle_dialog(body, request):
     request = body["meta"]["request"]
     tokens = request["nlu"]["tokens"]
     entites = request["nlu"]["entites"]
@@ -49,3 +44,4 @@ def handle_dialog(body, response):
                     if entity["type"] == "YANDEX.NUMBER":
                         group_values += entity["value"]
                 pritn(group_values)
+            response["response"]["text"] = command + " " + group_values
