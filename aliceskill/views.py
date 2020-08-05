@@ -34,7 +34,35 @@ cursor = connect.cursor
 cursorR = connect.cursorR
 connection = connect.connection
 conn = connect.conn
-
+today = datetime.date.today()
+chetn = 1
+BASE_URL = 'https://kai.ru/raspisanie' 
+def showGroupId(groupNumber):
+    id = int(MessageSettings.id)
+    try:
+        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 2 )
+        print(response.status_code, response)
+        if str(response.status_code) != '200':
+            # vk.method("messages.send",
+            #     {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
+            # vk.method("messages.send",
+            #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+            return False
+        response = response.json()[0]
+        return response['id']
+    except IndexError:
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
+        return False
+    except (ConnectionError, TimeoutError):
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+        return False
+    except:
+        print('Ошибка:\n', traceback.format_exc())
+        return False
 
 @csrf_exempt
 def main(request):
@@ -83,9 +111,7 @@ def handle_dialog(body, request, response):
             response["response"]["text"] = "Я не распознал твою команду. Повтори, пожалуйста, что ты хочешь получить и номер группы."
 
 
-today = datetime.date.today()
-chetn = 1
-BASE_URL = 'https://kai.ru/raspisanie' 
+
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
 def info(group, day):
     try:
@@ -100,7 +126,7 @@ def info(group, day):
 
 def showTimetable(groupId, tomorrow=0):
     try:
-        isNormal, response = getResponse(groupId)
+        isNormal, response = getResponse(showGroupId(groupId))
         print(response)
         if not isNormal:
             print("NOOOOOOOOOOOO")
