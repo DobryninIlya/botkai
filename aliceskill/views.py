@@ -103,6 +103,7 @@ def showTimetable(groupId, tomorrow=0):
     try:
         isNormal, response = getResponse(groupId)
         if not isNormal:
+            print("NOOOOOOOOOOOO")
             return response
         
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
@@ -165,6 +166,8 @@ def getResponse(groupId):
             except requests.exceptions.Timeout as err:
                 return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
             except:
+                print('Ошибка:\n', traceback.format_exc())
+
                 return False, ""
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
             cursor.execute(sql)
@@ -175,7 +178,6 @@ def getResponse(groupId):
             timetable = result[2]
             if date_update + datetime.timedelta(days=4) >= today:
                 try:
-                    raise Exception
                     response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
                     sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
                     cursor.execute(sql)
