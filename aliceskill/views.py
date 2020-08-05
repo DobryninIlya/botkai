@@ -148,47 +148,49 @@ def showTimetable(groupId, tomorrow=0):
 
 
 def getResponse(groupId):
-    
-    sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
-    cursor.execute(sql)
-    result = cursor.fetchone()
-    if result == None:
-        try:
-            
-            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-        except ConnectionError as err:
-            return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
-        except requests.exceptions.Timeout as err:
-            return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
-        except:
-            return False, ""
-        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
+    try:
+        sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
-        connection.commit()
-        return True, response.json()
-    else:
-        date_update = result[1]
-        timetable = result[2]
-        if date_update + datetime.timedelta(days=4) >= today:
+        result = cursor.fetchone()
+        if result == None:
             try:
-                raise Exception
+                
                 response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
-                cursor.execute(sql)
-                connection.commit()
-                return True, response.json()
+            except ConnectionError as err:
+                return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
+            except requests.exceptions.Timeout as err:
+                return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
             except:
+                return False, ""
+            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
+            cursor.execute(sql)
+            connection.commit()
+            return True, response.json()
+        else:
+            date_update = result[1]
+            timetable = result[2]
+            if date_update + datetime.timedelta(days=4) >= today:
+                try:
+                    raise Exception
+                    response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+                    sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
+                    cursor.execute(sql)
+                    connection.commit()
+                    return True, response.json()
+                except:
+                    sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+                    cursor.execute(sql)
+                    result = cursor.fetchone()[0]
+                    return True, json.loads(result)
+            else:
                 sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
                 cursor.execute(sql)
                 result = cursor.fetchone()[0]
                 return True, json.loads(result)
-        else:
-            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-            cursor.execute(sql)
-            result = cursor.fetchone()[0]
-            return True, json.loads(result)
-    
-    
+        
+        
 
 
-    return 
+        return 
+    except:
+        print('Ошибка:\n', traceback.format_exc())
