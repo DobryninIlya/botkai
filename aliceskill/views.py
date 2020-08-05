@@ -77,7 +77,7 @@ def handle_dialog(body, request, response):
             if not group_values:
                 response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
             #response["response"]["text"] = command + " " + group_values + " день " + str(day)
-            response["response"]["text"] = info(int(group_values), day)
+            response["response"]["text"] = info(group_values, day)
 
             return
         else:
@@ -90,7 +90,7 @@ BASE_URL = 'https://kai.ru/raspisanie'
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
 def info(group, day):
     today = datetime.date.today()
-    day = day if day.isdigit() else 0
+    day = int(day) if day.isdigit() else 0
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
     return showTimetable(group, day)
 
