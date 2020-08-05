@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 # Импортируем модули для работы с JSON и логами.
 import json
 import logging
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 sessionStorage = {}
@@ -11,6 +11,7 @@ sessionStorage = {}
 
 logging.basicConfig(level=logging.DEBUG)
 
+@csrf_exempt
 def main(response):
 # Функция получает тело запроса и возвращает ответ.
     logging.info('Request: %r', request.json)
