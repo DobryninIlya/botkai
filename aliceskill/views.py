@@ -42,6 +42,6 @@ def handle_dialog(body, request):
             if command == 'расписание':
                 for entity in entities:
                     if entity["type"] == "YANDEX.NUMBER":
-                        group_values += entity["value"]
+                        group_values += str(entity["value"])
                 pritn(group_values)
             response["response"]["text"] = command + " " + group_values
