@@ -37,4 +37,4 @@ def main(request):
 
 def handle_dialog(body, response)
     
-    if 
+    pass
