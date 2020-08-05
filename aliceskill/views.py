@@ -35,6 +35,6 @@ def main(request):
 }))
 
 
-def handle_dialog(body, response)
+def handle_dialog(body, response):
     
     pass
