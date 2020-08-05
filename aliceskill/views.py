@@ -40,7 +40,7 @@ def handle_dialog(body, response):
     tokens = request["nlu"]["tokens"]
     entites = request["nlu"]["entites"]
     group_values = ""
-    for command.lower() in commands:
+    for command in commands:
         if command.lower() in tokens:
             print("Command ", command.lower())
             command = command.lower()
