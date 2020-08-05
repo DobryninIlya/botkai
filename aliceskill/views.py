@@ -48,6 +48,8 @@ def handle_dialog(body, request, response):
                         day = entity["value"]["day"]
 
                 print(group_values)
+            if not group_values:
+                response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
             response["response"]["text"] = command + " " + group_values + " день " + str(day)
             return
         else:
