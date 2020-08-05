@@ -14,17 +14,18 @@ logging.basicConfig(level=logging.DEBUG)
 @csrf_exempt
 def main(request):
 # Функция получает тело запроса и возвращает ответ.
-    logging.info('Request: %r', request.json)
+    body = json.loads(request.body)
+    logging.info('Request: %r', body)
 
     response = {
-        "version": request.json['version'],
-        "session": request.json['session'],
+        "version": body['version'],
+        "session": body['session'],
         "response": {
             "end_session": False
         }
     }
 
-    handle_dialog(request.json, response)
+    handle_dialog(body, response)
 
     logging.info('Response: %r', response)
 
