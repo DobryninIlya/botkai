@@ -6,7 +6,8 @@ import logging
 from django.views.decorators.csrf import csrf_exempt
 from pprint import pprint
 import os
-
+import psycopg2
+import sqlite
 
 import random
 import datetime
