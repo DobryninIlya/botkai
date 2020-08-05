@@ -31,7 +31,7 @@ def main(request):
 
 
 def handle_dialog(body, request):
-    request = body["meta"]["request"]
+    request = body["request"]
     tokens = request["nlu"]["tokens"]
     entites = request["nlu"]["entites"]
     group_values = ""
