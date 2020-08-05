@@ -41,8 +41,13 @@ def handle_dialog(body, request, response):
             command = command.lower()
             if command == 'расписание':
                 for entity in entities:
-                    if entity["type"] == "YANDEX.NUMBER":
+                    if entity["type"] == "YANDEX.NUMBER" and len(group_values) <= 4:
                         group_values += str(entity["value"])
+                    elif entity["type"] == "YANDEX.DATETIME":
+                        day = entity["value"]["day"]
+
                 print(group_values)
-            response["response"]["text"] = command + " " + group_values
+            response["response"]["text"] = command + " " + group_values + " день " + day
             return
+        else:
+            response["response"]["text"] = "Я не распознал твою команду. Повтори, пожалуйста, что ты хочешь получить и номер группы."
