@@ -100,7 +100,7 @@ def showTimetable(groupId, tomorrow=0):
         isNormal, response = getResponse(groupId)
         if not isNormal:
             return response
-        chetn = UserParams.getChetn()
+        
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
 
