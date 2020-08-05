@@ -33,10 +33,10 @@ def main(request):
             "title": "Надпись на кнопке",
             "payload": {},
             "url": "https://example.com/",
-            "hide": False
+            "hide": true
         }
     ],
-    "end_session": False
+    "end_session": false
   },
   "version": "1.0"
 }))
