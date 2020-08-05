@@ -28,7 +28,7 @@ def main(request):
   "response": {
     "text": "Здравствуйте! Это мы, хороводоведы.",
     "tts": "Здравствуйте! Это мы, хоров+одо в+еды.",
-    ],
+    
     "end_session": False
   },
   "version": "1.0"
