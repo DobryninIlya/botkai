@@ -25,12 +25,12 @@ def main(request):
         }
     }
 
-    handle_dialog(body,request)
+    handle_dialog(body,request, response)
 
     return HttpResponse( json.dumps( response))
 
 
-def handle_dialog(body, request):
+def handle_dialog(body, request, response):
     request = body["request"]
     tokens = request["nlu"]["tokens"]
     entities = request["nlu"]["entities"]
@@ -45,3 +45,4 @@ def handle_dialog(body, request):
                         group_values += str(entity["value"])
                 print(group_values)
             response["response"]["text"] = command + " " + group_values
+            return
