@@ -35,6 +35,7 @@ def handle_dialog(body, request, response):
     tokens = request["nlu"]["tokens"]
     entities = request["nlu"]["entities"]
     group_values = ""
+    day = ""
     for command in commands:
         if command.lower() in tokens:
             print("Command ", command.lower())
