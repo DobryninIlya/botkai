@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from django.http import HttpResponse
 # Импортируем модули для работы с JSON и логами.
 import json
 import logging
@@ -24,7 +24,7 @@ def main(request):
             "end_session": False
         }
     }
-    return {
+    return HttpResponse( {
   "response": {
     "text": "Здравствуйте! Это мы, хороводоведы.",
     "tts": "Здравствуйте! Это мы, хоров+одо в+еды.",
@@ -39,4 +39,4 @@ def main(request):
     "end_session": False
   },
   "version": "1.0"
-}
+})
