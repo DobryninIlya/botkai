@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pprint import pprint
 import os
 import psycopg2
-import sqlite
+import sqlite3
 
 import random
 import datetime
