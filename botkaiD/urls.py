@@ -21,5 +21,6 @@ from botkai.views import index, web_yandex
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('botkai/', include("botkai.urls")),
-    path('yandex_f66897e4739fe69c.html', web_yandex)
+    path('yandex_f66897e4739fe69c.html', web_yandex),
+    path('assistent/', include("alice.urls")),
 ]
