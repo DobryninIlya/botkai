@@ -4,10 +4,10 @@ from django.http import HttpResponse
 import json
 import logging
 from django.views.decorators.csrf import csrf_exempt
-
+from pprint import pprint
 
 sessionStorage = {}
-
+commands = ['расписание']
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG)
 def main(request):
 # Функция получает тело запроса и возвращает ответ.
     body = json.loads(request.body)
-    logging.info('Request: %r', body)
+    pprint(body)
 
     response = {
         "version": body['version'],
@@ -33,3 +33,8 @@ def main(request):
   },
   "version": "1.0"
 }))
+
+
+def handle_dialog(body, response)
+    
+    if 
