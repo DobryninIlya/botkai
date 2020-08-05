@@ -33,14 +33,14 @@ def main(request):
 def handle_dialog(body, request):
     request = body["request"]
     tokens = request["nlu"]["tokens"]
-    entites = request["nlu"]["entites"]
+    entities = request["nlu"]["entities"]
     group_values = ""
     for command in commands:
         if command.lower() in tokens:
             print("Command ", command.lower())
             command = command.lower()
             if command == 'расписание':
-                for entity in entites:
+                for entity in entities:
                     if entity["type"] == "YANDEX.NUMBER":
                         group_values += entity["value"]
                 pritn(group_values)
