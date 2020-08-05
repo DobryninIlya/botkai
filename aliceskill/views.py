@@ -19,7 +19,6 @@ import traceback
 sessionStorage = {}
 commands = ['расписание']
 
-logging.basicConfig(level=logging.DEBUG)
 
 
 class connections:
@@ -102,6 +101,7 @@ def info(group, day):
 def showTimetable(groupId, tomorrow=0):
     try:
         isNormal, response = getResponse(groupId)
+        print(response)
         if not isNormal:
             print("NOOOOOOOOOOOO")
             return response
