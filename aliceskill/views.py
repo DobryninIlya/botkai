@@ -12,7 +12,7 @@ sessionStorage = {}
 logging.basicConfig(level=logging.DEBUG)
 
 @csrf_exempt
-def main(response):
+def main(request):
 # Функция получает тело запроса и возвращает ответ.
     logging.info('Request: %r', request.json)
 
