@@ -77,7 +77,7 @@ def handle_dialog(body, request, response):
             if not group_values:
                 response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
             #response["response"]["text"] = command + " " + group_values + " день " + str(day)
-            response["response"]["text"] = info(int(group_values), )
+            response["response"]["text"] = info(int(group_values), day)
 
             return
         else:
