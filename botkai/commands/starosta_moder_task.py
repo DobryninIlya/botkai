@@ -34,7 +34,7 @@ def info():
             next_task_id = int(row[0])
 
         
-    vk.method("messages.send", {"peer_id": UserID, "message": task , "keyboard": GetModerTaskStarosta(id = (int)(row[0]), next_id = next_task_id, pos_id = 1, prev_id = 0), "attachment" : att, "random_id": random.randint(1, 2147483647)})
+    vk.method("messages.send", {"peer_id": UserID, "message": task , "keyboard": GetModerTaskStarosta(id = (int)(row[0]), next_id = next_task_id, pos_id = 0, prev_id = 0), "attachment" : att, "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
