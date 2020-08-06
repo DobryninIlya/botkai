@@ -30,7 +30,7 @@ def info():
 
     
     vk.method("messages.edit", {
-        "peer_id": UserParams.getId(),
+        "peer_id": MessageSettings.getId(),
         "message": "Задание было удалено..." , 
         "conversation_message_id" : MessageSettings.conversation_message_id,
         "random_id": random.randint(1, 2147483647)})
