@@ -366,7 +366,7 @@ def KeyboardProfile():
 
     keyboard =  {
     "one_time": False,
-    "buttons": main_buttons
+    "buttons": main_buttons + buttons_starosta
     }
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
