@@ -49,3 +49,4 @@ command.keys = []
 command.desciption = 'удаление по id'
 command.process = info
 command.payload = "deletetask_starosta"
+command.admlevel = 2

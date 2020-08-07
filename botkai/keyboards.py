@@ -312,7 +312,7 @@ def getMainKeyboard(role):
                 ],
             [
                 get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
-                get_button(label="Профиль", color="positive", payload = "{'button': 'profile'}", type = "text")
+                get_button(label="Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
                 ]
 
 
@@ -361,7 +361,7 @@ def KeyboardProfile():
     if UserParams.adminLevel >=2:
         buttons_starosta = [
             [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
-            [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv'})]
+            [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})]
         ]
 
     keyboard =  {
@@ -371,6 +371,32 @@ def KeyboardProfile():
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
+
+
+def GetButtonDeleteByDate():
+    today = datetime.date.today()
+    today_date = today.strftime("%d.%m")
+    today += datetime.timedelta(days=1)
+    tomorrow_date = today.strftime("%d.%m")
+    today += datetime.timedelta(days=1)
+    tomorrow_date = today.strftime("%d.%m")
+    keyboard = {
+        "inline": True,
+        "buttons": [
+            [
+                get_button(label=today_date, color="negative"}),
+                get_button(label=tomorrow_date, color="negative"})
+                get_button(label=after_date, color="negative"})
+                ],
+            [get_button(label="Выход", color="negative"})]
+            ]
+            
+    }
+    keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+    keyboard = str(keyboard.decode('utf-8'))
+    return keyboard
+
+
 
 
 coronavirus = {
@@ -533,6 +559,9 @@ exit = {
 }
 exit = json.dumps(exit, ensure_ascii=False).encode('utf-8')
 exit = str(exit.decode('utf-8'))
+
+
+
 
 AModerationTask = {
     "one_time": False,
