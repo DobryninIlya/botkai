@@ -361,7 +361,8 @@ def KeyboardProfile():
     if UserParams.adminLevel >=2:
         buttons_starosta = [
             [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
-            [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})]
+            [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})],
+            [get_button(label="Принудительное обновление расписания", color="default", payload = {'button': 'starosta_shed_update_info'})],
         ]
 
     keyboard =  {
@@ -384,9 +385,9 @@ def GetButtonDeleteByDate():
         "one_time": False,
         "buttons": [
             [
-                get_button(label=today_date, color="negative"),
-                get_button(label=tomorrow_date, color="negative"),
-                get_button(label=after_date, color="negative")
+                get_button(label=today_date, color="default"),
+                get_button(label=tomorrow_date, color="default"),
+                get_button(label=after_date, color="default")
                 ],
             [get_button(label="Выход", color="negative")]
             ]
@@ -396,7 +397,15 @@ def GetButtonDeleteByDate():
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
 
+shed_update = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Обновить расписание в бд", color="primary", payload={'button': 'shed_update'})]
+    ]
 
+}
+shed_update = json.dumps(shed_update, ensure_ascii=False).encode('utf-8')
+shed_update = str(shed_update.decode('utf-8'))
 
 
 coronavirus = {
