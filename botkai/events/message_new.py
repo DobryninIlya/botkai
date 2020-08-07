@@ -798,7 +798,7 @@ def CheckStatus():
 
 
 
-                sql = 'DELETE FROM "Adv" WHERE date = '{}' AND groupid = {}'.format(date, UserParams.groupId)
+                sql = 'DELETE FROM "Adv" WHERE date = "{}"" AND groupid = {}'.format(date, UserParams.groupId)
                 pprint(sql)
                 cursorR.execute(sql)
                 conn.commit()
