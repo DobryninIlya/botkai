@@ -13,6 +13,13 @@
         <title>Мини-приложение</title>
     </head>
     <body>
+        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+ 
+        <script>
+        // Sends event to client
+        vkBridge.send('VKWebAppInit');
+        document.write(bridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
+        </script> 
         <h1>КАИ НЕ ПУП ЗЕМЛИ</h1>
 
         <div>
