@@ -384,11 +384,11 @@ def GetButtonDeleteByDate():
         "inline": True,
         "buttons": [
             [
-                get_button(label=today_date, color="negative"}),
-                get_button(label=tomorrow_date, color="negative"})
-                get_button(label=after_date, color="negative"})
+                get_button(label=today_date, color="negative"),
+                get_button(label=tomorrow_date, color="negative")
+                get_button(label=after_date, color="negative")
                 ],
-            [get_button(label="Выход", color="negative"})]
+            [get_button(label="Выход", color="negative")]
             ]
             
     }
