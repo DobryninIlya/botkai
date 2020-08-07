@@ -8,7 +8,8 @@ def info():
 
     
     try:
-        sql = "INSERT INTO Status VALUES (" + str(id) + ", 57);"
+        sql = "INSERT INTO Status VALUES (" + str(MessageSettings.id) + ", 57);"
+        print(sql)
         cursorR.execute(sql)
         conn.commit()
         vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Введите дату объявления, которое нужно удалить" , "keyboard": GetButtonDeleteByDate(), "random_id": random.randint(1, 2147483647)})  
@@ -16,7 +17,7 @@ def info():
         print('Ошибка:\n', traceback.format_exc())
         conn.rollback()
         vk.method("messages.send",
-            {"peer_id": id, "message": "Произошла ошибка. Повторите позже", "random_id": random.randint(1, 2147483647)})
+            {"peer_id": MessageSettings.id, "message": "Произошла ошибка. Повторите позже", "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
