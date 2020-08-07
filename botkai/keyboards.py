@@ -357,8 +357,12 @@ def KeyboardProfile():
 
 
         ]
+    buttons_starosta = []
     if UserParams.adminLevel >=2:
-        pass
+        buttons_starosta = [
+            [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
+            [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv'})]
+        ]
 
     keyboard =  {
     "one_time": False,
