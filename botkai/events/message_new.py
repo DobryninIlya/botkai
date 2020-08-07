@@ -800,8 +800,8 @@ def CheckStatus():
 
                 sql = 'DELETE FROM "Adv" WHERE date = "{}" AND groupid = {}'.format(date, UserParams.groupId)
                 pprint(sql)
-                cursorR.execute(sql)
-                conn.commit()
+                cursor.execute(sql)
+                connection.commit()
                 vk.method("messages.send", {"peer_id": id, "message": "Объявления на указанную дату удалены.", "keyboard": keyboards.KeyboardProfile(),
                                                 "random_id": random.randint(1, 2147483647)})
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
