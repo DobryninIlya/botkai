@@ -343,11 +343,7 @@ def KeyboardProfile():
     sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(MessageSettings.getId())
     cursor.execute(sql)
     TaskCount = cursor.fetchone()[0]
-    
-    keyboard =  {
-    "one_time": False,
-    "buttons": [
-        [get_button(label="Имя: " + Name[:30], color="positive", payload = {'button': 'name'})],
+    main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload = {'button': 'name'})],
 
         [get_button(label="Группа: " + str(Group), color=GroupColor, payload = {'button': 'group'})],
         [get_button(label="Баланс: " + str(Balance), color="positive", payload = {'button': 'donate'})],
@@ -360,7 +356,13 @@ def KeyboardProfile():
         [get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})]
 
 
-        ]
+        ]]
+    if UserParams.adminLevel >=2:
+
+
+    keyboard =  {
+    "one_time": False,
+    "buttons": main_buttons
     }
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
