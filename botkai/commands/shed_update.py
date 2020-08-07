@@ -4,6 +4,8 @@ from ..keyboards import KeyboardProfile
 from ..classes import vk, MessageSettings, connection, cursor, UserParams
 import traceback
 import datetime
+import json
+import requests
 
 BASE_URL = 'https://kai.ru/raspisanie' 
 
