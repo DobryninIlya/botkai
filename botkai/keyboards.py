@@ -379,7 +379,7 @@ def GetButtonDeleteByDate():
     today += datetime.timedelta(days=1)
     tomorrow_date = today.strftime("%d.%m")
     today += datetime.timedelta(days=1)
-    tomorrow_date = today.strftime("%d.%m")
+    after_date = today.strftime("%d.%m")
     keyboard = {
         "inline": True,
         "buttons": [
