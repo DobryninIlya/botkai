@@ -381,7 +381,7 @@ def GetButtonDeleteByDate():
     today += datetime.timedelta(days=1)
     after_date = today.strftime("%d.%m")
     keyboard = {
-        "inline": True,
+        "one_time": False,
         "buttons": [
             [
                 get_button(label=today_date, color="negative"),

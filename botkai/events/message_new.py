@@ -748,21 +748,64 @@ def CheckStatus():
                 #pass
                 print('Ошибка:\n', traceback.format_exc())
             return "ok"
-        elif status == 58:
-            id = MessageSettings.getId()
-            body = MessageSettings.getText()
-            try:
+        elif status == 57:
             
-                vk.method("messages.send",
-                    {"peer_id": 159773942, "message": "from @id" + str(id) + "\n" + body , "keyboard": keyboards.GetButtonAnswer(id), "attachment": MessageSettings.GetAttachments(), "random_id": random.randint(1, 2147483647)})
-                vk.method("messages.send",
-                    {"peer_id": id, "message": "Вопрос отправлен админу." , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
-                cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
-                conn.commit()
+            date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
+            try:
+                try:
+                    #print(body[:2])
+                    print(body[:2], body[3])
+                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2])<32 and (int)(body[3:])<13):
+                        date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
+                               
+                    else:
+                        pass
+                        #vk.method("messages.send", {"peer_id": id, "message": "Формат неверный!", 
+                        #                "random_id": random.randint(1, 2147483647)})
+                        return "ok"
+                        #print(111)
+                            
+                except Exception as E:
+                    return "ok"
 
+                       
+            
             except Exception as E:
-                pass
-                #print('Ошибка:\n', traceback.format_exc())
+                vk.method("messages.send", {"peer_id": id, "message": "Формат некорректный. Верный формат - 'дд.мм' ", 
+                                    "random_id": random.randint(1, 2147483647)})
+            finally:
+                
+                if date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)) and body != "Через неделю" and body != "Через 2 недели":
+                    vk.method("messages.send", {"peer_id": id, "message": "Формат неверный, повторите ввод",
+                                    "random_id": random.randint(1, 2147483647)})
+                    return "ok"
+                        
+                if body == "Через неделю":
+                    date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=7))
+                elif body == "Через 2 недели":
+                    date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=14))
+                        
+                else:
+                    try:
+                        if date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)):
+                            vk.method("messages.send", {"peer_id": id, "message": "Формат неверный, повторите ввод",
+                                                        "random_id": random.randint(1, 2147483647)})
+                            return "ok"
+                    except Exception as E:
+                        pass
+
+
+
+
+
+                sql = "DELETE FROM 'Adv' WHERE date = '{}' AND groupid = {}".format(date, UserParams.groupId)
+                pprint(sql)
+                cursorR.execute(sql)
+                conn.commit()
+                vk.method("messages.send", {"peer_id": id, "message": "УДаления на указанную дату удалены.", "keyboard": keyboards.KeyboardProfile(),
+                                                "random_id": random.randint(1, 2147483647)})
+                return "ok"
+            
             return "ok"
         elif status == 59:
             id = MessageSettings.getId()
