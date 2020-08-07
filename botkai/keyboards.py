@@ -353,10 +353,21 @@ def KeyboardProfile():
             get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
             get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
             ],
+        [get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})],
         [get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})]
 
 
         ]
+
+    keyboard =  {
+    "one_time": False,
+    "buttons": main_buttons
+    }
+    keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+    keyboard = str(keyboard.decode('utf-8'))
+    return keyboard
+
+def GetStarostaKeyboard():
     buttons_starosta = []
     if UserParams.adminLevel >=2:
         buttons_starosta = [
@@ -367,12 +378,11 @@ def KeyboardProfile():
 
     keyboard =  {
     "one_time": False,
-    "buttons": main_buttons + buttons_starosta
+    "buttons": buttons_starosta
     }
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
-
 
 def GetButtonDeleteByDate():
     today = datetime.date.today()
