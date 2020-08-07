@@ -749,7 +749,7 @@ def CheckStatus():
                 print('Ошибка:\n', traceback.format_exc())
             return "ok"
         elif status == 57:
-            
+            id = MessageSettings.getId()
             date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
             try:
                 try:
@@ -802,8 +802,10 @@ def CheckStatus():
                 pprint(sql)
                 cursorR.execute(sql)
                 conn.commit()
-                vk.method("messages.send", {"peer_id": id, "message": "УДаления на указанную дату удалены.", "keyboard": keyboards.KeyboardProfile(),
+                vk.method("messages.send", {"peer_id": id, "message": "Объявления на указанную дату удалены.", "keyboard": keyboards.KeyboardProfile(),
                                                 "random_id": random.randint(1, 2147483647)})
+                cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
+                conn.commit()
                 return "ok"
             
             return "ok"

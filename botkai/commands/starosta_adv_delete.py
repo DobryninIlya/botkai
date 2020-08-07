@@ -2,7 +2,7 @@ from .. import classes as command_class
 import random
 from ..keyboards import GetButtonDeleteByDate
 from ..classes import vk, MessageSettings, conn, cursorR
-
+import traceback
 
 def info():
 
