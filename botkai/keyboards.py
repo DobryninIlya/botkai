@@ -354,7 +354,7 @@ def KeyboardProfile():
             get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
             ],
         ]
-    sql = "SELECT COUNT(*) FROM users WHERE gruopp = {} AND admLevel = 2".format(UserParams.groupId)
+    sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
     cursor.execute(sql)
     starosta_count = cursor.fetchone()[0]
     print(starosta_count)
