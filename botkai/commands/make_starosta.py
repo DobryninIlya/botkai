@@ -12,7 +12,7 @@ def info():
     cursor.execute(sql)
     starosta_count = cursor.fetchone()[0]
     if starosta_count < 1:
-        sql = "UPDATE users SET admLevel = 2 WHERE id_vk = ".format(MessageSettings.getId())
+        sql = "UPDATE users SET admLevel = 2 WHERE id_vk = {}".format(MessageSettings.getId())
         cursor.execute(sql)
         connection.commit()
         vk.method("messages.send", {"peer_id": MessageSettings.getId(), "message": "✅ Поздравляю! Теперь ты староста!" ,"keyboard": GetStarostaKeyboard(),  "random_id": random.randint(1, 2147483647)})
