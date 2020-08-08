@@ -358,7 +358,7 @@ def KeyboardProfile():
     cursor.execute(sql)
     starosta_count = cursor.fetchone()[0]
     print(starosta_count)
-    if int(starosta_count) == 0
+    if int(starosta_count) == 0:
         main_buttons.append([get_button(label="Староста не назначен", color="positive", payload = {'button': 'get_starosta'})])
     if UserParams.adminLevel >= 2:
         main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
