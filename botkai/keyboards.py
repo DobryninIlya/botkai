@@ -374,6 +374,7 @@ def GetStarostaKeyboard():
             [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
             [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})],
             [get_button(label="Принудительное обновление расписания", color="default", payload = {'button': 'starosta_shed_update_info'})],
+            [get_button(label="Назад", color="primary", payload = {'button': 'profile'})],
         ]
 
     keyboard =  {
