@@ -12,7 +12,7 @@ def info():
         print(sql)
         cursorR.execute(sql)
         conn.commit()
-        vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Введите дату объявления, которое нужно удалить" , "keyboard": GetButtonDeleteByDate(), "random_id": random.randint(1, 2147483647)})  
+        vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Введите дату объявления, которое нужно удалить в формате дд.мм .Например, 15.08. Важно ввести именно в таком формате." , "keyboard": GetButtonDeleteByDate(), "random_id": random.randint(1, 2147483647)})  
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
         conn.rollback()
