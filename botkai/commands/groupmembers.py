@@ -19,9 +19,11 @@ def info():
             admin = "\n"
             print(elem[4], elem[1])
             if (int)(elem[4]) > 90:
-                admin = " (Разработчик)\n"
+                admin = " (🐱Разработчик)\n"
             elif (int)(elem[4]) > 4:
-                admin = " (Администратор)\n"
+                admin = " (🦧 Администратор)\n"
+            elif (int)(elem[4]) == 2:
+                admin = " (🙋 Староста)\n"
             members += str(i) + ". " + "@id" + str(elem[0]) + " (" + (str(elem[1])).rstrip() + ")" + str(admin)
             i+=1
     vk.method("messages.send", {"peer_id": id, "message": members , "random_id": random.randint(1, 2147483647)})
