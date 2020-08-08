@@ -357,7 +357,6 @@ def KeyboardProfile():
     sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
     cursor.execute(sql)
     starosta_count = cursor.fetchone()[0]
-    print(starosta_count)
     if int(starosta_count) == 0:
         main_buttons.append([get_button(label="Староста не назначен. Стать им", color="positive", payload = {'button': 'get_starosta'})])
     if UserParams.adminLevel >= 2:
@@ -425,7 +424,7 @@ shed_update = str(shed_update.decode('utf-8'))
 make_starosta = {
     "inline": True,
     "buttons": [
-        [get_button(label="Стать старостой", color="primary", payload={'button': 'shed_update'})]
+        [get_button(label="Стать старостой", color="primary", payload={'button': 'make_starosta'})]
     ]
 
 }
