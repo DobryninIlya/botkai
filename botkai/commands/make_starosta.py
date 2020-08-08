@@ -1,5 +1,5 @@
 from .. import classes as command_class
-from ..keyboards import GetStarostaKeyboard
+from ..keyboards import GetStarostaKeyboard, getMainKeyboard
 from ..classes import vk, MessageSettings, UserParams, cursor, connection
 import random
 import traceback

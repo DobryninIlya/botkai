@@ -13,11 +13,10 @@ def info():
     result = cursor.fetchall()
     members = "Список группы: \n"
     i = 1
-    print(len(result))
+
     for elem in result:
         if elem[0] < 2000000000:
             admin = "\n"
-            print(elem[4], elem[1])
             if (int)(elem[4]) > 90:
                 admin = " (🐱Разработчик)\n"
             elif (int)(elem[4]) > 4:
