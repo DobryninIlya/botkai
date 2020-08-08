@@ -359,7 +359,7 @@ def KeyboardProfile():
     starosta_count = cursor.fetchone()[0]
     print(starosta_count)
     if int(starosta_count) == 0:
-        main_buttons.append([get_button(label="Староста не назначен", color="positive", payload = {'button': 'get_starosta'})])
+        main_buttons.append([get_button(label="Староста не назначен. Стать им", color="positive", payload = {'button': 'get_starosta'})])
     if UserParams.adminLevel >= 2:
         main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
     main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
@@ -422,6 +422,15 @@ shed_update = {
 shed_update = json.dumps(shed_update, ensure_ascii=False).encode('utf-8')
 shed_update = str(shed_update.decode('utf-8'))
 
+make_starosta = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Стать старостой", color="primary", payload={'button': 'shed_update'})]
+    ]
+
+}
+make_starosta = json.dumps(make_starosta, ensure_ascii=False).encode('utf-8')
+make_starosta = str(make_starosta.decode('utf-8'))
 
 coronavirus = {
     "inline": True,
