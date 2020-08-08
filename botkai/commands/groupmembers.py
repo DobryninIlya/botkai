@@ -21,7 +21,7 @@ def info():
             if (int)(elem[4]) > 90:
                 admin = " (🐱Разработчик)\n"
             elif (int)(elem[4]) > 4:
-                admin = " (🦧 Администратор)\n"
+                admin = " (🤡 Администратор)\n"
             elif (int)(elem[4]) == 2:
                 admin = " (🙋 Староста)\n"
             members += str(i) + ". " + "@id" + str(elem[0]) + " (" + (str(elem[1])).rstrip() + ")" + str(admin)
