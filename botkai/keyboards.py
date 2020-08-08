@@ -370,9 +370,9 @@ def KeyboardProfile():
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
 
-def GetStarostaKeyboard():
+def GetStarostaKeyboard(first = 0):
     buttons_starosta = []
-    if UserParams.adminLevel >=2:
+    if UserParams.adminLevel >=2 or first:
         buttons_starosta = [
             [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
             [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})],
