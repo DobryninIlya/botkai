@@ -18,8 +18,8 @@ def info():
         vk.method("messages.send", {"peer_id": MessageSettings.getId(), "message": "✅ Поздравляю! Теперь ты староста!" ,"keyboard": GetStarostaKeyboard(),  "random_id": random.randint(1, 2147483647)})
     else:
         vk.method("messages.send", {"peer_id": MessageSettings.getId(), "message": """❌ Ошибка. В группе уже назначен староста. 
-        Если ты настоящий староста и претендуешь на это место, напиши администратору по кнопке Обратной связи в главном меню. Будь готов предоставить доказательства"""
-         ,"keyboard": getMainKeyboard(),  "random_id": random.randint(1, 2147483647)})
+        Если ты настоящий староста и претендуешь на это место, напиши администратору по кнопке Обратной связи в главном меню. Будь готов предоставить доказательства""",
+        "keyboard": getMainKeyboard(),  "random_id": random.randint(1, 2147483647)})
     return "ok"
 
 command = command_class.Command()

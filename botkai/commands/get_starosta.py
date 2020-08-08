@@ -12,7 +12,7 @@ def info():
     В группе может быть только один староста и в случае чего, есть возможность уйти с поста старосты без проблем.
     Не стоит баловаться этими возможностями, ведь вас может заблокировать администратор. 🙅‍♂️
     """
-    vk.method("messages.send", {"peer_id": MessageSettings.getId(), "message": msg ,"keyboard": make_starosta  "random_id": random.randint(1, 2147483647)})
+    vk.method("messages.send", {"peer_id": MessageSettings.getId(), "message": msg ,"keyboard": make_starosta, "random_id": random.randint(1, 2147483647)})
     return "ok"
 
 command = command_class.Command()
