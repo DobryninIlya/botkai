@@ -1,5 +1,5 @@
 from .. import classes as command_class
-from ..keyboards import KeyboardProfile()
+from ..keyboards import KeyboardProfile
 from ..classes import vk, MessageSettings, UserParams, cursor, connection
 import random
 import traceback
