@@ -353,12 +353,16 @@ def KeyboardProfile():
             get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
             get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
             ],
-        [get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})],
-        [get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})]
-
-
         ]
-
+    sql = "SELECT COUNT(*) FROM users WHERE groupId = {} AND admLevel = 2".format(UserParams.groupId)
+    cursor.execute(sql)
+    starosta_count = cursor.fetchone()[0]
+    print(starosta_count)
+    if int(starosta_count) == 0
+        main_buttons.append([get_button(label="Староста не назначен", color="positive", payload = {'button': 'get_starosta'})])
+    if UserParams.adminLevel >= 2:
+        main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
+    main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
     keyboard =  {
     "one_time": False,
     "buttons": main_buttons
