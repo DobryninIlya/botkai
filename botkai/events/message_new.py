@@ -483,7 +483,7 @@ def CheckStatus():
             if domain[1] == "vk.com/":
                 domain_id = domain[2]
             elif not domain[1] and not domain[2] and domain[0]:
-                domain_id = domain_id
+                domain_id = domain[0]
             else:
                 domain_id = False
                 vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
