@@ -480,8 +480,55 @@ def CheckStatus():
             
             domain  = body.partition("vk.com/")
             print(domain)
-            # vk.method("messages.send", {"peer_id": id, "message": "Задание успешно добавлено на " + date, "keyboard": keyboards.getMainKeyboard(UserParams.role),
-                                                # "random_id": random.randint(1, 2147483647)})
+            if domain[1] == "vk.com/":
+                domain_id = domain[2]
+            elif not domain[1] and not domain[2] and domain[0]:
+                domain_id = domain_id
+            else:
+                domain_id = False
+                vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
+                                                    "random_id": random.randint(1, 2147483647)})
+            resp = vk.method("users.get", {"user_ids": str(domain_id)})
+            id_student = 0
+            try:
+                id_student = resp["response"][id]
+            except KeyError:
+                vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Такого человека нет.",
+                                                    "random_id": random.randint(1, 2147483647)})
+            sql = "SELECT * FROM users WHERE id_vk = {}".format(id_student)
+            cursor.execute(sql)
+            res = cursor.fetchone()
+            print(res)
+            if res:
+                student_groupId = int(res[2])
+                student_warn_count = int(res[9])
+            else:
+                vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не зарегистрирован.",
+                                                    "random_id": random.randint(1, 2147483647)})
+                return "ok"
+            if UserParams.adminLevel >= 2:
+                if UserParams.groupId != student_groupId:
+                    vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
+                                                    "random_id": random.randint(1, 2147483647)})
+                    return "ok"
+                if student_warn_count >= 2:
+                    sql = "UPDATE users SET warn = {}, expiration = '{}', role = 5 WHERE ID_VK = {}".fomat(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
+                    cursor.execute(sql)
+                    connection.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был заблокирован на 2 месяца".format(student_id),
+                                    "random_id": random.randint(1, 2147483647)})
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вы были заблокированы на 2 месяца за нарушение правил.",
+                                    "random_id": random.randint(1, 2147483647)})
+                else:
+                    sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".fomat(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
+                    cursor.execute(sql)
+                    connection.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) получил предупреждение".format(student_id),
+                                    "random_id": random.randint(1, 2147483647)})
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.",
+                                    "random_id": random.randint(1, 2147483647)})     
+            
+
             return "ok"
 
         elif status == 50:
