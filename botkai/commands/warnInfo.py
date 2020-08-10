@@ -31,3 +31,4 @@ command.keys = ['инфа предупреждения']
 command.desciption = ''
 command.process = info
 command.payload = "warnInfo"
+command.role = [1,2,3,4,5]

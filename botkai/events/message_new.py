@@ -529,7 +529,8 @@ def CheckStatus():
                     vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.", "keyboard": keyboards.warnList,
                                     "random_id": random.randint(1, 2147483647)})     
             
-
+            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            conn.commit()
             return "ok"
 
         elif status == 50:

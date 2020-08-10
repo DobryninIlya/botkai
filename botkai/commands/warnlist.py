@@ -37,3 +37,4 @@ command.keys = ['предупреждения']
 command.desciption = ''
 command.process = info
 command.payload = "warnlist"
+command.role = [1,2,3,4,5]
