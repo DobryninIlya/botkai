@@ -476,6 +476,13 @@ def CheckStatus():
                 print('Ошибка:\n', traceback.format_exc())
             return "ok"
         
+        elif status == 49:
+            
+            domain  = body.partition("vk.com/")
+            print(domain)
+            # vk.method("messages.send", {"peer_id": id, "message": "Задание успешно добавлено на " + date, "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                                                "random_id": random.randint(1, 2147483647)})
+            return "ok"
 
         elif status == 50:
             date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
