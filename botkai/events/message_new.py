@@ -516,7 +516,7 @@ def CheckStatus():
                     sql = "UPDATE users SET warn = {}, expiration = '{}', role = 5 WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
                     cursor.execute(sql)
                     connection.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был заблокирован на 2 месяца".format(student_id),
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был заблокирован на 2 месяца".format(id_student),
                                     "random_id": random.randint(1, 2147483647)})
                     vk.method("messages.send", {"peer_id": id_student, "message": "Вы были заблокированы на 2 месяца за нарушение правил.","keyboard": keyboards.warnList,
                                     "random_id": random.randint(1, 2147483647)})
@@ -524,7 +524,7 @@ def CheckStatus():
                     sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
                     cursor.execute(sql)
                     connection.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) получил предупреждение".format(student_id),
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) получил предупреждение".format(id_student),
                                     "random_id": random.randint(1, 2147483647)})
                     vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.", "keyboard": keyboards.warnList,
                                     "random_id": random.randint(1, 2147483647)})     
