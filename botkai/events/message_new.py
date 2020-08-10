@@ -476,6 +476,62 @@ def CheckStatus():
                 print('Ошибка:\n', traceback.format_exc())
             return "ok"
         
+        elif status == 48:
+            
+            domain  = body.partition("vk.com/")
+            print(domain)
+            if domain[1] == "vk.com/":
+                domain_id = domain[2]
+            elif not domain[1] and not domain[2] and domain[0]:
+                domain_id = domain[0]
+            else:
+                domain_id = False
+                vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
+                                                    "random_id": random.randint(1, 2147483647)})
+            resp = vk.method("users.get", {"user_ids": str(domain_id)})
+            print(resp)
+            id_student = 0
+            try:
+                id_student = resp[0]["id"]
+            except KeyError:
+                vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Такого человека нет.",
+                                                    "random_id": random.randint(1, 2147483647)})
+            sql = "SELECT * FROM users WHERE id_vk = {}".format(id_student)
+            cursor.execute(sql)
+            res = cursor.fetchone()
+            print(res)
+            if res:
+                student_groupId = int(res[2])
+                student_warn_count = int(res[9])
+            else:
+                vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не зарегистрирован.",
+                                                    "random_id": random.randint(1, 2147483647)})
+                return "ok"
+            if UserParams.adminLevel >= 2:
+                if UserParams.groupId != student_groupId:
+                    vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
+                                                    "random_id": random.randint(1, 2147483647)})
+                    return "ok"
+                if student_warn_count >= 2:
+                    sql = "UPDATE users SET warn = {}, expiration = '{}', role = 5 WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
+                    cursor.execute(sql)
+                    connection.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был заблокирован на 2 месяца".format(id_student),
+                                    "random_id": random.randint(1, 2147483647)})
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вы были заблокированы на 2 месяца за нарушение правил.","keyboard": keyboards.warnList,
+                                    "random_id": random.randint(1, 2147483647)})
+                else:
+                    sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
+                    cursor.execute(sql)
+                    connection.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) получил предупреждение".format(id_student),
+                                    "random_id": random.randint(1, 2147483647)})
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.", "keyboard": keyboards.warnList,
+                                    "random_id": random.randint(1, 2147483647)})     
+            
+            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            conn.commit()
+            return "ok"
         elif status == 49:
             
             domain  = body.partition("vk.com/")
@@ -784,7 +840,9 @@ def CheckStatus():
                 
                 if (int)(body) > 1000 and (int)(body) < 10000 and group:
                     group = str(group)
-                    sql = "UPDATE Users SET Groupp='" + group + "', groupreal = " + str(realgroup) + ", " + '"' + "dateChange" + '"' + " = '" + date + "' WHERE ID_VK=" + str(id) + ';'
+                    admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else UserParams.adminLevel
+                    print("Adm level", admlevel) 
+                    sql = "UPDATE users SET groupp = {group}, groupreal = {groupreal}, dateChange = '{datechange}', admlevel = {adm} WHERE ID_VK = {idvk}".format(group, str(realgroup), date, admlevel, id)
                     cursor.execute(sql)
                     cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
                     conn.commit()
