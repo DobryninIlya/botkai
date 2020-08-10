@@ -492,7 +492,7 @@ def CheckStatus():
             print(resp)
             id_student = 0
             try:
-                id_student = resp["response"]["id"]
+                id_student = resp[0]["id"]
             except KeyError:
                 vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Такого человека нет.",
                                                     "random_id": random.randint(1, 2147483647)})
