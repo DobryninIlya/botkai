@@ -489,6 +489,7 @@ def CheckStatus():
                 vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
                                                     "random_id": random.randint(1, 2147483647)})
             resp = vk.method("users.get", {"user_ids": str(domain_id)})
+            print(resp)
             id_student = 0
             try:
                 id_student = resp["response"]["id"]
