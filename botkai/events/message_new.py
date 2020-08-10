@@ -840,7 +840,7 @@ def CheckStatus():
                 
                 if (int)(body) > 1000 and (int)(body) < 10000 and group:
                     group = str(group)
-                    admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else UserParams.adminLevel
+                    admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else 0
                     print("Adm level", admlevel) 
                     sql = "UPDATE users SET groupp = {}, groupreal = {}, \"dateChange\" = '{}', admlevel = {} WHERE ID_VK = {}".format(group, str(realgroup), date, admlevel, id)
                     cursor.execute(sql)
