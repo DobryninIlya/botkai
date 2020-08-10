@@ -10,6 +10,7 @@ import requests
 import traceback
 import os, importlib
 import sys
+import apiai
 from pprint import pprint
 
 cursor = classes.cursor
@@ -46,7 +47,54 @@ def load_modules():
 
 load_modules()
 
+def DeleteOldTask():
+    cursor.execute("SELECT COUNT(*) FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
+    count = cursor.fetchone()[0]
+    cursor.execute("SELECT * FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
 
+    result = cursor.fetchall()
+    #print(result)
+    for part in result:
+        try:
+            vk.method("messages.send", {"peer_id": (int)(str(part[2])), "message": "Ваше задание " + (str(part[4]))[:10] + "... было автоматически удалено.", "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+        except Exception as E:
+            pass
+    cursor.execute("DELETE FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
+    cursor.execute('DELETE FROM "Adv" WHERE date < ' + "'" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
+
+    cursor.execute("DELETE FROM Users WHERE Groupp = 0")
+
+
+    connection.commit()
+    if count == 0:
+        return
+    vk.method("messages.send", {"peer_id": 159773942, "message": "Удалено заданий: " + str(count) , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+    
+DeleteOldTask()
+
+
+def textMessage():
+    try:
+        request = apiai.ApiAI('07ed539ee928497ebb68729e87c09ede').text_request() # Токен API к Dialogflow
+        request.lang = 'ru' # На каком языке будет послан запрос
+        request.session_id = 'kaibot' # ID Сессии диалога (нужно, чтобы потом учить бота)
+        request.query = MessageSettings.getText() # Посылаем запрос к ИИ с сообщением от юзера
+        responseJson = json.loads(request.getresponse().read().decode('utf-8'))
+        response = responseJson['result']['fulfillment']['speech'] # Разбираем JSON и вытаскиваем ответ
+        # Если есть ответ от бота - присылаем юзеру, если нет - бот его не понял
+        if response:
+            mesg = response
+            vk.method("messages.send",
+                    {"peer_id": MessageSettings.getId(), "message": mesg,"keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+        else:
+            mesg = "Я не совсем понял тебя."
+            if not MessageSettings.keyboard:
+                mesg+="\nУ тебя неофициальный клиент, введи 'Команды', чтобы получить список основных команд"
+            vk.method("messages.send",
+                    {"peer_id": MessageSettings.getId(), "message": mesg,"keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+    except Exception:
+        vk.method("messages.send",
+                {"peer_id": MessageSettings.getId(), "message": "Я не понял тебя","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
 
 def message_new(request):
@@ -112,8 +160,10 @@ def message_new(request):
         
     except:  
         print('Ошибка:\n', traceback.format_exc())  
-    
+    textMessage()
     return "ok"
+
+
 
 
 
