@@ -481,7 +481,7 @@ def CheckStatus():
             domain  = body.partition("vk.com/")
             print(domain)
             # vk.method("messages.send", {"peer_id": id, "message": "Задание успешно добавлено на " + date, "keyboard": keyboards.getMainKeyboard(UserParams.role),
-                                                "random_id": random.randint(1, 2147483647)})
+                                                # "random_id": random.randint(1, 2147483647)})
             return "ok"
 
         elif status == 50:
