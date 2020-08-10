@@ -842,7 +842,7 @@ def CheckStatus():
                     group = str(group)
                     admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else UserParams.adminLevel
                     print("Adm level", admlevel) 
-                    sql = "UPDATE users SET groupp = {}, groupreal = {}, 'dateChange' = '{}', admlevel = {} WHERE ID_VK = {}".format(group, str(realgroup), date, admlevel, id)
+                    sql = "UPDATE users SET groupp = {}, groupreal = {}, \"dateChange\" = '{}', admlevel = {} WHERE ID_VK = {}".format(group, str(realgroup), date, admlevel, id)
                     cursor.execute(sql)
                     cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
                     conn.commit()
