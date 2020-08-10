@@ -491,7 +491,7 @@ def CheckStatus():
             resp = vk.method("users.get", {"user_ids": str(domain_id)})
             id_student = 0
             try:
-                id_student = resp["response"][id]
+                id_student = resp["response"]["id"]
             except KeyError:
                 vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Такого человека нет.",
                                                     "random_id": random.randint(1, 2147483647)})
@@ -517,7 +517,7 @@ def CheckStatus():
                     connection.commit()
                     vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был заблокирован на 2 месяца".format(student_id),
                                     "random_id": random.randint(1, 2147483647)})
-                    vk.method("messages.send", {"peer_id": id_student, "message": "Вы были заблокированы на 2 месяца за нарушение правил.",
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вы были заблокированы на 2 месяца за нарушение правил.","keyboard": keyboards.warnList,
                                     "random_id": random.randint(1, 2147483647)})
                 else:
                     sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".fomat(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
@@ -525,7 +525,7 @@ def CheckStatus():
                     connection.commit()
                     vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) получил предупреждение".format(student_id),
                                     "random_id": random.randint(1, 2147483647)})
-                    vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.",
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.", "keyboard": keyboards.warnList,
                                     "random_id": random.randint(1, 2147483647)})     
             
 
