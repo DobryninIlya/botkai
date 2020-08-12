@@ -119,7 +119,7 @@ def getResponse(groupId):
     else:
         date_update = result[1]
         timetable = result[2]
-        if date_update + datetime.timedelta(days=4) >= today:
+        if date_update + datetime.timedelta(days=4) <= today:
             try:
                 response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
                 sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)

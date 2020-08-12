@@ -38,6 +38,7 @@ class User:
        self.dateChange = ''
        self.role = 0
        self.login = ""
+       self.chetn
     def getGroup(self):
         return self.groupId
     def getAdminLevel(self):
@@ -65,8 +66,7 @@ class User:
         
         
     def getChetn(self):
-        chetn = 0 ### Четность изм. 28.01.2020
-        return chetn
+        return self.chetn
 
 UserParams = User()
 
