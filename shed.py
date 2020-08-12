@@ -13,7 +13,7 @@ def timed_job():
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=10, minutes = 2)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=10, minutes = 4)
 def func():
     print("working sheduler")
     distribution()
