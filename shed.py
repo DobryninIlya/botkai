@@ -1,5 +1,5 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from .botkai.distribution import main as distribution
+from botkai.distribution import main as distribution
 import datetime
 
 
