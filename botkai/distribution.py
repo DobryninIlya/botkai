@@ -137,10 +137,12 @@ keyboard = str(keyboard.decode('utf-8'))
 
 
 def main(request):
-    if request.method != "POST":
-        return "ok"
+
+
     distrList = []
     try:
+        if request.method != "POST":
+            return "ok"
         #print(request.headers)
         #data = json.loads(request.data)
 
