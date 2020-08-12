@@ -7,6 +7,10 @@ import requests
 from .classes import MessageSettings, UserParams, connection, cursor, vk
 import os
 
+from apscheduler.schedulers.blocking import BlockingScheduler
+
+sched = BlockingScheduler()
+
 
 BASE_URL = 'https://kai.ru/raspisanie'
 appid = os.getenv('APP_ID')
@@ -180,7 +184,7 @@ keyboard = {
 keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
-
+@sched.scheduled_job('interval', hours=3)
 def main(request):
 
 
