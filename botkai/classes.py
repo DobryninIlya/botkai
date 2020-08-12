@@ -207,7 +207,8 @@ class Message:
             self.att = res
         else:
             self.att = ""
-
+        if "keyboard" in message_params["object"]["client_info"]["button_actions"]:
+            self.keyboard = True
 
         self.statUser = 0
         self.allCommands = 0
