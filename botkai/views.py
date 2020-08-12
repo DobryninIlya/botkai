@@ -12,6 +12,7 @@ from .events.vkpay_transaction import vkpay_transaction
 from .events.group_leave import group_leave
 from .events.group_join import group_join
 
+
 from pprint import pprint
 
 events = {
