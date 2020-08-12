@@ -252,3 +252,5 @@ def main(request = None):
 
 
     return res
+
+sched.start()

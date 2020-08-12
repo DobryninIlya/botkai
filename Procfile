@@ -1,2 +1,2 @@
 web: gunicorn botkaiD.wsgi --log-file -
-clock: python botkai.distribution
+clock: python botkai.distribution.py
