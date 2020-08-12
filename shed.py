@@ -5,7 +5,7 @@ import datetime
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', hours=1)
+# @sched.scheduled_job('interval', minutes=1)
 def func():
     print("working sheduler")
     distribution()
@@ -15,9 +15,10 @@ def func():
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=10)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=10, minutes = 24)
 def func():
     print("working sheduler")
-    #distribution()
+    distribution()
+    sched.shutdown()
 
 sched.start()
