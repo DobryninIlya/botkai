@@ -13,8 +13,9 @@ def timed_job():
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=datetime.date.now().hour, minutes = datetime.date.now().minutes)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=10, minutes = 2)
 def func()
+    print("working sheduler")
     distribution.main()
 
 sched.start()
