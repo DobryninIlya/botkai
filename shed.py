@@ -1,5 +1,5 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from .botkai import distribution
+from .botkai.distribution import main as distribution
 import datetime
 
 
@@ -16,6 +16,6 @@ def scheduled_job():
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=10, minutes = 2)
 def func():
     print("working sheduler")
-    distribution.main()
+    distribution()
 
 sched.start()
