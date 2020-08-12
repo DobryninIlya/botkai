@@ -5,14 +5,22 @@ import json
 import traceback
 import os
 import importlib
+
 from .events.confirmation import confirmation
 from .events.message_new import message_new
+from .events.vkpay_transaction import vkpay_transaction
+from .events.group_leave import group_leave
+from .events.group_join import group_join
+
 from pprint import pprint
 
 events = {
     "confirmation" : confirmation,
     "message_new" : message_new,
-    "message_event" : message_new
+    "message_event" : message_new,
+    "vkpay_transaction" : vkpay_transaction,
+    "group_leave" : group_leave,
+    "group_join" : group_join,
    
 }
 
