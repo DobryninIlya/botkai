@@ -1,5 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from .botkai import distribution
+import datetime
+
 
 sched = BlockingScheduler()
 
@@ -11,7 +13,7 @@ def timed_job():
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=9, minutes = 55)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=datetime.date.now().hour, minutes = datetime.date.now().minutes)
 def func()
     distribution.main()
 
