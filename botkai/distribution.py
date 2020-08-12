@@ -141,8 +141,8 @@ def main(request):
 
     distrList = []
     try:
-        if request.method != "POST":
-            return "ok"
+        # if request.method != "POST":
+            # return "ok"
         #print(request.headers)
         #data = json.loads(request.data)
 
