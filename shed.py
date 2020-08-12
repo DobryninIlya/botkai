@@ -5,9 +5,10 @@ import datetime
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', seconds=10)
-def timed_job():
-    print('This job is run every three minutes.')
+@sched.scheduled_job('interval', hours=12)
+def func():
+    print("working sheduler")
+    distribution()
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 def scheduled_job():
@@ -16,6 +17,6 @@ def scheduled_job():
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=10)
 def func():
     print("working sheduler")
-    distribution()
+    #distribution()
 
 sched.start()
