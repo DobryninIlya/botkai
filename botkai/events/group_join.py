@@ -2,7 +2,7 @@ from .. import classes
 
 vk = classes.vk
 
-def group_leave(request):
+def group_join(request):
     object = data["object"]
     user_id = object["user_id"]
     vk.method("messages.send",
