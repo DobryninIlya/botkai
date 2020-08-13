@@ -556,12 +556,12 @@ def CheckStatus():
                     vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
                                                     "random_id": random.randint(1, 2147483647)})
                     return "ok"
-                sql = "UPDATE users SET groupreal = 0, groupp = 0 WHERE ID_VK = {}".format( id_student )
+                sql = "UPDATE users SET groupreal = 9999, groupp = 9999 WHERE ID_VK = {}".format( id_student )
                 cursor.execute(sql)
                 connection.commit()
                 vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
                                 "random_id": random.randint(1, 2147483647)})
-                vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты из группы старостой. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.KeyboardProfile(),
+                vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты старостой из группы. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.KeyboardProfile(),
                                 "random_id": random.randint(1, 2147483647)})
                 
             
