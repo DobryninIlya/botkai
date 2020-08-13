@@ -22,9 +22,10 @@ class vk_interface:
     def __init__(self):
         self.token = os.getenv("VK_TOKEN")
         self.vk = vk_api.VkApi(token=self.token)
-
-vk = vk_interface().vk
-
+        self.secret_key = ps.getenv("SECRET_KEY")
+vk_interface_obj = vk_interface()
+vk = vk_interface_obj.vk
+secret_key = vk_interface_obj.secret_key
 class User:
 
     def __init__(self):
@@ -38,7 +39,7 @@ class User:
        self.dateChange = ''
        self.role = 0
        self.login = ""
-       self.chetn = os.getenv("CHETN")
+       self.chetn = int(os.getenv("CHETN"))
     def getGroup(self):
         return self.groupId
     def getAdminLevel(self):
