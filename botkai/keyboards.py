@@ -437,7 +437,7 @@ make_warn = str(make_warn.decode('utf-8'))
 make_kick= {
     "inline": True,
     "buttons": [
-        [get_button(label="Кикнуть из группы", color="primary", payload={'button': 'makekick'})]
+        [get_button(label="Кикнуть из группы", color="primary", payload={'button': 'make_kick'})]
     ]
 
 }
