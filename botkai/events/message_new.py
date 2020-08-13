@@ -556,7 +556,7 @@ def CheckStatus():
                     vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
                                                     "random_id": random.randint(1, 2147483647)})
                     return "ok"
-                sql = "UPDATE users SET groupreal = 9999, groupp = 9999 WHERE ID_VK = {}".format( id_student )
+                sql = "UPDATE users SET groupreal = 0, groupp = 9999 WHERE ID_VK = {}".format( id_student )
                 cursor.execute(sql)
                 connection.commit()
                 vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
