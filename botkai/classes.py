@@ -38,7 +38,7 @@ class User:
        self.dateChange = ''
        self.role = 0
        self.login = ""
-       self.chetn = 0
+       self.chetn = os.getenv("CHETN")
     def getGroup(self):
         return self.groupId
     def getAdminLevel(self):

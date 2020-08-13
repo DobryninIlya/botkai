@@ -378,7 +378,8 @@ def GetStarostaKeyboard(first = 0):
             [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})],
             [get_button(label="Принудительное обновление расписания", color="default", payload = {'button': 'starosta_shed_update_info'})],
             [get_button(label="Выдать предупреждение", color="primary", payload = {'button': 'starosta_warn_info'})],
-            [get_button(label= "Перестать быть старостой", color="negative", payload = {'button': 'starosta_leave'})],
+            [get_button(label="Кикнуть из группы", color="primary", payload = {'button': 'starosta_kick_info'})],
+            [get_button(label="Перестать быть старостой", color="negative", payload = {'button': 'starosta_leave'})],
             [get_button(label="Назад", color="primary", payload = {'button': 'profile'})],
         ]
 
@@ -432,6 +433,16 @@ make_warn= {
 }
 make_warn = json.dumps(make_warn, ensure_ascii=False).encode('utf-8')
 make_warn = str(make_warn.decode('utf-8'))
+
+make_kick= {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Кикнуть из группы", color="primary", payload={'button': 'makekick'})]
+    ]
+
+}
+make_kick = json.dumps(make_kick, ensure_ascii=False).encode('utf-8')
+make_kick = str(make_kick.decode('utf-8'))
 
 make_starosta = {
     "inline": True,

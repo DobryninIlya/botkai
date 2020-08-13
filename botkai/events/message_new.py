@@ -192,18 +192,12 @@ def IsRegistred():
                 role = 1
                 if body == "Преподаватель":
                     role = 2
-                    vk.method("messages.send", {"peer_id": id, "message": "Регистрация для преподавателя временно недоступна", 
-                                    "random_id": random.randint(1, 2147483647)})
-                    return False
                 elif body == "Студент":
                     role = 1
                 elif body == "Родитель":
                     role = 3
                 elif body == "Абитуриент (поступающий)":
                     role = 4
-                    vk.method("messages.send", {"peer_id": id, "message": "Регистрация для абитуриента временно недоступна", 
-                                    "random_id": random.randint(1, 2147483647)})
-                    return False
                 elif body == "Справка":
                     msg = """На данном этапе необходимо указать свою роль. 
                     Если вы студент, вам будут доступно свое расписание, список преподавателей. Вас могут видеть одногруппники в списке группы.
@@ -552,7 +546,7 @@ def CheckStatus():
             print(res)
             if res:
                 student_groupId = int(res[2])
-                student_warn_count = int(res[9])
+
             else:
                 vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не зарегистрирован.",
                                                     "random_id": random.randint(1, 2147483647)})
@@ -562,22 +556,14 @@ def CheckStatus():
                     vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
                                                     "random_id": random.randint(1, 2147483647)})
                     return "ok"
-                if student_warn_count >= 2:
-                    sql = "UPDATE users SET warn = {}, expiration = '{}', role = 5 WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
-                    cursor.execute(sql)
-                    connection.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был заблокирован на 2 месяца".format(id_student),
-                                    "random_id": random.randint(1, 2147483647)})
-                    vk.method("messages.send", {"peer_id": id_student, "message": "Вы были заблокированы на 2 месяца за нарушение правил.","keyboard": keyboards.warnList,
-                                    "random_id": random.randint(1, 2147483647)})
-                else:
-                    sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
-                    cursor.execute(sql)
-                    connection.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) получил предупреждение".format(id_student),
-                                    "random_id": random.randint(1, 2147483647)})
-                    vk.method("messages.send", {"peer_id": id_student, "message": "Вам выдано предупреждение за нарушение правил.", "keyboard": keyboards.warnList,
-                                    "random_id": random.randint(1, 2147483647)})     
+                sql = "UPDATE users SET groupreal = 0, groupp = 0 WHERE ID_VK = {}".format( id_student )
+                cursor.execute(sql)
+                connection.commit()
+                vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
+                                "random_id": random.randint(1, 2147483647)})
+                vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты из группы старостой. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.KeyboardProfile(),
+                                "random_id": random.randint(1, 2147483647)})
+                
             
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
             conn.commit()
