@@ -561,7 +561,7 @@ def CheckStatus():
                 connection.commit()
                 vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
                                 "random_id": random.randint(1, 2147483647)})
-                vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты старостой из группы. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.KeyboardProfile(),
+                vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты старостой из группы. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.getMainKeyboard(1),
                                 "random_id": random.randint(1, 2147483647)})
                 
             
