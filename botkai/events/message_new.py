@@ -883,9 +883,9 @@ def CheckStatus():
                     cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
                     conn.commit()
                     connection.commit()
-                     
+
                     vk.method("messages.send",
-                        {"peer_id": id, "message": "Изменено", "keyboard" : keyboards.KeyboardProfile(),
+                        {"peer_id": id, "message": "Изменено", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
                             "random_id": random.randint(1, 2147483647)})
                 elif (int)(body) > 10000:
                     vk.method("messages.send",
