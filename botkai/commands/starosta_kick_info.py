@@ -1,6 +1,6 @@
 from .. import classes as command_class
 import random
-from ..keyboards import makekick
+from ..keyboards import make_kick
 from ..classes import vk, MessageSettings
 import traceback
 
