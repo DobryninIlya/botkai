@@ -397,7 +397,7 @@ def showGroupId(groupNumber):
         vk.method("messages.send",
                 {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
-    except (ConnectionError, TimeoutError):
+    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
         group = getGroupsResponse(groupNumber)
         if group:
             return group
