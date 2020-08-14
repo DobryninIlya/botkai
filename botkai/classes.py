@@ -124,7 +124,7 @@ class Message:
        self.event_id = ""
        self.buttons = []
        self.conversation_message_id = 0
-        
+       self.secret_key = none 
     def getId(self):
         return self.id
     def getText(self):
@@ -222,6 +222,10 @@ class Message:
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]
             self.conversation_message_id = 0
+        try:
+            self.secret_key = message_params["secret"]
+        except:
+            self.secret_key = 0
 
             
     
