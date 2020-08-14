@@ -34,7 +34,8 @@ def getGroupsResponse():
         headers = {'Content-Type': "application/x-www-form-urlencoded"}, 
         params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 60 )
         response = response.json()
-        
+        if not response:
+            return
         # cursor.execute("INSERT INTO saved_timetable (groupp, date_update, shedule) VALUES (1, \'{}\',\'{}\')".format(datetime.date.today(), json.dumps(response)))
         cursor.execute("UPDATE saved_timtable SET date_update = '{}' and shedule = '{}'".format(datetime.date.today(), json.dumps(response)))
     except:
