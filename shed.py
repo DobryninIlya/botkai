@@ -35,7 +35,7 @@ def getGroupsResponse():
         params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 60 )
         response = response.json()
         print("INSERT INTO saved_timetable VALUES (1, {},\"{}\")".format(datetime.date.today(), json.dumps(response)))
-        cursor.execute("INSERT INTO saved_timetable VALUES (1, \'{}\',\"{}\")".format(json.dumps(response), datetime.date.today()))
+        cursor.execute("INSERT INTO saved_timetable VALUES (1, \"{}\",\"{}\")".format(response, datetime.date.today()))
     except:
         print('Ошибка:\n', traceback.format_exc())  
     return
