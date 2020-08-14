@@ -36,7 +36,7 @@ def getGroupsResponse():
         response = response.json()
         print("INSERT INTO saved_timetable VALUES (1, {},\"{}\")".format(datetime.date.today(), json.dumps(response)))
         cursor.execute("INSERT INTO saved_timetable VALUES (1, \'{}\',\"{}\")".format(json.dumps(response), datetime.date.today())
-        connection.commit()
+
         sched.shutdown()
     except:
         print('Ошибка:\n', traceback.format_exc())  
