@@ -27,7 +27,7 @@ def func():
 
 BASE_URL = 'https://kai.ru/raspisanie'
 
-@sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', hour=2)
 def getGroupsResponse():
     try:
         response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL", 
