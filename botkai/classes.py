@@ -124,7 +124,7 @@ class Message:
        self.event_id = ""
        self.buttons = []
        self.conversation_message_id = 0
-       self.secret_key = none 
+       self.secret_key = "" 
     def getId(self):
         return self.id
     def getText(self):
@@ -225,7 +225,7 @@ class Message:
         try:
             self.secret_key = message_params["secret"]
         except:
-            self.secret_key = 0
+            self.secret_key = ""
 
             
     
