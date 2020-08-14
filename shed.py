@@ -3,6 +3,7 @@ from botkai.distribution import main as distribution
 import datetime
 import requests
 import json
+import traceback
 from botkai.classes import connection, cursor
 
 sched = BlockingScheduler()
@@ -37,7 +38,8 @@ def getGroupsResponse():
         connection.commit()
         sched.shutdown()
     except:
-        pass
+        print('Ошибка:\n', traceback.format_exc())  
+
 
 
 sched.start()
