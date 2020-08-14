@@ -28,13 +28,16 @@ BASE_URL = 'https://kai.ru/raspisanie'
 
 @sched.scheduled_job('interval', minutes=1)
 def getGroupsResponse():
-    response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL", 
-    headers = {'Content-Type': "application/x-www-form-urlencoded"}, 
-    params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 5 )
-    response = response.json()
-    cursor.execute("INSERT INTO saved_timetable VALUES (1, {},)".format(datetime.date.today(), json.dumps(response)))
-    connection.commit()
-    sched.shutdown()
+    try:
+        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL", 
+        headers = {'Content-Type': "application/x-www-form-urlencoded"}, 
+        params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 5 )
+        response = response.json()
+        cursor.execute("INSERT INTO saved_timetable VALUES (1, {},)".format(datetime.date.today(), json.dumps(response)))
+        connection.commit()
+        sched.shutdown()
+    except:
+        pass
 
 
 sched.start()
