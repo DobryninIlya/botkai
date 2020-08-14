@@ -364,6 +364,13 @@ def IsRegistred():
 
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
+
+def getGroupsResponse():
+    cursor.execute()
+    
+groups_load = getGroupsResponse()
+
+
 def showGroupId(groupNumber):
     id = int(MessageSettings.id)
     try:
@@ -374,6 +381,7 @@ def showGroupId(groupNumber):
                 {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
             vk.method("messages.send",
                     {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+            
             return False
         response = response.json()[0]
         return response['id']

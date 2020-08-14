@@ -4,6 +4,9 @@ import sqlite3
 import json
 import traceback
 import os
+
+
+    
 class connections:
     def __init__(self):
         self.connection = psycopg2.connect(dbname=os.getenv('DB_NAME'), user= os.getenv('DB_USER'), password= os.getenv('DB_PASSWORD'), host= os.getenv('DB_HOST'))
@@ -26,6 +29,9 @@ class vk_interface:
 vk_interface_obj = vk_interface()
 vk = vk_interface_obj.vk
 secret_key = vk_interface_obj.secret_key
+
+
+
 class User:
 
     def __init__(self):
