@@ -370,7 +370,7 @@ BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 def getGroupsResponse(groupNumber):
     cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
     result = cursor.fetchone()[0]
-    resilt = json.loads(result)
+    result = json.loads(result)
     for elem in result:
         if int(elem["group"]) == int(groupNumber):
             return elem["id"]
