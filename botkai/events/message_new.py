@@ -368,9 +368,9 @@ BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 
 def getGroupsResponse(groupNumber):
-    cursor.execute("SELECT shedule FROM saved_timetable WHERE gropp = 1")
+    cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
     result = cursor.fetchone()[0]
-    resilt = result.json()
+    resilt = json.loads(result)
     for elem in result:
         if int(elem["group"]) == int(groupNumber):
             return elem["id"]
@@ -381,7 +381,7 @@ def getGroupsResponse(groupNumber):
 def showGroupId(groupNumber):
     id = int(MessageSettings.id)
     try:
-        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 5 )
+        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 0.1 )
         print(response.status_code, response)
         if str(response.status_code) != '200':
             raise ConnectionError
