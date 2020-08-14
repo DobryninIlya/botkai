@@ -54,7 +54,8 @@ def index(request):
 
         
     except:
-        print('Ошибка:\n', traceback.format_exc())
+        #print('Ошибка:\n', traceback.format_exc())
+        return "Почти получилось :)"
     return HttpResponse(result)
 
 
