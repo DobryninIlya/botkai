@@ -366,7 +366,7 @@ BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 
 def getGroupsResponse():
-    cursor.execute("")
+    pass#cursor.execute("")
     
 groups_load = getGroupsResponse()
 

@@ -1,6 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from botkai.distribution import main as distribution
 import datetime
+import requests
+import json
 from botkai.classes import connection, cursor
 
 sched = BlockingScheduler()
