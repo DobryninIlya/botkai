@@ -280,6 +280,34 @@ def getMainKeyboard(role):
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
+    elif role == 3:
+        first_row =[get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
+        if datetime.date.today().month in exams_months:
+            first_row.append(get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "text"))
+        keyboard = {
+            "one_time": False,
+            "buttons": [
+            first_row,
+            [
+                get_button(label="На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
+                get_button(label="На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
+                get_button(label="Полностью", color="primary", payload = {'button': 'all'}, type = "text")
+                ],
+            [
+                get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text")
+                ],
+            [
+                get_button(label="Команды", color="default", payload = {'button': 'commands'}, type = "text"),
+                get_button(label="Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
+                ],
+            [
+                get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
+                get_button(label="Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
+                ]
+
+
+            ]
+            }
     elif role == 5:
         keyboard = {
             "one_time": False,
@@ -326,49 +354,82 @@ def getMainKeyboard(role):
 
 
 def KeyboardProfile():
-    Name = UserParams.name
-    keys = ["на завтра", "на сегодня", "команды", "помощь", 'начать', 'расписание']
-    NameColor = "default"
-    if Name.lower() in keys:
-        Name = "Некорректно. Нажми, чтобы обновить"
-        NameColor = "negative"
-    Group = UserParams.RealGroup
-    GroupColor = "default"
-    inst = ""
-    if Group == 0:
-        Group = "Не указано. Нажми, чтобы указать"
-        GroupColor = "negative"
-        inst = ":Не указана группа"
-    Balance = UserParams.balance
-    sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(MessageSettings.getId())
-    cursor.execute(sql)
-    TaskCount = cursor.fetchone()[0]
-    main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload = {'button': 'name'})],
+    if UserParams.role != 2:
+        Name = UserParams.name
+        keys = ["на завтра", "на сегодня", "команды", "помощь", 'начать', 'расписание']
+        NameColor = "default"
+        if Name.lower() in keys:
+            Name = "Некорректно. Нажми, чтобы обновить"
+            NameColor = "negative"
+        Group = UserParams.RealGroup
+        GroupColor = "default"
+        inst = ""
+        if Group == 0:
+            Group = "Не указано. Нажми, чтобы указать"
+            GroupColor = "negative"
+            inst = ":Не указана группа"
+        Balance = UserParams.balance
+        sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(MessageSettings.getId())
+        cursor.execute(sql)
+        TaskCount = cursor.fetchone()[0]
+        main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload = {'button': 'name'})],
 
-        [get_button(label="Группа: " + str(Group), color=GroupColor, payload = {'button': 'group'})],
-        [get_button(label="Баланс: " + str(Balance), color="positive", payload = {'button': 'donate'})],
-        [get_button(label="Мои задания (" + str(TaskCount) + ")", color="default", payload = {'button': 'mytask'})],
-        [get_button(label="Список моей группы", color="default", payload = {'button': 'groupmembers'})],
-        [
-            get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
-            get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
-            ],
-        ]
-    sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
-    cursor.execute(sql)
-    starosta_count = cursor.fetchone()[0]
-    if int(starosta_count) == 0:
-        main_buttons.append([get_button(label="Староста не назначен. Стать им", color="positive", payload = {'button': 'get_starosta'})])
-    if UserParams.adminLevel >= 2:
-        main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
-    main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
-    keyboard =  {
-    "one_time": False,
-    "buttons": main_buttons
-    }
-    keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
-    keyboard = str(keyboard.decode('utf-8'))
-    return keyboard
+            [get_button(label="Группа: " + str(Group), color=GroupColor, payload = {'button': 'group'})],
+            [get_button(label="Баланс: " + str(Balance), color="positive", payload = {'button': 'donate'})],
+            [get_button(label="Мои задания (" + str(TaskCount) + ")", color="default", payload = {'button': 'mytask'})],
+            [get_button(label="Список моей группы", color="default", payload = {'button': 'groupmembers'})],
+            [
+                get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
+                get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
+                ],
+            ]
+        sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
+        cursor.execute(sql)
+        starosta_count = cursor.fetchone()[0]
+        if int(starosta_count) == 0:
+            main_buttons.append([get_button(label="Староста не назначен. Стать им", color="positive", payload = {'button': 'get_starosta'})])
+        if UserParams.adminLevel >= 2:
+            main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
+        main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
+        keyboard =  {
+        "one_time": False,
+        "buttons": main_buttons
+        }
+        keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+        keyboard = str(keyboard.decode('utf-8'))
+        return keyboard
+    else:
+        Name = UserParams.name
+        keys = ["на завтра", "на сегодня", "команды", "помощь", 'начать', 'расписание']
+        NameColor = "default"
+        if Name.lower() in keys:
+            Name = "Некорректно. Нажми, чтобы обновить"
+            NameColor = "negative"
+        Group = UserParams.RealGroup
+        GroupColor = "default"
+        inst = ""
+        if Group == 0:
+            Group = "Не указано. Нажми, чтобы указать"
+            GroupColor = "negative"
+            inst = ":Не указана группа"
+        Balance = UserParams.balance
+        
+        main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload = {'button': 'name'})],
+
+            [get_button(label="(Родитель) Группа: " + str(Group), color=GroupColor, payload = {'button': 'group'})],
+            [get_button(label="Баланс: " + str(Balance), color="positive", payload = {'button': 'donate'})],
+            [get_button(label="Список родителей группы", color="default", payload = {'button': 'groupmembers'})],
+            [get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'})]
+            ]
+
+        main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
+        keyboard =  {
+        "one_time": False,
+        "buttons": main_buttons
+        }
+        keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+        keyboard = str(keyboard.decode('utf-8'))
+        return keyboard
 
 def GetStarostaKeyboard(first = 0):
     buttons_starosta = []
