@@ -283,7 +283,7 @@ def IsRegistred():
                             cursorR.execute(sql)
                             conn.commit()
                             UserParams.update(int(MessageSettings.id))
-                            vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
+                            vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(1),
                                                 "random_id": random.randint(1, 2147483647)})
                             vk.method("messages.send",
                                     {"peer_id": id, "message": "test" , "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
@@ -322,7 +322,7 @@ def IsRegistred():
                         cursorR.execute(sql)
                         conn.commit()
                          
-                        vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                        vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(2),
                                                     "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
