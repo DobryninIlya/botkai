@@ -158,11 +158,11 @@ def message_new(request):
                             {"peer_id": int(MessageSettings.id), "message": mesg, "random_id": random.randint(1, 2147483647)})
                     command.process()
                     return "ok"
-
+            textMessage()
         
     except:  
         print('Ошибка:\n', traceback.format_exc())  
-    textMessage()
+
     return "ok"
 
 
