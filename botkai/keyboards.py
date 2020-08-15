@@ -308,6 +308,8 @@ def getMainKeyboard(role):
 
             ]
             }
+        keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+        keyboard = str(keyboard.decode('utf-8'))
     elif role == 5:
         keyboard = {
             "one_time": False,
