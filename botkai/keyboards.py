@@ -487,6 +487,16 @@ shed_update = {
 shed_update = json.dumps(shed_update, ensure_ascii=False).encode('utf-8')
 shed_update = str(shed_update.decode('utf-8'))
 
+get_undo = {
+    "inline": False,
+    "buttons": [
+        [get_button(label="Назад", color="negative", payload={'button': 'undo_regestration'})]
+    ]
+
+}
+get_undo = json.dumps(get_undo, ensure_ascii=False).encode('utf-8')
+get_undo = str(get_undo.decode('utf-8'))
+
 make_warn= {
     "inline": True,
     "buttons": [

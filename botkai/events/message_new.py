@@ -173,6 +173,14 @@ def IsRegistred():
     try:
         body = MessageSettings.getText()
         id = int(MessageSettings.id)
+        payload = MessageSettings.payload["button"]
+        if payload == "undo_regestration":
+            sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
+            cursorR.execute(sql)
+            conn.commit()
+            vk.method("messages.send", {"peer_id": id, "message": "Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню", "keyboard" : keyboards.get_undo,
+                                    "random_id": random.randint(1, 2147483647)})
+
         if InBase(id):
             #print("Зарегистрироан")
             return True
@@ -226,13 +234,13 @@ def IsRegistred():
                     sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", 
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 elif role == 2:
                     sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)", 
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 elif role == 4:
                     sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -269,7 +277,7 @@ def IsRegistred():
                 conn.commit()
                 vk.method("messages.send", {"peer_id": id, "message": "Очень приятно, " + str(body) + "",
                                     "random_id": random.randint(1, 2147483647)})
-                vk.method("messages.send", {"peer_id": id, "message": "Расписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
+                vk.method("messages.send", {"peer_id": id, "message": "Расписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 return False
             elif StatusR(id) == 2:
@@ -291,13 +299,13 @@ def IsRegistred():
 
                         elif int(body) > 10000:
                             vk.method("messages.send",
-                                {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "random_id": random.randint(1, 2147483647)})
+                                {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie" ,"keyboard" : keyboards.get_undo, "random_id": random.randint(1, 2147483647)})
                         else:
-                            vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ", 
+                            vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",  "keyboard" : keyboards.get_undo,
                                                 "random_id": random.randint(1, 2147483647)})
                         return False
                     else:
-                        vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.", 
+                        vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.",  "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
                                 
                 except Exception as E:
@@ -309,7 +317,7 @@ def IsRegistred():
                     body = body.lower()
                     response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
                     if not len(response.json()):
-                        vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", 
+                        vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
                     else:
                         sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
@@ -346,7 +354,7 @@ def IsRegistred():
                         conn.commit()
                         return False
                     elif body.lower() == "продолжить регистрацию":
-                        vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.keyboardNull, 
+                        vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.get_undo, 
                                         "random_id": random.randint(1, 2147483647)})
                         sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
