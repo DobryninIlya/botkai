@@ -356,7 +356,7 @@ def getMainKeyboard(role):
 
 
 def KeyboardProfile():
-    if UserParams.role != 2:
+    if UserParams.role != 3:
         Name = UserParams.name
         keys = ["на завтра", "на сегодня", "команды", "помощь", 'начать', 'расписание']
         NameColor = "default"
