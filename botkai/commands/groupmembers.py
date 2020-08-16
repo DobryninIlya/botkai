@@ -8,7 +8,7 @@ def info():
 
     group = UserParams.groupId
     id = MessageSettings.id
-    sql = "SELECT * FROM Users WHERE" + " Groupp = " + str(group)
+    sql = "SELECT * FROM Users WHERE Groupp = {} AND role = {}".format(str(group), UserParams.role)
     cursor.execute(sql)
     result = cursor.fetchall()
     members = "Список группы: \n"
