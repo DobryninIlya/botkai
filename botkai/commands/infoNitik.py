@@ -6,7 +6,7 @@ import random
 
 def info():
 
-    message = """расписание - показать расписание ыыыы
+    message = """расписание - показать расписание
     """
     vk.method("messages.send",
                     {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : getMainKeyboard(UserParams.role),
