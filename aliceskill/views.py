@@ -40,7 +40,6 @@ BASE_URL = 'https://kai.ru/raspisanie'
 def showGroupId(groupNumber):
     try:
         response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 2 )
-        print(response.status_code, response)
         if str(response.status_code) != '200':
             # vk.method("messages.send",
             #     {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
@@ -100,7 +99,7 @@ def handle_dialog(body, request, response):
                         day = entity["value"]["day"]
 
                 print(group_values)
-            if not group_values:
+            if not group_values or group_values == "":
                 response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
             #response["response"]["text"] = command + " " + group_values + " день " + str(day)
             response["response"]["text"] = info(group_values, day)
@@ -126,7 +125,6 @@ def info(group, day):
 def showTimetable(groupId, tomorrow=0):
     try:
         isNormal, response = getResponse(showGroupId(groupId))
-        print(response)
         if not isNormal:
             print("NOOOOOOOOOOOO")
             return response
@@ -146,7 +144,6 @@ def showTimetable(groupId, tomorrow=0):
         day = str(now.day) + "." + str(month)
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
-            print(dateinstr)
             if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] +  " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
             elif (elem["dayDate"]).rstrip()=="неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
