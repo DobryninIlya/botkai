@@ -101,6 +101,7 @@ def handle_dialog(body, request, response):
                 print(group_values)
             if not group_values or group_values == "":
                 response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
+                return
             #response["response"]["text"] = command + " " + group_values + " день " + str(day)
             response["response"]["text"] = info(group_values, day)
 
@@ -179,6 +180,7 @@ def getResponse(groupId):
         sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()
+        print("RESULT {}".format(result))
         if result == None:
             try:
                 
