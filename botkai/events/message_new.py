@@ -174,9 +174,12 @@ def IsRegistred():
         body = MessageSettings.getText()
         id = int(MessageSettings.id)
         payload = ""
-        if MessageSettings.payload:
-            if MessageSettings.payload["button"]:
-                payload = MessageSettings.payload["button"]
+        try:
+            if MessageSettings.payload:
+                if MessageSettings.payload["button"]:
+                    payload = MessageSettings.payload["button"]
+        except:
+            pass
         if payload == "undo_regestration":
             sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
             cursorR.execute(sql)
