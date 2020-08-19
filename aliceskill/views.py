@@ -120,7 +120,7 @@ def handle_dialog(body, request, response):
                 }
             
 
-    
+    pre_group_values = ""
     day = ""
     for command in commands:
         if command.lower() in tokens:
@@ -128,7 +128,7 @@ def handle_dialog(body, request, response):
             command = command.lower()
             if command == 'расписание':
                 for entity in entities:
-                    pre_group_values = ""
+
                     if entity["type"] == "YANDEX.NUMBER" and len(pre_group_values) < 4:
                         pre_group_values += str(entity["value"])
                     elif entity["type"] == "YANDEX.DATETIME":
