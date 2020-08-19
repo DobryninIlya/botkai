@@ -135,9 +135,9 @@ def handle_dialog(body, request, response):
                         day = entity["value"]["day"]
 
                 print(group_values, pre_group_values)
-                if pre_group_values != "" and pre_group_values.isdigit() and len(pre_group_values) == 4:
+                if pre_group_values != "" and pre_group_values.isdigit() and len(pre_group_values) == 4 and showGroupId(group_values):
                     group_values = pre_group_values
-                if showGroupId(group_values)
+
                 if not group_values or group_values == "":
                     response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
                     return
