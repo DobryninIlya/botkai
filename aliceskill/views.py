@@ -82,6 +82,8 @@ def main(request):
 
 
 def handle_dialog(body, request, response):
+    session = body["session"]
+    new = session["new"]
     request = body["request"]
     tokens = request["nlu"]["tokens"]
     entities = request["nlu"]["entities"]
@@ -107,6 +109,9 @@ def handle_dialog(body, request, response):
 
             return
         else:
+            if new:
+                response["response"]["text"] = "Привет! Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу"
+                return
             response["response"]["text"] = "Я не распознал твою команду. Повтори, пожалуйста, что ты хочешь получить и номер группы."
 
 
