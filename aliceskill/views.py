@@ -132,7 +132,10 @@ def handle_dialog(body, request, response):
                     if entity["type"] == "YANDEX.NUMBER" and len(pre_group_values) < 4:
                         pre_group_values += str(entity["value"])
                     elif entity["type"] == "YANDEX.DATETIME":
-                        day = entity["value"]["day"]
+                        if "day" in entity["value"]:
+                            day = entity["value"]["day"]
+                        elif "month" in entity["value"]:
+                            day = entity["value"]["month"]
 
                 print(group_values, pre_group_values)
                 if pre_group_values != "" and pre_group_values.isdigit() and len(pre_group_values) == 4 and showGroupId(group_values):
