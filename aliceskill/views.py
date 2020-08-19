@@ -63,8 +63,8 @@ def showGroupId(groupNumber):
         response = response.json()[0]
         return response['id']
     except IndexError:
-        vk.method("messages.send",
-                {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
     except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
         group = getGroupsResponse(groupNumber)
