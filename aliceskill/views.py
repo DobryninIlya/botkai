@@ -106,7 +106,7 @@ def handle_dialog(body, request, response):
             response["response"]["text"] = "Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу."
             return
 
-                print(group_values)
+
             if not group_values or group_values == "":
                 response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
                 return
