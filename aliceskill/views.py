@@ -88,7 +88,21 @@ def handle_dialog(body, request, response):
     original_utterance = request["original_utterance"]
     tokens = request["nlu"]["tokens"]
     entities = request["nlu"]["entities"]
+    user_id = request['session']['user_id']
     group_values = ""
+    if new:
+        sessionStorage[user_id] = {
+                    "groupId" : None
+                }
+
+        response["response"]["text"] = "Привет! Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу"
+        return
+    else:
+        if sessionStorage[user_id]["groupId"]:
+            group_values = sessionStorage[user_id]["groupId"]
+        
+
+    
     day = ""
     for command in commands:
         if command.lower() in tokens:
@@ -102,8 +116,11 @@ def handle_dialog(body, request, response):
                         day = entity["value"]["day"]
 
                 print(group_values)
+                sessionStorage[user_id] = {
+                    "groupId" : group_values
+                }
         elif original_utterance == 'что ты умеешь' or original_utterance == "помощь":
-            response["response"]["text"] = "Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу."
+            response["response"]["text"] = "Я могу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу."
             return
 
 
