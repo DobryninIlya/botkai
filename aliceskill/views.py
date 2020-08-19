@@ -60,6 +60,7 @@ def showGroupId(groupNumber):
             #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
             
             return False
+        print(response.json())
         response = response.json()[0]
         return response['id']
     except IndexError:
