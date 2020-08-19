@@ -37,26 +37,44 @@ conn = connect.conn
 today = datetime.date.today()
 chetn = 1
 BASE_URL = 'https://kai.ru/raspisanie' 
+def getGroupsResponse(groupNumber):
+    cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
+    result = cursor.fetchone()[0]
+    result = json.loads(result)
+    for elem in result:
+        if int(elem["group"]) == int(groupNumber):
+            return elem["id"]
+    return False
+
+
+
 def showGroupId(groupNumber):
+    id = int(MessageSettings.id)
     try:
-        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 2 )
+        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 4)
+        print(response.status_code, response)
         if str(response.status_code) != '200':
+            raise ConnectionError
             # vk.method("messages.send",
             #     {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
             # vk.method("messages.send",
             #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+            
             return False
         response = response.json()[0]
         return response['id']
     except IndexError:
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
+        vk.method("messages.send",
+                {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
-    except (ConnectionError, TimeoutError):
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
+        group = getGroupsResponse(groupNumber)
+        if group:
+            return group
+        vk.method("messages.send",
+                {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
+        vk.method("messages.send",
+                {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
         return False
     except:
         print('Ошибка:\n', traceback.format_exc())
