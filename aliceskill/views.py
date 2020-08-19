@@ -128,13 +128,14 @@ def handle_dialog(body, request, response):
             command = command.lower()
             if command == 'расписание':
                 for entity in entities:
-                    if entity["type"] == "YANDEX.NUMBER" and len(group_values) < 4:
-                        group_values += str(entity["value"])
+                    pre_group_values = ""
+                    if entity["type"] == "YANDEX.NUMBER" and len(pre_group_values) < 4:
+                        pre_group_values += str(entity["value"])
                     elif entity["type"] == "YANDEX.DATETIME":
                         day = entity["value"]["day"]
 
-                print(group_values)
-
+                print(group_values, pre_group_values)
+                group_values = pre_group_values
                 if not group_values or group_values == "":
                     response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
                     return
