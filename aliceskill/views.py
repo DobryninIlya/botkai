@@ -172,7 +172,10 @@ def info(group, day):
 
 def showTimetable(groupId, tomorrow=0):
     try:
-        isNormal, response = getResponse(showGroupId(groupId))
+        groupId = showGroupId(groupId)
+        if not groupId:
+            return "Возникла ошибка при подключении к kai.ru. Печально :("
+        isNormal, response = getResponse(groupId)
         if not isNormal:
             print("NOOOOOOOOOOOO")
             return response
