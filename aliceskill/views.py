@@ -116,12 +116,13 @@ def handle_dialog(body, request, response):
                         day = entity["value"]["day"]
 
                 print(group_values)
-                sessionStorage[user_id] = {
-                    "groupId" : group_values
-                }
+
                 if not group_values or group_values == "":
                     response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
                     return
+                sessionStorage[user_id] = {
+                    "groupId" : group_values
+                }
                 #response["response"]["text"] = command + " " + group_values + " день " + str(day)
                 response["response"]["text"] = info(group_values, day)
 
