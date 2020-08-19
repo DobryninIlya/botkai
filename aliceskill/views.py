@@ -85,7 +85,7 @@ def handle_dialog(body, request, response):
     session = body["session"]
     new = session["new"]
     request = body["request"]
-    original_utterance = body["original_utterance"]
+    original_utterance = request["original_utterance"]
     tokens = request["nlu"]["tokens"]
     entities = request["nlu"]["entities"]
     group_values = ""
