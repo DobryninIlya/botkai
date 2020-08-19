@@ -63,17 +63,13 @@ def showGroupId(groupNumber):
         response = response.json()[0]
         return response['id']
     except IndexError:
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
+        print('Ошибка:\n', traceback.format_exc())
         return False
     except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
         group = getGroupsResponse(groupNumber)
         if group:
             return group
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+        print('Ошибка:\n', traceback.format_exc())
         return False
     except:
         print('Ошибка:\n', traceback.format_exc())
