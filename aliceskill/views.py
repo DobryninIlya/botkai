@@ -71,10 +71,10 @@ def showGroupId(groupNumber):
         group = getGroupsResponse(groupNumber)
         if group:
             return group
-        vk.method("messages.send",
-                {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
-        vk.method("messages.send",
-                {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
         return False
     except:
         print('Ошибка:\n', traceback.format_exc())
