@@ -17,7 +17,7 @@ import traceback
 
 
 sessionStorage = {}
-commands = ['расписание']
+commands = ['расписание', "что ты умеешь", "помощь"]
 
 
 
@@ -85,6 +85,7 @@ def handle_dialog(body, request, response):
     session = body["session"]
     new = session["new"]
     request = body["request"]
+    original_utterance = body["original_utterance"]
     tokens = request["nlu"]["tokens"]
     entities = request["nlu"]["entities"]
     group_values = ""
@@ -99,6 +100,11 @@ def handle_dialog(body, request, response):
                         group_values += str(entity["value"])
                     elif entity["type"] == "YANDEX.DATETIME":
                         day = entity["value"]["day"]
+
+                print(group_values)
+        elif original_utterance == 'что ты умеешь' or original_utterance == "помощь":
+            response["response"]["text"] = "Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу."
+            return
 
                 print(group_values)
             if not group_values or group_values == "":
