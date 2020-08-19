@@ -112,9 +112,14 @@ def handle_dialog(body, request, response):
         response["response"]["text"] = "Привет! Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу"
         return
     else:
-        if sessionStorage[user_id]["groupId"]:
-            group_values = sessionStorage[user_id]["groupId"]
-        
+        try:
+            if sessionStorage[user_id]["groupId"]:
+                group_values = sessionStorage[user_id]["groupId"]
+        except KeyError:
+            sessionStorage[user_id] = {
+                    "groupId" : None
+                }
+            
 
     
     day = ""
