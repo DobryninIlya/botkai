@@ -119,18 +119,19 @@ def handle_dialog(body, request, response):
                 sessionStorage[user_id] = {
                     "groupId" : group_values
                 }
+                if not group_values or group_values == "":
+                    response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
+                    return
+                #response["response"]["text"] = command + " " + group_values + " день " + str(day)
+                response["response"]["text"] = info(group_values, day)
+
+            return
         elif original_utterance == 'что ты умеешь' or original_utterance == "помощь":
             response["response"]["text"] = "Я могу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу."
             return
 
 
-            if not group_values or group_values == "":
-                response["response"]["text"] = "Повтори все тоже самое, но с номером группы"
-                return
-            #response["response"]["text"] = command + " " + group_values + " день " + str(day)
-            response["response"]["text"] = info(group_values, day)
-
-            return
+            
         else:
             if new:
                 response["response"]["text"] = "Привет! Я смогу тебе подсказать твое расписание - просто попроси меня об этом и обозначь свою группу"
