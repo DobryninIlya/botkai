@@ -440,8 +440,9 @@ def GetStarostaKeyboard(first = 0):
             [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
             [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})],
             [get_button(label="Принудительное обновление расписания", color="default", payload = {'button': 'starosta_shed_update_info'})],
-            [get_button(label="Выдать предупреждение", color="primary", payload = {'button': 'starosta_warn_info'})],
-            [get_button(label="Кикнуть из группы", color="primary", payload = {'button': 'starosta_kick_info'})],
+            [get_button(label="Выдать предупреждение", color="default", payload = {'button': 'starosta_warn_info'})],
+            [get_button(label="Кикнуть из группы", color="default", payload = {'button': 'starosta_kick_info'})],
+            [get_button(label="Сделать рассылку", color="default", payload = {'button': 'starosta_distr_info'})],
             [get_button(label="Перестать быть старостой", color="negative", payload = {'button': 'starosta_leave'})],
             [get_button(label="Назад", color="primary", payload = {'button': 'profile'})],
         ]
@@ -476,6 +477,16 @@ def GetButtonDeleteByDate():
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
+
+make_distr = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Разослать сообщение", color="primary", payload={'button': 'make_distr'})]
+    ]
+
+}
+make_distr = json.dumps(make_distr, ensure_ascii=False).encode('utf-8')
+make_distr = str(make_distr.decode('utf-8'))
 
 shed_update = {
     "inline": True,
