@@ -33,5 +33,5 @@ command = command_class.Command()
 command.keys = []
 command.desciption = ''
 command.process = info
-command.payload = "make_warn"
+command.payload = "make_distr"
 command.admlevel = 2
