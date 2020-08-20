@@ -212,35 +212,35 @@ def showTimetable(groupId, tomorrow=0):
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
             if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] +  " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-                tts += "stil <[500]> {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> {} {} {} stil <[500]>  в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
             elif (elem["dayDate"]).rstrip()=="неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-                tts += "stil <[500]> {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> {} {} {} stil <[500]>  в аудитории  {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
             elif (elem["dayDate"]).rstrip()=="неч/чет" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148))  + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-                tts += "stil <[500]> первая подгруппа {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> первая подгруппа {} {} {} stil <[500]>  в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())           
             elif (elem["dayDate"]).rstrip()=="неч/чет" and  ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148))  + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-                tts += "stil <[500]> вторая подгруппа {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> вторая подгруппа {} {} {} stil <[500]>  в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
             elif (elem["dayDate"]).rstrip()=="чет/неч" and  ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148))  + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-                tts += "stil <[500]> первая подгруппа {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> первая подгруппа {} {} {} stil <[500]>  в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
             elif (elem["dayDate"]).rstrip()=="чет/неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148))  + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-                tts += "stil <[500]> вторая подгруппа {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> вторая подгруппа {} {} {} stil <[500]>  в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
             elif dateinstr != -1:
                 result += str(chr(10148)) + str(day) + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
-                tts += "stil <[500]> {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> {} {} {} в аудитории stil <[500]>  {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
             elif not ((elem["dayDate"]).rstrip()=="чет") and not ((elem["dayDate"]).rstrip()=="неч") and dateinstr == -1:
                 result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
-                tts += "stil <[500]> {} {} {} в аудитории {} {} здание".format(
+                tts += "stil <[1500]> {} {} {} stil <[500]> в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
         return result, tts
     except ConnectionError as err:
