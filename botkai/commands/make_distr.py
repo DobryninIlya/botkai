@@ -8,16 +8,16 @@ def info():
 
     
     try:
-        sql = "INSERT INTO Status VALUES (" + str(MessageSettings.id) + ", 49);"
+        sql = "INSERT INTO Status VALUES (" + str(MessageSettings.id) + ", 47);"
         print(sql)
         cursorR.execute(sql)
         conn.commit()
-        vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Отправь мне ссылку того, кому нужно выдать предупреждение.", "random_id": random.randint(1, 2147483647)})  
+        vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Отправь сообщение, которое нужно отослать, и прикрепи к нему медиавложения", "random_id": random.randint(1, 2147483647)})  
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
         conn.rollback()
         vk.method("messages.send",
-            {"peer_id": MessageSettings.id, "message": "Произошла ошибка. Повторите позже", "random_id": random.randint(1, 2147483647)})
+            {"peer_id": MessageSettings.id, "message": "Произошла ошибка. Повторите позже. (Рассылка сообщений)", "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
