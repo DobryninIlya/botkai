@@ -238,7 +238,7 @@ def showTimetable(groupId, tomorrow=0):
                 result += str(chr(10148)) + str(day) + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
                 tts += "stil <[500]> {} {} {} в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
-            elif not ((elem["dayDate"]).rstrip()=="чет") and not ((elem["dayDate"]).rstrip()=="неч") and dateinstr != -1:
+            elif not ((elem["dayDate"]).rstrip()=="чет") and not ((elem["dayDate"]).rstrip()=="неч") and dateinstr == -1:
                 result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
                 tts += "stil <[500]> {} {} {} в аудитории {} {} здание".format(
                     elem["dayTime"], elem["disciplName"], typedict[(elem["disciplType"]).rstrip()], (elem["audNum"]).rstrip(), (elem["buildNum"]).rstrip())
