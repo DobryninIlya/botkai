@@ -558,7 +558,7 @@ def CheckStatus():
             cursor.execute(sql)
             result_users = cursor.fetchall()
             message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
-            vk.method("messages.send", {"user_ids": ','.join(str(x) for x in cursor), "message": message,"attachment": MessageSettings.GetAttachments() ,"random_id": random.randint(1, 2147483647)})
+            vk.method("messages.send", {"user_ids": ','.join(str(x) for x in result_users), "message": message,"attachment": MessageSettings.GetAttachments() ,"random_id": random.randint(1, 2147483647)})
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
             conn.commit()
             return "ok"
