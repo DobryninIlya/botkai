@@ -554,11 +554,12 @@ def CheckStatus():
             return "ok"
         elif status == 47:
             
-            sql = "SELECT id_vk FROM users WHERE groupp = {} LIMIT 100".format(UserParams.groupId)
+            sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(UserParams.groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
             print(result_users)
             message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
+            print(','.join(str(x[0]))
             vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,"attachment": MessageSettings.GetAttachments() ,"random_id": random.randint(1, 2147483647)})
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
             conn.commit()
