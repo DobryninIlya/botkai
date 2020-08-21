@@ -568,7 +568,7 @@ def CheckStatus():
                     users_string_join = ','.join(str(x) for x in current_list_users)
                     print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({\"user_ids\" : {}, \"message\" : message, \"random_id\" : {} })".format(users_string_join, random.randint(1, 2147483647) )
+                    code += "API.messages.send({{\"user_ids\" : {}, \"message\" : message, \"random_id\" : {} }})".format(users_string_join, random.randint(1, 2147483647) )
 
                     
             pprint(code)
