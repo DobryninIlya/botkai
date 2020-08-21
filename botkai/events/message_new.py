@@ -566,12 +566,12 @@ def CheckStatus():
                 current_list_users.append(each[0])
                 if len(current_list_users) == 100:
                     users_string_join = ','.join(str(x) for x in current_list_users)
-                    print(users_string_join)
+                    #print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({{\"user_ids\" : {}, \"message\" : message, \"random_id\" : {} }})".format(users_string_join, random.randint(1, 2147483647) )
+                    code += "API.messages.send({'user_ids' : {}, 'message' : message, 'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
 
                     
-            pprint(code)
+            print(code)
 
             # message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
             # print(','.join(str(x[0]) for x in result_users))
