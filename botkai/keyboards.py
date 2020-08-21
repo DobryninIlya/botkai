@@ -478,6 +478,18 @@ def GetButtonDeleteByDate():
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
 
+
+make_admin_distr = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Разослать сообщение admin", color="negative", payload={'button': 'make_admin_distr'})]
+    ]
+
+}
+make_admin_distr = json.dumps(make_admin_distr, ensure_ascii=False).encode('utf-8')
+make_admin_distr = str(make_admin_distr.decode('utf-8'))
+
+
 make_distr = {
     "inline": True,
     "buttons": [

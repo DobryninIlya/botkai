@@ -552,6 +552,32 @@ def CheckStatus():
 
                 print('Ошибка:\n', traceback.format_exc())
             return "ok"
+        elif status == 46: # ADMIN DISTRIBUTION
+
+            sql = "SELECT id_vk FROM users WHERE ID_VK < 2000000000 AND role = 1".format()
+            cursor.execute(sql)
+            result_users = cursor.fetchall()
+            pprint(result_users)
+
+            code = "var message = '{}'; \n".format(MessageSettings.getText())
+
+            current_list_users = []
+            for each in result_users:
+                current_list_users.append(each[0])
+                if len(current_list_users) == 100:
+                    users_string_join = ','.join(str(x) for x in current_list_users)
+                    current_list_users = []
+                    code += "API.messages.send({ 'user_uds': '{}', 'message': message, 'random_id': {} })".format(users_string_join, random.randint(1, 2147483647) )
+
+                    
+            pprint(code)
+
+            # message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
+            # print(','.join(str(x[0]) for x in result_users))
+            # vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,"attachment": MessageSettings.GetAttachments() ,"random_id": random.randint(1, 2147483647)})
+            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            conn.commit()
+            return "ok"
         elif status == 47:
             
             sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(UserParams.groupId)
