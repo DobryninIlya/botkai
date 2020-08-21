@@ -559,7 +559,9 @@ def CheckStatus():
             result_users = cursor.fetchall()
             #pprint(result_users)
 
-            code = "var message = '{}'; \n".format(MessageSettings.getText())
+            code = """var message = '{}';
+            var attachment = '{}';
+            """.format(MessageSettings.getText(), MessageSettings.GetAttachments())
 
             current_list_users = []
             for each in result_users:
@@ -568,10 +570,11 @@ def CheckStatus():
                     users_string_join = ','.join(str(x) for x in current_list_users)
                     #print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({{ 'user_ids' : {}, 'message' : message, 'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
-
+                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment, 'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
                     
-            print(code)
+            code += "return 100;"
+            #print(code)
+            print(vk.method("execute", {"code": code}))
 
             # message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
             # print(','.join(str(x[0]) for x in result_users))
