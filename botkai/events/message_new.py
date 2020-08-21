@@ -557,7 +557,7 @@ def CheckStatus():
             sql = "SELECT id_vk FROM users WHERE ID_VK < 2000000000 AND role = 1".format()
             cursor.execute(sql)
             result_users = cursor.fetchall()
-            pprint(result_users)
+            #pprint(result_users)
 
             code = "var message = '{}'; \n".format(MessageSettings.getText())
 
@@ -566,8 +566,9 @@ def CheckStatus():
                 current_list_users.append(each[0])
                 if len(current_list_users) == 100:
                     users_string_join = ','.join(str(x) for x in current_list_users)
+                    print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({ 'user_uds': '{}', 'message': message, 'random_id': {} })".format(users_string_join, random.randint(1, 2147483647) )
+                    code += "API.messages.send({ 'user_ids' : '{}', 'message' : message, 'random_id' : {} })".format(users_string_join, random.randint(1, 2147483647) )
 
                     
             pprint(code)
