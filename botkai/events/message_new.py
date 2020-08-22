@@ -561,6 +561,7 @@ def CheckStatus():
 
             code = """var message = '{}';
             var attachment = '{}';
+            var keyboard = {"one_time": false, "buttons": [[{"action": {"type": "text", "payload": "{\"button\": \"tomorrow\"}", "label": "На завтра"}, "color": "primary"}, {"action": {"type": "text", "payload": "{\"button\": \"exams\"}", "label": "Экзамены"}, "color": "positive"}], [{"action": {"type": "text", "payload": "{\"button\": \"today\"}", "label": "На сегодня"}, "color": "primary"}, {"action": {"type": "text", "payload": "{\"button\": \"after\"}", "label": "На послезавтра"}, "color": "primary"}, {"action": {"type": "text", "payload": "{\"button\": \"all\"}", "label": "Полностью"}, "color": "primary"}], [{"action": {"type": "text", "payload": "{\"button\": \"chetnost\"}", "label": "Четность недели"}, "color": "default"}, {"action": {"type": "text", "payload": "{\"button\": \"task menu\"}", "label": "Задания и объявления"}, "color": "primary"}], [{"action": {"type": "text", "payload": "{\"button\": \"commands\"}", "label": "Команды"}, "color": "default"}, {"action": {"type": "text", "payload": "{\"button\": \"prepod\"}", "label": "Преподы"}, "color": "default"}], [{"action": {"type": "text", "payload": "\"{'button': 'feedback'}\"", "label": "Обратная связь"}, "color": "primary"}, {"action": {"type": "text", "payload": "{\"button\": \"profile\"}", "label": "Профиль"}, "color": "positive"}]]};
             """.format(MessageSettings.getText(), MessageSettings.GetAttachments())
 
             current_list_users = []
@@ -570,7 +571,7 @@ def CheckStatus():
                     users_string_join = ','.join(str(x) for x in current_list_users)
                     #print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment, 'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
+                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment, 'keyboard': keyboard ,'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
                     
             code += "return 100;"
             #print(code)
