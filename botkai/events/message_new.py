@@ -190,7 +190,7 @@ def IsRegistred():
                                     "random_id": random.randint(1, 2147483647)})
 
 
-        if InBase(id):
+        if InBase(id) and payload != "undo_regestration":
             #print("Зарегистрироан")
             return True
         if True:
