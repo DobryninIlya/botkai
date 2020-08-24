@@ -186,9 +186,10 @@ def IsRegistred():
             try:
                 cursorR.execute("INSERT INTO status VALUES ({}, 3)".format(MessageSettings.getId()))
                 conn.commit()
-            sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
-            cursorR.execute(sql)
-            conn.commit()
+            except:
+                sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
+                cursorR.execute(sql)
+                conn.commit()
             vk.method("messages.send", {"peer_id": id, "message": "Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
 
