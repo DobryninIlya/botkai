@@ -193,7 +193,7 @@ def IsRegistred():
         if InBase(id):
             #print("Зарегистрироан")
             return True
-        else:
+        if True:
 
             #print("Не зарегистрирован")
             if InBaseR(id):
