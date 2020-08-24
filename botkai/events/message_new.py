@@ -183,6 +183,7 @@ def IsRegistred():
         except:
             pass
         if payload == "undo_regestration":
+            cursor.execute("UPDATE users SET groupp = null WHERE id_vk = {}".format(MessageSettings.getId()))
             try:
                 cursorR.execute("INSERT INTO status VALUES ({}, 3)".format(MessageSettings.getId()))
                 conn.commit()
