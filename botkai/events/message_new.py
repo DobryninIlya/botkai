@@ -102,13 +102,12 @@ def message_new(request):
         global message_params
         message_params = json.loads(request.body)
         MessageSettings.update(message_params)
-        if MessageSettings.peer_id > 2000000000:
-            return "ok"
         if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
             return "У тебя почти получилось :)"
         if IsRegistred():
 
-            
+            if MessageSettings.peer_id > 2000000000:
+                return "ok"
 
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
@@ -175,7 +174,6 @@ def IsRegistred():
         body = MessageSettings.getText()
         id = int(MessageSettings.id)
         payload = ""
-        
         try:
             if MessageSettings.payload:
                 if MessageSettings.payload["button"]:
@@ -183,22 +181,16 @@ def IsRegistred():
         except:
             pass
         if payload == "undo_regestration":
-            cursor.execute("UPDATE users SET groupp = null WHERE id_vk = {}".format(MessageSettings.getId()))
-            try:
-                cursorR.execute("INSERT INTO status VALUES ({}, 3)".format(MessageSettings.getId()))
-                conn.commit()
-            except:
-                sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
-                cursorR.execute(sql)
-                conn.commit()
+            sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
+            cursorR.execute(sql)
+            conn.commit()
             vk.method("messages.send", {"peer_id": id, "message": "Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
 
-
-        if InBase(id) and payload != "undo_regestration":
+        if InBase(id):
             #print("Зарегистрироан")
             return True
-        if True:
+        else:
 
             #print("Не зарегистрирован")
             if InBaseR(id):
