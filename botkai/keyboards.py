@@ -278,7 +278,7 @@ def getMainKeyboard(role):
                     "link" : "https://vk.com/kaiknitu"
                 }}],
                 [get_button(label="Связь с админом", color="primary", payload = {'button': 'feedback'})],
-                 [get_button(label="Пройти регистрацию заного", color="primary", payload = {'button': 'undo_regestration'})]
+                 [get_button(label="Пройти регистрацию заного", color="primary", payload = {'button': 'undo_abiturient'})]
             ]
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
