@@ -570,17 +570,18 @@ def CheckStatus():
                     users_string_join = ','.join(str(x) for x in current_list_users)
                     #print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment, 'keyboard': keyboard ,'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
+                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment,'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
                     
             code += "return 100;"
             #print(code)
+            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            conn.commit()
             print(vk.method("execute", {"code": code}))
 
             # message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
             # print(','.join(str(x[0]) for x in result_users))
             # vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,"attachment": MessageSettings.GetAttachments() ,"random_id": random.randint(1, 2147483647)})
-            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
-            conn.commit()
+
             return "ok"
         elif status == 47:
             
