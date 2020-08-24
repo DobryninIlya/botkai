@@ -102,12 +102,13 @@ def message_new(request):
         global message_params
         message_params = json.loads(request.body)
         MessageSettings.update(message_params)
+        if MessageSettings.peer_id > 2000000000:
+            return "ok"
         if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
             return "У тебя почти получилось :)"
         if IsRegistred():
 
-            if MessageSettings.peer_id > 2000000000:
-                return "ok"
+            
 
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
@@ -174,6 +175,7 @@ def IsRegistred():
         body = MessageSettings.getText()
         id = int(MessageSettings.id)
         payload = ""
+        
         try:
             if MessageSettings.payload:
                 if MessageSettings.payload["button"]:
