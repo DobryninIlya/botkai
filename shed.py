@@ -18,7 +18,7 @@ def func():
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-#@sched.scheduled_job('cron', day_of_week='mon-fri', hour=10, minute = 27)
+#@sched.scheduled_job('cron', day_of_week='mon-fri', hour=22, minute = 47)
 def func():
     print("working sheduler")
     distribution()
@@ -37,7 +37,7 @@ def getGroupsResponse():
         if not response:
             return
         # cursor.execute("INSERT INTO saved_timetable (groupp, date_update, shedule) VALUES (1, \'{}\',\'{}\')".format(datetime.date.today(), json.dumps(response)))
-        cursor.execute("UPDATE saved_timtable SET date_update = '{}' and shedule = '{}'".format(datetime.date.today(), json.dumps(response)))
+        cursor.execute("UPDATE saved_timtable SET date_update = '{}' and shedule = '{}' WHERE groupp = 1".format(datetime.date.today(), json.dumps(response)))
     except:
         print('Ошибка:\n', traceback.format_exc())  
     return
