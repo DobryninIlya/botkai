@@ -46,6 +46,8 @@ class User:
        self.role = 0
        self.login = ""
        self.chetn = int(os.getenv("CHETN"))
+
+       self.statUser = set()
     def getGroup(self):
         return self.groupId
     def getAdminLevel(self):
@@ -69,6 +71,7 @@ class User:
         self.balance = res[7]
         self.role = res[13]
         self.login = res[14]
+        self.statUser.add(id)
 
         
         
@@ -118,7 +121,7 @@ class Message:
        self.payload = []
        self.button = ""
        self.messageId = 0
-       self.statUser = 0
+       
        self.allCommands = 0
 
        self.event_id = ""
@@ -217,7 +220,6 @@ class Message:
 
         self.keyboard = message_params["object"]["client_info"]["keyboard"]
 
-        self.statUser = 0
         self.allCommands = 0
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]

@@ -4,6 +4,7 @@ from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import datetime
 
+uptime = datetime.datetime.now()
 
 def info():
     id = MessageSettings.getId()
@@ -17,7 +18,7 @@ def info():
     delta = datetime.datetime.now() - uptime
     print(MessageSettings.statUser)
     vk.method("messages.send",
-                        {"peer_id": id, "message": "Число активных пользователей сегодня: " + str(MessageSettings.statUser) + "\n" + res + gchat + "\n Всего обращений: " + str(MessageSettings.allCommands) + "\nВремя работы " + str(delta), "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Число активных пользователей сегодня: " + str(UserParams.statUser) + "\n" + res + gchat + "\n Всего обращений: " + str(MessageSettings.allCommands) + "\nВремя работы " + str(delta), "random_id": random.randint(1, 2147483647)})
     connection.close()
     
       
