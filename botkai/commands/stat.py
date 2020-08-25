@@ -16,7 +16,6 @@ def info():
     cursor.execute(sql)
     gchat = "Количество подключенных бесед: " + str(cursor.fetchall()[0][0]) + '\n'
     delta = datetime.datetime.now() - uptime
-    print(MessageSettings.statUser)
     vk.method("messages.send",
                         {"peer_id": id, "message": "Число активных пользователей сегодня: " + str(UserParams.statUser) + "\n" + res + gchat + "\n Всего обращений: " + str(MessageSettings.allCommands) + "\nВремя работы " + str(delta), "random_id": random.randint(1, 2147483647)})
     connection.close()
