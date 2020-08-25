@@ -201,6 +201,7 @@ class Message:
                 self.payload = None
             except:
                 print('Ошибка:\n', traceback.format_exc())  
+            self.allCommands += 1
             return
         self.id = int(message_params["object"]["message"]["from_id"])
         self.text = message_params["object"]["message"]["text"]
@@ -220,7 +221,7 @@ class Message:
 
         self.keyboard = message_params["object"]["client_info"]["keyboard"]
 
-        self.allCommands = 0
+        self.allCommands += 1
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]
             self.conversation_message_id = 0
