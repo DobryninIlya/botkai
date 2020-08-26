@@ -5,7 +5,6 @@ from ..classes import vk, MessageSettings, UserParams
 
 
 def info():
-    statUser = MessageSettings.statUser
     id = MessageSettings.getId()
 
     vk.method("messages.send",

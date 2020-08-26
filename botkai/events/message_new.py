@@ -205,7 +205,7 @@ def IsRegistred():
             elif StatusR(id) == 3:
                 
                 today = datetime.date.today()
-                role = 1
+                role = 0
                 if body == "Преподаватель":
                     role = 2
                 elif body == "Студент":
