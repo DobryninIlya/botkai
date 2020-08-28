@@ -79,10 +79,11 @@ def GetAdminPanel(level):
         buttons.append([get_button(label="moder task", color="default", payload={'button': 'modertask'})])
         
         #buttons.append([get_button(label="moder storage", color="default", payload={'button': 'moderstorage'})])
-        buttons.append([get_button(label="Statistic", color="default", payload={'button': 'statistic'})])
+        buttons.append([get_button(label="statistic", color="default", payload={'button': 'statistic'})])
     if level >= 20:
         buttons.append([get_button(label="reload", color="negative", payload={'button': 'reload'})])
         buttons.append([get_button(label="distribution", color="negative", payload={'button': 'admin_distr_all_info'})])
+
 
     buttons.append([get_button(label="Выход", color="default")])
     keyboard = {
@@ -278,7 +279,7 @@ def getMainKeyboard(role):
                     "link" : "https://vk.com/kaiknitu"
                 }}],
                 [get_button(label="Связь с админом", color="primary", payload = {'button': 'feedback'})],
-                 [get_button(label="Пройти регистрацию заного", color="primary", payload = {'button': 'undo_abiturient'})]
+                 [get_button(label="Пройти регистрацию заново", color="primary", payload = {'button': 'undo_abiturient'})]
             ]
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')

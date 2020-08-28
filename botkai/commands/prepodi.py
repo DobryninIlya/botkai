@@ -23,6 +23,10 @@ def info():
     #        {"peer_id": id, "message": GetPrepodList() , "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
     prepodList = GetPrepodList()
+    if not len(prepodList):
+        vk.method("messages.send",
+            {"peer_id": id, "message": "\n&#10060;\tРасписание еще не доступно.&#10060;", "keyboard": getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+        return "ok"
     try:
         
         vk.method("messages.send",

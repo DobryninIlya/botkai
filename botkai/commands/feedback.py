@@ -31,7 +31,6 @@ keyboard = str(keyboard.decode('utf-8'))
 
 
 def info():
-    statUser = MessageSettings.statUser
     id = MessageSettings.getId()
     
     vk.method("messages.send",

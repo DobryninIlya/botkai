@@ -232,7 +232,7 @@ def IsRegistred():
                 try:
                     sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"                    
                     cursor.execute(sql)
-                    
+                    connection.commit()
                 except Exception as E:
                     print('Ошибка commit:\n', traceback.format_exc())
                 if role == 1 or role == 3:
@@ -251,7 +251,7 @@ def IsRegistred():
                 elif role == 4:
                     sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
-                    sql = "UPDATE Users SET Groupp = 7777 WHERE ID_VK = " + str(id) + ";"
+                    sql = "UPDATE Users SET Groupp = 7777, role = 4 WHERE ID_VK = " + str(id) + ";"
                     cursor.execute(sql)
                     conn.commit()
                     

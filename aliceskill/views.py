@@ -148,6 +148,7 @@ def handle_dialog(body, request, response):
                     "groupId" : group_values
                 }
                 #response["response"]["text"] = command + " " + group_values + " день " + str(day)
+                print(info(group_values, day))
                 shedule, tts = info(group_values, day)
                 response["response"]["text"] = shedule
                 response["response"]["tts"] = tts
