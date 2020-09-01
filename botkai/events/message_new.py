@@ -419,7 +419,7 @@ def showGroupId(groupNumber):
         return False
     except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
         try:
-        group = getGroupsResponse(groupNumber)
+            group = getGroupsResponse(groupNumber)
             if group:
                 return group
             vk.method("messages.send",
