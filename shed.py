@@ -37,7 +37,7 @@ def getGroupsResponse():
         if not response:
             return
         # cursor.execute("INSERT INTO saved_timetable (groupp, date_update, shedule) VALUES (1, \'{}\',\'{}\')".format(datetime.date.today(), json.dumps(response)))
-        cursor.execute("UPDATE public.saved_timetable SET date_update = '{}' and shedule = '{}' WHERE groupp = 1".format(datetime.date.today(), json.dumps(response)))
+        cursor.execute("UPDATE public.saved_timetable SET date_update = '{}', shedule = '{}' WHERE groupp = 1".format(datetime.date.today(), json.dumps(response)))
     except:
         print('Ошибка:\n', traceback.format_exc())  
     return
