@@ -388,7 +388,7 @@ def getGroupsResponse(groupNumber):
         result = json.loads(result)
         for elem in result:
             if int(elem["group"]) == int(groupNumber):
-                print("TESTIIIING", elem["id"])
+
                 return elem["id"]
         return False
     except:

@@ -18,7 +18,7 @@ def func():
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-#@sched.scheduled_job('cron', day_of_week='mon-fri', hour=22, minute = 47)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=5)
 def func():
     print("working sheduler")
     distribution()
@@ -42,5 +42,5 @@ def getGroupsResponse():
         print('Ошибка:\n', traceback.format_exc())  
     return
 
-
+getGroupsResponse()
 sched.start()
