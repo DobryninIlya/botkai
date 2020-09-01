@@ -382,19 +382,25 @@ BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 
 def getGroupsResponse(groupNumber):
-    cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
-    result = cursor.fetchone()[0]
-    result = json.loads(result)
-    for elem in result:
-        if int(elem["group"]) == int(groupNumber):
-            return elem["id"]
-    return False
+    try:
+        cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
+        result = cursor.fetchone()[0]
+        result = json.loads(result)
+        for elem in result:
+            if int(elem["group"]) == int(groupNumber):
+                return elem["id"]
+        return False
+    except:
+        print('Ошибка GET GROUP RESPONSE:\n', traceback.format_exc())
+        return False
+
 
 
 
 def showGroupId(groupNumber):
     id = int(MessageSettings.id)
     try:
+        raise TimeoutError
         response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 4)
         print(response.status_code, response)
         if str(response.status_code) != '200':
@@ -951,7 +957,7 @@ def CheckStatus():
                 
                 if (int)(body) > 1000 and (int)(body) < 10000 and group:
                     group = str(group)
-                    admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else 0
+                    admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else 1
                     print("Adm level", admlevel) 
                     sql = "UPDATE users SET groupp = {}, groupreal = {}, \"dateChange\" = '{}', admlevel = {} WHERE ID_VK = {}".format(group, str(realgroup), date, admlevel, id)
                     cursor.execute(sql)
