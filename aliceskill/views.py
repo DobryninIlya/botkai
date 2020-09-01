@@ -148,7 +148,6 @@ def handle_dialog(body, request, response):
                     "groupId" : group_values
                 }
                 #response["response"]["text"] = command + " " + group_values + " день " + str(day)
-                print(info(group_values, day))
                 shedule, tts = info(group_values, day)
                 response["response"]["text"] = shedule
                 response["response"]["tts"] = tts
@@ -191,17 +190,17 @@ def showTimetable(groupId, tomorrow=0):
     try:
         groupId = showGroupId(groupId)
         if not groupId:
-            return "Группы не существует"
+            return "Группы не существует", "Группы не существует"
         isNormal, response = getResponse(groupId)
         if not isNormal:
             print("NOOOOOOOOOOOO")
-            return response
+            return response, "Произошла ошибка. Это очень печально"
         
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
 
         if len(response) == 0:
-            return "\n&#10060;\tРасписание еще не доступно.&#10060;"
+            return "\n&#10060;\tРасписание еще не доступно.&#10060;", "Расписание еще не доступно"
         
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
