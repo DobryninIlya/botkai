@@ -221,7 +221,7 @@ class Message:
 
         self.keyboard = message_params["object"]["client_info"]["keyboard"]
 
-        self.allCommands += 1
+        self.allCommands = self.allCommands + 1 if self.peer_id < 2000000000 else self.allCommands
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]
             self.conversation_message_id = 0
