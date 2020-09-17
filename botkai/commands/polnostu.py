@@ -4,7 +4,7 @@ import datetime
 import json
 import requests
 from .. import keyboards
-from ..classes import vk as vk
+from ..classes import vk as vk,cursor, connection
 from ..classes import MessageSettings
 from ..classes import UserParams
 import traceback
