@@ -1070,9 +1070,9 @@ def CheckStatus():
                 cursorR.execute(sql)
                 idUser = cursorR.fetchone()[0]
                 vk.method("messages.send",
-                    {"peer_id": idUser, "message": "Ответ администратора:\n" + body, "random_id": random.randint(1, 2147483647)})
+                    {"peer_id": idUser, "message": "Ответ администратора:\n" + body, , "attachment": MessageSettings.GetAttachments(), "random_id": random.randint(1, 2147483647)})
                 vk.method("messages.send",
-                    {"peer_id": id, "message": "Ответ отправлен","keyboard": keyboards.getMainKeyboard(UserParams.role), "attachment": MessageSettings.GetAttachments(), "random_id": random.randint(1, 2147483647)})
+                    {"peer_id": id, "message": "Ответ отправлен","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
                 cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
                 cursorR.execute("DELETE FROM answers WHERE id = " + str(id))
