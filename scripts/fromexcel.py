@@ -216,16 +216,18 @@ for group in groups:
                 }
             ]
         prev_day = day
+    week_shed[day] = shed_day
+    
     try:
-        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(showGroupId(group), '2020-12-30', json.dumps(week_shed))
+        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(showGroupId(group), '2020-12-30', (json.dumps(week_shed)).replace('None', ""))
         cursor.execute(sql)
         connection.commit()
     except:
 
-        sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(week_shed), '2020-12-30', showGroupId(str(group)))
+        sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format((json.dumps(week_shed)).replace('None', ""), '2020-12-30', showGroupId(str(group)))
         cursor.execute(sql)
     connection.commit()
         
 
-# cursorR.execute("SELECT * FROM saved_timetable WHERE groupp = '4438' AND daynum = '6'")
-# pprint(cursorR.fetchall())
+cursorR.execute("SELECT * FROM saved_timetable WHERE groupp = '4438' AND daynum = '6'")
+pprint(cursorR.fetchall())

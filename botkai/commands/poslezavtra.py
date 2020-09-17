@@ -52,13 +52,13 @@ def showTimetable(groupId, tomorrow=0):
             return response
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        print("TODAY {}".format(today))
+
 
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
-        print("RESPONSE: {}".format(response))
+
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
-        print("RESPONSE: {}".format(response))
+
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
         month = now.month
