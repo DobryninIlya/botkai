@@ -546,6 +546,13 @@ def CheckStatus():
         body = MessageSettings.getText()
         status = UserParams.Status
         id = MessageSettings.getId()
+
+
+        # CHECKING ACTUALITY OF CURRENT GROUP ID BY YEAR
+        print(UserParams.dateChange, UserParams.dateChange.month)
+        # END CHECK
+
+
         if body.lower() == "выход" or body.lower() == "назад" or body.lower() == "выйти":
             try:
                 vk.method("messages.send",

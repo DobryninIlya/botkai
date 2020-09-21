@@ -24,12 +24,6 @@ def showAllTimetable(groupId):
     isNormal, response = getResponse(groupId)
     if not isNormal:
         return response
-    # response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3 )
-    print("TEST")
-    # print("Response: ", response.status_code)
-    # if str(response.status_code) != '200':
-    #     return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
-    # response = response.json()
     if len(response) == 0:
         return "\n&#10060;\tРасписание еще не доступно.&#10060;"
     result = ''

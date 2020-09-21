@@ -48,6 +48,8 @@ class User:
        self.chetn = int(os.getenv("CHETN"))
 
        self.statUser = set()
+
+       self.dateChange = ''
     def getGroup(self):
         return self.groupId
     def getAdminLevel(self):
@@ -72,7 +74,7 @@ class User:
         self.role = res[13]
         self.login = res[14]
         self.statUser.add(id)
-
+        self.dateChange = res[6]
         
         
     def getChetn(self):
