@@ -552,7 +552,7 @@ def CheckStatus():
         print(UserParams.dateChange, UserParams.dateChange.month)
         # if (UserParams.dateChange.year < today.year and today.month > 8) or (UserParams.dateChange.year == UserParams.dateChange.year and UserParams.dateChange.month < 9 and today.month > 8)
         body_excepts = ['Профиль', 'Изменить', 'Назад', '!группа', 'группа', 'Обратная связь']
-        if UserParams.dateChange < datetime.date(2020, 9, 1) and UserParams.role in [1,3] and body not in body_excepts and body.isdigit():
+        if UserParams.dateChange < datetime.date(2020, 9, 1) and UserParams.role in [1,3] and body not in body_excepts or body.isdigit():
             vk.method("messages.send",
                         {"peer_id": id, "message": "Кажется, номер вашей группы установлен в прошлом учебном году. Это означает, что вы не сможете получить актуальное расписание вашей группы. Обновить номер группы можно в профиле, нажав на номер группы или с помощью команды !группа", 
                         "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
