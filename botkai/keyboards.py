@@ -247,7 +247,7 @@ def getMainKeyboard(role):
             [
                 get_button(label="На сегодня", color="primary", payload = {'button': 'todayprepod'}),
                 get_button(label="На послезавтра", color="primary", payload = {'button': 'afterprepod'}),
-                get_button(label="Полностью", color="primary", payload = {'button': 'allprepod'})
+                get_button(label="📄Полностью", color="primary", payload = {'button': 'allprepod'})
                 ],
             [
                 get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}),
@@ -285,7 +285,7 @@ def getMainKeyboard(role):
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
     elif role == 3:
-        first_row =[get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
+        first_row =[get_button(label="🔔 На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
         if datetime.date.today().month in exams_months:
             first_row.append(get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "text"))
         keyboard = {
@@ -293,20 +293,20 @@ def getMainKeyboard(role):
             "buttons": [
             first_row,
             [
-                get_button(label="На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
-                get_button(label="На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
-                get_button(label="Полностью", color="primary", payload = {'button': 'all'}, type = "text")
+                get_button(label="🔔 На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
+                get_button(label="🔔 На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
+                get_button(label="📄Полностью", color="primary", payload = {'button': 'all'}, type = "text")
                 ],
             [
-                get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text")
+                get_button(label="🗓 Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text")
                 ],
             [
                 get_button(label="Команды", color="default", payload = {'button': 'commands'}, type = "text"),
-                get_button(label="Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
+                get_button(label="👨‍🏫Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
                 ],
             [
-                get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
-                get_button(label="Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
+                get_button(label="💌Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
+                get_button(label="🔧Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
                 ]
 
 
@@ -324,7 +324,7 @@ def getMainKeyboard(role):
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
     else:
-        first_row =[get_button(label="На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
+        first_row =[get_button(label="📗На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
         if datetime.date.today().month in exams_months:
             first_row.append(get_button(label="Экзамены", color="positive", payload = {'button': 'exams'}, type = "text"))
         keyboard = {
@@ -332,21 +332,21 @@ def getMainKeyboard(role):
             "buttons": [
             first_row,
             [
-                get_button(label="На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
-                get_button(label="На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
-                get_button(label="Полностью", color="primary", payload = {'button': 'all'}, type = "text")
+                get_button(label="📘 На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
+                get_button(label="📕 На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
+                get_button(label="📄 Полностью", color="primary", payload = {'button': 'all'}, type = "text")
                 ],
             [
-                get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text"),
-                get_button(label="Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "text"),
+                get_button(label="🗓 Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text"),
+                get_button(label="📋 Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "text"),
                 ],
             [
-                get_button(label="Команды", color="default", payload = {'button': 'commands'}, type = "text"),
-                get_button(label="Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
+                get_button(label="📖 Разное", color="default", payload = {'button': 'submenu'}, type = "text"),
+                get_button(label="👨‍🏫 Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
                 ],
             [
-                get_button(label="Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
-                get_button(label="Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
+                get_button(label="💌 Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
+                get_button(label="👨🏻‍🎓 Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
                 ]
 
 
@@ -991,5 +991,48 @@ testButtons = {
 }
 testButtons = json.dumps(testButtons, ensure_ascii=False).encode('utf-8')
 testButtons = str(testButtons.decode('utf-8'))
+
+
+
+
+
+
+submenu = {
+    "inline": False,
+    "buttons": [
+        
+        [get_button(label="Здания", color="default", payload={'button': 'buildings_menu'})],
+        [get_button(label="Команды", color="default", payload={'button': 'commands'})],
+        [get_button(label="Экспорт расписания в .docx", color="default", payload={'button': 'exportword'})],
+        [get_button(label="Активности", color="default", payload={'button': 'activities'})],
+        [get_button(label="Назад", color="default", payload={})]
+        
+    ]
+
+}
+submenu = json.dumps(submenu, ensure_ascii=False).encode('utf-8')
+submenu = str(submenu.decode('utf-8'))
+
+buildings_menu = {
+    "inline": False,
+    "buttons": [
+        
+        [get_button(label="1", color="primary", payload={'button': 'buildings_num', 'number': 1}),
+        get_button(label="2", color="primary", payload={'button': 'buildings_num', 'number': 2}),
+        get_button(label="3", color="primary", payload={'button': 'buildings_num', 'number': 3}),
+        get_button(label="4", color="primary", payload={'button': 'buildings_num', 'number': 4})
+        ],
+        [get_button(label="5", color="primary", payload={'button': 'buildings_num', 'number': 5}),
+        get_button(label="6", color="primary", payload={'button': 'buildings_num', 'number': 6}),
+        get_button(label="7", color="primary", payload={'button': 'buildings_num', 'number': 7}),
+        get_button(label="8", color="primary", payload={'button': 'buildings_num', 'number': 8})
+        ],
+        [get_button(label="Назад", color="default", payload={})]
+        
+    ]
+
+}
+buildings_menu = json.dumps(buildings_menu, ensure_ascii=False).encode('utf-8')
+buildings_menu = str(buildings_menu.decode('utf-8'))
 
 #######################################Keyboards#####################################################

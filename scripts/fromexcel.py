@@ -3,7 +3,7 @@ import openpyxl
 from pprint import pprint
 
 wb = openpyxl.load_workbook(filename = 'shed.xlsx')
-sheet = wb['Лист1']
+sheet = wb['"Лист1"']
 
 # vals = [v[0].value for v in sheet.range('A1:A2')]
 # vals = [v.value for v in sheet]
@@ -134,46 +134,59 @@ cursorR = conn.cursor()
 connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye', password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9', host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
 connection.autocommit=True
 cursor = connection.cursor()
-# cursorR.execute("DROP TABLE saved_timetable")
-# cursorR.execute("""CREATE TABLE saved_timetable(
-#     id int4 PRIMARY KEY,
-#     groupp varchar(10),
-#     daynum varchar(10),
-#     daydate varchar(10),
-#     daytime varchar(10),
-#     disipltype varchar(10),
-#     disciplname varchar(100),
-#     audnum varchar(10),
-#     buildnum varchar(10),
-#     prepodname varchar(100)
-#     )""")
 
-# conn.commit()
-first = True
+try:
+    cursorR.execute("""CREATE TABLE saved_timetable(
+        id int4 PRIMARY KEY,
+        groupp varchar(10),
+        daynum varchar(10),
+        daydate varchar(10),
+        daytime varchar(10),
+        disipltype varchar(10),
+        disciplname varchar(100),
+        audnum varchar(10),
+        buildnum varchar(10),
+        prepodname varchar(100)
+        )""")
+except:
+    cursorR.execute("DROP TABLE saved_timetable")
+    cursorR.execute("""CREATE TABLE saved_timetable(
+        id int4 PRIMARY KEY,
+        groupp varchar(10),
+        daynum varchar(10),
+        daydate varchar(10),
+        daytime varchar(10),
+        disipltype varchar(10),
+        disciplname varchar(100),
+        audnum varchar(10),
+        buildnum varchar(10),
+        prepodname varchar(100)
+        )""")
+conn.commit()
+first = False # change true
 i = 0
-# for row in sheet.rows:
-#     if first:
-#         first = False
-#         continue
-#     string = ''
+for row in sheet.rows:
+    if first:
+        first = False
+        continue
+    string = ''
 
-#     sql = """
-#     INSERT INTO saved_timetable VALUES({id},'{groupp}', '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}', '{prepodname}')
-#     """.format(
-#         id = i,
-#         groupp = str(row[0].value), # чет неч
-#         daynum = weekdays[str(row[1].value).rstrip()], # чет неч
-#         daydate = row[3].value, # чет неч
-#         daytime = row[2].value, # время
-#         discipltype = row[5].value, # пр лек лр
-#         disciplname  = row[4].value, # название пары
-#         audnum = row[6].value,# аудитория
-#         buildnum = row[7].value,# здание
-#         prepodname = row[9].value,# здание
-#     )
-#     i += 1
-#     cursor.execute(sql)
-# conn.commit()
+    sql = "INSERT INTO saved_timetable VALUES ({id},'{groupp}', '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}', '{prepodname}')".format(
+        id = i,
+        groupp = str(row[0].value), # чет неч
+        daynum = weekdays[str(row[1].value).rstrip()], # чет неч
+        daydate = str(row[3].value), # чет неч
+        daytime = row[2].value, # время
+        discipltype = row[5].value, # пр лек лр
+        disciplname  = row[4].value, # название пары
+        audnum = row[6].value,# аудитория
+        buildnum = row[7].value,# здание
+        prepodname = row[9].value,# здание
+    )
+    print(sql)
+    i += 1
+    cursorR.execute(sql)
+conn.commit()
 cursorR.execute("SELECT DISTINCT groupp FROM saved_timetable")
 
 groups = cursorR.fetchall()

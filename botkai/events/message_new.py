@@ -62,7 +62,7 @@ def DeleteOldTask():
     cursor.execute("DELETE FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
     cursor.execute('DELETE FROM "Adv" WHERE date < ' + "'" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
 
-    cursor.execute("DELETE FROM Users WHERE Groupp = 0")
+    cursor.execute("DELETE FROM Users WHERE Groupp = 0 and role = 1")
 
 
     connection.commit()
@@ -1394,7 +1394,7 @@ def CheckStatus():
         # CHECKING ACTUALITY OF CURRENT GROUP ID BY YEAR
         # if (UserParams.dateChange.year < today.year and today.month > 8) or (UserParams.dateChange.year == UserParams.dateChange.year and UserParams.dateChange.month < 9 and today.month > 8)
         body_excepts = ['Профиль', 'Изменить', 'Назад', '!группа', 'группа', 'Обратная связь']
-        if UserParams.dateChange < datetime.date(2020, 9, 1) and UserParams.role in [1,3] and body not in body_excepts or body.isdigit():
+        if False and UserParams.dateChange < datetime.date(2020, 9, 1) and UserParams.role in [1,3] and body not in body_excepts or (body.isdigit() and UserParams.dateChange < datetime.date(2020, 9, 1) ):
             vk.method("messages.send",
                         {"peer_id": id, "message": "&#9888; Кажется, номер вашей группы установлен в прошлом учебном году. Это означает, что вы не сможете получить актуальное расписание вашей группы. Обновить номер группы можно в профиле, нажав на номер группы или с помощью команды !группа", 
                         "random_id": random.randint(1, 2147483647)})

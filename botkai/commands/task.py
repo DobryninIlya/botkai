@@ -63,7 +63,7 @@ def ShowTask(id, groupId, date):
         print("ЭТАП 2")
 
         print("ЭТАП 3")
-        vk.method("messages.send", {"peer_id": id, "message": task , "keyboard": keyboards.keyboard, "attachment" : att, "random_id": random.randint(1, 2147483647)})
+        vk.method("messages.send", {"peer_id": id, "message": task , "keyboard": keyboards.getMainKeyboard(UserParams.role), "attachment" : att, "random_id": random.randint(1, 2147483647)})
         print("ЭТАП 4")
         
     return "ok"

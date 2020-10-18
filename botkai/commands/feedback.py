@@ -45,7 +45,7 @@ command = command_class.Command()
 
 
 
-command.keys = ["обратная связь"]
+command.keys = ["связь с админом"]
 command.desciption = ''
 command.process = info
 command.payload = "feedback"
