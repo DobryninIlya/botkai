@@ -345,7 +345,7 @@ def getMainKeyboard(role):
                 get_button(label="👨‍🏫 Преподы", color="default", payload = {'button': 'prepod'}, type = "text"),
                 ],
             [
-                get_button(label="💌 Обратная связь", color="primary", payload = "{'button': 'feedback'}", type = "text"),
+                get_button(label="💌 Обратная связь", color="primary", payload = {'button': 'feedback'}, type = "text"),
                 get_button(label="👨🏻‍🎓 Профиль", color="positive", payload = {'button': 'profile'}, type = "text")
                 ]
 
