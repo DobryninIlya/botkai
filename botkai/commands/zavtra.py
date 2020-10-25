@@ -73,6 +73,7 @@ def showTimetable(groupId, tomorrow=0):
                 isPotok = True if elem["potok"] == '1' else False
                 print("POTOK", isPotok)
             except:
+                print('Ошибка:\n', traceback.format_exc())
                 isPotok = False
             if isPotok:
                if not user_potok:
