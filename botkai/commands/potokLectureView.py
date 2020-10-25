@@ -42,16 +42,16 @@ def info():
     
     # connection.commit()
     
-    sql = "SELECT 'potokLecture' FROM users WHERE id_vk = {id_vk}".format(id_vk = MessageSettings.getId())
+    sql = "SELECT potok_lecture FROM users WHERE id_vk = {id_vk}".format(id_vk = MessageSettings.getId())
     cursor.execute(sql)
     res = cursor.fetchone()[0]
 
     if res:
-        cursor.execute("UPDATE users SET users.spotokLecture = {} WHERE ID_VK = {}".format(False, MessageSettings.getId()))
+        cursor.execute("UPDATE users SET users.potok_lecture = {} WHERE ID_VK = {}".format(False, MessageSettings.getId()))
         vk.method("messages.send",
                         {"peer_id": id, "message": "Отображение потоковых лекций выключено", "random_id": random.randint(1, 2147483647)})
     else:
-        cursor.execute("UPDATE users SET users.potokLecture = {} WHERE ID_VK = {}".format(True, MessageSettings.getId()))
+        cursor.execute("UPDATE users SET users.potok_lecture = {} WHERE ID_VK = {}".format(True, MessageSettings.getId()))
         vk.method("messages.send",
                         {"peer_id": id, "message": "Отображение потоковых лекций включено", "random_id": random.randint(1, 2147483647)})
 
