@@ -65,8 +65,8 @@ command = command_class.Command()
 
 
 
-command.keys = ["потоковая лекция"]
-command.desciption = ''
+command.keys = ["поток","потоковая лекция"]
+command.desciption = 'включить или отключить отображение дистанционных лекций'
 command.process = info
 command.payload = "potokLectureSettings"
 

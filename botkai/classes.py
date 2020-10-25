@@ -48,6 +48,7 @@ class User:
        self.chetn = int(os.getenv("CHETN"))
 
        self.statUser = set()
+       self.potokLecture = True
 
        self.dateChange = ''
     def getGroup(self):
@@ -75,6 +76,7 @@ class User:
         self.login = res[14]
         self.statUser.add(id)
         self.dateChange = res[6]
+        self.potokLecture = res[15]
         
         
     def getChetn(self):

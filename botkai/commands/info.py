@@ -15,6 +15,7 @@ def info():
     донат - пожертвования боту/пополнение баланса
     преподы - список преподавателей
     четность - покажу, четная или нечетная неделя
+    поток - включить/выключить отображение потоковых лекций
     """
     vk.method("messages.send",
                     {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : getMainKeyboard(UserParams.role),
