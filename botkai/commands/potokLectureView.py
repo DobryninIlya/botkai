@@ -42,7 +42,7 @@ def info():
     
     # connection.commit()
     
-    sql = "SELECT potokLecture FROM users WHERE id_vk = {id_vk}".format(id_vk = MessageSettings.getId())
+    sql = "SELECT 'potokLecture' FROM users WHERE id_vk = {id_vk}".format(id_vk = MessageSettings.getId())
     cursor.execute(sql)
     res = cursor.fetchone()[0]
 
