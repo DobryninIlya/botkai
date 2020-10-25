@@ -47,7 +47,7 @@ def info():
     res = cursor.fetchone()[0]
 
     if res:
-        cursor.execute("UPDATE users SET 'potokLecture' = {} WHERE ID_VK = ".format(False, MessageSettings.getId()))
+        cursor.execute("UPDATE users SET potokLecture = {} WHERE ID_VK = ".format(False, MessageSettings.getId()))
         vk.method("messages.send",
                         {"peer_id": id, "message": "Отображение потоковых лекций выключено", "random_id": random.randint(1, 2147483647)})
     else:
