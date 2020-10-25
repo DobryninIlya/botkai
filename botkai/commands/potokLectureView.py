@@ -49,11 +49,11 @@ def info():
     if res:
         cursor.execute("UPDATE users SET potok_lecture = {} WHERE ID_VK = {}".format(False, MessageSettings.getId()))
         vk.method("messages.send",
-                        {"peer_id": id, "message": "Отображение потоковых лекций выключено", "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": MessageSettings.getId(), "message": "Отображение потоковых лекций выключено", "random_id": random.randint(1, 2147483647)})
     else:
         cursor.execute("UPDATE users SET potok_lecture = {} WHERE ID_VK = {}".format(True, MessageSettings.getId()))
         vk.method("messages.send",
-                        {"peer_id": id, "message": "Отображение потоковых лекций включено", "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": MessageSettings.getId(), "message": "Отображение потоковых лекций включено", "random_id": random.randint(1, 2147483647)})
 
 
     return "ok"
