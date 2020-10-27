@@ -494,7 +494,7 @@ week_shed_kbrd = {
             get_button(label="Суббота", color="default", payload={'button': 'week_shed', 'day': 6})
         ],
         [get_button(label="Полностью", color="default", payload={'button': 'all'})],
-        [get_button(label="Назад", color="neagative", payload={'button': 'tomainmenu'})],
+        [get_button(label="Назад", color="negative", payload={'button': 'tomainmenu'})],
     ]
 
 }
