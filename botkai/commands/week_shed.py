@@ -182,8 +182,7 @@ def info():
         date = day - current_day
 
     print(current_day)
-    date = int(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=int(date)))
-    print(date)
+    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=int(date)))
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
@@ -196,7 +195,7 @@ def info():
     adv = ""
     if advert:
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
-
+    
     try:
         Timetable = showTimetable(UserParams.groupId, date)
         if Timetable:
