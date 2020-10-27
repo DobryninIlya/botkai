@@ -333,9 +333,9 @@ def getMainKeyboard(role):
             first_row,
             [
                 get_button(label="📘 На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
-                get_button(label="📕 На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
-                get_button(label="📄 Полностью", color="primary", payload = {'button': 'all'}, type = "text")
+                get_button(label="📕 На послезавтра", color="primary", payload = {'button': 'after'}, type = "text")
                 ],
+                [get_button(label="📄 На неделю", color="primary", payload={'button': 'week_shed'}, type="text")],
             [
                 get_button(label="🗓 Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text"),
                 get_button(label="📋 Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "text"),
