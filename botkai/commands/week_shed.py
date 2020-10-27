@@ -175,7 +175,7 @@ def info():
     current_day = today.isoweekday()
     date_day = 0
     if day < current_day:
-        date_day =  7 + day - current_day
+        date_day =  7 + day
     elif day == current_day:
         date_day = 7
     else:
