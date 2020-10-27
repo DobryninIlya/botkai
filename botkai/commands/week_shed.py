@@ -182,7 +182,8 @@ def info():
         date = day - current_day
 
     print(current_day)
-    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=int(date)))
+    date = int(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=int(date)))
+    print(date)
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
