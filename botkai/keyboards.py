@@ -484,16 +484,16 @@ week_shed_kbrd = {
     "one_time": False,
     "buttons": [
         [
-            get_button(label="Понедельник", color="primary", payload={'button': 'week_shed', 'day': 1}),
-            get_button(label="Вторник", color="primary", payload={'button': 'week_shed', 'day': 2}),
-            get_button(label="Среда", color="primary", payload={'button': 'week_shed', 'day': 3})
+            get_button(label="Понедельник", color="default", payload={'button': 'week_shed', 'day': 1}),
+            get_button(label="Вторник", color="default", payload={'button': 'week_shed', 'day': 2}),
+            get_button(label="Среда", color="default", payload={'button': 'week_shed', 'day': 3})
          ],
         [
-            get_button(label="Четверг", color="primary", payload={'button': 'week_shed', 'day': 4}),
-            get_button(label="Пятница", color="primary", payload={'button': 'week_shed', 'day': 5}),
-            get_button(label="Суббота", color="primary", payload={'button': 'week_shed', 'day': 6})
+            get_button(label="Четверг", color="default", payload={'button': 'week_shed', 'day': 4}),
+            get_button(label="Пятница", color="default", payload={'button': 'week_shed', 'day': 5}),
+            get_button(label="Суббота", color="default", payload={'button': 'week_shed', 'day': 6})
         ],
-        [get_button(label="Полностью", color="primary", payload={'button': 'all'})],
+        [get_button(label="Полностью", color="default", payload={'button': 'all'})],
         [get_button(label="Назад", color="primary", payload={'button': 'tomainmenu'})],
     ]
 
