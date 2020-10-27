@@ -172,7 +172,7 @@ def info():
     id = MessageSettings.getId()
     day = MessageSettings.payload["day"]
 
-    current_day = datetime.datetime.isoweekday
+    current_day = datetime.datetime.isoweekday()
     date = 0
     if day > current_day:
         date =  6 + day - current_day
