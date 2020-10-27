@@ -182,7 +182,7 @@ def info():
         date_day = day - current_day
 
     print(current_day)
-    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
+    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=date_day))
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
@@ -200,7 +200,7 @@ def info():
         Timetable = showTimetable(UserParams.groupId, date_day)
         if Timetable:
             vk.method("messages.send",
-                      {"peer_id": id, "message": "Расписание" + Timetable + adv + task,
+                      {"peer_id": id, "message": "Расписание\n" + Timetable + adv + task,
                        "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
         else:
             vk.method("messages.send",
