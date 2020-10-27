@@ -182,7 +182,7 @@ def info():
     elif day == current_day:
         date_day = 7
     else:
-        date_day = day - current_day + 1
+        date_day = day - current_day
 
     print(date_day)
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=date_day))
