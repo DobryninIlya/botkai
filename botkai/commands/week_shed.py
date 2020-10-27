@@ -38,6 +38,9 @@ def showTimetable(groupId, tomorrow=0):
         if month < 10:
             month = "0" + str(month)
         day = str(now.day) + "." + str(month)
+
+        print("CHETN ", datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn)
+
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
 
@@ -181,8 +184,9 @@ def info():
     else:
         date_day = day - current_day + 1
 
-    print(current_day)
+    print(date_day)
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=date_day))
+    print(date)
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
