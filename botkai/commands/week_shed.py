@@ -174,12 +174,12 @@ def info():
     today = datetime.date.today()
     current_day = today.isoweekday()
     date_day = 0
-    if day > current_day:
-        date_day =  7 + day - current_day
+    if day < current_day:
+        date_day =  6 + day - current_day
     elif day == current_day:
         date_day = 7
     else:
-        date_day = day - current_day
+        date_day = day - current_day + 1
 
     print(current_day)
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=date_day))
