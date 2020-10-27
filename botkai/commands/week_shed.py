@@ -173,16 +173,16 @@ def info():
     day = MessageSettings.payload["day"]
     today = datetime.date.today()
     current_day = today.isoweekday()
-    date = 0
+    date_day = 0
     if day > current_day:
-        date =  6 + day - current_day
+        date_day =  6 + day - current_day
     elif day == current_day:
-        date = 7
+        date_day = 7
     else:
-        date = day - current_day
+        date_day = day - current_day
 
     print(current_day)
-    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=int(date)))
+    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
@@ -195,9 +195,9 @@ def info():
     adv = ""
     if advert:
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
-    
+
     try:
-        Timetable = showTimetable(UserParams.groupId, date)
+        Timetable = showTimetable(UserParams.groupId, date_day)
         if Timetable:
             vk.method("messages.send",
                       {"peer_id": id, "message": "Расписание" + Timetable + adv + task,
