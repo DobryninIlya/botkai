@@ -84,4 +84,4 @@ command = command_class.Command()
 command.keys = ['-']
 command.desciption = 'расписание полностью'
 command.process = info
-command.payload = "all_week_shed"
+command.payload = "-"
