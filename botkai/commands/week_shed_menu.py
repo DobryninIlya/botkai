@@ -8,7 +8,7 @@ def info():
     id = MessageSettings.getId()
     
     vk.method("messages.send",
-                        {"peer_id": id, "message": "меню","keyboard" : week_shed_kbrd, "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Меню","keyboard" : week_shed_kbrd, "random_id": random.randint(1, 2147483647)})
 
     
       
@@ -21,8 +21,8 @@ command = command_class.Command()
 
 
 
-command.keys = ["рассылки", "управление рассылками"]
+command.keys = []
 command.desciption = ''
 command.process = info
-command.payload = "distr"
+command.payload = "week_shed_menu"
 
