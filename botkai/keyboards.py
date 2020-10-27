@@ -481,7 +481,7 @@ def GetButtonDeleteByDate():
     return keyboard
 
 week_shed_kbrd = {
-    "inline": True,
+    "one_time": False,
     "buttons": [
         [
             get_button(label="Понедельник", color="primary", payload={'button': 'week_shed', 'day': 1}),
