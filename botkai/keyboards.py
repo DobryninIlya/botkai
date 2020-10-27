@@ -333,9 +333,9 @@ def getMainKeyboard(role):
             first_row,
             [
                 get_button(label="📘 На сегодня", color="primary", payload = {'button': 'today'}, type = "text"),
-                get_button(label="📕 На послезавтра", color="primary", payload = {'button': 'after'}, type = "text"),
-                get_button(label="📄 Полностью", color="primary", payload = {'button': 'all'}, type = "text")
+                get_button(label="📕 На послезавтра", color="primary", payload = {'button': 'after'}, type = "text")
                 ],
+                get_button(label="📄 На неделю", color="primary", payload={'button': 'week_shed'}, type="text")
             [
                 get_button(label="🗓 Четность недели", color="default", payload = {'button': 'chetnost'}, type = "text"),
                 get_button(label="📋 Задания и объявления", color="primary", payload = {'button': 'task menu'}, type = "text"),
@@ -480,6 +480,27 @@ def GetButtonDeleteByDate():
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
+
+week_shed_kbrd = {
+    "inline": True,
+    "buttons": [
+        [
+            get_button(label="Понедельник", color="primary", payload={'button': 'week_shed', 'day': 1}),
+            get_button(label="Вторник", color="primary", payload={'button': 'week_shed', 'day': 2}),
+            get_button(label="Среда", color="primary", payload={'button': 'week_shed', 'day': 3})
+         ],
+        [
+            get_button(label="Четверг", color="primary", payload={'button': 'week_shed', 'day': 4}),
+            get_button(label="Пятница", color="primary", payload={'button': 'week_shed', 'day': 5}),
+            get_button(label="Суббота", color="primary", payload={'button': 'week_shed', 'day': 6})
+        ],
+        [get_button(label="Полностью", color="primary", payload={'button': 'all_week_shed'})],
+        [get_button(label="Назад", color="primary", payload={'button': 'tomainmenu'})],
+    ]
+
+}
+week_shed_kbrd = json.dumps(week_shed_kbrd, ensure_ascii=False).encode('utf-8')
+week_shed_kbrd = str(week_shed_kbrd.decode('utf-8'))
 
 
 make_admin_distr = {

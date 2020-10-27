@@ -67,6 +67,18 @@ def showTimetable(groupId, tomorrow=0):
         day = str(now.day) + "." + str(month)
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
+
+            try:
+                isPotok = True if elem["potok"] == '1' else False
+                print("POTOK", isPotok)
+            except:
+                print('Ошибка:\n', traceback.format_exc())
+                isPotok = False
+            if isPotok:
+               if not user_potok:
+                   continue 
+
+
             print(dateinstr)
             if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] +  " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'

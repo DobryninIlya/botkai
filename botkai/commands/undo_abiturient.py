@@ -16,8 +16,8 @@ def info():
 
 command = command_class.Command()
 
-command.keys = ['что это', 'как', 'информация', 'инфа']
-command.desciption = 'про бота для абитуриентов'
+command.keys = []
+command.desciption = 'удаление аккаунта абитуриента'
 command.payload = "undo_abiturient"
 command.process = info
 command.role = [4]
