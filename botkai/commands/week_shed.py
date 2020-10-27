@@ -171,8 +171,8 @@ def info():
     
     id = MessageSettings.getId()
     day = MessageSettings.payload["day"]
-
-    current_day = datetime.datetime.isoweekday()
+    today = datetime.date.today()
+    current_day = today.isoweekday()
     date = 0
     if day > current_day:
         date =  6 + day - current_day
@@ -181,7 +181,7 @@ def info():
     else:
         date = day - current_day
 
-    today = datetime.date.today()
+
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=date))
     group = UserParams.getGroup()
     id = MessageSettings.getId()
