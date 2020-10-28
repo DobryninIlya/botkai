@@ -46,6 +46,7 @@ def info():
     return "ok"
 
 def showTimetable(groupId, tomorrow=0):
+    user_potok = UserParams.potokLecture
     try:
         isNormal, response = getResponse(groupId)
         if not isNormal:

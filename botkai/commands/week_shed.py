@@ -39,7 +39,6 @@ def showTimetable(groupId, tomorrow=0):
             month = "0" + str(month)
         day = str(now.day) + "." + str(month)
 
-        print("CHETN ", datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn)
 
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
