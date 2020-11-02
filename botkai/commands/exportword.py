@@ -115,7 +115,7 @@ def TimetableWrite(groupId):
 
 def createDocShedule(group):
     # wordDocument= docx.Document()
-    wordDocument = docx.Document("pattern_shedule.docx")
+    wordDocument = docx.opendocx("pattern_shedule.docx")
     lis = TimetableWrite(group)
     for day in lis:
         if day == "Понедельник" or day == "Вторник" or day == "Среда" or day == "Четверг" or day == "Пятница" or day == "Суббота":
