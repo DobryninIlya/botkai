@@ -13,6 +13,9 @@ today = datetime.date.today()
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
 
+import os
+os.getcwd()
+
 class ShedRow(object):
     def __init__(self, dayTime, dayDate, disciplName, disciplType, audNum, buildNum, prepodName):
         self.dayTime=dayTime
