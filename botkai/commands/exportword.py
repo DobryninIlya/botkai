@@ -14,7 +14,7 @@ chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
 
 import os
-print(os.getcwd())
+print(os.path.dirname(os.path.realpath(__file__)) )
 
 class ShedRow(object):
     def __init__(self, dayTime, dayDate, disciplName, disciplType, audNum, buildNum, prepodName):
