@@ -39,7 +39,7 @@ def index(request):
 
     result = "ok"
     try:
-        print("TRYING")
+        print("TRYING", request.body)
         body = json.loads(request.body)
         pprint(body)
         if 'type' not in body.keys():
