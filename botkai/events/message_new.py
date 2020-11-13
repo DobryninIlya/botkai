@@ -98,7 +98,7 @@ def textMessage():
 
 
 def message_new(request):
-    print(request.body)
+
     try:
         global message_params
         message_params = json.loads(request.body)

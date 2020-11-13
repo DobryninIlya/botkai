@@ -1,8 +1,8 @@
 from locust import HttpUser, TaskSet, task, user
-
+import json
 
 def get_pattern(payload):
-    return """{
+    return {
         "type": "message_new",
         "object": {
             "message": {
@@ -17,7 +17,7 @@ def get_pattern(payload):
                 "important": False,
                 "random_id": 0,
                 "attachments": [],
-                "payload": {\"button\":\"tomorrow\"},
+                "payload": payload,
                 "is_hidden": False
             },
             "client_info": {
@@ -39,38 +39,38 @@ def get_pattern(payload):
         "group_id": 182372147,
         "event_id": "a44f528a5b29ef11b5cda565291cabf2736c3b17",
         "secret" : "dhJHnr9Kv4jsI8rjiANmsdO73ZoWf9ol1XTphK9DJbVk6dufE"
-    }"""
+    }
 
 class UserBehavior(TaskSet):
-    def on_start(self):
-        self.client.post("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
-
-    def on_stop(self):
-        self.client.post("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
+    # def on_start(self):
+    #     self.client.post("/botkai/", json = get_pattern("{\"button\":\"tomorrow\"}"))
+    #
+    # def on_stop(self):
+    #     self.client.post("/botkai/", json = get_pattern("{\"button\":\"tomorrow\"}"))
 
     @task(2)
     def index(self):
-        self.client.get("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
+        self.client.get("/botkai/", json = get_pattern("{\"button\":\"help\"}"))
 
     @task(1)
     def profile(self):
-        self.client.get("/botkai/",get_pattern("{\"button\":\"tomorrow\"}"))
+        self.client.get("/botkai/",json = get_pattern("{\"button\":\"help\"}"))
 
 
 class User(HttpUser):
     task_set = UserBehavior
     min_wait = 5000
     max_wait = 9000
-    def on_start(self):
-        self.client.post("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
-
-    def on_stop(self):
-        self.client.post("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
+    # def on_start(self):
+    #     self.client.post("/botkai/", json = get_pattern("{\"button\":\"tomorrow\"}"))
+    #
+    # def on_stop(self):
+    #     self.client.post("/botkai/", json = get_pattern("{\"button\":\"tomorrow\"}"))
 
     @task(2)
     def index(self):
-        self.client.post("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
+        self.client.post("/botkai/", json = get_pattern("{\"button\":\"tomorrow\"}"))
 
     @task(1)
     def profile(self):
-        self.client.post("/botkai/",get_pattern("{\"button\":\"tomorrow\"}"))
+        self.client.post("/botkai/",json = get_pattern("{\"button\":\"tomorrow\"}"))
