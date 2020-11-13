@@ -142,7 +142,7 @@ class Message:
         return self.keyboard
 
     def GetAttachments(self):
-        print(self.att)
+        # print(self.att)
         attachment = ""
         for elem in self.att:
             if elem["type"] == "photo":
@@ -204,7 +204,7 @@ class Message:
             except KeyError:
                 self.payload = None
             except:
-                print('Ошибка:\n', traceback.format_exc())  
+                # print('Ошибка:\n', traceback.format_exc())
             self.allCommands += 1
             return
         self.id = int(message_params["object"]["message"]["from_id"])

@@ -121,7 +121,7 @@ def message_new(request):
 
             button = ""
             try:
-                print("msg payload", MessageSettings.payload)
+                # print("msg payload", MessageSettings.payload)
                 payload = MessageSettings.payload
                 button = payload["button"]
                 MessageSettings.button = button
