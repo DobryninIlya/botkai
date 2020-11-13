@@ -16,7 +16,7 @@ chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
 def info():
-    time.sleep(0.25)
+
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
     group = UserParams.getGroup()
@@ -34,9 +34,9 @@ def info():
     try:
         Timetable =  showTimetable(group, 1)
         if Timetable:
-            print("РАСПИСАНИЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ")
-            # vk.method("messages.send",
-            #             {"peer_id": id, "message": "Расписание на завтра:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
+            # print("РАСПИСАНИЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ")
+            vk.method("messages.send",
+                        {"peer_id": id, "message": "Расписание на завтра:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
         else:
             vk.method("messages.send",
                         {"peer_id": id, "message": "Завтра занятий нет 😎\n" + frazi[random.randint(0, len(frazi)-1)], "random_id": random.randint(1, 2147483647)})
