@@ -59,7 +59,7 @@ class UserBehavior(TaskSet):
 
 class User(HttpUser):
     task_set = UserBehavior
-    min_wait = 5000
+    min_wait = 3000
     max_wait = 9000
     # def on_start(self):
     #     self.client.post("/botkai/", json = get_pattern("{\"button\":\"tomorrow\"}"))
