@@ -39,6 +39,7 @@ def index(request):
 
     result = "ok"
     try:
+        print("TRYING")
         body = json.loads(request.body)
         pprint(body)
         if 'type' not in body.keys():
@@ -54,7 +55,7 @@ def index(request):
 
         
     except:
-        #print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc())
         result = "Почти получилось :)"
     return HttpResponse(result)
 
