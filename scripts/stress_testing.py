@@ -2,7 +2,7 @@ from locust import HttpUser, TaskSet, task, user
 
 
 def get_pattern(payload):
-    return {
+    return """{
         "type": "message_new",
         "object": {
             "message": {
@@ -17,7 +17,7 @@ def get_pattern(payload):
                 "important": False,
                 "random_id": 0,
                 "attachments": [],
-                "payload": payload,
+                "payload": {\"button\":\"tomorrow\"},
                 "is_hidden": False
             },
             "client_info": {
@@ -39,7 +39,7 @@ def get_pattern(payload):
         "group_id": 182372147,
         "event_id": "a44f528a5b29ef11b5cda565291cabf2736c3b17",
         "secret" : "dhJHnr9Kv4jsI8rjiANmsdO73ZoWf9ol1XTphK9DJbVk6dufE"
-    }
+    }"""
 
 class UserBehavior(TaskSet):
     def on_start(self):
