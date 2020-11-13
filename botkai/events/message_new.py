@@ -103,6 +103,7 @@ def message_new(request):
         message_params = json.loads(request.body)
         MessageSettings.update(message_params)
         if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
+            print("СЕКРЕТНЫЙ КЛЮЧ")
             return "У тебя почти получилось :)"
         if IsRegistred():
 
@@ -161,8 +162,8 @@ def message_new(request):
             textMessage()
         
     except:  
-        print('Ошибка:\n', traceback.format_exc())  
-
+        print('Ошибка:\n', traceback.format_exc())
+    print("ВСЕ ОК")
     return "ok"
 
 
