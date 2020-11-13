@@ -204,6 +204,7 @@ class Message:
             except KeyError:
                 self.payload = None
             except:
+                pass
                 # print('Ошибка:\n', traceback.format_exc())
             self.allCommands += 1
             return
