@@ -69,8 +69,8 @@ class User(HttpUser):
 
     @task(2)
     def index(self):
-        self.client.get("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
+        self.client.post("/botkai/", get_pattern("{\"button\":\"tomorrow\"}"))
 
     @task(1)
     def profile(self):
-        self.client.get("/botkai/",get_pattern("{\"button\":\"tomorrow\"}"))
+        self.client.post("/botkai/",get_pattern("{\"button\":\"tomorrow\"}"))
