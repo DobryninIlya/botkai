@@ -115,7 +115,7 @@ def TimetableWrite(groupId):
 
 def createDocShedule(group):
     # wordDocument= docx.Document()
-    wordDocument = docx.Document("/app/botkai/commands/pattern_shedule.docx")
+    wordDocument = docx.Document("/app/botkai/commands/blank.docx")
     lis = TimetableWrite(group)
     for day in lis:
         if day in ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]:
