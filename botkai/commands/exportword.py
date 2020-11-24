@@ -118,7 +118,7 @@ def createDocShedule(group):
     wordDocument = docx.Document("pattern_shedule.docx")
     lis = TimetableWrite(group)
     for day in lis:
-        if day == "Понедельник" or day == "Вторник" or day == "Среда" or day == "Четверг" or day == "Пятница" or day == "Суббота":
+        if day in ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]:
             par = wordDocument.add_heading(day, 1)
             par.bold = True
 
