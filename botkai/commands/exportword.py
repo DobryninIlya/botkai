@@ -11,10 +11,7 @@ import traceback
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()
-BASE_URL = 'https://kai.ru/raspisanie' 
-
-import os
-print(os.path.dirname(os.path.realpath(__file__)) )
+BASE_URL = 'https://kai.ru/raspisanie'
 
 class ShedRow(object):
     def __init__(self, dayTime, dayDate, disciplName, disciplType, audNum, buildNum, prepodName):
@@ -115,17 +112,23 @@ def TimetableWrite(groupId):
 
 def createDocShedule(group):
     # wordDocument= docx.Document()
-    wordDocument = docx.Document("pattern_shedule.docx")
+
+
+    # wordDocument = docx.Document("blank.docx")
+
+    wordDocument = docx.Document("blank.docx")
+
+
     lis = TimetableWrite(group)
     for day in lis:
-        if day == "Понедельник" or day == "Вторник" or day == "Среда" or day == "Четверг" or day == "Пятница" or day == "Суббота":
-            par = wordDocument.add_heading(day, 1)
+        if day in ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]:
+            par = wordDocument.add_heading(day, 3)
             par.bold = True
 
         
         else:
             par = wordDocument.add_paragraph((str(day.dayTime)).rstrip() + " " + ((str(day.dayDate)).rstrip()).ljust(8) + " " + str(day.disciplName) + " " + (str(day.disciplType)).upper() + " " + (str(day.audNum)).rstrip() + " ауд  " + (str(day.buildNum)).rstrip() + "зд.  " + (str(day.prepodName)).rstrip())
-            par.style = "No Spacing"
+            # par.style = "No Spacing"
     wordDocument.save(str(group)+".docx")
 
 def GetDocShedule(group, id):
@@ -134,7 +137,6 @@ def GetDocShedule(group, id):
     b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".docx", "rb")}).json()
     c = vk.method("docs.save", {"file" : b["file"]})
     d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
-    print(d)
     return d
 
 
