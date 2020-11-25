@@ -809,12 +809,7 @@ def CheckStatus():
             cursor.execute(sql)
             count = (int)(str(cursor.fetchone())[1:-2]) + 1
 
-            user_info = """{
-                "type" : "message",
-                "owner_id" : {}},
-                "peer_id": {},
-                "conversation_message_id" : {}
-            }""".format(id, id, MessageSettings.messageId)
+            user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(id, id, MessageSettings.messageId)
 
 
 
