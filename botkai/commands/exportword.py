@@ -129,7 +129,7 @@ def createDocShedule(group):
         
         else:
             par = wordDocument.add_paragraph((str(day.dayTime)).rstrip() + " " + ((str(day.dayDate)).rstrip()).ljust(8) + " " + str(day.disciplName) + " " + (str(day.disciplType)).upper() + " " + (str(day.audNum)).rstrip() + " ауд  " + (str(day.buildNum)).rstrip() + "зд.  " + (str(day.prepodName)).rstrip())
-            par.style = "No Spacing"
+            # par.style = "No Spacing"
     wordDocument.save(str(group)+".docx")
 
 def GetDocShedule(group, id):
