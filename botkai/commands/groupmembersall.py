@@ -6,6 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 
 def info():
+    msg = "Запрос отправлен на обработку"
+    msg_id = vk.method("messages.send",
+                    {"peer_id": MessageSettings.id, "message": msg, "random_id": random.randint(1, 2147483647)})
     i = 1
     response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id = UserParams.groupId))
     soup = BeautifulSoup(response.text, 'lxml')
@@ -19,8 +22,8 @@ def info():
             result += str(i) + ". " + tag.text.strip().replace("\n", "").replace(
                 "                                                                Староста", " (🙋 Староста)") + "\n"
             i+=1
-    res = vk.method("messages.send", {"peer_id": MessageSettings.id, "message": result , "random_id": random.randint(1, 2147483647)})
-    print(res)
+    rvk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id ,"message": result, "random_id": random.randint(1, 2147483647)})
+
 
     return "ok"
 
