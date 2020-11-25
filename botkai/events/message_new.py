@@ -810,10 +810,10 @@ def CheckStatus():
             count = (int)(str(cursor.fetchone())[1:-2]) + 1
 
             user_info = {
-                'type' : 'message',
-                'owner_id' : id,
-                'peer_id': id,
-                'conversation_message_id' : MessageSettings.messageId
+                "type" : "message",
+                "owner_id" : id,
+                "peer_id": id,
+                "conversation_message_id" : MessageSettings.messageId
             }
 
 
