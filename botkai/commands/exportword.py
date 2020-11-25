@@ -11,10 +11,7 @@ import traceback
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()
-BASE_URL = 'https://kai.ru/raspisanie' 
-
-import os
-print(os.path.dirname(os.path.realpath(__file__)) )
+BASE_URL = 'https://kai.ru/raspisanie'
 
 class ShedRow(object):
     def __init__(self, dayTime, dayDate, disciplName, disciplType, audNum, buildNum, prepodName):
@@ -138,7 +135,6 @@ def GetDocShedule(group, id):
     b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".docx", "rb")}).json()
     c = vk.method("docs.save", {"file" : b["file"]})
     d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
-    print(d)
     return d
 
 

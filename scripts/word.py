@@ -1,4 +1,3 @@
-
 import docx
 import requests
 import datetime
