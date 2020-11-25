@@ -43,7 +43,7 @@ def info():
         next_task_id = -1
         prev_id_task = 1
         id = -1
-
+        content_source = ""
         
 
 
@@ -56,6 +56,7 @@ def info():
                 idvk = "@id" + str(row[2])
                 task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
                 att = str(row[5])
+                content_source = row[7]
                 first = second = False
                 if len(curs) > 1:
                     next_task_id = curs[1][0]
@@ -92,7 +93,9 @@ def info():
             "message": task , 
             "keyboard": GetModerTaskStarosta(id = id, next_id = next_task_id, prev_id = prev_id_task, pos_id = pos_id),
             "conversation_message_id" : MessageSettings.conversation_message_id,
-            "attachment" : att, 
+            "content_source": content_source,
+            "attachment" : att,
+
             "random_id": random.randint(1, 2147483647)})
 
         return "ok"

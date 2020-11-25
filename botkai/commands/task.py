@@ -14,7 +14,6 @@ def info():
         button = MessageSettings.button
         payload = MessageSettings.payload
         date = payload["date"]
-        print(date, payload)
         if date == "tomorrow":
             ShowTask(id, group, datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
             return "ok"
@@ -47,24 +46,22 @@ def ShowTask(id, groupId, date):
     cursor.execute(sql)
     task = ""
     att = ""
-    print("ЭТАП 1")
+
     curs = cursor.fetchall()
     if len(curs) == 0:
         vk.method("messages.send", {"peer_id": id, "message": "Заданий нет. Самое время добавить!" , "keyboard": keyboards.keyboardTasks, "random_id": random.randint(1, 2147483647)})
     
     for row in curs:
-        print("ЭТАП 1-2")
+
         task = "❗зᴀдᴀниᴇ❗\n"
-        print("ЭТАП 1-3")
+
         task += str(row[4])
         idvk = "@id" + str(row[2])
         task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
         att = str(row[5])
-        print("ЭТАП 2")
 
-        print("ЭТАП 3")
         vk.method("messages.send", {"peer_id": id, "message": task , "keyboard": keyboards.getMainKeyboard(UserParams.role),"content_source": row[7], "attachment" : att, "random_id": random.randint(1, 2147483647)})
-        print("ЭТАП 4")
+
         
     return "ok"
 
