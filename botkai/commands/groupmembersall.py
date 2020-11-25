@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def info():
-    response = requests.post("https://kai.ru/infoClick/-/info/group?id=21567")
+    response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}}").format(UserParams.groupId))
     soup = BeautifulSoup(response.text, 'lxml')
 
     # print(soup.find("ul", attrs={ "id" : "mylist"}))
@@ -17,7 +17,7 @@ def info():
 
             result += tag.text.strip().replace("\n", "").replace(
                 "                                                                Староста", " (🙋 Староста)") + "\n"
-    vk.method("messages.send", {"peer_id": id, "message": result , "random_id": random.randint(1, 2147483647)})
+    vk.method("messages.send", {"peer_id": MessageSettings.id, "message": result , "random_id": random.randint(1, 2147483647)})
     
 
     return "ok"
