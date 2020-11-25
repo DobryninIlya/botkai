@@ -808,7 +808,20 @@ def CheckStatus():
             sql = "SELECT MAX(ID) FROM Task"
             cursor.execute(sql)
             count = (int)(str(cursor.fetchone())[1:-2]) + 1
-            sql = "INSERT INTO Task VALUES (" + str(count) + ", " + str(UserParams.groupId) + ", " + str(id) + ", '" + str(date) + "', '" + str(MessageSettings.getText()) + "', '" + str(MessageSettings.GetAttachments()) + "', 0)"
+
+            user_info = {
+                'type' : 'message',
+                'owner_id' : id,
+                'peer_id': id,
+                'conversation_message_id' : MessageSettings.messageId
+            }
+
+
+
+            # sql = "INSERT INTO Task VALUES (" + str(count) + ", " + str(UserParams.groupId) + ", " + str(id) + ", '" + str(date) + "', '" + str(MessageSettings.getText()) + "', '" + str(MessageSettings.GetAttachments()) + "', 0)"
+            sql = "INSERT INTO Task VALUES ({count}, {group_id}, {id}, '{date}', '{text}', '{attachments}', 0, '{user_info}')".format(
+                count = count, group_id = UserParams.groupId, id = id, date = date, text = MessageSettings.getText(), attachments = MessageSettings.GetAttachments(), user_info = user_info
+            )
             cursor.execute(sql)
             #print(sql)
             sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
