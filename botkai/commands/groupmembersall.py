@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def info():
-    response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}}").format(id = UserParams.groupId))
+    response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id = UserParams.groupId))
     soup = BeautifulSoup(response.text, 'lxml')
 
     # print(soup.find("ul", attrs={ "id" : "mylist"}))

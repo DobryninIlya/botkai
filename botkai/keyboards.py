@@ -382,8 +382,8 @@ def KeyboardProfile():
             [get_button(label="Баланс: " + str(Balance), color="positive", payload = {'button': 'donate'})],
             [get_button(label="Мои задания (" + str(TaskCount) + ")", color="default", payload = {'button': 'mytask'})],
             [
-                        get_button(label="Полный список группы", color="default", payload = {'button': 'groupmembers'}),
-                        get_button(label="Моя группа", color="default", payload = {'button': 'groupmembersall'})
+                        get_button(label="Полный список группы", color="default", payload = {'button': 'groupmembersall'}),
+                        get_button(label="Моя группа", color="default", payload = {'button': 'groupmembers'})
                         ],
             [
                 get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
