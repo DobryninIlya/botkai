@@ -116,7 +116,7 @@ def TimetableWrite(groupId):
 def createDocShedule(group):
     # wordDocument= docx.Document()
 
-    wordDocument = docx.Document("../app/botkai/commands/blank.docx")
+    # wordDocument = docx.Document("blank.docx")
 
     wordDocument = docx.Document("blank.docx")
 
