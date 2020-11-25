@@ -113,9 +113,11 @@ def TimetableWrite(groupId):
 def createDocShedule(group):
     # wordDocument= docx.Document()
 
+
     # wordDocument = docx.Document("blank.docx")
 
     wordDocument = docx.Document("blank.docx")
+
 
     lis = TimetableWrite(group)
     for day in lis:
