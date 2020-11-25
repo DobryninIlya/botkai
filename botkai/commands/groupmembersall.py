@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def info():
+    i = 1
     response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id = UserParams.groupId))
     soup = BeautifulSoup(response.text, 'lxml')
 
@@ -15,8 +16,9 @@ def info():
     for tag in list_students.find_all("td"):
         if len(tag.text) > 6:
 
-            result += tag.text.strip().replace("\n", "").replace(
+            result += str(i) + ". " + tag.text.strip().replace("\n", "").replace(
                 "                                                                Староста", " (🙋 Староста)") + "\n"
+        i+=1
     vk.method("messages.send", {"peer_id": MessageSettings.id, "message": result , "random_id": random.randint(1, 2147483647)})
     
 
