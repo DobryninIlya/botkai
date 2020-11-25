@@ -22,7 +22,7 @@ def info():
             result += str(i) + ". " + tag.text.strip().replace("\n", "").replace(
                 "                                                                Староста", " (🙋 Староста)") + "\n"
             i+=1
-    rvk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id ,"message": result, "random_id": random.randint(1, 2147483647)})
+    vk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id ,"message": result})
 
 
     return "ok"
