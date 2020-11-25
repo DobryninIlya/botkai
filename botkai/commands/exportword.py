@@ -123,7 +123,7 @@ def createDocShedule(group):
     lis = TimetableWrite(group)
     for day in lis:
         if day in ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]:
-            par = wordDocument.add_heading(day, 1)
+            par = wordDocument.add_heading(day, 3)
             par.bold = True
 
         
