@@ -10,7 +10,7 @@ def info():
     vk.method("messages.send",
                         {"peer_id": id, "message": "Перезагрузка", "random_id": random.randint(1, 2147483647)})
     try:
-        sys.exit (0)
+        quit()
     except:
         print('Ошибка:\n', traceback.format_exc())
       
