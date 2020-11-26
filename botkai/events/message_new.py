@@ -161,7 +161,9 @@ def message_new(request):
                     command.process()
                     return "ok"
             textMessage()
-        
+
+    except SystemExit:
+        quit()
     except:  
         print('Ошибка:\n', traceback.format_exc())
     print("ВСЕ ОК")
