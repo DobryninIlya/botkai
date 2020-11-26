@@ -54,7 +54,7 @@ def index(request):
 
 
     except SystemExit:
-        os.abort()
+        print("ВЫХОД")
     except:
         #print('Ошибка:\n', traceback.format_exc())
         result = "Почти получилось :)"
