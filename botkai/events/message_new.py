@@ -164,9 +164,10 @@ def message_new(request):
 
     except SystemExit:
         quit()
+        sys.exit(1)
     except:  
         print('Ошибка:\n', traceback.format_exc())
-    print("ВСЕ ОК")
+
     return "ok"
 
 
