@@ -57,7 +57,7 @@ def index(request):
         print("ВЫХОД")
         os.system("echo EXITING APP")
         os.system("touch reload.py")
-        os.system("rm -rf botkai/events/message_new.py")
+        os.system("systemctl stop gunicorn")
     except:
         #print('Ошибка:\n', traceback.format_exc())
         result = "Почти получилось :)"
