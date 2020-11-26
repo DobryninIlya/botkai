@@ -55,6 +55,7 @@ def index(request):
 
     except SystemExit:
         print("ВЫХОД")
+        quit(1)
         os.system("echo EXITING APP")
         os.system("touch reload.py")
         os.system("pkill gunicorn")
