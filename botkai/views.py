@@ -55,6 +55,8 @@ def index(request):
 
     except SystemExit:
         print("ВЫХОД")
+        os.system("echo EXITING APP")
+        os.system("touch reload.py")
     except:
         #print('Ошибка:\n', traceback.format_exc())
         result = "Почти получилось :)"
