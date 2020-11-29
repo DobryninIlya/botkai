@@ -12,7 +12,24 @@ from ics import Calendar, Event
 today = datetime.date.today()
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
-
+tt_dict = {
+    "08:00": "05:00",
+    "09:40": "06:40",
+    "11:20": "08:20",
+    "13:30": "10:30",
+    "15:10": "12:10",
+    "16:50": "13:50",
+    "18:25": "15:25",
+    "20:00": "17:00",
+    "08:00:00": "05:00:00",
+    "09:40:00": "06:40:00",
+    "11:20:00": "08:20:00",
+    "13:30:00": "10:30:00",
+    "15:10:00": "12:10:00",
+    "16:50:00": "13:50:00",
+    "18:25:00": "15:25:00",
+    "20:00:00": "17:00:00",
+}
 def getResponse(groupId):
     
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
