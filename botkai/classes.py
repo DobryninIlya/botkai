@@ -88,14 +88,17 @@ command_list = []
 command_list_beseda = []
 class Command:
     def __init__(self):
-       self.__keys = []
-       self.description = ''
-       self.payload = ""
-       self.admlevel = 0
-       self.role = []
-       command_list.append(self)
-       self.role.append(1)
-       self.role.append(3)
+        self.__keys = []
+        self.description = ''
+        self.payload = ""
+        self.admlevel = 0
+        self.role = []
+        command_list.append(self)
+        self.role.append(1)
+        self.role.append(3)
+        self.premium = False
+
+
     def keys(self):
         return self.__keys
 
