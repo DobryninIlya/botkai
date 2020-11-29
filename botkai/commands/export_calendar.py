@@ -56,7 +56,7 @@ def getResponse(groupId):
     return 
 
 
-def makeFile(week = 2, group):
+def makeFile(week, group):
     c = Calendar()
     today = datetime.date.today()
     chetn = UserParams.getChetn()
