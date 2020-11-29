@@ -216,7 +216,10 @@ class Message:
             self.payload = json.loads(message_params["object"]["message"]["payload"])
         except KeyError:
             self.payload = None
-        self.messageId = message_params["object"]["message"]["id"]
+        try:
+            self.messageId = message_params["object"]["message"]["id"]
+        except:
+            pass
         if message_params["object"]["message"]["attachments"]:
             res = vk.method("messages.getById",{"message_ids": self.messageId})
             res = res["items"][0]["attachments"]
