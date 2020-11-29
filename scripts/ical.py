@@ -198,14 +198,14 @@ def makeFile():
                 continue
             elif dayDate == 'чет/неч':
                 if chetn:
-                    prefix = "(1) гр."
+                    prefix = " (1) гр."
                 else:
-                    prefix = "(2) гр."
+                    prefix = " (2) гр."
             elif dayDate == 'неч/чет':
                 if chetn:
-                    prefix = "(2) гр."
+                    prefix = " (2) гр."
                 else:
-                    prefix = "(1) гр."
+                    prefix = " (1) гр."
 
             e = Event()
             tt = row["dayTime"].rstrip() if len(row["dayTime"].rstrip()) < 6 else row["dayTime"].rstrip()[:5]
@@ -213,7 +213,7 @@ def makeFile():
             begin_time = str(current_date) + " {}:00".format(tt)
             # print(begin_time)
             end_time = str(current_date) + " {}:00".format(time_dict[row["dayTime"].rstrip()])
-            e.name = row["disciplType"].rstrip().upper() + " " + row["disciplName"].rstrip()
+            e.name = prefix + row["disciplType"].rstrip().upper() + " " + row["disciplName"].rstrip()
             e.begin = begin_time
             # e.end = end_time
             e.duration = datetime.timedelta(minutes=190 if row["disciplType"].rstrip().upper() == 'Л.Р.' else 90)
