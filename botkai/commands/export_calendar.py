@@ -61,7 +61,7 @@ def makeFile(week, group):
     today = datetime.date.today()
     chetn = UserParams.getChetn()
     current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
-
+    isNormal, response = getResponse(group)
     days_in_week = list(response.keys())
     days_in_week.sort()
 

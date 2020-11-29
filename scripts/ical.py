@@ -44,8 +44,6 @@ tt_dict = {
 }
 
 def makeFile(week = 5):
-    isNormal, response = getResponse(groupId)
-
     c = Calendar()
     today = datetime.date.today()
     chetn = 0 # UserParams.getChetn()
