@@ -179,6 +179,7 @@ tt_dict = {
 }
 
 def makeFile():
+    chetn = 0 # UserParams.getChetn()
     current_date = datetime.date.today() - datetime.timedelta(days=datetime.date.today().isoweekday()) + datetime.timedelta(days=1)
 
     days_in_week = list(response.keys())
@@ -190,7 +191,22 @@ def makeFile():
             break
         for row in response[key]:
 
-            # print(row)
+            dayDate = elem["dayDate"].rstrip().lower()
+            chetnost = True if (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 else False # Если True чет, False - неч
+            prefix = ""
+            if (dayDate == 'чет' and not chetn) or (dayDate == 'неч' and chetn):
+                continue
+            elif dayDate == 'чет/неч':
+                if chetn:
+                    prefix = "(1) гр."
+                else:
+                    prefix = "(2) гр."
+            elif dayDate == 'неч/чет':
+                if chetn:
+                    prefix = "(2) гр."
+                else:
+                    prefix = "(1) гр."
+
             e = Event()
             tt = row["dayTime"].rstrip() if len(row["dayTime"].rstrip()) < 6 else row["dayTime"].rstrip()[:5]
             tt = tt_dict[tt]
