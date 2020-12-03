@@ -13,7 +13,7 @@ def info():
 info_command = command_class.Command()
 
 info_command.keys = ['разное']
-info_command.desciption = 'разное'
+info_command.desciption = 'меню команд "разное"'
 info_command.payload = "buildings_menu"
 info_command.process = info
 
