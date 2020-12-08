@@ -149,7 +149,7 @@ def getResponse(groupId):
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
-            if not len(result):
+            if len(result) < 10:
                 try:
                     response = requests.post(BASE_URL, data="groupId=" + str(groupId),
                                              headers={'Content-Type': "application/x-www-form-urlencoded"},
