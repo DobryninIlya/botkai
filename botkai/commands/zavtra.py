@@ -153,12 +153,23 @@ def getResponse(groupId):
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
+            if not len(result):
+                try:
+                    response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                     "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+                    assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                    sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
+                        json.dumps(response.json()), datetime.date.today(), groupId)
+                    cursor.execute(sql)
+                    connection.commit()
+                    return True, response.json()
+                except:
+                    return True, ""
             return True, json.loads(result)
-    
-    
 
-
-    return 
+    return
 
 command = command_class.Command()
 
