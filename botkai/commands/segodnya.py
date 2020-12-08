@@ -148,6 +148,7 @@ def getResponse(groupId):
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
+            print("LEN", len(result))
             if not len(result):
                 try:
                     response = requests.post(BASE_URL, data="groupId=" + str(groupId),
