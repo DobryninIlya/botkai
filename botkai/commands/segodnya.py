@@ -161,6 +161,7 @@ def getResponse(groupId):
                     connection.commit()
                     return True, response.json()
                 except:
+                    print("t")
                     return True, ""
             return True, json.loads(result)
 
