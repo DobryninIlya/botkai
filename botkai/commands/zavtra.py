@@ -58,7 +58,7 @@ def showTimetable(groupId, tomorrow=0):
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
 
-        if len(response) == 0:
+        if len(response) < 5:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
         
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
