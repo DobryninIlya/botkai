@@ -184,8 +184,10 @@ keyboard = str(keyboard.decode('utf-8'))
 
 
 def main(request = None):
-
-
+    
+    today = datetime.date.today()
+    if today.month == 1 and today.day < 12:
+        return "ok"
     distrList = []
     try:
         # if request.method != "POST":
