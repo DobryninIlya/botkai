@@ -88,14 +88,17 @@ command_list = []
 command_list_beseda = []
 class Command:
     def __init__(self):
-       self.__keys = []
-       self.description = ''
-       self.payload = ""
-       self.admlevel = 0
-       self.role = []
-       command_list.append(self)
-       self.role.append(1)
-       self.role.append(3)
+        self.__keys = []
+        self.description = ''
+        self.payload = ""
+        self.admlevel = 0
+        self.role = []
+        command_list.append(self)
+        self.role.append(1)
+        self.role.append(3)
+        self.premium = False
+
+
     def keys(self):
         return self.__keys
 
@@ -216,7 +219,10 @@ class Message:
             self.payload = json.loads(message_params["object"]["message"]["payload"])
         except KeyError:
             self.payload = None
-        self.messageId = message_params["object"]["message"]["id"]
+        try:
+            self.messageId = message_params["object"]["message"]["id"]
+        except:
+            pass
         if message_params["object"]["message"]["attachments"]:
             res = vk.method("messages.getById",{"message_ids": self.messageId})
             res = res["items"][0]["attachments"]

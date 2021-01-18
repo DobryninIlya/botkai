@@ -161,10 +161,14 @@ def message_new(request):
                     command.process()
                     return "ok"
             textMessage()
-        
+
+    except SystemExit:
+        quit()
+        sys.exit(1)
+        os.abort()
     except:  
         print('Ошибка:\n', traceback.format_exc())
-    print("ВСЕ ОК")
+
     return "ok"
 
 
