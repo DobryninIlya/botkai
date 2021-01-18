@@ -184,7 +184,7 @@ keyboard = str(keyboard.decode('utf-8'))
 
 
 def main(request = None):
-    
+    return
     today = datetime.date.today()
     if today.month == 1 and today.day < 12:
         return "ok"
