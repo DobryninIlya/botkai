@@ -143,7 +143,7 @@ class Message:
         return self.peer_id
     def getKeyboard(self):
         return self.keyboard
-    def getAttInfo(self):
+    def getAttUrl(self):
         try:
             return self.att[0]['doc']['url']
         except:
