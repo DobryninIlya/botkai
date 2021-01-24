@@ -152,8 +152,8 @@ def info():
                 disciplname=row[3].value,  # название пары
                 audnum=row[5].value,  # аудитория
                 buildnum=str(row[6].value).rstrip(),  # здание
-                potok = 1 if row[7].value else 0, # поток или не поток
-                prepodname=row[8].value,  # имя препода
+                potok = 1 if row[8].value else 0, # поток или не поток
+                prepodname=row[7].value,  # имя препода
             )
             i += 1
             cursorR.execute(sql)
