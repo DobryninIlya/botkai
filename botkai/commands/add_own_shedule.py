@@ -19,7 +19,7 @@ def info():
     id = MessageSettings.getId()
 
     vk.method("messages.send",
-                        {"peer_id": id, "message": "Заполните бланк расписания. Инструкции по заполнению указаны в файле (колонка справа)","attachments": GetDocShedule(id), "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Заполните бланк расписания. Инструкции по заполнению указаны в файле (колонка справа) {}".format(GetDocShedule(id)),"attachments": GetDocShedule(id), "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
