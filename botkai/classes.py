@@ -145,7 +145,6 @@ class Message:
         return self.keyboard
     def getAttUrl(self):
         try:
-            print(self.att[0])
             return self.att[0]['doc']['url'], self.att[0]["doc"]["title"]
         except:
             return ""

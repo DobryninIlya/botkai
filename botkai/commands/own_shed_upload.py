@@ -140,7 +140,7 @@ def info():
             if not isTrue:
                 vk.method("messages.send",
                           {"peer_id": id,
-                           "message": msg + "\nЗагрузка файла отменена",
+                           "message": "Строка: {}\n".format(i+1)+ msg + "\nЗагрузка файла отменена",
                            "random_id": random.randint(1, 2147483647)})
                 return
             sql = "INSERT INTO saved_timetable VALUES ({id}, '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}','{potok}', '{prepodname}')".format(
