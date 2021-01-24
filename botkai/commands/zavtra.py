@@ -114,9 +114,7 @@ def showTimetable(groupId, tomorrow=0):
 
 
 def getResponse(groupId):
-    increment = 0
-    if UserParams.own_shed:
-        increment = 1000000000
+    
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
@@ -147,12 +145,12 @@ def getResponse(groupId):
                 connection.commit()
                 return True, response.json()
             except:
-                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(increment + groupId)
+                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
                 cursor.execute(sql)
                 result = cursor.fetchone()[0]
                 return True, json.loads(result)
         else:
-            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(increment + groupId)
+            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
             if len(result) < 10:
