@@ -77,7 +77,7 @@ class User:
         self.statUser.add(id)
         self.dateChange = res[6]
         self.potokLecture = res[15]
-        self.own_shed = [16]
+        self.own_shed = res[16]
         
         
     def getChetn(self):
