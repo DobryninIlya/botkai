@@ -37,52 +37,6 @@ weekdays = {
 BASE_URL = 'https://kai.ru/raspisanie'
 
 
-# def getGroupsResponse(groupNumber):
-
-
-
-def showGroupId(groupNumber):
-    # id = int(MessageSettings.id)
-    try:
-        response = requests.post(
-            BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber,
-            headers={'Content-Type': "application/x-www-form-urlencoded"},
-            params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
-                    "p_p_resource_id": "schedule"}, timeout=4)
-        print(response.status_code, response)
-        if str(response.status_code) != '200':
-            raise ConnectionError
-            # vk.method("messages.send",
-            #     {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
-            # vk.method("messages.send",
-            #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
-
-            return False
-        response = response.json()[0]
-        return response['id']
-    except IndexError:
-        # vk.method("messages.send",
-        #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
-        return False
-    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
-        try:
-            group = getGroupsResponse(groupNumber)
-            if group:
-                return group
-            # vk.method("messages.send",
-            #         {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
-            # vk.method("messages.send",
-            #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
-            return False
-        except:
-            print('Ошибка:\n', traceback.format_exc())
-        return False
-    except:
-        print('Ошибка:\n', traceback.format_exc())
-        return False
-
-
-
 conn = sqlite3.connect("bot.db")
 cursorR = conn.cursor()
 
@@ -154,7 +108,6 @@ def isValid(row):
 def info():
     try:
         id = MessageSettings.getId()
-        print()
         ClearDatabase()
         url,name = MessageSettings.getAttUrl()
 
@@ -165,9 +118,15 @@ def info():
 
 
         wb = openpyxl.load_workbook(filename='shed.xlsx')
-        sheet = wb['Лист1']
+        try:
+            sheet = wb['Лист1']
+        except:
+            vk.method("messages.send",
+                      {"peer_id": id,
+                       "message": "Ошибка заполенния файла. Имя листа книги не 'Лист1'", "random_id": random.randint(1, 2147483647)})
+            return
+
         global weekdays, conn, cursorR
-        print("START MAIN FUNC")
         first = True
         i = 0
         for row in sheet.rows:
@@ -179,7 +138,10 @@ def info():
             string = ''
             isTrue, msg = isValid(row)
             if not isTrue:
-                print("ОШИБКА. Строка {}".format(i), msg, str(row[0].value))
+                vk.method("messages.send",
+                          {"peer_id": id,
+                           "message": msg + "\nЗагрузка файла отменена",
+                           "random_id": random.randint(1, 2147483647)})
                 return
             sql = "INSERT INTO saved_timetable VALUES ({id}, '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}','{potok}', '{prepodname}')".format(
                 id=i,
@@ -195,20 +157,12 @@ def info():
             )
             i += 1
             cursorR.execute(sql)
-            print(sql)
-            conn.commit()
-        # cursorR.execute("SELECT DISTINCT groupp FROM saved_timetable")
 
-        # groups = cursorR.fetchall()
-        # print("ГРУПП")
-        #
-        # shed = {}
-        # for group in groups:
-        #     group = group[0]
+            conn.commit()
+
         sql = "SELECT * FROM saved_timetable ORDER BY daynum, daytime"
         cursorR.execute(sql)
         result = cursorR.fetchall()
-        # pprint(cursor.fetchall())
         week_shed = {}
         prev_day = 1
         shed_day = []
@@ -246,7 +200,7 @@ def info():
             prev_day = day
         week_shed[day] = shed_day
 
-        pprint(week_shed)
+
         return
         try:
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(showGroupId(group), '2020-12-30',
