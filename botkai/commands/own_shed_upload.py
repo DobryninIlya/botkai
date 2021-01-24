@@ -99,7 +99,7 @@ def isValid(row):
     elif str(row[6].value).rstrip() not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
         return False, "Значение здания неправильно. Должно быть от 1 до 8"
     # Препод
-    elif len(str(row[8].value)) > 100:
+    elif len(str(row[9].value)) > 100:
         return False, "Значение длины имени преподавателя слишком длинное."
     else:
         return True, ""
