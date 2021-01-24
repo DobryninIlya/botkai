@@ -209,7 +209,7 @@ def info():
         else:
             date = "{}-6-30".format(datetime.date.today().year)
         try:
-            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format( date,
+            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(group, date,
                                                                                (json.dumps(week_shed)).replace('None', ""))
             cursor.execute(sql)
             connection.commit()
