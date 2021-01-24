@@ -144,7 +144,10 @@ class Message:
     def getKeyboard(self):
         return self.keyboard
     def getAttInfo(self):
-        print(self.att)
+        try:
+            return self.att[0]['doc']['url']
+        except:
+            return ""
     def GetAttachments(self):
         # print(self.att)
         attachment = ""

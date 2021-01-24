@@ -156,11 +156,15 @@ def info():
         id = MessageSettings.getId()
         print()
         ClearDatabase()
-        MessageSettings.getAttInfo()
-        response = vk.method("docs.getById",{"docs": str(MessageSettings.GetAttachments())[3:]})
-        print(response)
+        url = MessageSettings.getAttUrl()
 
-        wb = openpyxl.load_workbook(filename='shed_example.xlsx')
+        file = open("shed.xlsx", "wb")
+        ufr = requests.get(url)
+        file.write(ufr.content)
+        file.close()
+
+
+        wb = openpyxl.load_workbook(filename='shed.xlsx')
         sheet = wb['Лист1']
         global weekdays, conn, cursorR
         print("START MAIN FUNC")
