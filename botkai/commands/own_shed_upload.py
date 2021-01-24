@@ -92,34 +92,35 @@ connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye',
 connection.autocommit = True
 cursor = connection.cursor()
 
-try:
-    cursorR.execute("""CREATE TABLE saved_timetable(
-        id int4 PRIMARY KEY,
-        daynum varchar(10),
-        daydate varchar(10),
-        daytime varchar(10),
-        disipltype varchar(10),
-        disciplname varchar(100),
-        audnum varchar(10),
-        buildnum varchar(10),
-        potok varchar(1),
-        prepodname varchar(100)
-        )""")
-except:
-    cursorR.execute("DROP TABLE saved_timetable")
-    cursorR.execute("""CREATE TABLE saved_timetable(
-        id int4 PRIMARY KEY,
-        daynum varchar(10),
-        daydate varchar(10),
-        daytime varchar(10),
-        disipltype varchar(10),
-        disciplname varchar(100),
-        audnum varchar(10),
-        buildnum varchar(10),
-        potok varchar(1),
-        prepodname varchar(100)
-        )""")
-conn.commit()
+def ClearDatabase():
+    try:
+        cursorR.execute("""CREATE TABLE saved_timetable(
+            id int4 PRIMARY KEY,
+            daynum varchar(10),
+            daydate varchar(10),
+            daytime varchar(10),
+            disipltype varchar(10),
+            disciplname varchar(100),
+            audnum varchar(10),
+            buildnum varchar(10),
+            potok varchar(1),
+            prepodname varchar(100)
+            )""")
+    except:
+        cursorR.execute("DROP TABLE saved_timetable")
+        cursorR.execute("""CREATE TABLE saved_timetable(
+            id int4 PRIMARY KEY,
+            daynum varchar(10),
+            daydate varchar(10),
+            daytime varchar(10),
+            disipltype varchar(10),
+            disciplname varchar(100),
+            audnum varchar(10),
+            buildnum varchar(10),
+            potok varchar(1),
+            prepodname varchar(100)
+            )""")
+    conn.commit()
 
 def isValid(row):
     # День недели
@@ -153,7 +154,12 @@ def isValid(row):
 def info():
     try:
         id = MessageSettings.getId()
-        print(MessageSettings.GetAttachments())
+        print()
+        ClearDatabase()
+
+        response = vk.method("docs.getById",{"docs": str(MessageSettings.GetAttachments())[3:]})
+        print(response)
+
         wb = openpyxl.load_workbook(filename='shed_example.xlsx')
         sheet = wb['Лист1']
         global weekdays, conn, cursorR
@@ -181,7 +187,7 @@ def info():
                 audnum=row[5].value,  # аудитория
                 buildnum=str(row[6].value).rstrip(),  # здание
                 potok = 1 if row[7].value else 0, # поток или не поток
-                prepodname=row[9].value,  # имя препода
+                prepodname=row[8].value,  # имя препода
             )
             i += 1
             cursorR.execute(sql)
