@@ -145,7 +145,8 @@ class Message:
         return self.keyboard
     def getAttUrl(self):
         try:
-            return self.att[0]['doc']['url']
+            print(self.att[0])
+            return self.att[0]['doc']['url'], self.att[0]
         except:
             return ""
     def GetAttachments(self):

@@ -156,7 +156,7 @@ def info():
         id = MessageSettings.getId()
         print()
         ClearDatabase()
-        url = MessageSettings.getAttUrl()
+        url,name = MessageSettings.getAttUrl()
 
         file = open("shed.xlsx", "wb")
         ufr = requests.get(url)
