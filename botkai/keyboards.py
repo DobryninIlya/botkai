@@ -397,11 +397,13 @@ def KeyboardProfile():
             main_buttons.append([get_button(label="Староста не назначен. Стать им", color="positive", payload = {'button': 'get_starosta'})])
         if UserParams.adminLevel >= 2:
             main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
-        main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
+
         if UserParams.own_shed:
             main_buttons.append([get_button(label="Использовать свое расписание", color="positive", payload={'button': 'select_own_shedule'})])
         else:
             main_buttons.append([get_button(label="Использовать расписание группы", color="default", payload={'button': 'select_own_shedule'})])
+
+        main_buttons.append([get_button(label="Назад", color="default", payload={'button': 'tomainmenu'})])
 
         keyboard =  {
         "one_time": False,
