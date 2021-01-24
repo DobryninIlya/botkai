@@ -156,7 +156,7 @@ def info():
         id = MessageSettings.getId()
         print()
         ClearDatabase()
-
+        MessageSettings.getAttInfo()
         response = vk.method("docs.getById",{"docs": str(MessageSettings.GetAttachments())[3:]})
         print(response)
 

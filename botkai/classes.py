@@ -143,7 +143,8 @@ class Message:
         return self.peer_id
     def getKeyboard(self):
         return self.keyboard
-
+    def getAttInfo(self):
+        print(self.att)
     def GetAttachments(self):
         # print(self.att)
         attachment = ""
