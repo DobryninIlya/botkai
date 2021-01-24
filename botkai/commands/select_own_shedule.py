@@ -8,7 +8,7 @@ def info():
     id = MessageSettings.getId()
 
     if UserParams.own_shed:
-        cursor.execute("UPDATE Users SET has_own_shed = 0 WHERE id_vk = {}".format(id))
+        cursor.execute("UPDATE Users SET has_own_shed = False WHERE id_vk = {}".format(id))
         connection.commit()
         vk.method("messages.send",
                   {"peer_id": id,
@@ -16,7 +16,7 @@ def info():
                    "keyboard": KeyboardProfile(), "random_id": random.randint(1, 2147483647)})
 
     else:
-        cursor.execute("UPDATE Users SET has_own_shed = 0 WHERE id_vk = {}".format(id))
+        cursor.execute("UPDATE Users SET has_own_shed = True WHERE id_vk = {}".format(id))
         connection.commit()
         vk.method("messages.send",
                   {"peer_id": id,
