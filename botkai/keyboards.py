@@ -398,6 +398,11 @@ def KeyboardProfile():
         if UserParams.adminLevel >= 2:
             main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
         main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
+        if UserParams.own_shed:
+            main_buttons.append([get_button(label="Использовать свое расписание", color="positive", payload={'button': 'select_own_shed'})])
+        else:
+            main_buttons.append([get_button(label="Использовать расписание группы", color="default", payload={'button': 'select_own_shed'})])
+
         keyboard =  {
         "one_time": False,
         "buttons": main_buttons
@@ -421,15 +426,14 @@ def KeyboardProfile():
             inst = ":Не указана группа"
         Balance = UserParams.balance
         
-        main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload = {'button': 'name'})],
+        main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload={'button': 'name'})], [
+            get_button(label="(Родитель) Группа: " + str(Group), color=GroupColor, payload={'button': 'group'})],
+                        [get_button(label="Баланс: " + str(Balance), color="positive", payload={'button': 'donate'})], [
+                            get_button(label="Список родителей группы", color="default",
+                                       payload={'button': 'groupmembers'})],
+                        [get_button(label="Мой институт " + inst, color=GroupColor, payload={'button': 'myinstitute'})],
+                        [get_button(label="Назад", color="default", payload={'button': 'tomainmenu'})]]
 
-            [get_button(label="(Родитель) Группа: " + str(Group), color=GroupColor, payload = {'button': 'group'})],
-            [get_button(label="Баланс: " + str(Balance), color="positive", payload = {'button': 'donate'})],
-            [get_button(label="Список родителей группы", color="default", payload = {'button': 'groupmembers'})],
-            [get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'})]
-            ]
-
-        main_buttons.append([get_button(label="Назад", color="default", payload = {'button': 'tomainmenu'})])
         keyboard =  {
         "one_time": False,
         "buttons": main_buttons

@@ -160,6 +160,13 @@ def info():
 
             conn.commit()
 
+        if i < 2:
+            vk.method("messages.send",
+                      {"peer_id": id,
+                       "message": "Ошибка чтения расписания. Файл пуст.",
+                       "random_id": random.randint(1, 2147483647)})
+            return
+
         sql = "SELECT * FROM saved_timetable ORDER BY daynum, daytime"
         cursorR.execute(sql)
         result = cursorR.fetchall()
