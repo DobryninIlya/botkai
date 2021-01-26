@@ -153,15 +153,19 @@ def getResponse(groupId):
 
 
 def get_own_shed(groupId):
-    sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-    cursor.execute(sql)
-    result = cursor.fetchone()[0]
-    print(result)
-    if not result:
-        UserParams.own_shed = 0
-        info()
-    else:
-        return True, json.loads(result)
+    try:
+        sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+        cursor.execute(sql)
+        result = cursor.fetchone()[0]
+        print(result)
+        if not result:
+            UserParams.own_shed = 0
+            info()
+        else:
+            return True, json.loads(result)
+    except:
+        return False, "&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе отсутствует такое расписание. Чтобы это исправить -"
+        " либо загрузите расписание, либо смените в профиле способ получения расписания на 'Использовать расписание группы'"
 
 command = command_class.Command()
 
