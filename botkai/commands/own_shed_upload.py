@@ -12,7 +12,7 @@ import datetime
 from .. import classes as command_class
 import random
 import requests
-from ..keyboards import GetAdminPanel
+from ..keyboards import KeyboardProfile
 from ..classes import vk, MessageSettings, UserParams
 
 
@@ -217,7 +217,7 @@ def info():
             connection.commit()
             vk.method("messages.send",
                       {"peer_id": id,
-                       "message": "Расписание успешно загружено.",
+                       "message": "Расписание успешно загружено.", "keyboard": KeyboardProfile(), 
                        "random_id": random.randint(1, 2147483647)})
         except:
             print("UPDATING OWN SHED")
@@ -227,7 +227,7 @@ def info():
             connection.commit()
             vk.method("messages.send",
                       {"peer_id": id,
-                       "message": "Расписание успешно обновлено.",
+                       "message": "Расписание успешно обновлено.", "keyboard": KeyboardProfile(),
                        "random_id": random.randint(1, 2147483647)})
     except:
         print('Ошибка:\n', traceback.format_exc())
