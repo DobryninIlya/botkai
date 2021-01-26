@@ -147,7 +147,7 @@ def info():
 info_command = command_class.Command()
 
 info_command.keys = ['скачать в ical']
-info_command.desciption = 'скачать расписание в .ical '
+info_command.desciption = 'скачать расписание в .ical'
 info_command.payload = "exportcalendar"
 info_command.process = info
 info_command.premium = True

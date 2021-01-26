@@ -10,8 +10,6 @@ def info():
     vk.method("messages.send",
                         {"peer_id": id, "message": "Apanel","keyboard": GetAdminPanel(UserParams.getAdminLevel()), "random_id": random.randint(1, 2147483647)})
 
-    
-      
     return "ok"
 
 

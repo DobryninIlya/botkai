@@ -77,6 +77,7 @@ class User:
         self.statUser.add(id)
         self.dateChange = res[6]
         self.potokLecture = res[15]
+        self.own_shed = res[16]
         
         
     def getChetn(self):
@@ -143,7 +144,11 @@ class Message:
         return self.peer_id
     def getKeyboard(self):
         return self.keyboard
-
+    def getAttUrl(self):
+        try:
+            return self.att[0]['doc']['url'], self.att[0]["doc"]["title"]
+        except:
+            return ""
     def GetAttachments(self):
         # print(self.att)
         attachment = ""
