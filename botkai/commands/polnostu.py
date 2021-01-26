@@ -81,7 +81,11 @@ def showAllTimetable(groupId):
 
     return result
 
+
 def getResponse(groupId):
+    if UserParams.own_shed:
+        groupId = MessageSettings.getId() + 1_000_000_000
+        return get_own_shed(groupId)
 
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
@@ -89,8 +93,12 @@ def getResponse(groupId):
     if result == None:
         try:
 
-            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
+            response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                     headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                     params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                             "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(),
+                                                                               json.dumps(response.json()))
             cursor.execute(sql)
             connection.commit()
             return True, response.json()
@@ -106,8 +114,13 @@ def getResponse(groupId):
         timetable = result[2]
         if date_update + datetime.timedelta(days=2) < today:
             try:
-                response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
+                response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                 "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+                assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
+                    json.dumps(response.json()), datetime.date.today(), groupId)
                 cursor.execute(sql)
                 connection.commit()
                 return True, response.json()
@@ -120,12 +133,35 @@ def getResponse(groupId):
             sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
             cursor.execute(sql)
             result = cursor.fetchone()[0]
+            if len(result) < 10:
+                try:
+                    response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                     "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+                    assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                    sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
+                        json.dumps(response.json()), datetime.date.today(), groupId)
+                    cursor.execute(sql)
+                    connection.commit()
+                    return True, response.json()
+                except:
+                    return True, ""
             return True, json.loads(result)
 
+    return
 
 
-
-    return 
+def get_own_shed(groupId):
+    sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+    cursor.execute(sql)
+    result = cursor.fetchone()[0]
+    print(result)
+    if not result:
+        UserParams.own_shed = 0
+        info()
+    else:
+        return True, json.loads(result)
 
 command = command_class.Command()
 
