@@ -94,7 +94,7 @@ def isValid(row):
     elif str(row[6].value).rstrip() not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
         return False, "Значение здания неправильно. Должно быть от 1 до 8"
     # Препод
-    elif len(str(row[9].value)) > 100:
+    elif len(str(row[7].value)) > 100:
         return False, "Значение длины имени преподавателя слишком длинное."
     else:
         return True, ""
@@ -217,7 +217,7 @@ def info():
             connection.commit()
             vk.method("messages.send",
                       {"peer_id": id,
-                       "message": "Расписание успешно загружено.", "keyboard": KeyboardProfile(), 
+                       "message": "Расписание успешно загружено.", "keyboard": KeyboardProfile(),
                        "random_id": random.randint(1, 2147483647)})
         except:
             print("UPDATING OWN SHED")
