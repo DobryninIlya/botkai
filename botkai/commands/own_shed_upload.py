@@ -171,8 +171,7 @@ def info():
         day = ""
         for row in result:
 
-            day = int(row[0])
-            print(row)
+            day = int(row[1])
             if prev_day == day:
                 shed_day.append(
                     {
