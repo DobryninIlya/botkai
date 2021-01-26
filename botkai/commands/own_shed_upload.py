@@ -214,11 +214,11 @@ def info():
             cursor.execute(sql)
             connection.commit()
         except:
-
+            print("UPDATING OWN SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
                 (json.dumps(week_shed)).replace('None', ""), date, group)
             cursor.execute(sql)
-        connection.commit()
+            connection.commit()
     except:
         print('Ошибка:\n', traceback.format_exc())
 
