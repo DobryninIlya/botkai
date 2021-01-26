@@ -141,8 +141,8 @@ def info():
             sql = "INSERT INTO saved_timetable VALUES ({id}, '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}','{potok}', '{prepodname}')".format(
                 id=i,
                 daynum=weekdays[str(row[0].value).rstrip().lower()],  # день недели
-                daydate=str(row[3].value),  # время
-                daytime=row[2].value,  # частота повторений
+                daydate=str(row[2].value),  # время
+                daytime=row[1].value,  # частота повторений
                 discipltype=row[4].value,  # тип пары
                 disciplname=row[3].value,  # название пары
                 audnum=row[5].value,  # аудитория
