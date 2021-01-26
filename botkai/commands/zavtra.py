@@ -177,7 +177,7 @@ def getResponse(groupId):
 def get_own_shed(groupId):
     sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
-    result = cursor.fetchone()
+    result = cursor.fetchone()[0]
     print(result)
     if not result:
         UserParams.own_shed = 0
