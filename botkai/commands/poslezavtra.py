@@ -45,7 +45,9 @@ def info():
 
     return "ok"
 
+
 def showTimetable(groupId, tomorrow=0):
+    user_potok = UserParams.potokLecture
     try:
         isNormal, response = getResponse(groupId)
         if not isNormal:
@@ -53,12 +55,10 @@ def showTimetable(groupId, tomorrow=0):
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
-
         if len(response) < 5:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
 
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
-
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
         month = now.month
@@ -75,27 +75,62 @@ def showTimetable(groupId, tomorrow=0):
                 print('Ошибка:\n', traceback.format_exc())
                 isPotok = False
             if isPotok:
-               if not user_potok:
-                   continue 
-
+                if not user_potok:
+                    continue
 
             print(dateinstr)
-            if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
-                result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] +  " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-            elif (elem["dayDate"]).rstrip()=="неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
-                result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-            elif (elem["dayDate"]).rstrip()=="неч/чет" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
-                result += str(chr(10148))  + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-            elif (elem["dayDate"]).rstrip()=="неч/чет" and  ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
-                result += str(chr(10148))  + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-            elif (elem["dayDate"]).rstrip()=="чет/неч" and  ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
-                result += str(chr(10148))  + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
-            elif (elem["dayDate"]).rstrip()=="чет/неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
-                result += str(chr(10148))  + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
+            if (elem["dayDate"]).rstrip() == "чет" and (
+                    (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+                result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                                     "disciplType"][
+                                                                                                                 :4] + " " + \
+                          elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
+            elif (elem["dayDate"]).rstrip() == "неч" and not (
+                    (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+                result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                                     "disciplType"][
+                                                                                                                 :4] + " " + \
+                          elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
+            elif (elem["dayDate"]).rstrip() == "неч/чет" and not (
+                    (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+                result += str(chr(10148)) + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                           "disciplType"][
+                                                                                                       :4] + " " + elem[
+                              "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
+            elif (elem["dayDate"]).rstrip() == "неч/чет" and (
+                    (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+                result += str(chr(10148)) + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                           "disciplType"][
+                                                                                                       :4] + " " + elem[
+                              "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
+            elif (elem["dayDate"]).rstrip() == "чет/неч" and (
+                    (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+                result += str(chr(10148)) + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                           "disciplType"][
+                                                                                                       :4] + " " + elem[
+                              "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
+            elif (elem["dayDate"]).rstrip() == "чет/неч" and not (
+                    (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+                result += str(chr(10148)) + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                           "disciplType"][
+                                                                                                       :4] + " " + elem[
+                              "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
             elif dateinstr != -1:
-                result += str(chr(10148)) + str(day) + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
-            elif not ((elem["dayDate"]).rstrip()=="чет") and not ((elem["dayDate"]).rstrip()=="неч"):
-                result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
+                result += str(chr(10148)) + str(day) + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
+                                                                                                          "disciplType"][
+                                                                                                      :4] + " " + elem[
+                              "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
+                          elem["buildNum"]).rstrip() + ' зд.\n'
+            elif not ((elem["dayDate"]).rstrip() == "чет") and not ((elem["dayDate"]).rstrip() == "неч"):
+                result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + \
+                          elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (
+                          elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         return result
     except ConnectionError as err:
         return "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
