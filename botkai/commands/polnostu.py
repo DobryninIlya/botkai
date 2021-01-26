@@ -35,7 +35,7 @@ def showAllTimetable(groupId):
             result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         result += "\n"
     except Exception as E:
-        result += "Нет данных для отображения."
+        result += "Нет данных для отображения.\n"
     try:
         result += "&#128204;Вторник&#128204;\n"
         day = response[str(2)]
@@ -43,7 +43,7 @@ def showAllTimetable(groupId):
             result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         result += "\n"
     except Exception as E:
-        result += "Нет данных для отображения."
+        result += "Нет данных для отображения.\n"
     try:
         result += "&#128204;Среда&#128204;\n"
         day = response[str(3)]
@@ -51,7 +51,7 @@ def showAllTimetable(groupId):
             result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         result += "\n"
     except Exception as E:
-        result += "Нет данных для отображения."
+        result += "Нет данных для отображения.\n"
     try:
         result += "&#128204;Четверг&#128204;\n"
         day = response[str(4)]
@@ -59,7 +59,7 @@ def showAllTimetable(groupId):
             result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         result += "\n"
     except Exception as E:
-        result += "Нет данных для отображения."
+        result += "Нет данных для отображения.\n"
     try:
         result += "&#128204;Пятница&#128204;\n"
         day = response[str(5)]
@@ -67,7 +67,7 @@ def showAllTimetable(groupId):
             result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         result += "\n"
     except Exception as E:
-        result += "Нет данных для отображения."
+        result += "Нет данных для отображения.\n"
     try:
         result += "&#128204;Суббота&#128204;\n"
         day = response[str(6)]
@@ -75,7 +75,7 @@ def showAllTimetable(groupId):
             result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         result += "\n"
     except Exception as E:
-        result += "Нет данных для отображения."
+        result += "Нет данных для отображения.\n"
 
             
 
