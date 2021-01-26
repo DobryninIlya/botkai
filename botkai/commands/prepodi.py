@@ -67,6 +67,7 @@ class Prepodi:
 
 
 def getResponse(groupId):
+    today = datetime.date.today()
     if UserParams.own_shed:
         groupId = MessageSettings.getId() + 1_000_000_000
         return get_own_shed(groupId)
