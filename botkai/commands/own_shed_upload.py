@@ -171,32 +171,32 @@ def info():
         day = ""
         for row in result:
 
-            day = int(row[1])
+            day = int(row[0])
             if prev_day == day:
                 shed_day.append(
                     {
-                        "dayDate": row[2],  # чет неч
-                        "dayTime": row[3],  # время
-                        "disciplType": row[4],  # пр лек лр
-                        "disciplName": row[5],  # название пары
-                        "audNum": row[6],  # аудитория
-                        "buildNum": row[7],  # здание
-                        "prepodName": row[9],  # здание
-                        "potok": row[8]
+                        "dayDate": row[1],  # чет неч
+                        "dayTime": row[2],  # время
+                        "disciplType": row[3],  # пр лек лр
+                        "disciplName": row[4],  # название пары
+                        "audNum": row[5],  # аудитория
+                        "buildNum": row[6],  # здание
+                        "prepodName": row[8],  # здание
+                        "potok": row[7]
                     }
                 )
             else:
                 week_shed[prev_day] = shed_day
                 shed_day = [
                     {
-                        "dayDate": row[2],  # чет неч
-                        "dayTime": row[3],  # время
-                        "disciplType": row[4],  # пр лек лр
-                        "disciplName": row[5],  # название пары
-                        "audNum": row[6],  # аудитория
-                        "buildNum": row[7],  # здание
-                        "prepodName": row[9],  # здание
-                        "potok": row[8]
+                        "dayDate": row[1],  # чет неч
+                        "dayTime": row[2],  # время
+                        "disciplType": row[3],  # пр лек лр
+                        "disciplName": row[4],  # название пары
+                        "audNum": row[5],  # аудитория
+                        "buildNum": row[6],  # здание
+                        "prepodName": row[8],  # здание
+                        "potok": row[7]
                     }
                 ]
             prev_day = day
