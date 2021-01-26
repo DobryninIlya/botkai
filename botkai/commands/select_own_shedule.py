@@ -10,6 +10,7 @@ def info():
     if UserParams.own_shed:
         cursor.execute("UPDATE Users SET has_own_shed = False WHERE id_vk = {}".format(id))
         connection.commit()
+        UserParams.own_shed = 0
         vk.method("messages.send",
                   {"peer_id": id,
                    "message": "Будет отображаться публичное расписание вашей группы",
@@ -18,6 +19,7 @@ def info():
     else:
         cursor.execute("UPDATE Users SET has_own_shed = True WHERE id_vk = {}".format(id))
         connection.commit()
+        UserParams.own_shed = 1
         vk.method("messages.send",
                   {"peer_id": id,
                    "message": "Будет отображаться ваше сохраненное расписание из эксель таблицы",
