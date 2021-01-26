@@ -176,26 +176,28 @@ def info():
                 shed_day.append(
                     {
                         "dayDate": row[2],  # чет неч
-                        "dayTime": row[1],  # время
+                        "dayTime": row[3],  # время
                         "disciplType": row[4],  # пр лек лр
-                        "disciplName": row[3],  # название пары
-                        "audNum": row[5],  # аудитория
-                        "buildNum": row[6],  # здание
-                        "prepodName": row[7],  # здание
+                        "disciplName": row[5],  # название пары
+                        "audNum": row[6],  # аудитория
+                        "buildNum": row[7],  # здание
+                        "prepodName": row[9],  # здание
                         "potok": row[8]
                     }
                 )
+
+
             else:
                 week_shed[prev_day] = shed_day
                 shed_day = [
                     {
                         "dayDate": row[2],  # чет неч
-                        "dayTime": row[1],  # время
+                        "dayTime": row[3],  # время
                         "disciplType": row[4],  # пр лек лр
-                        "disciplName": row[3],  # название пары
-                        "audNum": row[5],  # аудитория
-                        "buildNum": row[6],  # здание
-                        "prepodName": row[7],  # здание
+                        "disciplName": row[5],  # название пары
+                        "audNum": row[6],  # аудитория
+                        "buildNum": row[7],  # здание
+                        "prepodName": row[9],  # здание
                         "potok": row[8]
                     }
                 ]
