@@ -175,7 +175,7 @@ def getResponse(groupId):
     return
 
 def get_own_shed(groupId):
-    sql = "SELECT shedule FROM saved_timetable WHERE groupId = {}".format(groupId)
+    sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
     print(result)
