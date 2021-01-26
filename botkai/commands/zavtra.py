@@ -116,7 +116,8 @@ def showTimetable(groupId, tomorrow=0):
 def getResponse(groupId):
     if UserParams.own_shed:
         groupId = MessageSettings.getId() + 1_000_000_000
-        print(groupId)
+        return get_own_shed(groupId)
+
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
@@ -172,6 +173,18 @@ def getResponse(groupId):
             return True, json.loads(result)
 
     return
+
+def get_own_shed(groupId):
+    sql = "SELECT shedule FROM saved_timetable WHERE groupId = {}".format(groupId)
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    print(result)
+    if not result:
+        UserParams.own_shed = 0
+        info()
+    else:
+        return True, json.loads(result)
+
 
 command = command_class.Command()
 
