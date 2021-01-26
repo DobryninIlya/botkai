@@ -114,7 +114,9 @@ def showTimetable(groupId, tomorrow=0):
 
 
 def getResponse(groupId):
-
+    if UserParams.own_shed:
+        groupId = groupId + 1_000_000_000
+        print(groupId)
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
