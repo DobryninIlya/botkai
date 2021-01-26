@@ -213,12 +213,20 @@ def info():
                                                                                (json.dumps(week_shed)).replace('None', ""))
             cursor.execute(sql)
             connection.commit()
+            vk.method("messages.send",
+                      {"peer_id": id,
+                       "message": "Расписание успешно загружено.",
+                       "random_id": random.randint(1, 2147483647)})
         except:
             print("UPDATING OWN SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
                 (json.dumps(week_shed)).replace('None', ""), date, group)
             cursor.execute(sql)
             connection.commit()
+            vk.method("messages.send",
+                      {"peer_id": id,
+                       "message": "Расписание успешно обновлено.",
+                       "random_id": random.randint(1, 2147483647)})
     except:
         print('Ошибка:\n', traceback.format_exc())
 
