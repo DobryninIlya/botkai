@@ -811,7 +811,11 @@ def CheckStatus():
             #print("DATA--------------------- " + str(date))
             sql = "SELECT MAX(ID) FROM Task"
             cursor.execute(sql)
-            count = (int)(str(cursor.fetchone())[1:-2]) + 1
+            res = cursor.fetchone()
+            res = res if res != None else 0
+            # count = (int)(str(res)[1:-2]) + 1
+            # count = (int)(str(cursor.fetchone())[1:-2]) + 1
+            count = res+1
 
             user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(id, id, MessageSettings.messageId)
 
