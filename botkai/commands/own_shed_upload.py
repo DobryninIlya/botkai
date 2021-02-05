@@ -203,14 +203,23 @@ def info():
                 ]
             prev_day = day
         week_shed[day] = shed_day
-
-        group = 1000000000 + int(id)
+        if len(week_shed.keys)==0:
+            vk.method("messages.send",
+                      {"peer_id": id,
+                       "message": "Ошибка. Расписание не найдено...",
+                       "random_id": random.randint(1, 2147483647)})
+        group = 999999999
+        if MessageSettings.command_key == "загрузить расписание староста":
+            group = UserParams.RealGroup
+        else:
+            group = 1000000000 + int(id)
         date = ""
         if datetime.date.today().month > 7:
             date = "{}-12-30".format(datetime.date.today().year)
         else:
             date = "{}-6-30".format(datetime.date.today().year)
         try:
+
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(group, date,
                                                                                (json.dumps(week_shed)).replace('None', ""))
             cursor.execute(sql)
@@ -219,6 +228,7 @@ def info():
                       {"peer_id": id,
                        "message": "Расписание успешно загружено.", "keyboard": KeyboardProfile(),
                        "random_id": random.randint(1, 2147483647)})
+
         except:
             print("UPDATING OWN SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
@@ -229,6 +239,17 @@ def info():
                       {"peer_id": id,
                        "message": "Расписание успешно обновлено.", "keyboard": KeyboardProfile(),
                        "random_id": random.randint(1, 2147483647)})
+        if group < 1000000000:
+            cursor.execute("SELECT * FROM users WHERE groupp = {}".format(group))
+            res = cursor.fetchall()
+            users = ""
+            for item in res:
+                users += str(item[0]) + ","
+            users = users[:-1]
+            vk.method("messages.send",
+                      {"peer_ids": users,
+                       "message": "Оповещение! Староста изменил расписание группы. Теперь расписание берется из Excel-файла до наступления {}".format(date),
+                       "random_id": random.randint(1, 2147483647)})
     except:
         print('Ошибка:\n', traceback.format_exc())
 
@@ -238,7 +259,7 @@ command = command_class.Command()
 
 
 
-command.keys = ['загрузить расписание']
+command.keys = ['загрузить расписание', 'загрузить расписание староста']
 command.desciption = 'загрузить свое расписание'
 command.process = info
 command.payload = "own_shed_upload"

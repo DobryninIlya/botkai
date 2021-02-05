@@ -104,7 +104,9 @@ def message_new(request):
         message_params = json.loads(request.body)
         MessageSettings.update(message_params)
         if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
-            print("СЕКРЕТНЫЙ КЛЮЧ")
+            vk.method("messages.send",
+                      {"peer_id": int(MessageSettings.id), "message": "Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key), "random_id": random.randint(1, 2147483647)})
+            print("СЕКРЕТНЫЙ КЛЮЧ НЕ СОШЕЛСЯ")
             return "У тебя почти получилось :)"
         if IsRegistred():
 
@@ -155,7 +157,8 @@ def message_new(request):
                                     return "ok"
                 if distance < len(MessageSettings.getText())*0.4 and command.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in command.role):
                     
-                    mesg = 'Я понял ваш запрос как "%s"' % key 
+                    mesg = 'Я понял ваш запрос как "%s"' % key
+                    MessageSettings.command_key = key
                     vk.method("messages.send",
                             {"peer_id": int(MessageSettings.id), "message": mesg, "random_id": random.randint(1, 2147483647)})
                     command.process()

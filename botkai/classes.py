@@ -135,7 +135,8 @@ class Message:
        self.event_id = ""
        self.buttons = []
        self.conversation_message_id = 0
-       self.secret_key = "" 
+       self.secret_key = ""
+       self.command_key = ""
     def getId(self):
         return self.id
     def getText(self):
