@@ -61,6 +61,7 @@ def getResponse(groupId):
     else:
         date_update = result[1]
         timetable = result[2]
+        today = datetime.date.today()
         if date_update + datetime.timedelta(days=2) < today:
             try:
                 response = requests.post(BASE_URL, data="groupId=" + str(groupId),
