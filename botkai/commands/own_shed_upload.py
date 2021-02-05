@@ -209,6 +209,7 @@ def info():
                        "message": "Ошибка. Расписание не найдено...",
                        "random_id": random.randint(1, 2147483647)})
         group = 999999999
+        print("MessageSettings.command_key : ", MessageSettings.command_key)
         if MessageSettings.command_key == "загрузить расписание староста":
             if UserParams.adminLevel < 2:
                 vk.method("messages.send",
@@ -239,7 +240,7 @@ def info():
             print("UPDATING OWN SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
                 (json.dumps(week_shed)).replace('None', ""), date, group)
-            print(sql, "\n\nGROUP " + str(group))
+            print("\n\nGROUP " + str(group))
             cursor.execute(sql)
             connection.commit()
             vk.method("messages.send",
