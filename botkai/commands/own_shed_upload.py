@@ -203,7 +203,7 @@ def info():
                 ]
             prev_day = day
         week_shed[day] = shed_day
-        if len(week_shed.keys)==0:
+        if len(week_shed.keys())==0:
             vk.method("messages.send",
                       {"peer_id": id,
                        "message": "Ошибка. Расписание не найдено...",
