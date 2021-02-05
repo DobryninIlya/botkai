@@ -239,12 +239,14 @@ def info():
             print("UPDATING OWN SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
                 (json.dumps(week_shed)).replace('None', ""), date, group)
+            print(sql, "\n\nGROUP " + str(group))
             cursor.execute(sql)
             connection.commit()
             vk.method("messages.send",
                       {"peer_id": id,
                        "message": "Расписание успешно обновлено.", "keyboard": KeyboardProfile(),
                        "random_id": random.randint(1, 2147483647)})
+
         if group < 1000000000:
             cursor.execute("SELECT * FROM users WHERE groupp = {}".format(group))
             res = cursor.fetchall()
