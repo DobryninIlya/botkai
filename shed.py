@@ -7,7 +7,7 @@ import traceback
 from botkai.classes import connection, cursor
 
 sched = BlockingScheduler()
-
+sched.start()
 @sched.scheduled_job('interval', minutes=1)
 def func():
     print("working sheduler")
@@ -43,5 +43,4 @@ def getGroupsResponse():
         print('Ошибка:\n', traceback.format_exc())  
     return
 
-getGroupsResponse()
-sched.start()
+# getGroupsResponse()
