@@ -256,7 +256,7 @@ def info():
                 users += str(item[0]) + ","
             users = users[:-1]
             vk.method("messages.send",
-                      {"peer_ids": users,
+                      {"user_ids": users,
                        "message": "Оповещение! Староста изменил расписание группы. Теперь расписание берется из Excel-файла до наступления {}".format(date),
                        "random_id": random.randint(1, 2147483647)})
     except:
