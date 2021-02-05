@@ -16,7 +16,6 @@ chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚", "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚", "Можно вспомнить строчки гимна КАИ 😚", "Можно заняться чем то интересным 😚", "Можно встретиться с друзьями 😚"]
 def info():
-
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=1))
     group = UserParams.getGroup()
@@ -34,7 +33,6 @@ def info():
     try:
         Timetable =  showTimetable(group, 1)
         if Timetable:
-            # print("РАСПИСАНИЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ")
             vk.method("messages.send",
                         {"peer_id": id, "message": "Расписание на завтра:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
         else:
@@ -69,7 +67,6 @@ def showTimetable(groupId, tomorrow=0):
         day = str(now.day) + "." + str(month)
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
-            
 
             try:
                 isPotok = True if elem["potok"] == '1' else False

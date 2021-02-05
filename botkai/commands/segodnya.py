@@ -30,7 +30,7 @@ def info():
     if advert:
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
     try:
-        Timetable =  showTimetable(group)
+        Timetable =  showTimetable(group, 1)
         if Timetable:
             vk.method("messages.send",
                         {"peer_id": id, "message": "Расписание на сегодня:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
@@ -53,7 +53,6 @@ def showTimetable(groupId, tomorrow=0):
             return response
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        
 
         if len(response) < 2:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
