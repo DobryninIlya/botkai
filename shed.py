@@ -8,7 +8,7 @@ from botkai.classes import connection, cursor
 
 sched = BlockingScheduler()
 
-# @sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', minutes=1)
 def func():
     print("working sheduler")
     distribution()
@@ -27,6 +27,7 @@ def func():
 
 BASE_URL = 'https://kai.ru/raspisanie'
 
+# UPDATE GROUPS LIST
 @sched.scheduled_job('interval', hours=2)
 def getGroupsResponse():
     try:
