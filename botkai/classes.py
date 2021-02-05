@@ -149,7 +149,7 @@ class Message:
         try:
             return self.att[0]['doc']['url'], self.att[0]["doc"]["title"]
         except:
-            return ""
+            return "", ""
     def GetAttachments(self):
         # print(self.att)
         attachment = ""
