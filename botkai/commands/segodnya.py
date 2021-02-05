@@ -53,7 +53,6 @@ def showTimetable(groupId, tomorrow=0):
             return response
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        
 
         if len(response) < 2:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
