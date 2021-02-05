@@ -152,6 +152,7 @@ def message_new(request):
                                 distance = d
                                 command = c
                                 key = k
+                                MessageSettings.command_key = k
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
                                     c.process()
                                     return "ok"
