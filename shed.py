@@ -19,7 +19,7 @@ sched = BlockingScheduler()
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=4)
+@sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
 def func():
     print("working sheduler")
     distribution()
