@@ -222,7 +222,7 @@ def main(request = None):
         #print(request.headers)
         #data = json.loads(request.data)
 
-        sql="SELECT * FROM Users WHERE groupReal > -1 AND ID_VK < 2000000000 AND distr > -1 ORDER BY Groupp"
+        sql="SELECT * FROM Users WHERE groupReal > -1 AND ID_VK < 1000000000 AND distr > -1 ORDER BY Groupp"
         cursor.execute(sql)
         result = cursor.fetchall()
         #result.sort()
