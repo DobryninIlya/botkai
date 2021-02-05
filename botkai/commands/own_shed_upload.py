@@ -217,7 +217,7 @@ def info():
                            "message": "Ошибка. Вы не являетесь старостой\nВы можете добавить свое расписание командой 'загрузить расписание'", "keyboard": KeyboardProfile(),
                            "random_id": random.randint(1, 2147483647)})
                 return
-            group = UserParams.RealGroup
+            group = UserParams.groupId
         else:
             group = 1000000000 + int(id)
         date = ""
@@ -237,7 +237,7 @@ def info():
                        "random_id": random.randint(1, 2147483647)})
 
         except:
-            print("UPDATING OWN SHED")
+            print("UPDATING SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
                 (json.dumps(week_shed)).replace('None', ""), date, group)
             print("\n\nGROUP " + str(group))
@@ -255,6 +255,7 @@ def info():
             for item in res:
                 users += str(item[0]) + ","
             users = users[:-1]
+            print(users)
             vk.method("messages.send",
                       {"user_ids": users,
                        "message": "Оповещение! Староста изменил расписание группы. Теперь расписание берется из Excel-файла до наступления {}".format(date),
