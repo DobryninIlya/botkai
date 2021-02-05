@@ -30,7 +30,7 @@ def info():
     if advert:
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
     try:
-        Timetable =  showTimetable(group, 1)
+        Timetable =  showTimetable(group)
         if Timetable:
             vk.method("messages.send",
                         {"peer_id": id, "message": "Расписание на сегодня:\n" + Timetable + adv +  task, "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})

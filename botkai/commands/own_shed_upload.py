@@ -240,8 +240,7 @@ def info():
             print("UPDATING SHED")
             sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
                 (json.dumps(week_shed)).replace('None', ""), date, group)
-            print("\n\nGROUP " + str(group))
-            print(week_shed[6])
+
             cursor.execute(sql)
             connection.commit()
             vk.method("messages.send",
@@ -256,7 +255,7 @@ def info():
             for item in res:
                 users += str(item[0]) + ","
             users = users[:-1]
-            print(users)
+
             vk.method("messages.send",
                       {"user_ids": users,
                        "message": "Оповещение! Староста изменил расписание группы. Теперь расписание берется из Excel-файла до наступления {}".format(date),
