@@ -210,6 +210,12 @@ def info():
                        "random_id": random.randint(1, 2147483647)})
         group = 999999999
         if MessageSettings.command_key == "загрузить расписание староста":
+            if UserParams.adminLevel < 2:
+                vk.method("messages.send",
+                          {"peer_id": id,
+                           "message": "Ошибка. Вы не являетесь старостой\nВы можете добавить свое расписание командой 'загрузить расписание'", "keyboard": KeyboardProfile(),
+                           "random_id": random.randint(1, 2147483647)})
+                return
             group = UserParams.RealGroup
         else:
             group = 1000000000 + int(id)
