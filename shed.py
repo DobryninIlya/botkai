@@ -7,12 +7,12 @@ import traceback
 from botkai.classes import connection, cursor
 
 sched = BlockingScheduler()
-distribution()
+
 @sched.scheduled_job('interval', minutes=1)
 def func():
     print("working sheduler")
     distribution()
-    # sched.shutdown()
+    sched.shutdown()
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 def scheduled_job():
