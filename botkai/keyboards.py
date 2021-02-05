@@ -448,6 +448,7 @@ def GetStarostaKeyboard(first = 0):
     buttons_starosta = []
     if UserParams.adminLevel >=2 or first:
         buttons_starosta = [
+            [get_button(label="Загрзка расписания из Excel", color="default", payload = {'button': 'starostaexcel'})],
             [get_button(label="Проверка заданий", color="default", payload = {'button': 'starostatask'})],
             [get_button(label="Удаление объявлений", color="default", payload = {'button': 'starosta_adv_delete'})],
             [get_button(label="Принудительное обновление расписания", color="default", payload = {'button': 'starosta_shed_update_info'})],

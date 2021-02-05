@@ -106,6 +106,13 @@ def info():
         ClearDatabase()
         url,name = MessageSettings.getAttUrl()
 
+        if not len(url):
+            vk.method("messages.send",
+                      {"peer_id": id,
+                       "message": "Ошибка. Вы не прикрепили файл.",
+                       "random_id": random.randint(1, 2147483647)})
+            return
+
         file = open("shed.xlsx", "wb")
         ufr = requests.get(url)
         file.write(ufr.content)
