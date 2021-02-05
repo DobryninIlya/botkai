@@ -112,13 +112,13 @@ def timetableInfo(groupId, tomorrow=0):
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
         isNormal, response = getResponse(groupId)
         if not isNormal:
-            return response
+            return response, False, False
         # print("Response: ", response.status_code)
         # if str(response.status_code) != '200':
         #     return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
         #response = response.json()
         if len(response) == 0:
-            return "\n&#10060;\tРасписание еще не доступно.&#10060;"
+            return "\n&#10060;\tРасписание еще не доступно.&#10060;", False, False
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
@@ -264,6 +264,8 @@ def main(request = None):
             bl = [9416, 9420, 9174]
             if elem.realGroup not in bl:
                 first, room, building = timetableInfo(elem.group)
+                if not building:
+                    raise Exception
                 #print( ",".join(','.join(str(x) for x in elem.users)))
                 # vk.method("messages.send", {"user_ids": ','.join(str(x) for x in elem.users), "message": "Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + (str(building)).rstrip() + " зд. " + (str(room)).rstrip() + " ауд.\n На улице: " + str(Weather()) + " °C" ,"keyboard": keyboard, "random_id": random.randint(1, 2147483647)})
 
