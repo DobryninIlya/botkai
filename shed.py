@@ -12,7 +12,7 @@ distribution()
 def func():
     print("working sheduler")
     distribution()
-    sched.shutdown()
+    # sched.shutdown()
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 def scheduled_job():
