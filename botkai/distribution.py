@@ -33,45 +33,73 @@ def Weather():
         print("Exception (weather):", e)
         pass
     return res
+
 def getResponse(groupId):
-    
+
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
     if result == None:
         try:
-            
-            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
+
+            response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                     headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                     params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                             "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(),
+                                                                               json.dumps(response.json()))
+            cursor.execute(sql)
+            connection.commit()
+            return True, response.json()
         except ConnectionError as err:
             return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
         except requests.exceptions.Timeout as err:
             return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
         except:
             return False, ""
-        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
-        cursor.execute(sql)
-        connection.commit()
-        return True, response.json()
+
     else:
         date_update = result[1]
         timetable = result[2]
-        # if date_update + datetime.timedelta(days=4) >= today:
-        #     try:
-        #         response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-        #         sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
-        #         cursor.execute(sql)
-        #         connection.commit()
-        #         return True, response.json()
-        #     except:
-        #         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-        #         cursor.execute(sql)
-        #         result = cursor.fetchone()[0]
-        #         return True, json.loads(result)
-        # else:
-        sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-        cursor.execute(sql)
-        result = cursor.fetchone()[0]
-        return True, json.loads(result)
+        today = datetime.date.today()
+        if date_update + datetime.timedelta(days=2) < today:
+            try:
+                response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                 "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+                assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
+                    json.dumps(response.json()), datetime.date.today(), groupId)
+                cursor.execute(sql)
+                connection.commit()
+                return True, response.json()
+            except:
+                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+                cursor.execute(sql)
+                result = cursor.fetchone()[0]
+                return True, json.loads(result)
+        else:
+            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+            cursor.execute(sql)
+            result = cursor.fetchone()[0]
+            if len(result) < 10:
+                try:
+                    response = requests.post(BASE_URL, data="groupId=" + str(groupId),
+                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                     "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+                    assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                    sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
+                        json.dumps(response.json()), datetime.date.today(), groupId)
+                    cursor.execute(sql)
+                    connection.commit()
+                    return True, response.json()
+                except:
+                    return True, ""
+            return True, json.loads(result)
+
+    return
     
     
 
@@ -84,13 +112,13 @@ def timetableInfo(groupId, tomorrow=0):
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
         isNormal, response = getResponse(groupId)
         if not isNormal:
-            return response
+            return response, False, False
         # print("Response: ", response.status_code)
         # if str(response.status_code) != '200':
         #     return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
         #response = response.json()
         if len(response) == 0:
-            return "\n&#10060;\tРасписание еще не доступно.&#10060;"
+            return "\n&#10060;\tРасписание еще не доступно.&#10060;", False, False
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
         now = datetime.datetime.now() + datetime.timedelta(days=tomorrow)
@@ -184,7 +212,6 @@ keyboard = str(keyboard.decode('utf-8'))
 
 
 def main(request = None):
-    return
     today = datetime.date.today()
     if today.month == 1 and today.day < 12:
         return "ok"
@@ -195,7 +222,7 @@ def main(request = None):
         #print(request.headers)
         #data = json.loads(request.data)
 
-        sql="SELECT * FROM Users WHERE groupReal > -1 AND ID_VK < 2000000000 AND distr > -1 ORDER BY Groupp"
+        sql="SELECT * FROM Users WHERE groupReal > -1 AND ID_VK < 1000000000 AND distr > -1 ORDER BY Groupp"
         cursor.execute(sql)
         result = cursor.fetchall()
         #result.sort()
@@ -237,8 +264,11 @@ def main(request = None):
             bl = [9416, 9420, 9174]
             if elem.realGroup not in bl:
                 first, room, building = timetableInfo(elem.group)
+                if not building:
+                    raise Exception
                 #print( ",".join(','.join(str(x) for x in elem.users)))
-                vk.method("messages.send", {"user_ids": ','.join(str(x) for x in elem.users), "message": "Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + (str(building)).rstrip() + " зд. " + (str(room)).rstrip() + " ауд.\n На улице: " + str(Weather()) + " °C" ,"keyboard": keyboard, "random_id": random.randint(1, 2147483647)})
+                # vk.method("messages.send", {"user_ids": ','.join(str(x) for x in elem.users), "message": "Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + (str(building)).rstrip() + " зд. " + (str(room)).rstrip() + " ауд.\n На улице: " + str(Weather()) + " °C" ,"keyboard": keyboard, "random_id": random.randint(1, 2147483647)})
+
 
                 res1 = str(elem.group) + " Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + ((str(building)).rstrip()).replace("-----------------------", ":нет:") + " зд. " + ((str(room)).rstrip()).replace("-----------------------", ":нет:") + " ауд.\n На улице: " + str(Weather()) + " °C"
 

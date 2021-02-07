@@ -9,16 +9,17 @@ from botkai.classes import connection, cursor
 sched = BlockingScheduler()
 
 # @sched.scheduled_job('interval', minutes=1)
-def func():
-    print("working sheduler")
-    distribution()
-    sched.shutdown()
+# @sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
+# def func():
+#     print("working sheduler")
+#     distribution()
+
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=4)
+@sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
 def func():
     print("working sheduler")
     distribution()
@@ -27,6 +28,7 @@ def func():
 
 BASE_URL = 'https://kai.ru/raspisanie'
 
+# UPDATE GROUPS LIST
 @sched.scheduled_job('interval', hours=2)
 def getGroupsResponse():
     try:
@@ -42,5 +44,5 @@ def getGroupsResponse():
         print('Ошибка:\n', traceback.format_exc())  
     return
 
-getGroupsResponse()
+# getGroupsResponse()
 sched.start()
