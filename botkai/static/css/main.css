@@ -63,6 +63,7 @@ body {
     height: 893px;
     width: auto;
     display: block;
+    position: fixed;
 }
 #first_category {
     width: auto;
