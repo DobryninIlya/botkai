@@ -180,17 +180,17 @@ top: 743px;
 
 #img_blue_down2 {
     position: absolute;
-width: 102px;
-height: 137px;
-left: 24px;
-top: 46px;
-}
-#blue_up2 {
-    position: absolute;
 width: 100px;
 height: 134px;
 left: 296px;
 top: 1013px;
+}
+#blue_up2 {
+        position: absolute;
+width: 102px;
+height: 137px;
+left: 24px;
+top: 46px;
 }
 #back_bt1 {
     position: absolute;
@@ -284,4 +284,20 @@ left: 22px;
 top: 210px;
 
 border: 1px solid #FFFFFF;
+}
+
+#cat_3 {
+    position: absolute;
+width: 414px;
+height: 3127px;
+left: 1px;
+top: 2936px;
+}
+#back_bt3 {
+    position: absolute;
+    width: 112px;
+    height: 36px;
+    left: 272px;
+    top: 17px;
+
 }
