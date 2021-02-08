@@ -294,10 +294,25 @@ left: 1px;
 top: 2936px;
 }
 #back_bt3 {
-    position: absolute;
-    width: 112px;
-    height: 36px;
-    left: 272px;
-    top: 17px;
+position: absolute;
+width: 112px;
+height: 36px;
+left: 272px;
+top: 17px;
 
+
+}
+#blue_up3 {
+    position: absolute;
+width: 102px;
+height: 137px;
+left: 24px;
+top: 46px;
+}
+#img_blue_down3 {
+position: absolute;
+width: 100px;
+height: 134px;
+left: 293px;
+top: 2976px;
 }
