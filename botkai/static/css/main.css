@@ -339,7 +339,6 @@ font-size: 18px;
 line-height: 22px;
 
 color: #FFFFFF;
-    display: block;
 }
 #p8 {
     position: absolute;
@@ -355,7 +354,6 @@ font-size: 18px;
 line-height: 22px;
 
 color: #FFFFFF;
-    display: block;
 }
 #p9 {
 position: absolute;
@@ -371,7 +369,6 @@ font-size: 18px;
 line-height: 22px;
 
 color: #FFFFFF;
-    display: block;
 }
 #p10 {
     position: absolute;
@@ -456,5 +453,4 @@ width: 345px;
 height: 29px;
 left: 34px;
 top: 2792px;
-    display: block;
 }
