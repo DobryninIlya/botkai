@@ -81,3 +81,37 @@ body {
     left: 24px;
     top: 46px;
 }
+
+#cat_1_name {
+    position: absolute;
+    width: 250px;
+    height: 86px;
+    left: 147px;
+    top: 97px;
+
+    font-family: Ruda;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 32px;
+
+    color: #FFFFFF;
+}
+.breaker {
+    position: absolute;
+width: 370px;
+height: 0px;
+
+border: 1px solid #FFFFFF;
+}
+.breaker#c1{
+    left: 22px;
+    top: 210px;
+}
+#menu_1 {
+    position: absolute;
+    width: 177.13px;
+    height: 145px;
+    left: 38px;
+    top: 237px;
+}
