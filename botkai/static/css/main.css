@@ -1,6 +1,6 @@
 @font-face {
 font-family: "Pangolin";
-src: url("static/fonts/Pangolin-Regular.ttf") format("truetype");
+src: url("../fonts/Pangolin-Regular.ttf") format("truetype");
 font-style: normal;
 font-weight: normal;
 }
