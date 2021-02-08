@@ -268,3 +268,19 @@ height: 134px;
 left: 34px;
 top: 683px;
 }
+#second_category {
+    position: absolute;
+width: 414px;
+height: 1157px;
+left: 0px;
+top: 1779px;
+}
+.breaker#c2{
+    position: absolute;
+width: 370px;
+height: 0px;
+left: 22px;
+top: 210px;
+
+border: 1px solid #FFFFFF;
+}
