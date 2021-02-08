@@ -2,30 +2,44 @@
 <html>
     <head>
         <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
- 
+
+        <link type="text/css" rel="stylesheet" href="main.css">
         <script>
         // Sends event to client
         vkBridge.send('VKWebAppInit');
-        document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
+        // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
         </script> 
         <meta http-equiv="Content-Type"
         content="text/html; charset=utf-8">
         <title>Мини-приложение</title>
     </head>
     <body>
-        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+<!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
  
         <script>
         // Sends event to client
         vkBridge.send('VKWebAppInit');
-        document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
+        // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
         </script> 
-        <h1>КАИ НЕ ПУП ЗЕМЛИ</h1>
 
-        <div>
-            <h2>КОЛЛЕДЖ ИНФОРМАЦИОННЫХ</h2>
-            <p>ТЕХНОЛОГИЙ</p>
-        </div>
+
+    <img src="static/красный%20стоит%201.png" id="red_up">
+
+    <p id="p1">Привет, я твой персональный робот-помощник! Чтобы познакомиться с основными функциями чат-бота - выбери кнопку ниже :)
+</p>
+    <div id="buttons_block">
+        <img src="static/bt1.png" class="buttons">
+        <img src="static/bt2.png" class="buttons">
+        <img src="static/bt3.png" class="buttons">
+        <img src="static/bt4.png" class="buttons">
+        <img src="static/bt5.png" class="buttons">
+        <img src="static/bt6.png" class="buttons">
+        <img src="static/bt7.png" class="buttons">
+        <img src="static/bt8.png" class="buttons">
+    </div>
+    <img src="static/красный%20сидит%201.png" id="red_sit">
+    </body>
+
 
 </html>
 
