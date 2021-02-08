@@ -4,6 +4,12 @@ src: url("../fonts/Pangolin-Regular.ttf") format("truetype");
 font-style: normal;
 font-weight: normal;
 }
+@font-face {
+font-family: "Ruda";
+src: url("../fonts/Ruda.ttf") format("truetype");
+font-style: normal;
+font-weight: normal;
+}
 html {
     position: relative;
     width: 100%;
@@ -114,4 +120,21 @@ border: 1px solid #FFFFFF;
     height: 145px;
     left: 38px;
     top: 237px;
+}
+#cat_1_name {
+    position: absolute;
+width: 250px;
+height: 86px;
+left: 147px;
+top: 97px;
+
+font-family: Ruda;
+font-style: normal;
+font-weight: normal;
+font-size: 26px;
+line-height: 32px;
+
+color: #FFFFFF;
+
+text-shadow: 0px 4px 4px rgba(27, 0, 191, 0.52);
 }
