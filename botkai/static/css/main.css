@@ -316,3 +316,145 @@ height: 134px;
 left: 293px;
 top: 2976px;
 }
+.breaker#c3 {
+    position: absolute;
+width: 370px;
+height: 0px;
+left: 22px;
+top: 210px;
+
+border: 1px solid #FFFFFF;
+}
+#p7 {
+    position: absolute;
+width: 328px;
+height: 366px;
+left: 56px;
+top: 237px;
+
+font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+    display: block;
+}
+#p8 {
+    position: absolute;
+width: 328px;
+height: 657px;
+left: 44px;
+top: 785px;
+
+font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+    display: block;
+}
+#p9 {
+position: absolute;
+width: 328px;
+height: 98px;
+left: 44px;
+top: 1645px;
+
+font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+    display: block;
+}
+#p10 {
+    position: absolute;
+width: 321px;
+height: 306px;
+left: 42px;
+top: 1934px;
+
+font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+}
+#p11 {
+    position: absolute;
+width: 321px;
+height: 51px;
+left: 42px;
+top: 2741px;
+
+font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+    display: block;
+}
+#p12 {
+    position: absolute;
+width: 321px;
+height: 138px;
+left: 40px;
+top: 2838px;
+
+font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+ display: block;
+}
+#dialog_1 {
+    position: absolute;
+width: 381px;
+height: 160px;
+left: 16px;
+top: 620px;
+}
+#dialog_2 {
+    position: absolute;
+width: 380px;
+height: 151px;
+left: 10px;
+top: 1472px;
+    display: block;
+}
+#dialog_3 {
+    position: absolute;
+width: 278px;
+height: 137px;
+left: 14px;
+top: 1775px;
+display: block;
+}
+#dialog_4 {
+    position: absolute;
+width: 356px;
+height: 444px;
+left: 34px;
+top: 2279px;
+}
+#menu_4 {
+    position: absolute;
+width: 345px;
+height: 29px;
+left: 34px;
+top: 2792px;
+    display: block;
+}
