@@ -140,3 +140,32 @@ border: 1px solid #FFFFFF;
     text-shadow: 0px 4px 4px rgba(27, 0, 191, 0.52);
     margin: 0px;
 }
+p {
+    position: absolute;
+    font-family: Pangolin;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+}
+#p2 {
+width: 158px;
+height: 92px;
+left: 232px;
+top: 281px;
+}
+#p3 {
+    width: 328px;
+height: 339px;
+left: 41px;
+top: 404px;
+}
+#img_blue_down {
+    position: absolute;
+width: 100px;
+height: 134px;
+left: 284px;
+top: 743px;
+}
