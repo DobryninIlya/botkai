@@ -420,14 +420,12 @@ color: #FFFFFF;
 #dialog_1 {
     position: absolute;
 width: 381px;
-height: 160px;
 left: 16px;
 top: 620px;
 }
 #dialog_2 {
     position: absolute;
 width: 380px;
-height: 151px;
 left: 10px;
 top: 1472px;
     display: block;
@@ -435,7 +433,6 @@ top: 1472px;
 #dialog_3 {
     position: absolute;
 width: 278px;
-height: 137px;
 left: 14px;
 top: 1775px;
 display: block;
@@ -443,7 +440,6 @@ display: block;
 #dialog_4 {
     position: absolute;
 width: 356px;
-height: 444px;
 left: 34px;
 top: 2279px;
 }
