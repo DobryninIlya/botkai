@@ -69,4 +69,15 @@ body {
     width: auto;
     height: auto;
     display: block;
+    position: absolute;
+    left: 0px;
+    top: 902px;
+
+}
+#blue_up {
+    position: absolute;
+    width: 102px;
+    height: 137px;
+    left: 24px;
+    top: 46px;
 }
