@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from botkai.views import index, web_yandex
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +26,4 @@ urlpatterns = [
     path('yandex_f66897e4739fe69c.html', web_yandex),
     path('assistent/', include("aliceskill.urls")),
 ]
+urlpatterns += staticfiles_urlpatterns()
