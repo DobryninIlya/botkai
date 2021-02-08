@@ -117,7 +117,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = (
-os.path.join(BASE_DIR, "static"), '/botkai/static/botkai',
+os.path.join(BASE_DIR, "static"), '/botkai/static',
 )
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
