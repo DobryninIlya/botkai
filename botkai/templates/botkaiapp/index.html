@@ -1,7 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html>
+
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 
         <link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}">
@@ -12,7 +14,7 @@
         </script> 
         <meta http-equiv="Content-Type"
         content="text/html; charset=utf-8">
-        <title>Мини-приложение</title>
+        <title>Инструкция</title>
     </head>
     <body>
 <!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
@@ -38,14 +40,17 @@
                 <img src="{% static 'img/bt7.png' %}" class="buttons">
                 <img src="{% static 'img/bt8.png' %}" class="buttons">
             </div>
-            <img src="{% static 'img/red_sit.png' %}" id="red_sit">
 
+            <img src="{% static 'img/red_sit.png' %}" id="red_sit">
+            <div class="clearfix"></div>
         </div>
         <div id="first_category">
-            <img src="{% static 'img/back_bt.png' %}" id="back_bt1">
+            <img src="{% static 'img/back_bt.png' %}" id="back_bt1">            <div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-            <img src="{% static 'img/blue_up.png' %}" id="blue_up">
-            <p id="cat_1_name">
+
+            <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+            <p id="cat_1_name" class="cat_name">
                 Регистрация новых пользователей
             </p>
             <div class="breaker" id="c1"></div>
@@ -58,28 +63,38 @@
 Родители могут смотреть расписание своих детей и список других родителей.
 
 Абитуриенты могут перейти в официальные источники, а в случае зачисления зарегистрироваться заново студентом.</p>
-            <img src="{% static 'img/blue_down.png' %}" id="img_blue_down">
+            <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
+
         </div>
 
     <div id="second_category">
-        <div class="breaker" id="c2"></div>
-        <img src="{% static 'img/blue_up.png' %}" id="blue_up2">
-        <img src="{% static 'img/blue_down.png' %}" id="img_blue_down2">
         <img src="{% static 'img/back_bt.png' %}" id="back_bt2">
-        <p id="p4">Расписание</p>
+        <div class="clearfix"></div>
+        <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+        <p id="p4" class="cat_name">Расписание</p>
+        <div class="breaker" id="c2"></div>
+
+
+        <img src="{% static 'img/menu_2.png' %}" id="menu_2">
         <p id="p5">Просмотр расписания представлен первыми тремя строками основного меню. Здесь есть кнопки для быстрого отображения расписания на сегодня, завтра и послезавтра, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания. Также есть кнопка просмотра четности и кнопка “На неделю”, которая открывает дополнительное меню.</p>
+        <img src="{% static 'img/menu_3.png' %}" id="menu_3">
         <p id="p6">В этом меню можно посмотреть расписание на ближайшие 7 дней, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания.
 
 Кнопка “Полностью” отобразит ваше полное расписание.</p>
-        <img src="{% static 'img/menu_2.png' %}" id="menu_2">
-        <img src="{% static 'img/menu_3.png' %}" id="menu_3">
+
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
     </div>
 
-    <div id="cat_3">
-        <img src="{% static 'img/back_bt.png' %}" id="back_bt3">
-        <img src="{% static 'img/blue_up.png' %}" id="blue_up3">
-        <img src="{% static 'img/blue_down.png' %}" id="img_blue_down3">
-        <div class="breaker" id="c3"></div>
+    <div class="cat">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+        <div class="clearfix"></div>
+        <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+        <p class="cat_name">Собственное расписание из Excel</p>
+
+
+        <div class="breaker"></div>
 
         <p id="p7">Теперь расписание занятий можно менять самостоятельно в любой момент. Это может быть удобно, если у вас долгое время не обновляется расписание на сайте.
 
@@ -120,7 +135,8 @@
         <img src="{% static 'img/menu_4.png' %}" id="menu_4">
         <p id="p12">Готово! Теперь получение расписания из вашего Excel-файла полностью настроено!
 Чтобы вернуться к отображению общего расписания группы просто нажмите на эту кнопку еще раз.</p>
-
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
 
 
     </div>
