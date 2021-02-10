@@ -17,6 +17,17 @@ def get_button(label, color, payload="", type = "text"):
         },
         "color": color
     }
+def get_button_vkminiapp(app_id, owner_id, label, hash="",payload="", type="open_app"):
+    return {
+        "action": {
+            "type": type,
+            "app_id": app_id,
+            "owner_id": owner_id,
+            "payload": payload,
+            "label": label,
+            "hash": hash
+        }
+    }
 
 def get_button_callback(label, color, payload=""):
     return {
@@ -1030,7 +1041,7 @@ testButtons = str(testButtons.decode('utf-8'))
 submenu = {
     "inline": False,
     "buttons": [
-        
+        [get_button_vkminiapp(label="Графическая справка", app_id='7505621', owner_id="182372147")],
         [get_button(label="Здания", color="default", payload={'button': 'buildings_menu'})],
         [get_button(label="Команды", color="default", payload={'button': 'commands'})],
         [get_button(label="Экспорт расписания в .docx", color="default", payload={'button': 'exportword'})],
