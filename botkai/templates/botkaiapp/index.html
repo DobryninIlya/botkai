@@ -20,20 +20,38 @@
 <!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
  
         <script>
-        // Sends event to client
-        vkBridge.send('VKWebAppInit');
-        // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
+        function showId(id){
+            let cid = 0;
+            let categories = document.querySelectorAll("div.cat");
+
+                categories.forEach(element => {
+                        if (cid == id){
+                            element.style.display = "block";
+                        }
+                        else {
+                            element.style.display = "none";
+                        }
+                        cid++;
+
+                    })
+
+
+                }
+
+        window.onload = function() {
+          showId(0);
+};
         </script> 
 
-        <div id="main_category">
+        <div class="cat" id="c0" >
             <img src="{% static 'img/red_up.png' %}" id="red_up">
 
             <p id="p1">Привет, я твой персональный робот-помощник! Чтобы познакомиться с основными функциями чат-бота - выбери кнопку ниже :)
                 </p>
             <div id="buttons_block">
-                <img src="{% static 'img/bt1.png' %}" class="buttons">
-                <img src="{% static 'img/bt2.png' %}" class="buttons">
-                <img src="{% static 'img/bt3.png' %}" class="buttons">
+                <img src="{% static 'img/bt1.png' %}" class="buttons" onclick="showId(1)">
+                <img src="{% static 'img/bt2.png' %}" class="buttons" onclick="showId(2)">
+                <img src="{% static 'img/bt3.png' %}" class="buttons" onclick="showId(3)">
                 <img src="{% static 'img/bt4.png' %}" class="buttons">
                 <img src="{% static 'img/bt5.png' %}" class="buttons">
                 <img src="{% static 'img/bt6.png' %}" class="buttons">
@@ -44,8 +62,8 @@
             <img src="{% static 'img/red_sit.png' %}" id="red_sit">
             <div class="clearfix"></div>
         </div>
-        <div id="first_category">
-            <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+        <div class="cat" id="c1">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
             <div class="f_c">
@@ -54,7 +72,7 @@
                     Регистрация новых пользователей
                 </p>
             </div>
-            <div class="breaker" id="c1"></div>
+            <div class="breaker" id="br1"></div>
             <div class="f_c">
                 <img src="{% static 'img/menu_1.png' %}" id="menu_1">
                 <p id="p2">При прохождении регистрации бот предложит вам выбрать роль</p>
@@ -71,8 +89,8 @@
 
         </div>
 
-    <div id="second_category">
-        <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+    <div class="cat" id="c2">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
             <div class="f_c">
@@ -81,7 +99,7 @@
                     Расписание
                 </p>
             </div>
-        <div class="breaker" id="c2"></div>
+        <div class="breaker" id="br2"></div>
 
 
         <img src="{% static 'img/menu_2.png' %}" id="menu_2">
@@ -95,8 +113,8 @@
                         <div class="clearfix"></div>
     </div>
 
-    <div class="cat">
-        <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+    <div class="cat" id="c3">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
             <div class="f_c">

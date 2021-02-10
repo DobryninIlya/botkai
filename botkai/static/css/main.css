@@ -80,14 +80,7 @@ body {
     height: calc(width/(276/64));
 }
 
-#main_category {
-    width: 100%;
-    display: block;
-    /*height: 900px;*/
-    height: auto;
-    position: relative;
 
-}
 
 #first_category {
     width: 100%;
@@ -303,6 +296,7 @@ top: 17px;
     width: 100%;
     height: auto;
     display: block;
+    margin-top: 20px;
 }
 .back_bt {
 position: relative;
