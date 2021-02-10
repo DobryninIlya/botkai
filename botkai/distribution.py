@@ -267,12 +267,12 @@ def main(request = None):
                 if not building:
                     raise Exception
                 #print( ",".join(','.join(str(x) for x in elem.users)))
-                # vk.method("messages.send", {"user_ids": ','.join(str(x) for x in elem.users), "message": "Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + (str(building)).rstrip() + " зд. " + (str(room)).rstrip() + " ауд.\n На улице: " + str(Weather()) + " °C" ,"keyboard": keyboard, "random_id": random.randint(1, 2147483647)})
+                vk.method("messages.send", {"user_ids": ','.join(str(x) for x in elem.users), "message": "Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + (str(building)).rstrip() + " зд. " + (str(room)).rstrip() + " ауд.\n На улице: " + str(Weather()) + " °C" ,"keyboard": keyboard, "random_id": random.randint(1, 2147483647)})
 
 
                 res1 = str(elem.group) + " Доброе утро, студент " + "\nПервая пара в " + (str(first)).rstrip() + " " + ((str(building)).rstrip()).replace("-----------------------", ":нет:") + " зд. " + ((str(room)).rstrip()).replace("-----------------------", ":нет:") + " ауд.\n На улице: " + str(Weather()) + " °C"
 
-                print(res1)
+
                 res += res1
                 #print(res)
         except Exception as E:
