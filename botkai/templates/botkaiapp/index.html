@@ -45,17 +45,20 @@
             <div class="clearfix"></div>
         </div>
         <div id="first_category">
-            <img src="{% static 'img/back_bt.png' %}" id="back_bt1">            <div class="clearfix"></div>
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt">
             <div class="clearfix"></div>
 
-
-            <img src="{% static 'img/blue_up.png' %}" class="blue_up">
-            <p id="cat_1_name" class="cat_name">
-                Регистрация новых пользователей
-            </p>
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Регистрация новых пользователей
+                </p>
+            </div>
             <div class="breaker" id="c1"></div>
-            <img src="{% static 'img/menu_1.png' %}" id="menu_1">
-            <p id="p2">При прохождении регистрации бот предложит вам выбрать роль</p>
+            <div class="f_c">
+                <img src="{% static 'img/menu_1.png' %}" id="menu_1">
+                <p id="p2">При прохождении регистрации бот предложит вам выбрать роль</p>
+            </div>
             <p id="p3">Студенты могут смотреть  расписание группы, импортировать расписание из Excel файла, скачивать свое расписание в разных форматах и добавлять задания на определенные дни.
 
 Преподаватели могут также смотреть свое расписание, и взаимодействовать со своими студентами.
@@ -69,10 +72,15 @@
         </div>
 
     <div id="second_category">
-        <img src="{% static 'img/back_bt.png' %}" id="back_bt2">
-        <div class="clearfix"></div>
-        <img src="{% static 'img/blue_up.png' %}" class="blue_up">
-        <p id="p4" class="cat_name">Расписание</p>
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Расписание
+                </p>
+            </div>
         <div class="breaker" id="c2"></div>
 
 
@@ -89,9 +97,14 @@
 
     <div class="cat">
         <img src="{% static 'img/back_bt.png' %}" class="back_bt">
-        <div class="clearfix"></div>
-        <img src="{% static 'img/blue_up.png' %}" class="blue_up">
-        <p class="cat_name">Собственное расписание из Excel</p>
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Собственное расписание из Excel
+                </p>
+            </div>
 
 
         <div class="breaker"></div>
@@ -103,18 +116,18 @@
 Для того, чтобы получить шаблон записи — введите в чат команду «добавить свое расписание».</p>
         <img src="{% static 'img/dialog_1.png' %}" id="dialog_1">
         <p id="p8">Открыв файл можно сразу приступить к его заполнению.
-
+&nbsp;
 Структура файла представляет собой колонки:
-    &nbsp;○ День недели
-    &nbsp;○ Время
-    &nbsp;○ Частота повторений
-    &nbsp;○ Название пары
-    &nbsp;○ Тип пары
-    &nbsp;○ Аудитория
-    &nbsp;○ Здание
-    &nbsp;○ Потоковая или нет
-    &nbsp;○ Имя преподавателя
-
+    &nbsp;&nbsp;○ День недели
+    &nbsp;&nbsp;○ Время
+    &nbsp;&nbsp;○ Частота повторений
+    &nbsp;&nbsp;○ Название пары
+    &nbsp;&nbsp;○ Тип пары
+    &nbsp;&nbsp;○ Аудитория
+    &nbsp;&nbsp;○ Здание
+    &nbsp;&nbsp;○ Потоковая или нет
+    &nbsp;&nbsp;○ Имя преподавателя
+&nbsp;
 За основу взята структура расписания, которое рассылает деканат.
 Отличие лишь в колонке “Потоковая или нет”.  Она помечает лекцию как потоковую, отображение которых можно скрыть командой “поток”. Любое непустое значение этой ячейке означает, что пара потоковая, пустое значение же равно тому, что пара НЕпотоковая.
 Для загрузки расписания в систему просто прикрепите файл к сообщение и введите команду “Загрузить расписание”.
