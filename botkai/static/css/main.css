@@ -80,14 +80,7 @@ body {
     height: calc(width/(276/64));
 }
 
-#main_category {
-    width: 100%;
-    display: block;
-    /*height: 900px;*/
-    height: auto;
-    position: relative;
 
-}
 
 #first_category {
     width: 100%;
@@ -120,7 +113,7 @@ body {
     font-style: normal;
     font-weight: normal;
     font-size: 22px;
-    line-height: 32px;
+    line-height: 30px;
     white-space: pre-line;
     color: #FFFFFF;
 }
@@ -303,6 +296,7 @@ top: 17px;
     width: 100%;
     height: auto;
     display: block;
+    margin-top: 20px;
 }
 .back_bt {
 position: relative;
@@ -334,7 +328,7 @@ top: 210px;
 
 border: 1px solid #FFFFFF;
 }
-#p7 {
+p.main_paragraph {
     position: relative;
     width: auto;
     height: auto;
@@ -350,86 +344,9 @@ border: 1px solid #FFFFFF;
 
     color: #FFFFFF;
 }
-#p8 {
-    position: relative;
-    width: auto;
-    height: auto;
-    margin-left: 43px;
-    margin-right: 43px;
-    vertical-align: middle;
-    font-family: Pangolin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    display: block;
-    white-space: pre-wrap;
-    color: #FFFFFF;
-}
-#p9 {
-position: relative;
-    width: auto;
-    height: auto;
-    margin-left: 43px;
-    margin-right: 43px;
-    vertical-align: middle;
-    font-family: Pangolin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    display: block;
 
-    color: #FFFFFF;
-}
-#p10 {
-    position: relative;
-    width: auto;
-    height: auto;
-    margin-left: 43px;
-    margin-right: 43px;
-    vertical-align: middle;
-    font-family: Pangolin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    display: block;
 
-    color: #FFFFFF;
-}
-#p11 {
-    position: relative;
-    width: auto;
-    height: auto;
-    margin-left: 43px;
-    margin-right: 43px;
-    vertical-align: middle;
-    font-family: Pangolin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    display: block;
 
-    color: #FFFFFF;
-}
-#p12 {
-    position: relative;
-    width: auto;
-    height: auto;
-    margin-left: 43px;
-    margin-right: 43px;
-    vertical-align: middle;
-    font-family: Pangolin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    display: block;
-
-    color: #FFFFFF;
-}
 #dialog_1 {
     position: relative;
     display: block;
@@ -492,4 +409,15 @@ position: relative;
     margin-right: 15px;
     margin-left: 43px;
         vertical-align: middle;
+}
+.standard_img {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
 }

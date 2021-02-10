@@ -20,32 +20,49 @@
 <!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
  
         <script>
-        // Sends event to client
-        vkBridge.send('VKWebAppInit');
-        // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
+        function showId(id){
+            let cid = 0;
+            let categories = document.querySelectorAll("div.cat");
+
+                categories.forEach(element => {
+                        if (cid == id){
+                            element.style.display = "block";
+                        }
+                        else {
+                            element.style.display = "none";
+                        }
+                        cid++;
+
+                    })
+
+
+                }
+
+        window.onload = function() {
+          showId(0);
+};
         </script> 
 
-        <div id="main_category">
+        <div class="cat" id="c0" >
             <img src="{% static 'img/red_up.png' %}" id="red_up">
 
             <p id="p1">Привет, я твой персональный робот-помощник! Чтобы познакомиться с основными функциями чат-бота - выбери кнопку ниже :)
                 </p>
             <div id="buttons_block">
-                <img src="{% static 'img/bt1.png' %}" class="buttons">
-                <img src="{% static 'img/bt2.png' %}" class="buttons">
-                <img src="{% static 'img/bt3.png' %}" class="buttons">
-                <img src="{% static 'img/bt4.png' %}" class="buttons">
-                <img src="{% static 'img/bt5.png' %}" class="buttons">
-                <img src="{% static 'img/bt6.png' %}" class="buttons">
-                <img src="{% static 'img/bt7.png' %}" class="buttons">
-                <img src="{% static 'img/bt8.png' %}" class="buttons">
+                <img src="{% static 'img/bt1.png' %}" class="buttons" onclick="showId(1)">
+                <img src="{% static 'img/bt2.png' %}" class="buttons" onclick="showId(2)">
+                <img src="{% static 'img/bt3.png' %}" class="buttons" onclick="showId(3)">
+                <img src="{% static 'img/bt4.png' %}" class="buttons" onclick="showId(4)">
+                <img src="{% static 'img/bt6.png' %}" class="buttons" onclick="showId(5)">
+                <img src="{% static 'img/bt7.png' %}" class="buttons" onclick="">
+                <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="">
             </div>
 
             <img src="{% static 'img/red_sit.png' %}" id="red_sit">
             <div class="clearfix"></div>
         </div>
-        <div id="first_category">
-            <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+        <div class="cat" id="c1">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
             <div class="f_c">
@@ -54,12 +71,12 @@
                     Регистрация новых пользователей
                 </p>
             </div>
-            <div class="breaker" id="c1"></div>
+            <div class="breaker" id="br1"></div>
             <div class="f_c">
                 <img src="{% static 'img/menu_1.png' %}" id="menu_1">
                 <p id="p2">При прохождении регистрации бот предложит вам выбрать роль</p>
             </div>
-            <p id="p3">Студенты могут смотреть  расписание группы, импортировать расписание из Excel файла, скачивать свое расписание в разных форматах и добавлять задания на определенные дни.
+            <p class="main_paragraph">Студенты могут смотреть  расписание группы, импортировать расписание из Excel файла, скачивать свое расписание в разных форматах и добавлять задания на определенные дни.
 
 Преподаватели могут также смотреть свое расписание, и взаимодействовать со своими студентами.
 
@@ -71,8 +88,8 @@
 
         </div>
 
-    <div id="second_category">
-        <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+    <div class="cat" id="c2">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
             <div class="f_c">
@@ -81,13 +98,13 @@
                     Расписание
                 </p>
             </div>
-        <div class="breaker" id="c2"></div>
+        <div class="breaker" id="br2"></div>
 
 
         <img src="{% static 'img/menu_2.png' %}" id="menu_2">
-        <p id="p5">Просмотр расписания представлен первыми тремя строками основного меню. Здесь есть кнопки для быстрого отображения расписания на сегодня, завтра и послезавтра, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания. Также есть кнопка просмотра четности и кнопка “На неделю”, которая открывает дополнительное меню.</p>
+        <p class="main_paragraph">Просмотр расписания представлен первыми тремя строками основного меню. Здесь есть кнопки для быстрого отображения расписания на сегодня, завтра и послезавтра, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания. Также есть кнопка просмотра четности и кнопка “На неделю”, которая открывает дополнительное меню.</p>
         <img src="{% static 'img/menu_3.png' %}" id="menu_3">
-        <p id="p6">В этом меню можно посмотреть расписание на ближайшие 7 дней, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания.
+        <p class="main_paragraph">В этом меню можно посмотреть расписание на ближайшие 7 дней, причем оно будет также просчитываться под конкретный день.
 
 Кнопка “Полностью” отобразит ваше полное расписание.</p>
 
@@ -95,8 +112,8 @@
                         <div class="clearfix"></div>
     </div>
 
-    <div class="cat">
-        <img src="{% static 'img/back_bt.png' %}" class="back_bt">
+    <div class="cat" id="c3">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
             <div class="f_c">
@@ -109,13 +126,13 @@
 
         <div class="breaker"></div>
 
-        <p id="p7">Теперь расписание занятий можно менять самостоятельно в любой момент. Это может быть удобно, если у вас долгое время не обновляется расписание на сайте.
+        <p class="main_paragraph">Теперь расписание занятий можно менять самостоятельно в любой момент. Это может быть удобно, если у вас долгое время не обновляется расписание на сайте.
 
 Формат записи пар в таблицу достаточно простой и гибкий. Можно настроить свое расписание так, чтобы можно было учитывать четность недели, хождение подгрупп на лабораторные работы, очередность их хождения, тип пар и т.п.
 
 Для того, чтобы получить шаблон записи — введите в чат команду «добавить свое расписание».</p>
         <img src="{% static 'img/dialog_1.png' %}" id="dialog_1">
-        <p id="p8">Открыв файл можно сразу приступить к его заполнению.
+        <p class="main_paragraph" style="white-space: pre-wrap">Открыв файл можно сразу приступить к его заполнению.
 &nbsp;
 Структура файла представляет собой колонки:
     &nbsp;&nbsp;○ День недели
@@ -135,18 +152,18 @@
 
         <img src="{% static 'img/dialog_2.png' %}" id="dialog_2">
 
-        <p id="p9">В случае ошибки при заполнении расписания, вам будет выведено соответствующее сообщение с номером строки, в котором допущена ошибка.</p>
+        <p class="main_paragraph">В случае ошибки при заполнении расписания, вам будет выведено соответствующее сообщение с номером строки, в котором допущена ошибка.</p>
 
         <img src="{% static 'img/dialog_3.png' %}" id="dialog_3">
 
-        <p id="p10">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
+        <p class="main_paragraph">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
 
 Далее, нам необходимо выбрать источник получения расписания в настройках. Для этого перейдите в профиль и отыщите кнопку «Использовать расписание группы». Она означает, что сейчас расписание будет браться как для студента группы напрямую с сайта КАИ (или из сохранения в буфере).</p>
         <img src="{% static 'img/dialog_4.png' %}" id="dialog_4">
 
-        <p id="p11">Нажав на кнопку, она поменяет текст и цвет.</p>
+        <p class="main_paragraph">Нажав на кнопку, она поменяет текст и цвет.</p>
         <img src="{% static 'img/menu_4.png' %}" id="menu_4">
-        <p id="p12">Готово! Теперь получение расписания из вашего Excel-файла полностью настроено!
+        <p class="main_paragraph">Готово! Теперь получение расписания из вашего Excel-файла полностью настроено!
 Чтобы вернуться к отображению общего расписания группы просто нажмите на эту кнопку еще раз.</p>
         <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
                         <div class="clearfix"></div>
@@ -154,6 +171,68 @@
 
     </div>
 
+    <div class="cat" id="c4">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                        Задания и объявления
+                    </p>
+                </div>
+            <div class="breaker"></div>
+
+        <img src="{% static 'img/menu_5.png' %}" class="standard_img">
+        <p class="main_paragraph">Задания и объявления - это блок функций, определяющий создание домашних заданий и объявлений группы. Такие заметки создаются на всю группу и отображаются всем участникам группы.
+        </p>
+        <img src="{% static 'img/dialog_5.png' %}" class="standard_img">
+        <p class="main_paragraph">
+            Для того, чтобы создать объявление, нажмите на кнопку “Добавить объявление” и введите дату в формате дд.мм . Например, 08.04.
+Далее, следующим сообщением введите текст объявления.
+Полученное объявление будет отображено в указаный день всем участникам группы вместе с сообщением с расписанием.
+Задания - сообщения, содержащие в себе информацию об установленном домашнем задании.
+Задания задаются любым студентом группы  и отображаются в указанный день. Получить текст задания можно нажав на кнопку “Задани”под сообщением с расписанием.
+Добавление заданий происходить аналогично добавлению объявлений. Здесь нужно:
+1. Нажать на кнопку “Добавить задание”;
+2. Ввести дату в формате дд.мм;
+3. Отправить текст задания. Можно прикрепить к сообщению медавложения (до 10 шт.)
+        </p>
+        <img src="{% static 'img/dialog_6.png' %}" class="standard_img">
+
+
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
+
+
+    </div>
+
+     <div class="cat" id="c5">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                            Старосты.
+                            Управление группой
+                    </p>
+                </div>
+            <div class="breaker"></div>
+            <p class="main_paragraph">
+         Староста бота - это какой-то ответственный человек от группы, который модерирует контент в рамках своей группы.
+
+Он, ну или она),  может удалять задания и объявления, созданные другими участниками группы, исключать из группы посторонних людей, выдавать предупреждения за нарушения.
+            </p>
+         <img src="{% static 'img/menu_6.png' %}" class="standard_img">
+        <p class="main_paragraph">
+            Если должность старосты бота свободна, то любой желающий может занять ее в своем профиле. Там будет зеленая кнопка “Староста не назначен. Стать им.”. После нажатия подтвердите свои намерения и теперь у вас появится дополнительный функционал!
+В профиле появится новая кнопка - “Меню старосты”. Там собраны все основные функции старост.
+        </p>
+         <img src="{% static 'img/menu_7.png' %}" class="standard_img">
+         <p class="main_paragraph">В случае чего, должность можно покинуть нажав на кнопку “Перестать быть старостой”.
+         </p>
+     </div>
 
 
 
