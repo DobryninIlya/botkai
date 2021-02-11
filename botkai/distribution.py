@@ -133,6 +133,11 @@ def timetableInfo(groupId, tomorrow=0):
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
             print(dateinstr)
+            try:
+                if elem["potok"] == "1":
+                    continue
+            except:
+                pass
             if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 first = elem['dayTime']
                 room = elem["audNum"]
