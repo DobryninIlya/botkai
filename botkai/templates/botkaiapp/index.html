@@ -41,7 +41,7 @@
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
            var right_move = document.getElementById("right-move");
-            right_move.textContent = "Сделано специально для " + e.detail.data.first_name + " " + e.detail.data.last_name;
+            right_move.appendChild("Сделано специально для " + e.detail.data.first_name + " " + e.detail.data.last_name);
 
            }
         });
