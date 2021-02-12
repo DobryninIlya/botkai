@@ -35,7 +35,8 @@
                 }
 
         window.onload = function() { showId(0); };
-
+        </script>
+        <script
         vkBridge.subscribe((e) => {
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
@@ -70,6 +71,9 @@
             </div>
 
             <img src="{% static 'img/red_sit.png' %}" id="red_sit">
+            <p class="main_paragraph" id="special_for">
+                Сделано специально для Илья Добрынин
+            </p>
             <div class="clearfix"></div>
         </div>
         <div class="cat" id="c1">
