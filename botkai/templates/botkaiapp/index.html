@@ -36,12 +36,15 @@
 
         window.onload = function() { showId(0); };
 
-        vkBridge.subscribe((e) => {
-
-        if (e.detail.type === 'VKWebAppGetUserInfoResult') {
-           alert(e.data)
-           }
-        });
+        vkBridge
+  .send('VKWebAppGetUserInfo')
+  .then(data => {
+    alert("succes");
+    console.log(data.first_name);
+  })
+  .catch(error => {
+    alert("ошибочка....");
+  });
 
         vkBridge.send('VKWebAppGetUserInfo', {});
         </script>
