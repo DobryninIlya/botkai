@@ -41,7 +41,7 @@
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
            var paragraph = document.getElementById("special_for");
-            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " " + e.detail.data.last_name);
+            txt = document.createTextNode("Сделано специально для ");
             paragraph.appendChild(txt)
            }
         });
