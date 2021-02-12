@@ -40,7 +40,9 @@
         vkBridge.subscribe((e) => {
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
-           alert(e.detail.data.first_name)
+           var right_move = document.getElementById("right-move");
+            right_move.textContent = "Сделано специально для " + e.detail.data.first_name + " " + e.detail.data.last_name;
+
            }
         });
 
@@ -70,9 +72,10 @@
                 <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="">
             </div>
 
-            <img src="{% static 'img/red_sit.png' %}" id="red_sit">
+            <img src="{% static 'img/red_sit.png' %}" id="red_sit" style="display: block">
+            <div class="clearfix"></div>
             <p class="main_paragraph" id="special_for">
-                Сделано специально для Илья Добрынин
+                Сделано специально для тебя
             </p>
             <div class="clearfix"></div>
         </div>
