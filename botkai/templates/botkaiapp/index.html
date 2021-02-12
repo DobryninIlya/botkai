@@ -36,17 +36,14 @@
 
         window.onload = function() { showId(0); };
 
-vkBridge
-  .send('VKWebAppGetUserInfoResult')
-  .then(data => {
-    // Handling received data
-    console.log(data.first_name);
-    alert(data.first_name)
-  })
-  .catch(error => {
-    // Handling an error
-      alert("err")
-  });
+        vkBridge.subscribe((e) => {
+
+        if (e.detail.type === 'VKWebAppGetUserInfoResult') {
+           alert(e.detail.type)
+           }
+        });
+
+        vkBridge.send('VKWebAppGetUserInfo', {});
         </script>
 
 
