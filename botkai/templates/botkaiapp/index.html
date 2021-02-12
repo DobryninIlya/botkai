@@ -39,7 +39,7 @@
         vkBridge.subscribe((e) => {
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
-           alert(e.detail.type)
+           alert(e.detail.data.first_name)
            }
         });
 
