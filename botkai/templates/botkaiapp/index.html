@@ -36,17 +36,17 @@
 
         window.onload = function() { showId(0); };
 
-        vkBridge
-  .send('VKWebAppGetUserInfo')
+vkBridge
+  .send('VKWebAppGetEmail')
   .then(data => {
-    alert("succes");
-    console.log(data.first_name);
+    // Handling received data
+    console.log(data.email);
+    alert("succses")
   })
   .catch(error => {
-    alert("ошибочка....");
+    // Handling an error
+      alert("err")
   });
-
-        vkBridge.send('VKWebAppGetUserInfo', {});
         </script>
 
 
