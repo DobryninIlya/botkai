@@ -40,9 +40,9 @@
         vkBridge.subscribe((e) => {
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
-           var right_move = document.getElementById("right-move");
-            right_move.appendChild("Сделано специально для " + e.detail.data.first_name + " " + e.detail.data.last_name);
-
+           var paragraph = document.getElementById("special_for");
+            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " " + e.detail.data.last_name);
+            paragraph.appendChild(txt)
            }
         });
 
