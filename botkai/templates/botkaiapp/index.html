@@ -35,16 +35,15 @@
                 }
 
         window.onload = function() { showId(0); };
-        </script>
-        <script
+
         vkBridge.subscribe((e) => {
 
         if (e.detail.type === 'VKWebAppGetUserInfoResult') {
            var paragraph = document.getElementById("special_for");
-            txt = document.createTextNode("Сделано специально для ");
+            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " "+ e.detail.data.last_name);
             paragraph.appendChild(txt);
            }
-        };
+        });
 
         vkBridge.send('VKWebAppGetUserInfo', {});
         </script>
@@ -75,7 +74,7 @@
             <img src="{% static 'img/red_sit.png' %}" id="red_sit" style="display: block">
             <div class="clearfix"></div>
             <p class="main_paragraph" id="special_for">
-                Сделано специально для тебя
+
             </p>
             <div class="clearfix"></div>
         </div>
