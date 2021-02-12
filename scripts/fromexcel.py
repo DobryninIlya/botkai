@@ -3,7 +3,7 @@ import openpyxl
 from pprint import pprint
 
 wb = openpyxl.load_workbook(filename = 'shed.xlsx')
-sheet = wb['"Лист1"']
+sheet = wb[wb.sheetnames[0]]
 
 # vals = [v[0].value for v in sheet.range('A1:A2')]
 # vals = [v.value for v in sheet]

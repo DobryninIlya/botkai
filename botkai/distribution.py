@@ -143,7 +143,7 @@ def timetableInfo(groupId, tomorrow=0):
                 room = elem["audNum"]
                 building = elem['buildNum']
                 return first, room, building
-            elif (elem["dayDate"]).rstrip()=="неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
+            elif (elem["dayDate"]).rstrip()=="неч" and not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 first = elem['dayTime']
                 room = elem["audNum"]
                 building = elem['buildNum']

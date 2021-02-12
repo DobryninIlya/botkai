@@ -14,11 +14,7 @@
         </script> 
         <meta http-equiv="Content-Type"
         content="text/html; charset=utf-8">
-        <title>Инструкция</title>
-    </head>
-    <body>
-<!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
- 
+
         <script>
         function showId(id){
             let cid = 0;
@@ -39,7 +35,26 @@
                 }
 
         window.onload = function() { showId(0); };
-        </script> 
+
+        vkBridge.subscribe((e) => {
+
+        if (e.detail.type === 'VKWebAppGetUserInfoResult') {
+           var paragraph = document.getElementById("special_for");
+            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " "+ e.detail.data.last_name);
+            paragraph.appendChild(txt);
+           }
+        });
+
+        vkBridge.send('VKWebAppGetUserInfo', {});
+        </script>
+
+
+        <title>Инструкция</title>
+    </head>
+    <body>
+<!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
+ 
+
 
         <div class="cat" id="c0" >
             <img src="{% static 'img/red_up.png' %}" id="red_up">
@@ -56,7 +71,11 @@
                 <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="">
             </div>
 
-            <img src="{% static 'img/red_sit.png' %}" id="red_sit">
+            <img src="{% static 'img/red_sit.png' %}" id="red_sit" style="display: block">
+            <div class="clearfix"></div>
+            <p class="main_paragraph" id="special_for">
+
+            </p>
             <div class="clearfix"></div>
         </div>
         <div class="cat" id="c1">
