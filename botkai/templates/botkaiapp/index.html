@@ -39,7 +39,7 @@
         function load() {
             switch (document.location.hash) {
                 case "#starosta":
-                    showId(7);
+                    showId(8);
                     break;
                 default:
                     showId(0);
@@ -82,7 +82,7 @@
                 <img src="{% static 'img/bt4.png' %}" class="buttons" onclick="showId(4)">
                 <img src="{% static 'img/bt6.png' %}" class="buttons" onclick="showId(5)">
                 <img src="{% static 'img/bt7.png' %}" class="buttons" onclick="">
-                <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="">
+                <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="showId(7)">
             </div>
 
             <img src="{% static 'img/red_sit.png' %}" id="red_sit" style="display: block">
@@ -286,9 +286,32 @@
      </div>
 
 
+     <div class="cat" id="c7">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                            Яндекс Алиса. Голосовой помощник
+                    </p>
+                </div>
+            <div class="breaker"></div>
+            <p class="main_paragraph">Получить свое расписание можно также через голосового помощника Алиса от Яндекса. Для этого найдите навык “Бот КАИ” и спросите у него расписание. Не забудьте произнести номер группы.</p>
+            <img src="{% static 'img/dialog_7.png' %}" class="standard_img">
+         <p class="main_paragraph">Навык работает на всех поддерживаемых Алисой устройствах - телефоны, браузеры, умные колонки, умные наушники, автомобильные бортовые компьютеры, навигаторы и так далее.
+
+В настоящее время поддерживаются только функции получения расписания студентов на какой-либо день.
 
 
-    <div class="cat" id="c7">
+Хорошие оценки в каталоге навыков Алисы очень сильно способствуют развитию.
+         </p>
+
+            <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+     </div>
+
+    <div class="cat" id="c8">
         <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
