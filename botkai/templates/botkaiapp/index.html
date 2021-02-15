@@ -85,7 +85,7 @@
                 <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="showId(7)">
             </div>
 
-            <img src="{% static 'img/red_sit.png' %}" id="red_sit" style="display: block">
+            <img src="{% static 'img/red_sit.png' %}" class="standard_img">
             <div class="clearfix"></div>
             <p class="main_paragraph" id="special_for">
 
@@ -104,7 +104,7 @@
             </div>
             <div class="breaker" id="br1"></div>
             <div class="f_c">
-                <img src="{% static 'img/menu_1.png' %}" id="menu_1">
+                <img src="{% static 'img/menu_1.png' %}" class="standard_img">
                 <p id="p2">При прохождении регистрации бот предложит вам выбрать роль</p>
             </div>
             <p class="main_paragraph">Студенты могут смотреть  расписание группы, импортировать расписание из Excel файла, скачивать свое расписание в разных форматах и добавлять задания на определенные дни.
@@ -132,9 +132,9 @@
         <div class="breaker" id="br2"></div>
 
 
-        <img src="{% static 'img/menu_2.png' %}" id="menu_2">
+        <img src="{% static 'img/menu_2.png' %}" class="standard_img">
         <p class="main_paragraph">Просмотр расписания представлен первыми тремя строками основного меню. Здесь есть кнопки для быстрого отображения расписания на сегодня, завтра и послезавтра, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания. Также есть кнопка просмотра четности и кнопка “На неделю”, которая открывает дополнительное меню.</p>
-        <img src="{% static 'img/menu_3.png' %}" id="menu_3">
+        <img src="{% static 'img/menu_3.png' %}" class="standard_img">
         <p class="main_paragraph">В этом меню можно посмотреть расписание на ближайшие 7 дней, причем оно будет также просчитываться под конкретный день.
 
 Кнопка “Полностью” отобразит ваше полное расписание.</p>
@@ -162,7 +162,7 @@
 Формат записи пар в таблицу достаточно простой и гибкий. Можно настроить свое расписание так, чтобы можно было учитывать четность недели, хождение подгрупп на лабораторные работы, очередность их хождения, тип пар и т.п.
 
 Для того, чтобы получить шаблон записи — введите в чат команду «добавить свое расписание».</p>
-        <img src="{% static 'img/dialog_1.png' %}" id="dialog_1">
+        <img src="{% static 'img/dialog_1.png' %}" class="standard_img">
         <p class="main_paragraph" style="white-space: pre-wrap">Открыв файл можно сразу приступить к его заполнению.
 &nbsp;
 Структура файла представляет собой колонки:
@@ -181,19 +181,19 @@
 Для загрузки расписания в систему просто прикрепите файл к сообщение и введите команду “Загрузить расписание”.
 В случае правильно заполненного файла, расписание сохранится. </p>
 
-        <img src="{% static 'img/dialog_2.png' %}" id="dialog_2">
+        <img src="{% static 'img/dialog_2.png' %}" class="standard_img">
 
         <p class="main_paragraph">В случае ошибки при заполнении расписания, вам будет выведено соответствующее сообщение с номером строки, в котором допущена ошибка.</p>
 
-        <img src="{% static 'img/dialog_3.png' %}" id="dialog_3">
+        <img src="{% static 'img/dialog_3.png' %}" class="standard_img">
 
         <p class="main_paragraph">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
 
 Далее, нам необходимо выбрать источник получения расписания в настройках. Для этого перейдите в профиль и отыщите кнопку «Использовать расписание группы». Она означает, что сейчас расписание будет браться как для студента группы напрямую с сайта КАИ (или из сохранения в буфере).</p>
-        <img src="{% static 'img/dialog_4.png' %}" id="dialog_4">
+        <img src="{% static 'img/dialog_4.png' %}" class="standard_img">
 
         <p class="main_paragraph">Нажав на кнопку, она поменяет текст и цвет.</p>
-        <img src="{% static 'img/menu_4.png' %}" id="menu_4">
+        <img src="{% static 'img/menu_4.png' %}" class="standard_img">
         <p class="main_paragraph">Готово! Теперь получение расписания из вашего Excel-файла полностью настроено!
 Чтобы вернуться к отображению общего расписания группы просто нажмите на эту кнопку еще раз.</p>
         <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
