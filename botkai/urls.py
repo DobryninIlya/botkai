@@ -5,7 +5,7 @@ from .views import miniapp
 from .distribution import main as distribution
 
 urlpatterns = [
-    path("", index),
-    path("miniapp/", miniapp),
-    path("distribution/", distribution),
+    # path("", index),
+    # path(r'^miniapp/$', miniapp),
+    # path("distribution/", distribution),
 ]

@@ -67,6 +67,7 @@ def index(request):
 
 
 def miniapp(request):
+    print(request.GET.get('hash'))
     return render(request, 'botkaiapp/index.html')
 
 
