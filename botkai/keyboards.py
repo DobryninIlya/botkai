@@ -1036,7 +1036,7 @@ testButtons = str(testButtons.decode('utf-8'))
 help_starosta_upload = {
     "inline": True,
     "buttons": [
-        [get_button_vkminiapp(label="Гайд", app_id='7505621', owner_id="182372147", hash="starosta")]
+        [get_button_vkminiapp(label="Гайд", app_id='7505621', owner_id="182372147", hash="#starosta")]
 
     ]
 
