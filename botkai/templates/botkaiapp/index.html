@@ -34,7 +34,18 @@
 
                 }
 
-        window.onload = function() { showId(0); };
+        window.onload = function() { load(); };
+
+        function load() {
+            switch (document.location.hash) {
+                case "#starosta":
+                    showId(7);
+                    break;
+                default:
+                    showId(0);
+                    break;
+            }
+        }
 
         vkBridge.subscribe((e) => {
 
@@ -46,6 +57,9 @@
         });
 
         vkBridge.send('VKWebAppGetUserInfo', {});
+
+
+
         </script>
 
 
@@ -249,13 +263,32 @@
          <img src="{% static 'img/menu_7.png' %}" class="standard_img">
          <p class="main_paragraph">В случае чего, должность можно покинуть нажав на кнопку “Перестать быть старостой”.
          </p>
+         <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+     </div>
+
+     <div class="cat" id="c6">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                            Старосты.
+                            Управление группой
+                    </p>
+                </div>
+            <div class="breaker"></div>
+
+
+            <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
      </div>
 
 
 
 
-
-    <div class="cat" id="c10">
+    <div class="cat" id="c7">
         <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
             <div class="clearfix"></div>
 
