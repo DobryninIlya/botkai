@@ -1033,8 +1033,16 @@ testButtons = {
 testButtons = json.dumps(testButtons, ensure_ascii=False).encode('utf-8')
 testButtons = str(testButtons.decode('utf-8'))
 
+help_starosta_upload = {
+    "inline": True,
+    "buttons": [
+        [get_button_vkminiapp(label="Гайд", app_id='7505621', owner_id="182372147", hash="starosta")]
 
+    ]
 
+}
+help_starosta_upload = json.dumps(help_starosta_upload, ensure_ascii=False).encode('utf-8')
+help_starosta_upload = str(help_starosta_upload.decode('utf-8'))
 
 
 
