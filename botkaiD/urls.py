@@ -24,7 +24,7 @@ from botkai.views import index, web_yandex,miniapp, index
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path(r'^botkai/', include("botkai.urls")),
-    url(r'^botkai/miniapp/', miniapp),
+    url(r'^botkai/miniapp/$', miniapp),
     url('botkai/', index),
     path('yandex_f66897e4739fe69c.html', web_yandex),
     path('assistent/', include("aliceskill.urls")),
