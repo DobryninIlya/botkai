@@ -21,7 +21,6 @@ def scheduled_job():
 
 @sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
 def func():
-    print("working sheduler")
     distribution()
     sched.shutdown()
 

@@ -4,6 +4,7 @@ from ..classes import vk, MessageSettings, UserParams
 import random
 import datetime
 import requests
+import traceback
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()
@@ -37,8 +38,8 @@ def showTimetablePrepod(login, tomorrow = 0):
         response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(login), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
         #response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
 
-        print("TEST")
-        print("Response: ", response.status_code)
+        # print("TEST")
+        # print("Response: ", response.status_code)
         if str(response.status_code) != '200':
             return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(response.status_code) + " &#9888;"
         response = response.json()
@@ -53,7 +54,7 @@ def showTimetablePrepod(login, tomorrow = 0):
         day = str(now.day) + "." + str(month)
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
-            print(dateinstr)
+            # print(dateinstr)
             if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem["group"].rstrip() + " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
             elif (elem["dayDate"]).rstrip()=="неч" and  not ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):

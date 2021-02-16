@@ -132,7 +132,7 @@ def timetableInfo(groupId, tomorrow=0):
 
         for elem in response:
             dateinstr = (str((elem["dayDate"]).rstrip())).find(day)
-            print(dateinstr)
+            # print(dateinstr)
             try:
                 if elem["potok"] == "1":
                     continue
@@ -187,8 +187,8 @@ def timetableInfo(groupId, tomorrow=0):
         #building = response[0]['buildNum']
         #return lenght, first, room, building
     except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
-
+        # print('Ошибка:\n', traceback.format_exc())
+        pass
 
 def get_button(label, color, payload=""):
     return {
@@ -265,7 +265,7 @@ def main(request = None):
         res += str(elem.group) + " | " + str(','.join(str(x) for x in elem.users)) + "\n |||||||||||||||||||||||||||||||"
 
         try:
-            print(elem.realGroup)
+            # print(elem.realGroup)
             bl = [9416, 9420, 9174]
             if elem.realGroup not in bl:
                 first, room, building = timetableInfo(elem.group)
@@ -281,10 +281,10 @@ def main(request = None):
                 res += res1
                 #print(res)
         except Exception as E:
-            print('Ошибка:\n', traceback.format_exc())
-            print("Исключение для " + str(elem.realGroup))
-            print(timetableInfo(elem.group))
-
+            # print('Ошибка:\n', traceback.format_exc())
+            # print("Исключение для " + str(elem.realGroup))
+            # print(timetableInfo(elem.group))
+            pass
 
     return res
 

@@ -70,7 +70,7 @@ def showTimetable(groupId, tomorrow=0):
 
             try:
                 isPotok = True if elem["potok"] == '1' else False
-                print("POTOK", isPotok)
+                # print("POTOK", isPotok)
             except:
                 # print('Ошибка:\n', traceback.format_exc())
                 isPotok = False
@@ -184,7 +184,7 @@ def get_own_shed(groupId):
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()[0]
-        print(result)
+        # print(result)
         if not result:
             UserParams.own_shed = 0
             info()

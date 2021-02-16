@@ -38,7 +38,7 @@ def info():
         conn.commit()
     
         sql = "INSERT INTO answers VALUES (" + str(id) + "," + str(MessageSettings.payload["id"]) + ");"
-        print(sql)
+        # print(sql)
         cursorR.execute(sql)
         conn.commit()
     except Exception:

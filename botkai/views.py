@@ -54,7 +54,7 @@ def index(request):
 
 
     except SystemExit:
-        print("ВЫХОД")
+        # print("ВЫХОД")
         quit(1)
         # os.system("echo EXITING APP")
         # os.system("touch reload.py")
@@ -67,7 +67,6 @@ def index(request):
 
 
 def miniapp(request):
-    print(request.GET.get('hash'))
     return render(request, 'botkaiapp/index.html')
 
 

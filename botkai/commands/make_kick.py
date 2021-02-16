@@ -9,7 +9,7 @@ def info():
     
     try:
         sql = "INSERT INTO Status VALUES (" + str(MessageSettings.id) + ", 48);"
-        print(sql)
+        # print(sql)
         cursorR.execute(sql)
         conn.commit()
         vk.method("messages.send", {"peer_id": MessageSettings.id, "message": "Отправь мне ссылку того, кого нужно кикнуть из группы", "random_id": random.randint(1, 2147483647)})  

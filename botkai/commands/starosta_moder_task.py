@@ -18,7 +18,7 @@ def info():
     att = ""
 
     curs = cursor.fetchall()
-    print(curs)
+    # print(curs)
     if len(curs) == 0:
        vk.method("messages.send", {"peer_id": UserID, "message": "Заданий не создано" , "random_id": random.randint(1, 2147483647)})
        return "ok"

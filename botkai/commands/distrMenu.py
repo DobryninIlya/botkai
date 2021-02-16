@@ -9,7 +9,7 @@ def KeyboardDistr():
     colorDaily = "negative"
     cursor.execute("SELECT distr FROM users WHERE ID_VK = " + str(MessageSettings.getId()))
     distr = int((cursor.fetchone())[0])
-    print(distr)
+    # print(distr)
     if distr>-1:
         colorDaily = "positive"
     keyboard = {
