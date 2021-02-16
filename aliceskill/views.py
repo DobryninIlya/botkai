@@ -79,7 +79,7 @@ def showGroupId(groupNumber):
 def main(request):
 # Функция получает тело запроса и возвращает ответ.
     body = json.loads(request.body)
-    pprint(body)
+    # pprint(body)
 
     response = {
         "version": body['version'],
@@ -124,7 +124,7 @@ def handle_dialog(body, request, response):
     day = ""
     for command in commands:
         if command.lower() in tokens:
-            print("Command ", command.lower())
+            # print("Command ", command.lower())
             command = command.lower()
             if command == 'расписание':
                 for entity in entities:
@@ -137,7 +137,7 @@ def handle_dialog(body, request, response):
                         elif "month" in entity["value"]:
                             day = entity["value"]["month"]
 
-                print(group_values, pre_group_values)
+                # print(group_values, pre_group_values)
                 if pre_group_values != "" and pre_group_values.isdigit() and len(pre_group_values) == 4:
                     group_values = pre_group_values
 
@@ -193,7 +193,7 @@ def showTimetable(groupId, tomorrow=0):
             return "Группы не существует", "Группы не существует"
         isNormal, response = getResponse(groupId)
         if not isNormal:
-            print("NOOOOOOOOOOOO")
+            # print("NOOOOOOOOOOOO")
             return response, "Произошла ошибка. Это очень печально"
         
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
