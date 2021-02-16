@@ -45,7 +45,7 @@ def showTimetable(groupId, tomorrow=0):
 
             try:
                 isPotok = True if elem["potok"] == '1' else False
-                print("POTOK", isPotok)
+                # print("POTOK", isPotok)
             except:
                 print('Ошибка:\n', traceback.format_exc())
                 isPotok = False
@@ -193,7 +193,7 @@ def get_own_shed(groupId):
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()[0]
-        print(result)
+        # print(result)
         if not result:
             UserParams.own_shed = 0
             info()
@@ -217,9 +217,9 @@ def info():
     else:
         date_day = day - current_day
 
-    print(date_day)
+    # print(date_day)
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=date_day))
-    print(date)
+    # print(date)
     group = UserParams.getGroup()
     id = MessageSettings.getId()
     taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))

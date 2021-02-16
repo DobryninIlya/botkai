@@ -7,7 +7,12 @@
         <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 
         <link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}">
+
+
+
         <script>
+
+        window.onload = function() { document.getElementById("hideAll").style.display = "none"; }
         // Sends event to client
         vkBridge.send('VKWebAppInit');
         // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
@@ -66,8 +71,8 @@
         <title>Инструкция</title>
     </head>
     <body>
-<!--        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>-->
- 
+
+        <div style="display: none" id="hideAll">&nbsp; загрузка страницы.</div>
 
 
         <div class="cat" id="c0" >
@@ -318,7 +323,7 @@
             <div class="f_c">
                 <img src="{% static 'img/blue_up.png' %}" class="blue_up">
                 <p class="cat_name">
-                    Собственное расписание из Excel
+                    Старосты. Загрузка расписания для группы из Excel
                 </p>
             </div>
 

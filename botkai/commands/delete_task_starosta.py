@@ -13,10 +13,10 @@ def info():
     groupId = UserParams.groupId
     payload = MessageSettings.payload
     id = payload["id"]
-    print(id)
+    # print(id)
     try:
         sql = "DELETE FROM Task WHERE" + " id = " + str(id)
-        print(sql)
+        # print(sql)
         cursor.execute(sql)
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())

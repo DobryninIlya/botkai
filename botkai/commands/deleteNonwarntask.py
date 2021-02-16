@@ -19,7 +19,7 @@ def info():
         vk.method("messages.send",
             {"peer_id": int(res[2]), "message": "Одно из ваших заданий было удалено модератором. Вероятно, оно было некорректным. \n", "random_id": random.randint(1, 2147483647)})
         connection.commit()
-        print("succs")
+        # print("succs")
     except Exception:
         print('Ошибка:\n', traceback.format_exc())
 

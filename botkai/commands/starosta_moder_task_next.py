@@ -25,13 +25,13 @@ def info():
         else:
             pos_id = 0
         sql = "SELECT * FROM Task WHERE groupid = {} LIMIT 3 OFFSET {}".format(groupId, 0 if int(pos_id)-1 < 0 else int(pos_id)-1)
-        print(sql)
+        # print(sql)
         cursor.execute(sql)
         task = ""
         att = ""
 
         curs = cursor.fetchall()
-        print(curs, task)    
+        # print(curs, task)
         if len(curs) == 0:
             vk.method("messages.edit", {
                 "peer_id": UserID, 
@@ -68,7 +68,7 @@ def info():
                 
             if first :
                 prev_id_task = int(row[0])
-                print("prev id ", prev_id_task)
+                # print("prev id ", prev_id_task)
                 first = False
                 second = True
             elif second:

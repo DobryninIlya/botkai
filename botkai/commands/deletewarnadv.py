@@ -22,7 +22,7 @@ def info():
         cursor.execute('UPDATE Users SET warn = ' + str(warnCurr) + ' WHERE ID_VK = ' + str(res[2]))
         cursor.execute("UPDATE Users SET expiration = '" + str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 30)) + "' WHERE ID_VK = " + str(res[2]))
         connection.commit()
-        print("succs")
+        # print("succs")
     except Exception:
         print('Ошибка:\n', traceback.format_exc())
 
