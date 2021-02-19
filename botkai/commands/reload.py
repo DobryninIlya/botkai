@@ -9,7 +9,7 @@ def info():
 
     vk.method("messages.send",
                         {"peer_id": id, "message": "Перезагрузка", "random_id": random.randint(1, 2147483647)})
-    sys.exit(0)
+    sys.exit(1)
       
     return "ok"
 
