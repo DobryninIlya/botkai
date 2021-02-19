@@ -383,6 +383,8 @@ def IsRegistred():
                     vk.method("messages.send", {"peer_id": id, "message": "Error status 15 in reg", 
                                         "random_id": random.randint(1, 2147483647)})
                 return False
+    except SystemExit:
+        sys.exit(1)
     except:  
         print('Ошибка:\n', traceback.format_exc())  
 
