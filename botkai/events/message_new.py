@@ -462,7 +462,6 @@ def InBaseR(id): ### Проверка на зарегестрированнос�
 
 def InBase(id): ### Проверка на зарегестрированность и наличие в базе Users
     try:
-        raise Exception
         #global allCommands, statUser
         #if MessageSettings.statUser.count(id)>1:
         #    MessageSettings.statUser.remove(id)
@@ -510,9 +509,9 @@ def InBase(id): ### Проверка на зарегестрированност
                         {"peer_id": id, "message": "test" , "sticker_id" : 6890 , "random_id": random.randint(1, 2147483647)})
         vk.method("messages.send", {"peer_id": id, "message": "Перезагружаюсь...", 
                                     "random_id": random.randint(1, 2147483647)})
-
-        sys.exit(1)
         print("GLOBAL ERROR - RESTART ")
+        sys.exit(1)
+
 def StatusR(id): ### Текущий статус в таблице Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id)
     cursorR.execute(sql)
