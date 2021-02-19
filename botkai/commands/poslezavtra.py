@@ -78,7 +78,7 @@ def showTimetable(groupId, tomorrow=0):
                 if not user_potok:
                     continue
 
-            print(dateinstr)
+            # print(dateinstr)
             if (elem["dayDate"]).rstrip() == "чет" and (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
@@ -220,7 +220,7 @@ def get_own_shed(groupId):
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()[0]
-        print(result)
+        # print(result)
         if not result:
             UserParams.own_shed = 0
             info()

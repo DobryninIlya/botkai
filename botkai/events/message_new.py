@@ -383,6 +383,8 @@ def IsRegistred():
                     vk.method("messages.send", {"peer_id": id, "message": "Error status 15 in reg", 
                                         "random_id": random.randint(1, 2147483647)})
                 return False
+    except SystemExit:
+        sys.exit(1)
     except:  
         print('Ошибка:\n', traceback.format_exc())  
 
@@ -500,15 +502,16 @@ def InBase(id): ### Проверка на зарегестрированност
         return False
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
-        print("GLOBAL ERROR - RESTART ")
+
         vk.method("messages.send", {"peer_id": id, "message": "Что-то пошло не так.", 
                                     "random_id": random.randint(1, 2147483647)})
         vk.method("messages.send",
                         {"peer_id": id, "message": "test" , "sticker_id" : 6890 , "random_id": random.randint(1, 2147483647)})
         vk.method("messages.send", {"peer_id": id, "message": "Перезагружаюсь...", 
                                     "random_id": random.randint(1, 2147483647)})
-        conn.commit()
-        sys.exit(0)
+        print("GLOBAL ERROR - RESTART ")
+        sys.exit(1)
+
 def StatusR(id): ### Текущий статус в таблице Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id)
     cursorR.execute(sql)
