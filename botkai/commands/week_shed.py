@@ -45,8 +45,6 @@ def showTimetable(groupId, tomorrow=0):
 
             try:
                 isPotok = True if elem["potok"] == '1' else False
-            except KeyError:
-                pass
             except:
                 isPotok = False
             if isPotok:
