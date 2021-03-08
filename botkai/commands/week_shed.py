@@ -251,14 +251,11 @@ def info():
     return "ok"
 
 
-
 command = command_class.Command()
-
-
-
 
 command.keys = []
 command.desciption = ''
 command.process = info
 command.payload = "week_shed"
+command.role = [1, 2, 3, 6]
 

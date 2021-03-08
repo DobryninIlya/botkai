@@ -212,3 +212,4 @@ command.keys = ['преподы', 'преподаватели', '!преподы
 command.desciption = 'список преподавателей и дисциплин'
 command.process = info
 command.payload = "prepod"
+command.role = [1, 2, 3, 6]

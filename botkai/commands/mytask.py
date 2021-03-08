@@ -37,3 +37,4 @@ command.keys = ['мои задания', 'мои задачи']
 command.desciption = 'отображение списка заданий'
 command.process = info
 command.payload = "mytask"
+command.role = [1, 2, 3, 6]

@@ -19,3 +19,4 @@ command.keys = ["задание", "задания"]
 command.desciption = 'меню заданий'
 command.process = info
 command.payload = "task menu"
+command.role = [1, 2, 3, 6]

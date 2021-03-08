@@ -22,3 +22,4 @@ command.keys = ['профиль', 'настройки']
 command.desciption = 'Покажу твой профиль'
 command.process = info
 command.payload = "profile"
+command.role = [1, 6]
