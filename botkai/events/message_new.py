@@ -240,7 +240,7 @@ def IsRegistred():
                     return False
                     
                 try:
-                    sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, dateChange, balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affilate)" \
+                    sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, "dateChange", balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affilate)" \
                           " VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"'"\
                           ",0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ", null, true, false, false);"
                     cursor.execute(sql)
