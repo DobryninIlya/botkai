@@ -11,9 +11,9 @@ mccabe==0.6.1
 pylint==2.3.1
 PyMySQL==0.9.3
 requests==2.21.0
+typed-ast==1.4.0
 six==1.12.0
 soupsieve==1.9.1
-typed-ast==1.4.0
 urllib3==1.24.1
 vk-api==11.4.0
 wrapt==1.11.1

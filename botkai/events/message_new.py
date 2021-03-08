@@ -240,7 +240,9 @@ def IsRegistred():
                     return False
                     
                 try:
-                    sql = "INSERT INTO Users VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"',0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ");"                    
+                    sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, dateChange, balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affilate)" \
+                          " VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"'"\
+                          ",0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ", null, true, false, false);"
                     cursor.execute(sql)
                     connection.commit()
                 except Exception as E:
@@ -310,12 +312,21 @@ def IsRegistred():
                             vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(1),
                                                 "random_id": random.randint(1, 2147483647)})
                             vk.method("messages.send",
-                                    {"peer_id": id, "message": "test" , "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
+                                    {"peer_id": id, "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
                             vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
 
                         elif int(body) > 10000:
+                            sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(
+                                body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
+                            cursor.execute(sql)
+
+                            sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
+                            cursorR.execute(sql)
+                            conn.commit()
+                            UserParams.update(int(MessageSettings.id))
                             vk.method("messages.send",
-                                {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie" ,"keyboard" : keyboards.get_undo, "random_id": random.randint(1, 2147483647)})
+                                {"peer_id": id, "message": "Ваше расписание отстутствует на сайте КАИ, однако вы можете добавить самостоятельно. Следуйте инструкциям!"
+                                                           ,"keyboard" : keyboards.getMainKeyboard(6), "random_id": random.randint(1, 2147483647)})
                         else:
                             vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",  "keyboard" : keyboards.get_undo,
                                                 "random_id": random.randint(1, 2147483647)})
