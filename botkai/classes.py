@@ -97,6 +97,7 @@ class Command:
         command_list.append(self)
         self.role.append(1)
         self.role.append(3)
+        self.role.append(6)
         self.premium = False
 
 
