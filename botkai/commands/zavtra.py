@@ -117,13 +117,14 @@ def getResponse(groupId):
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
+    print(result, groupId)
     if result == None:
         try:
 
             response = requests.post(BASE_URL, data="groupId=" + str(groupId),
                                      headers={'Content-Type': "application/x-www-form-urlencoded"},
                                      params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
-                                             "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
+                                             "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=7)
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(),
                                                                        json.dumps(response.json()))
             cursor.execute(sql)
@@ -191,7 +192,9 @@ def get_own_shed(groupId):
         else:
             return True, json.loads(result)
     except:
-        return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
+        return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе " \
+                      "отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в " \
+                      "профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
 
 
 command = command_class.Command()

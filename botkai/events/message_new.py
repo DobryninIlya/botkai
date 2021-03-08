@@ -240,7 +240,7 @@ def IsRegistred():
                     return False
                     
                 try:
-                    sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, dateChange, balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affilate)" \
+                    sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, \"dateChange\", balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affiliate)" \
                           " VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"'"\
                           ",0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ", null, true, false, false);"
                     cursor.execute(sql)
@@ -304,7 +304,7 @@ def IsRegistred():
                         if int(body) > 1100 and int(body)<10000:
                             sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
-                            
+                            connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
@@ -316,16 +316,15 @@ def IsRegistred():
                             vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
 
                         elif int(body) > 10000:
-                            sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(
-                                body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
+                            sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
-
+                            connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
                             UserParams.update(int(MessageSettings.id))
                             vk.method("messages.send",
-                                {"peer_id": id, "message": "Ваше расписание отстутствует на сайте КАИ, однако вы можете добавить самостоятельно. Следуйте инструкциям!"
+                                {"peer_id": id, "message": "Ваше расписание отстутствует на сайте КАИ, однако вы можете добавить самостоятельно. Следуйте инструкциям! \n В разработке :)"
                                                            ,"keyboard" : keyboards.getMainKeyboard(6), "random_id": random.randint(1, 2147483647)})
                         else:
                             vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",  "keyboard" : keyboards.get_undo,
