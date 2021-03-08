@@ -19,6 +19,7 @@ def info():
         cursor.execute(sql)
         connection.commit()
         message = "Расписание обновлено"
+        print(response.json(), groupId)
     except:
         message = "Не удалось обновить расписание"
     vk.method("messages.send",
