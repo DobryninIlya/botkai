@@ -235,4 +235,4 @@ command.keys = ['на послезавтра', 'расписание на пос
 command.desciption = 'Расписание на послезавтра (с учетом четности)'
 command.process = info
 command.payload = "after"
-command.role = [1,3]
+command.role = [1,3,6]

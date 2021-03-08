@@ -173,4 +173,4 @@ command.keys = ['полностью', 'расписание полностью',
 command.desciption = 'Расписание полностью'
 command.process = info
 command.payload = "all"
-command.role = [1, 3, 5]
+command.role = [1, 3, 5, 6]

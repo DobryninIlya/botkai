@@ -198,4 +198,4 @@ command.keys = ['на сегодня', 'расписание на сегодня
 command.desciption = 'Расписание на сегодня (с учетом четности)'
 command.process = info
 command.payload = "today"
-command.role = [1,3]
+command.role = [1,3,6]

@@ -23,4 +23,4 @@ command.keys = ['четность', 'чётность', 'четность нед
 command.desciption = 'Покажу какая неделя - четная или нет'
 command.process = info
 command.payload = "chetnost"
-command.role = [1,2,3]
+command.role = [1,2,3,6]

@@ -334,6 +334,33 @@ def getMainKeyboard(role):
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
+    elif role == 6:
+        keyboard = {
+            "one_time": False,
+            "buttons": [
+                [get_button(label="🔔 На завтра", color="primary", payload={'button': 'tomorrow'}, type="text")],
+                [
+                    get_button(label="🔔 На сегодня", color="primary", payload={'button': 'today'}, type="text"),
+                    get_button(label="🔔 На послезавтра", color="primary", payload={'button': 'after'}, type="text"),
+                    get_button(label="📄Полностью", color="primary", payload={'button': 'all'}, type="text")
+                ],
+                [
+                    get_button(label="🗓 Четность недели", color="default", payload={'button': 'chetnost'}, type="text")
+                ],
+                [
+                    get_button(label="Команды", color="default", payload={'button': 'commands'}, type="text"),
+                    get_button(label="👨‍🏫Преподы", color="default", payload={'button': 'prepod'}, type="text"),
+                ],
+                [
+                    get_button(label="💌Обратная связь", color="primary", payload="{'button': 'feedback'}",
+                               type="text"),
+                    get_button(label="🔧Профиль", color="positive", payload={'button': 'profile'}, type="text")
+                ]
+
+            ]
+        }
+        keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
+        keyboard = str(keyboard.decode('utf-8'))
     else:
         first_row =[get_button(label="📗На завтра", color="primary", payload = {'button': 'tomorrow'}, type = "text")]
         if datetime.date.today().month in exams_months:
