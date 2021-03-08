@@ -117,6 +117,7 @@ def getResponse(groupId):
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
+    print(result)
     if result == None:
         try:
 
@@ -191,7 +192,9 @@ def get_own_shed(groupId):
         else:
             return True, json.loads(result)
     except:
-        return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
+        return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе " \
+                      "отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в " \
+                      "профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
 
 
 command = command_class.Command()
