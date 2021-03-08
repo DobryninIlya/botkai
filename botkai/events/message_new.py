@@ -304,7 +304,7 @@ def IsRegistred():
                         if int(body) > 1100 and int(body)<10000:
                             sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
-                            
+                            connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
@@ -316,10 +316,9 @@ def IsRegistred():
                             vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
 
                         elif int(body) > 10000:
-                            sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(
-                                body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
+                            sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
-
+                            connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                             cursorR.execute(sql)
                             conn.commit()
