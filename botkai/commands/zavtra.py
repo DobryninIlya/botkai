@@ -125,7 +125,7 @@ def getResponse(groupId):
                                      params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                              "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(),
-                                                                               json.dumps(response.json()))
+                                                                       json.dumps(response.json()))
             cursor.execute(sql)
             connection.commit()
             return True, response.json()

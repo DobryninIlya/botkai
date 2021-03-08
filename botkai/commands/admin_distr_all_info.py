@@ -4,21 +4,16 @@ from ..keyboards import make_admin_distr
 from ..classes import vk, MessageSettings, conn, cursorR
 import traceback
 
-def info():
 
+def info():
     vk.method("messages.send",
-        {"peer_id": MessageSettings.id, "message": """Рассылка сообщения всем пользователям""","keyboard": make_admin_distr, "random_id": random.randint(1, 2147483647)})
+              {"peer_id": MessageSettings.id, "message": """Рассылка сообщения всем пользователям""",
+               "keyboard": make_admin_distr, "random_id": random.randint(1, 2147483647)})
 
     return "ok"
 
 
-
-
-
 command = command_class.Command()
-
-
-
 
 command.keys = []
 command.desciption = ''

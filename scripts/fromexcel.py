@@ -3,8 +3,8 @@ import openpyxl
 from pprint import pprint
 
 wb = openpyxl.load_workbook(filename = 'shed.xlsx')
+# sheet = wb['"Лист1"']
 sheet = wb[wb.sheetnames[0]]
-
 # vals = [v[0].value for v in sheet.range('A1:A2')]
 # vals = [v.value for v in sheet]
 # group = {}
@@ -17,6 +17,7 @@ weekdays = {
     "чт" : 4,
     "пт" : 5,
     "сб" : 6,
+	'none': 0,
 
 
 }
@@ -174,7 +175,7 @@ for row in sheet.rows:
     sql = "INSERT INTO saved_timetable VALUES ({id},'{groupp}', '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}', '{prepodname}')".format(
         id = i,
         groupp = str(row[0].value), # чет неч
-        daynum = weekdays[str(row[1].value).rstrip()], # чет неч
+        daynum = weekdays[str(row[1].value).rstrip().lower()], # чет неч
         daydate = str(row[3].value), # чет неч
         daytime = row[2].value, # время
         discipltype = row[5].value, # пр лек лр
@@ -195,7 +196,11 @@ shed = {}
 for group in groups:
     group = group[0]
     sql = "SELECT * FROM saved_timetable WHERE groupp = {group} ORDER BY daynum, daytime".format(group = group)
-    cursorR.execute(sql)
+    print(sql)
+    try:
+        cursorR.execute(sql)
+    except:
+        continue
     result = cursorR.fetchall()
     # pprint(cursor.fetchall())
     week_shed = {}
@@ -237,7 +242,7 @@ for group in groups:
         connection.commit()
     except:
 
-        sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format((json.dumps(week_shed)).replace('None', ""), '2020-12-30', showGroupId(str(group)))
+        sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format((json.dumps(week_shed)).replace('None', ""), '2021-12-30', showGroupId(str(group)))
         cursor.execute(sql)
     connection.commit()
         
