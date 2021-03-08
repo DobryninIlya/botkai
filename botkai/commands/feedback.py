@@ -49,5 +49,5 @@ command.keys = ["связь с админом"]
 command.desciption = ''
 command.process = info
 command.payload = "feedback"
-command.role = [1, 2, 3, 4]
+command.role = [1, 2, 3, 4, 6]
 

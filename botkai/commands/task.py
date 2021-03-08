@@ -75,3 +75,4 @@ command.keys = ['']
 command.desciption = ''
 command.process = info
 command.payload = "task"
+command.role = [1, 2, 3, 6]

@@ -55,4 +55,4 @@ command.keys = []
 command.desciption = ''
 command.process = info
 command.payload = "feedbackcreate"
-command.role = [1, 2, 3, 4]
+command.role = [1, 2, 3, 4, 6]

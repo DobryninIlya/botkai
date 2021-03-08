@@ -27,3 +27,4 @@ info_command.keys = ['список команд', 'команды', 'помог�
 info_command.desciption = 'Покажу список команд'
 info_command.payload = "commands"
 info_command.process = info
+info_command.role = [1, 2, 3, 6]
