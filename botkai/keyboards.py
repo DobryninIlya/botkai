@@ -431,7 +431,7 @@ def KeyboardProfile():
                 ],
             ]
         if UserParams.role == 6:
-            main_buttons.remove(main_buttons[4][:-1])
+            main_buttons[-1].remove(main_buttons[:-1])
         sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
         cursor.execute(sql)
         starosta_count = cursor.fetchone()[0]
