@@ -119,7 +119,6 @@ def getResponse(groupId):
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
-    print(result, groupId)
     if result == None:
         try:
 
