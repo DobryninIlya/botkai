@@ -1005,7 +1005,7 @@ def CheckStatus():
                 realgroup = body
                 group = showGroupId(realgroup)
                 
-                if (int)(body) > 1000 and (int)(body) < 10000 and group:
+                if (int)(body) > 1000 and (int)(body) < 100000 and group:
                     group = str(group)
                     admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else 1
                     print("Adm level", admlevel) 
