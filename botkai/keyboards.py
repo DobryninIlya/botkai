@@ -427,9 +427,11 @@ def KeyboardProfile():
                         ],
             [
                 get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
-                get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'} if  UserParams.role != 6 else {})
+                get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
                 ],
             ]
+        if UserParams.role == 6:
+            main_buttons.remove(main_buttons[5][:-1])
         sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
         cursor.execute(sql)
         starosta_count = cursor.fetchone()[0]
