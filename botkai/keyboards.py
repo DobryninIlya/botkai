@@ -427,7 +427,7 @@ def KeyboardProfile():
                         ],
             [
                 get_button(label="Мой институт " + inst, color=GroupColor, payload = {'button': 'myinstitute'}),
-                get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
+                get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'} if  UserParams.role != 6 else {})
                 ],
             ]
         sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
@@ -438,9 +438,9 @@ def KeyboardProfile():
         if UserParams.adminLevel >= 2:
             main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
 
-        if UserParams.own_shed:
+        if UserParams.own_shed and UserParams.role != 6:
             main_buttons.append([get_button(label="Использовать свое расписание", color="positive", payload={'button': 'select_own_shedule'})])
-        else:
+        elif UserParams.role != 6:
             main_buttons.append([get_button(label="Использовать расписание группы", color="default", payload={'button': 'select_own_shedule'})])
 
         main_buttons.append([get_button(label="Назад", color="default", payload={'button': 'tomainmenu'})])

@@ -930,7 +930,7 @@ def CheckStatus():
             
             
                 if len(MessageSettings.getText()) > 250:
-                    vk.method("messages.send", {"peer_id": id, "message": "Превышена максимаьная длина объявления" , "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                    vk.method("messages.send", {"peer_id": id, "message": "Превышена максимальная длина объявления" , "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                                     "random_id": random.randint(1, 2147483647)})
                     return "ok"
                 #print(count)
@@ -982,7 +982,7 @@ def CheckStatus():
             cursor.execute(sql)
             cursor.execute('UPDATE users SET ischeked = 0 WHERE ID_VK = ' + str(id))
             connection.commit()
-             
+            UserParams.update(id)
             vk.method("messages.send", {"peer_id": id, "message": "Имя успешно изменено на: " + str(body), "keyboard": keyboards.KeyboardProfile(),
                                                 "random_id": random.randint(1, 2147483647)})
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
