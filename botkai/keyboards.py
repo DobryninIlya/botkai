@@ -334,7 +334,7 @@ def getMainKeyboard(role):
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
         keyboard = str(keyboard.decode('utf-8'))
-    elif role == 6:
+    elif role == 6 and False:
         keyboard = {
             "one_time": False,
             "buttons": [
@@ -430,6 +430,8 @@ def KeyboardProfile():
                 get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
                 ],
             ]
+        if UserParams.role == 6:
+            main_buttons[-1].remove(main_buttons[-1][-1])
         sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
         cursor.execute(sql)
         starosta_count = cursor.fetchone()[0]
@@ -438,9 +440,9 @@ def KeyboardProfile():
         if UserParams.adminLevel >= 2:
             main_buttons.append([get_button(label="Меню старосты", color="default", payload = {'button': 'starosta_menu'})])
 
-        if UserParams.own_shed:
+        if UserParams.own_shed and UserParams.role != 6:
             main_buttons.append([get_button(label="Использовать свое расписание", color="positive", payload={'button': 'select_own_shedule'})])
-        else:
+        elif UserParams.role != 6:
             main_buttons.append([get_button(label="Использовать расписание группы", color="default", payload={'button': 'select_own_shedule'})])
 
         main_buttons.append([get_button(label="Назад", color="default", payload={'button': 'tomainmenu'})])
@@ -1072,6 +1074,17 @@ help_starosta_upload = {
 }
 help_starosta_upload = json.dumps(help_starosta_upload, ensure_ascii=False).encode('utf-8')
 help_starosta_upload = str(help_starosta_upload.decode('utf-8'))
+
+help_starosta_affiliate = {
+    "inline": True,
+    "buttons": [
+        [get_button_vkminiapp(label="Гайд по настройке расписания", app_id='7505621', owner_id="182372147", hash="affiliate")]
+
+    ]
+
+}
+help_starosta_affiliate = json.dumps(help_starosta_affiliate, ensure_ascii=False).encode('utf-8')
+help_starosta_affiliate = str(help_starosta_affiliate.decode('utf-8'))
 
 
 

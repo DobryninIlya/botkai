@@ -324,11 +324,18 @@ def IsRegistred():
                             conn.commit()
                             UserParams.update(int(MessageSettings.id))
                             vk.method("messages.send",
-                                {"peer_id": id, "message": "Ваше расписание отстутствует на сайте КАИ, однако вы можете добавить самостоятельно. Следуйте инструкциям! \n В разработке :)"
+                                {"peer_id": id, "message": "Ваше расписание отстутствует на сайте КАИ, однако вы"
+                                       " можете добавить самостоятельно. Следуйте инструкциям! \n &#128295; Раздел в стадии тестирования :) &#128295;"
                                                            ,"keyboard" : keyboards.getMainKeyboard(6), "random_id": random.randint(1, 2147483647)})
+                            vk.method("messages.send",
+                                      {"peer_id": id, "message": "Инструкция приложена к этому сообщению.",
+                                       "keyboard": keyboards.help_starosta_affiliate,
+                                       "random_id": random.randint(1, 2147483647)})
                         else:
-                            vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",  "keyboard" : keyboards.get_undo,
-                                                "random_id": random.randint(1, 2147483647)})
+                            vk.method("messages.send",
+                                      {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",
+                                       "keyboard" : keyboards.get_undo,
+                                        "random_id": random.randint(1, 2147483647)})
                         return False
                     else:
                         vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.",  "keyboard" : keyboards.get_undo,
@@ -930,7 +937,7 @@ def CheckStatus():
             
             
                 if len(MessageSettings.getText()) > 250:
-                    vk.method("messages.send", {"peer_id": id, "message": "Превышена максимаьная длина объявления" , "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                    vk.method("messages.send", {"peer_id": id, "message": "Превышена максимальная длина объявления" , "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                                     "random_id": random.randint(1, 2147483647)})
                     return "ok"
                 #print(count)
@@ -982,7 +989,7 @@ def CheckStatus():
             cursor.execute(sql)
             cursor.execute('UPDATE users SET ischeked = 0 WHERE ID_VK = ' + str(id))
             connection.commit()
-             
+            UserParams.update(id)
             vk.method("messages.send", {"peer_id": id, "message": "Имя успешно изменено на: " + str(body), "keyboard": keyboards.KeyboardProfile(),
                                                 "random_id": random.randint(1, 2147483647)})
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
