@@ -227,6 +227,8 @@ def info():
             group = UserParams.groupId
         else:
             group = 1000000000 + int(id)
+            if UserParams.role == 6:
+                group = UserParams.groupId
         date = ""
         if datetime.date.today().month > 7:
             date = "{}-12-30".format(datetime.date.today().year)
