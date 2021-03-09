@@ -83,7 +83,8 @@ def info():
 с 15:00 до 19:00 (вечернее и заочное отделение)"""
         vkid += "iante_knrtu_kai" + " (Дирекция)"
         comm += "https://vk.me/join/AJQ1d/k1ehYuyfxfunfVwa8o"
-
+    elif '569' in str(group):
+        mesg = "Информация будет дополнена."
         
     if header:
         mesg = header + "\n" + adress + phone + mail + hours + vkid + comm
