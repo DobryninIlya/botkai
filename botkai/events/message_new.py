@@ -325,7 +325,7 @@ def IsRegistred():
                             UserParams.update(int(MessageSettings.id))
                             vk.method("messages.send",
                                 {"peer_id": id, "message": "Ваше расписание может отсутствовать на сайте КАИ, однако вы"
-                                       " можете добавить самостоятельно. Следуйте инструкциям! \n &#128295; Раздел в стадии тестирования :) &#128295;"
+                                       " можете добавить его самостоятельно, если его все же нет. Следуйте инструкциям! \n &#128295; Раздел в стадии тестирования :) &#128295;"
                                                            ,"keyboard" : keyboards.getMainKeyboard(6), "random_id": random.randint(1, 2147483647)})
                             vk.method("messages.send",
                                       {"peer_id": id, "message": "Инструкция приложена к этому сообщению.",
