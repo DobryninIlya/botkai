@@ -326,9 +326,15 @@ def IsRegistred():
                             vk.method("messages.send",
                                 {"peer_id": id, "message": "Ваше расписание отстутствует на сайте КАИ, однако вы можете добавить самостоятельно. Следуйте инструкциям! \n В разработке :)"
                                                            ,"keyboard" : keyboards.getMainKeyboard(6), "random_id": random.randint(1, 2147483647)})
+                            vk.method("messages.send",
+                                      {"peer_id": id, "message": "Инструкция приложена к этому сообщению.",
+                                       "keyboard": keyboards.help_starosta_affiliate,
+                                       "random_id": random.randint(1, 2147483647)})
                         else:
-                            vk.method("messages.send", {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",  "keyboard" : keyboards.get_undo,
-                                                "random_id": random.randint(1, 2147483647)})
+                            vk.method("messages.send",
+                                      {"peer_id": id, "message": "Я не могу обработать такой номер группы. ",
+                                       "keyboard" : keyboards.get_undo,
+                                        "random_id": random.randint(1, 2147483647)})
                         return False
                     else:
                         vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.",  "keyboard" : keyboards.get_undo,

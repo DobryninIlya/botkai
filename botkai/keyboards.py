@@ -1075,6 +1075,17 @@ help_starosta_upload = {
 help_starosta_upload = json.dumps(help_starosta_upload, ensure_ascii=False).encode('utf-8')
 help_starosta_upload = str(help_starosta_upload.decode('utf-8'))
 
+help_starosta_affiliate = {
+    "inline": True,
+    "buttons": [
+        [get_button_vkminiapp(label="Гайд по настройке расписания", app_id='7505621', owner_id="182372147", hash="affiliate")]
+
+    ]
+
+}
+help_starosta_affiliate = json.dumps(help_starosta_affiliate, ensure_ascii=False).encode('utf-8')
+help_starosta_affiliate = str(help_starosta_affiliate.decode('utf-8'))
+
 
 
 submenu = {
