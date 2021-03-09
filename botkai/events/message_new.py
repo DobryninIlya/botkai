@@ -1018,7 +1018,7 @@ def CheckStatus():
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Изменено", "keyboard" : keyboards.getMainKeyboard(UserParams.role),
                             "random_id": random.randint(1, 2147483647)})
-                elif (int)(body) > 10000:
+                elif (int)(body) > 10000 and False:
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
                 else:
