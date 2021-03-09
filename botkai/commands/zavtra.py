@@ -55,8 +55,10 @@ def showTimetable(groupId, tomorrow=0):
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
-        if len(response) < 2:
+        if len(response) < 2 and UserParams.role != 6:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
+        elif UserParams.role == 6:
+            return "\n&#10060;Сначала наеобходимо загрузить расписание. Сделать это можно через меню старосты. Ознакомьтесь с инструкцией"
         
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
         result = ''
