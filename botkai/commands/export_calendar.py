@@ -82,9 +82,10 @@ def makeFile(week, group):
     days_in_week = list(response.keys())
     days_in_week.sort()
 
-    current_week = 0
+    current_week = -1
     while (current_week <= week):
         for key in days_in_week:
+            current_week += 1
             if str(current_date.isoweekday()) not in days_in_week:
                 current_date = current_date + datetime.timedelta(days=1)
                 continue
@@ -127,7 +128,7 @@ def makeFile(week, group):
             # if str(current_date.isoweekday()) not in days_in_week:
             #     current_date = current_date + datetime.timedelta(days=1)
             #     continue
-        current_week += 1
+
 
     with open('{}.ics'.format(group), 'w') as f:
         f.write(str(c))
