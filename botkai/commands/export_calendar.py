@@ -91,7 +91,8 @@ def makeFile(week, group):
                 dayDate = row["dayDate"].rstrip().lower()
                 chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[1] + chetn + current_week) % 2 else False # Если True чет, False - неч
                 prefix = ""
-                if (dayDate == 'чет' and not chetn) or (dayDate == 'неч' and chetn):
+                print("DATE ", current_date, "CHETNOST ", chetnost)
+                if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
                     continue
                 elif dayDate == 'чет/неч':
                     if chetnost:
