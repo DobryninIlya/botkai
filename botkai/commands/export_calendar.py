@@ -89,7 +89,7 @@ def makeFile(week, group):
                 break
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
-                chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[1] + chetn) % 2 else False # Если True чет, False - неч
+                chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[1] + chetn + current_week) % 2 else False # Если True чет, False - неч
                 prefix = ""
                 if (dayDate == 'чет' and not chetn) or (dayDate == 'неч' and chetn):
                     continue
@@ -121,7 +121,7 @@ def makeFile(week, group):
                 current_date = current_date + datetime.timedelta(days=1)
                 continue
         current_week += 1
-        current_date += datetime.timedelta(days=7)
+
     with open('{}.ics'.format(group), 'w') as f:
         f.write(str(c))
 
