@@ -121,7 +121,7 @@ def makeFile(week, group):
                 current_date = current_date + datetime.timedelta(days=1)
                 continue
         current_week += 1
-        chetn += 1
+        current_date += datetime.timedelta(days=7)
     with open('{}.ics'.format(group), 'w') as f:
         f.write(str(c))
 
