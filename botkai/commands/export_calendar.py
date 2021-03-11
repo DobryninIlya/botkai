@@ -85,10 +85,11 @@ def makeFile(week, group):
 
     current_week = 0
     while (current_week <= week):
+        if str(current_date.isoweekday()) not in days_in_week:
+            current_date = current_date + datetime.timedelta(days=1)
+            continue
         for key in days_in_week:
-            if str(current_date.isoweekday()) not in days_in_week:
-                current_date = current_date + datetime.timedelta(days=1)
-                continue
+
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
                 break
             chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
@@ -131,6 +132,7 @@ def makeFile(week, group):
             #     current_date = current_date + datetime.timedelta(days=1)
             #     continue
         current_week += 1
+
 
     with open('{}.ics'.format(group), 'w') as f:
         f.write(str(c))
