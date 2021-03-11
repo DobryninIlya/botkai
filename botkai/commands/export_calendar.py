@@ -95,6 +95,7 @@ def makeFile(week, group):
                                     1] + chetn + current_week) % 2 else False  # Если True чет, False - неч
             print("DATE ", current_date, current_week, "CHETNOST ", chetnost, datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
                                     1] + chetn + current_week)
+
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
                 prefix = ""
