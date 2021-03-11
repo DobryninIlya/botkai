@@ -85,25 +85,15 @@ def makeFile(week, group):
 
     current_week = 0
     while (current_week <= week):
-        if str(current_date.isoweekday()) not in days_in_week:
-            current_date = current_date + datetime.timedelta(days=1)
-            continue
         for key in days_in_week:
-
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
                 break
-            chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                                    1] + chetn) % 2 else False  # Если True чет, False - неч
-            print("DATE ", current_date, current_week, "CHETNOST ", chetnost, datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                                    1] + chetn)
-
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
+                chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[1] + chetn) % 2 else False # Если True чет, False - неч
                 prefix = ""
-                # pprint(row)
-                if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
+                if (dayDate == 'чет' and not chetn) or (dayDate == 'неч' and chetn):
                     continue
-                    # pass
                 elif dayDate == 'чет/неч':
                     if chetnost:
                         prefix = " (1) гр."
@@ -128,12 +118,10 @@ def makeFile(week, group):
                 c.events.add(e)
 
             current_date = current_date + datetime.timedelta(days=1)
-            # if str(current_date.isoweekday()) not in days_in_week:
-            #     current_date = current_date + datetime.timedelta(days=1)
-            #     continue
+            if str(current_date.isoweekday()) not in days_in_week:
+                current_date = current_date + datetime.timedelta(days=1)
+                continue
         current_week += 1
-
-
     with open('{}.ics'.format(group), 'w') as f:
         f.write(str(c))
 
