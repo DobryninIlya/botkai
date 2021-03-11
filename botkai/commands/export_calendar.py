@@ -99,7 +99,8 @@ def makeFile(week, group):
                 prefix = ""
 
                 if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
-                    continue
+                    # continue
+                    pass
                 elif dayDate == 'чет/неч':
                     if chetnost:
                         prefix = " (1) гр."
