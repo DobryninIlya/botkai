@@ -92,9 +92,9 @@ def makeFile(week, group):
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
                 break
             chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                                    1] + chetn + current_week) % 2 else False  # Если True чет, False - неч
+                                    1] + chetn) % 2 else False  # Если True чет, False - неч
             print("DATE ", current_date, current_week, "CHETNOST ", chetnost, datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                                    1] + chetn + current_week)
+                                    1] + chetn)
 
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
