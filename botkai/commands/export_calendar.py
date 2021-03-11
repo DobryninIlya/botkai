@@ -98,7 +98,7 @@ def makeFile(week, group):
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
                 prefix = ""
-                pprint(row)
+                # pprint(row)
                 if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
                     # continue
                     pass
