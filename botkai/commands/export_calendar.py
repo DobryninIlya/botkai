@@ -8,6 +8,7 @@ import docx
 import requests
 import datetime
 import traceback
+import pprint
 from ics import Calendar, Event
 today = datetime.date.today()
 chetn = UserParams.getChetn()
@@ -97,7 +98,7 @@ def makeFile(week, group):
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
                 prefix = ""
-
+                pprint(row)
                 if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
                     # continue
                     pass
