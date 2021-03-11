@@ -101,8 +101,8 @@ def makeFile(week, group):
                 prefix = ""
                 # pprint(row)
                 if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
-                    # continue
-                    pass
+                    continue
+                    # pass
                 elif dayDate == 'чет/неч':
                     if chetnost:
                         prefix = " (1) гр."
