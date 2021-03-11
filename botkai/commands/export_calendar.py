@@ -88,10 +88,14 @@ def makeFile(week, group):
         for key in days_in_week:
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
                 break
+            print("DATE ", current_date, current_week, "CHETNOST ", chetnost,
+                  datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
+                      1] + chetn)
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
                 chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[1] + chetn) % 2 else False # Если True чет, False - неч
                 prefix = ""
+
                 if (dayDate == 'чет' and not chetn) or (dayDate == 'неч' and chetn):
                     continue
                 elif dayDate == 'чет/неч':
