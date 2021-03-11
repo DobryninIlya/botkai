@@ -8,7 +8,7 @@ import docx
 import requests
 import datetime
 import traceback
-import pprint
+from pprint import pprint
 from ics import Calendar, Event
 today = datetime.date.today()
 chetn = UserParams.getChetn()
