@@ -430,7 +430,7 @@ def KeyboardProfile():
                 get_button(label="Подписки", color = "default", payload = {'button': 'distrMenu'})
                 ],
             ]
-        if UserParams.role == 6:
+        if UserParams.role == 6 and False:
             main_buttons[-1].remove(main_buttons[-1][-1])
         sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
         cursor.execute(sql)

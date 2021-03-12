@@ -28,13 +28,10 @@ def info():
     return "ok"
 
 
-
 command = command_class.Command()
 
 
-
-
 command.keys = ['способ получения расписания']
-command.desciption = 'способ получения расписания'
+command.description = 'способ получения расписания'
 command.process = info
 command.payload = "select_own_shedule"
