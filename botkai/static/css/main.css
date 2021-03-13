@@ -10,6 +10,12 @@ src: url("../fonts/Ruda.ttf") format("truetype");
 font-style: normal;
 font-weight: normal;
 }
+@font-face {
+font-family: "Roboto";
+src: url("../fonts/Roboto-Medium.ttf") format("truetype");
+font-style: normal;
+font-weight: normal;
+}
 html {
     position: relative;
     width: 100%;
@@ -338,7 +344,24 @@ p.main_paragraph {
     font-family: Pangolin;
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 20px;
+    display: block;
+
+    color: #FFFFFF;
+}
+
+.main_header {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 43px;
+    margin-right: 43px;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
     line-height: 20px;
     display: block;
 

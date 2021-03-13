@@ -70,6 +70,10 @@ def miniapp(request):
     return render(request, 'botkaiapp/index.html')
 
 
+def main_miniapp(request):
+    return render(request, 'botkaiapp/main.html')
+
+
 def web_yandex(request):
     return render(request, 'botkaiapp/yandex_f66897e4739fe69c.html')
 
