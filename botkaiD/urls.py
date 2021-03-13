@@ -18,13 +18,15 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from botkai.views import index, web_yandex,miniapp, index
+from botkai.views import index, web_yandex, miniapp, index, main_miniapp
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path(r'^botkai/', include("botkai.urls")),
     url(r'^botkai/miniapp/$', miniapp),
+    url(r'^botkai/miniapp/main/$', main_miniapp),
+
     url('botkai/', index),
     path('yandex_f66897e4739fe69c.html', web_yandex),
     path('assistent/', include("aliceskill.urls")),
