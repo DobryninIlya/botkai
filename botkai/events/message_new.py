@@ -640,53 +640,57 @@ def CheckStatus():
             conn.commit()
             return "ok"
         elif status == 48:
-            
-            domain  = body.partition("vk.com/")
-            print(domain)
-            if domain[1] == "vk.com/":
-                domain_id = domain[2]
-            elif not domain[1] and not domain[2] and domain[0]:
-                domain_id = domain[0]
-            else:
-                domain_id = False
-                vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
-                                                    "random_id": random.randint(1, 2147483647)})
-            resp = vk.method("users.get", {"user_ids": str(domain_id)})
-            print(resp)
-            id_student = 0
             try:
-                id_student = resp[0]["id"]
-            except KeyError:
-                vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Такого человека нет.",
-                                                    "random_id": random.randint(1, 2147483647)})
-            sql = "SELECT * FROM users WHERE id_vk = {}".format(id_student)
-            cursor.execute(sql)
-            res = cursor.fetchone()
-            print(res)
-            if res:
-                student_groupId = int(res[2])
-
-            else:
-                vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не зарегистрирован.",
-                                                    "random_id": random.randint(1, 2147483647)})
-                return "ok"
-            if UserParams.adminLevel >= 2:
-                if UserParams.groupId != student_groupId:
-                    vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
-                                                    "random_id": random.randint(1, 2147483647)})
-                    return "ok"
-                sql = "UPDATE users SET groupreal = 0, groupp = 9999 WHERE ID_VK = {}".format( id_student )
+                domain  = body.partition("vk.com/")
+                print(domain)
+                if domain[1] == "vk.com/":
+                    domain_id = domain[2]
+                elif not domain[1] and not domain[2] and domain[0]:
+                    domain_id = domain[0]
+                else:
+                    domain_id = False
+                    vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
+                                                        "random_id": random.randint(1, 2147483647)})
+                resp = vk.method("users.get", {"user_ids": str(domain_id)})
+                print(resp)
+                id_student = 0
+                try:
+                    id_student = resp[0]["id"]
+                except KeyError:
+                    vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Такого человека нет.",
+                                                        "random_id": random.randint(1, 2147483647)})
+                sql = "SELECT * FROM users WHERE id_vk = {}".format(id_student)
                 cursor.execute(sql)
-                connection.commit()
-                vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
-                                "random_id": random.randint(1, 2147483647)})
-                vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты старостой из группы. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.getMainKeyboard(1),
-                                "random_id": random.randint(1, 2147483647)})
-                
-            
-            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
-            conn.commit()
-            return "ok"
+                res = cursor.fetchone()
+                print(res)
+                if res:
+                    student_groupId = int(res[2])
+
+                else:
+                    vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не зарегистрирован.",
+                                                        "random_id": random.randint(1, 2147483647)})
+                    return "ok"
+                if UserParams.adminLevel >= 2:
+                    if UserParams.groupId != student_groupId:
+                        vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
+                                                        "random_id": random.randint(1, 2147483647)})
+                        return "ok"
+                    sql = "UPDATE users SET groupreal = 0, groupp = 9999 WHERE ID_VK = {}".format( id_student )
+                    cursor.execute(sql)
+                    connection.commit()
+                    vk.method("messages.send", {"peer_id": id, "message": "@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
+                                    "random_id": random.randint(1, 2147483647)})
+                    vk.method("messages.send", {"peer_id": id_student, "message": "Вы были кикнуты старостой из группы. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно","keyboard": keyboards.getMainKeyboard(1),
+                                    "random_id": random.randint(1, 2147483647)})
+
+
+                cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+                conn.commit()
+                return "ok"
+            except:
+                vk.method("messages.send", {"peer_id": id, "message": "Некорректно. Повтори ввод",
+                                            "random_id": random.randint(1, 2147483647)})
+
         elif status == 49:
             
             domain  = body.partition("vk.com/")
