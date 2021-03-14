@@ -371,6 +371,7 @@ def IsRegistred():
                     print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 7:
+                print("STATUS 7")
                 try:
 
                     body = body.lower()
@@ -379,7 +380,7 @@ def IsRegistred():
                                              params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                      "p_p_resource_id": "getLecturersURL",
                                                      "p_p_lifecycle": "2"})
-                    print(response.json())
+                    # print(response.json())
 
                     if not len(response.json()):
                         vk.method("messages.send",
