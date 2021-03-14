@@ -390,6 +390,7 @@ def IsRegistred():
                         for row in response.json():
                             if row["id"] == login:
                                 name = row["lecturer"]
+                                print(row["lecturer"])
                             break
                         if not name:
                             vk.method("messages.send",
