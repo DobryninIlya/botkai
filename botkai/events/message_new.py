@@ -106,7 +106,7 @@ def message_new(request):
         MessageSettings.update(message_params)
         if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
             vk.method("messages.send",
-                      {"peer_id": int(MessageSettings.id), "message": "Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key), "random_id": random.randint(1, 2147483647)})
+                      {"peer_id": 159773942, "message": "Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key), "random_id": random.randint(1, 2147483647)})
             print("СЕКРЕТНЫЙ КЛЮЧ НЕ СОШЕЛСЯ")
             return "У тебя почти получилось :)"
         if IsRegistred():

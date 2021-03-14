@@ -1127,4 +1127,23 @@ buildings_menu = {
 buildings_menu = json.dumps(buildings_menu, ensure_ascii=False).encode('utf-8')
 buildings_menu = str(buildings_menu.decode('utf-8'))
 
+keyboardPrepodShare = {
+    # "one_time": True,
+    "buttons": [
+        # [get_button(label="Сообщение студентам", color="primary")],
+        [get_button(label="Сообщение студентам", color="primary")],
+        [get_button(label="Объявление студентам по дате", color="primary")],
+        [get_button(label="Задание студентам по дате", color="primary")],
+        [get_button(label="Собственное расписание", color="primary")],
+        [get_button(label="Выход", color="negative")]
+
+
+    ],
+    "inline": True
+
+}
+keyboardPrepodShare = json.dumps(keyboardPrepodShare, ensure_ascii=False).encode('utf-8')
+keyboardPrepodShare = str(keyboardPrepodShare.decode('utf-8'))
+
+
 #######################################Keyboards#####################################################
