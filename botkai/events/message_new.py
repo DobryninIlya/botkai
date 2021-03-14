@@ -388,11 +388,11 @@ def IsRegistred():
                         print(login)
                         name = ""
                         for row in response.json():
-                            print(row)
+                            print(row,row["id"])
                             if row["id"] == login:
                                 name = row["lecturer"]
                                 print(row["lecturer"])
-                            break
+                                break
                         if not name:
                             vk.method("messages.send",
                                       {"peer_id": id,
