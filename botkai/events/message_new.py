@@ -12,6 +12,7 @@ import os, importlib
 import sys
 import apiai
 from pprint import pprint
+from numba import jit
 
 cursor = classes.cursor
 cursorR = classes.cursorR
@@ -96,7 +97,7 @@ def textMessage():
         vk.method("messages.send",
                 {"peer_id": MessageSettings.getId(), "message": "Я не понял тебя","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
-
+@jit(nopython=True)
 def message_new(request):
 
     try:
@@ -178,7 +179,7 @@ def message_new(request):
 
 
 
-
+@jit(nopython=True)
 def IsRegistred():
     try:
         body = MessageSettings.getText()
@@ -409,7 +410,7 @@ def IsRegistred():
 
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
-
+@jit(nopython=True)
 def getGroupsResponse(groupNumber):
     try:
         cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
@@ -426,7 +427,7 @@ def getGroupsResponse(groupNumber):
 
 
 
-
+@jit(nopython=True)
 def showGroupId(groupNumber):
     id = int(MessageSettings.id)
     try:
@@ -541,7 +542,7 @@ def StatusR(id): ### Текущий статус в таблице Status (RAM)
         return
     
 
-
+@jit(nopython=True)
 def damerau_levenshtein_distance(s1, s2):
     d = {}
     lenstr1 = len(s1)
