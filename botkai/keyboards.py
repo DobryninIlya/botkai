@@ -264,7 +264,7 @@ def getMainKeyboard(role):
                 get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}),
                 get_button(label="Обратная связь", color="primary", payload = {'button': 'feedback'})
                 ],
-            [get_button(label="Другие действия", color="positive", payload={'button': 'prepod_submenu'})]
+            [get_button(label="Другие действия", color="primary", payload={'button': 'prepod_submenu'})]
             ]
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
