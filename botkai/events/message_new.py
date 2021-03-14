@@ -544,18 +544,19 @@ def InBase(id): ### Проверка на зарегестрированност
             
         #allCommands += 1
         #MessageSettings.allCommands = allCommands
-        sql = "SELECT Groupp, login, role FROM Users WHERE ID_VK=" + str(id) + ";"
+        sql = "SELECT Groupp, login, name FROM Users WHERE ID_VK=" + str(id) + ";"
         cursor.execute(sql)
         res=cursor.fetchone()
         if res == None:
             return False
         group = res[0]
+
         login = ""
         try:
             login = res[1]
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())
-        if login:
+        if login and res[2]:
             return True
 
         if len(str(group)) == 0:
