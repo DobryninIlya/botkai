@@ -35,7 +35,7 @@ UserParams = classes.UserParams
 command_list = classes.command_list
 
 MessageSettings=classes.MessageSettings
-@jit(nopython=True)
+
 def load_modules():
     try:
         files = os.listdir("/app/botkai/commands")
@@ -542,7 +542,7 @@ def StatusR(id): ### Текущий статус в таблице Status (RAM)
         return
     
 
-
+@jit(nopython=True)
 def damerau_levenshtein_distance(s1, s2):
     d = {}
     lenstr1 = len(s1)
