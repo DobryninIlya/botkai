@@ -388,6 +388,7 @@ def IsRegistred():
                         print(login)
                         name = ""
                         for row in response.json():
+                            print(row)
                             if row["id"] == login:
                                 name = row["lecturer"]
                                 print(row["lecturer"])
