@@ -393,7 +393,7 @@ def IsRegistred():
                         name = ""
                         for row in response.json():
                             print(row,row["id"])
-                            if row["id"] == login:
+                            if row["id"] == login.rstrip():
                                 name = row["lecturer"]
                                 sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                                 cursorR.execute(sql)
