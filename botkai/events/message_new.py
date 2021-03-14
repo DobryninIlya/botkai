@@ -468,7 +468,7 @@ def showGroupId(groupNumber):
 
 
 
-
+@jit(nopython=True, fastmath=True, cache=True)
 def InBaseR(id): ### Проверка на зарегестрированность и наличие в базе Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id) +";"
     cursorR.execute(sql)
@@ -530,6 +530,8 @@ def InBase(id): ### Проверка на зарегестрированност
         print("GLOBAL ERROR - RESTART ")
         sys.exit(1)
 
+
+@jit(nopython=True, fastmath=True, cache=True)
 def StatusR(id): ### Текущий статус в таблице Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id)
     cursorR.execute(sql)
