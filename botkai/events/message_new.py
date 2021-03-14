@@ -259,7 +259,7 @@ def IsRegistred():
                     sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию", "keyboard" : keyboards.get_undo,
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свой логин без лишних символов.", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 elif role == 4:
                     sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -350,7 +350,7 @@ def IsRegistred():
 
                     body = body.lower()
                     response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
-                    print(response.json())
+                    # print(response.json())
                     if not len(response.json()):
                         vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
@@ -365,7 +365,7 @@ def IsRegistred():
                         cursorR.execute(sql)
                         conn.commit()
 
-                        vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию", "keyboard": keyboards.getMainKeyboard(2),
+                        vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию.", "keyboard": keyboards.getMainKeyboard(2),
                                                     "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
@@ -380,7 +380,7 @@ def IsRegistred():
                                              params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                      "p_p_resource_id": "getLecturersURL",
                                                      "p_p_lifecycle": "2"})
-                    # print(response.json())
+                    print(response.json())
 
                     if not len(response.json()):
                         vk.method("messages.send",
