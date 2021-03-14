@@ -350,7 +350,7 @@ def IsRegistred():
 
                     body = body.lower()
                     response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
-                    breakpoint()
+                    print(response.json())
                     if not len(response.json()):
                         vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
