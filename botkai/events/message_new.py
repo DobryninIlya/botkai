@@ -371,9 +371,17 @@ def IsRegistred():
                     body = body.lower()
                     response = requests.post(BASE_URL_STAFF, data="query=" + str(body.encode('utf-8')),
                                              headers={'Content-Type': "application/x-www-form-urlencoded"},
-                                             params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
-                                                     "p_p_resource_id": "getLecturersURL",
-                                                     "p_p_lifecycle": "2"})
+                                             params={
+                                          'p_p_id': 'pubLecturerSchedule_WAR_publicLecturerSchedule10',
+                                          'p_p_lifecycle': '2',
+                                          'p_p_state': 'normal',
+                                          'p_p_resource_id': 'getLecturersURL',
+                                          'p_p_cacheability': 'cacheLevelPage',
+                                          'p_p_col_id': 'column-1',
+                                          'p_p_col_count': '1',
+                                          'Content-Type': 'application/x-www-form-urlencoded',
+                                          'Cookie': 'COOKIE_SUPPORT=true; GUEST_LANGUAGE_ID=ru_RU; JSESSIONID=73E0CB2BB70D756E511781E44987B1DE'
+                                        }
                     print(response.json())
 
                     if not len(response.json()):
