@@ -556,7 +556,8 @@ def InBase(id): ### Проверка на зарегестрированност
             login = res[1]
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())
-        if login and res[2]:
+        print("Name", res[2])
+        if login and res[2].lstrip().rstrip():
             return True
 
         if len(str(group)) == 0:
