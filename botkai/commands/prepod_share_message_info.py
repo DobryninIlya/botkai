@@ -9,7 +9,7 @@ uptime = datetime.datetime.now()
 
 def info():
     vk.method("messages.send",
-              {"peer_id": MessageSettings.getId(), "message": "Вы можете отослать своим студентам сообщение." /
+              {"peer_id": MessageSettings.getId(), "message": "Вы можете отослать своим студентам сообщение."
                                                               "Можно прикрепить медиавложения.",
                "keyboard": keyboardPrepodShareMessage, "random_id": random.randint(1, 2147483647)})
 
