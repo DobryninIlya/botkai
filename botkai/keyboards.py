@@ -263,9 +263,8 @@ def getMainKeyboard(role):
             [
                 get_button(label="Четность недели", color="default", payload = {'button': 'chetnost'}),
                 get_button(label="Обратная связь", color="primary", payload = {'button': 'feedback'})
-                ]
-
-
+                ],
+            [get_button(label="Другие действия", color="positive", payload={'button': 'prepod_submenu'})]
             ]
             }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
@@ -1127,7 +1126,7 @@ buildings_menu = {
 buildings_menu = json.dumps(buildings_menu, ensure_ascii=False).encode('utf-8')
 buildings_menu = str(buildings_menu.decode('utf-8'))
 
-keyboardPrepodShare = {
+keyboardPrepodSubmenu = {
     # "one_time": True,
     "buttons": [
         # [get_button(label="Сообщение студентам", color="primary")],
@@ -1142,8 +1141,8 @@ keyboardPrepodShare = {
     "inline": True
 
 }
-keyboardPrepodShare = json.dumps(keyboardPrepodShare, ensure_ascii=False).encode('utf-8')
-keyboardPrepodShare = str(keyboardPrepodShare.decode('utf-8'))
+keyboardPrepodSubmenu = json.dumps(keyboardPrepodSubmenu, ensure_ascii=False).encode('utf-8')
+keyboardPrepodSubmenu = str(keyboardPrepodSubmenu.decode('utf-8'))
 
 
 #######################################Keyboards#####################################################
