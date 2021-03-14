@@ -51,3 +51,5 @@ def shed_update():
             err += 1
     print("+++++++++++++\nЗавершено. Ошибок: {}/{} \nВремя выполнения: {}\n+++++++++++++".format(err,len(result), time.time() - start_time))
     return
+
+shed_update()
