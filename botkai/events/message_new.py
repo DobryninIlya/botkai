@@ -381,7 +381,7 @@ def IsRegistred():
                                           'p_p_col_count': '1',
                                           'Content-Type': 'application/x-www-form-urlencoded',
                                           'Cookie': 'COOKIE_SUPPORT=true; GUEST_LANGUAGE_ID=ru_RU; JSESSIONID=73E0CB2BB70D756E511781E44987B1DE'
-                                        }
+                                        })
                     print(response.json())
 
                     if not len(response.json()):
