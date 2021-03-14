@@ -1,12 +1,13 @@
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from botkai.distribution import main as distribution
 import datetime
 import requests
 import json
 import traceback
 from botkai.classes import connection, cursor
+from scripts.shed_updater import shed_update
 
-sched = BlockingScheduler()
+sched = BackgroundScheduler()
 
 # @sched.scheduled_job('interval', minutes=1)
 # @sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
@@ -43,5 +44,8 @@ def getGroupsResponse():
         print('Ошибка:\n', traceback.format_exc())  
     return
 
-# getGroupsResponse()
+@sched.scheduled_job('cron', hour=2)
+def scheduled_job():
+    shed_update()
+
 sched.start()
