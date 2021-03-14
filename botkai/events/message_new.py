@@ -369,19 +369,19 @@ def IsRegistred():
                               {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.",
                                "keyboard": keyboards.get_undo,
                                "random_id": random.randint(1, 2147483647)})
-                    print('Ошибка:\n', traceback.format_exc())
+                    # print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 5:
                 print("STATUS 5")
                 try:
 
                     body = body.lower()
-                    print(str(body))
+                    # print(str(body))
                     response = requests.post(
                         'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
                         '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
                         'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body)
-                    print(response.json())
+                    # print(response.json())
 
                     if not len(response.json()):
                         vk.method("messages.send",
@@ -393,10 +393,10 @@ def IsRegistred():
                         sql = "SELECT login FROM users WHERE id_vk={}".format(id)
                         cursor.execute(sql)
                         login = cursor.fetchone()[0]
-                        print(login)
+                        # print(login)
                         name = ""
                         for row in response.json():
-                            print(row,row["id"])
+                            # print(row,row["id"])
                             if row["id"].rstrip() == login.rstrip():
                                 name = row["lecturer"]
                                 sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
