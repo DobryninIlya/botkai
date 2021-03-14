@@ -358,7 +358,7 @@ def IsRegistred():
                         sql = "UPDATE Status SET status = 5 WHERE id_vk = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
-                        sql = "UPDATE users SET login = '{}' WHERE id_vk ={}".formta(body.lower(), id)
+                        sql = "UPDATE users SET login = '{}' WHERE id_vk ={}".format(body.lower(), id)
                         cursor.execute(sql)
                         connection.commit()
                         vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию.", "keyboard": keyboards.get_undo,
