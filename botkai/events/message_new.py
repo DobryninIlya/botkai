@@ -468,7 +468,7 @@ def showGroupId(groupNumber):
 
 
 
-@jit(fastmath=True, cache=True)
+
 def InBaseR(id): ### Проверка на зарегестрированность и наличие в базе Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id) +";"
     cursorR.execute(sql)
@@ -531,7 +531,7 @@ def InBase(id): ### Проверка на зарегестрированност
         sys.exit(1)
 
 
-@jit(fastmath=True, cache=True)
+
 def StatusR(id): ### Текущий статус в таблице Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id)
     cursorR.execute(sql)
