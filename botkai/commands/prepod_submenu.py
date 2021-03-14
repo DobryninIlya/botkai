@@ -22,7 +22,7 @@ command = command_class.Command()
 
 
 command.keys = ['Связь со студентами']
-command.desciption = 'связь со студентами'
+command.description = 'связь со студентами'
 command.process = info
 command.payload = "prepod_submenu"
 command.role = [2]
