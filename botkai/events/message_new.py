@@ -256,10 +256,10 @@ def IsRegistred():
                     vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 elif role == 2:
-                    sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
+                    sql = "UPDATE Status SET Status = 7 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)", "keyboard" : keyboards.get_undo,
+                    vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 elif role == 4:
                     sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -366,6 +366,39 @@ def IsRegistred():
                         conn.commit()
                          
                         vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(2),
+                                                    "random_id": random.randint(1, 2147483647)})
+                except Exception as E:
+                    print('Ошибка:\n', traceback.format_exc())
+                    return False
+            elif StatusR(id) == 7:
+                try:
+
+                    body = body.lower()
+                    response = requests.post(BASE_URL_STAFF, data="query=" + str(body),
+                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                             params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
+                                                     "p_p_resource_id": "getLecturersURL",
+                                                     "p_p_lifecycle": "2", "p_p_resource_id": "schedule"})
+                    print(response.json())
+
+                    if not len(response.json()):
+                        vk.method("messages.send",
+                                  {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.",
+                                   "keyboard": keyboards.get_undo,
+                                   "random_id": random.randint(1, 2147483647)})
+                    else:
+                        sql = "SELECT login FROM users WHERE id_vk={}".format(id)
+                        cursor.execute(sql)
+                        login = cursor.fetchone()[0]
+                        print(login)
+                        print(response.json()[login])
+                        sql = "UPDATE Status SET status = 4 WHERE id_vk = " + str(id) + ";"
+                        cursorR.execute(sql)
+                        conn.commit()
+
+                        vk.method("messages.send", {"peer_id": id,
+                                                    "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)",
+                                                    "keyboard": keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
