@@ -355,17 +355,11 @@ def IsRegistred():
                         vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
                     else:
-                        sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
-                        cursor.execute(sql)
-                        
-                        sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
-                        cursor.execute(sql)
-                        connection.commit()
                         sql = "UPDATE Status SET status = 5 WHERE id_vk = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
 
-                        vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию.", "keyboard": keyboards.getMainKeyboard(2),
+                        vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию.", "keyboard": keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
@@ -388,6 +382,7 @@ def IsRegistred():
                                    "keyboard": keyboards.get_undo,
                                    "random_id": random.randint(1, 2147483647)})
                     else:
+
                         sql = "SELECT login FROM users WHERE id_vk={}".format(id)
                         cursor.execute(sql)
                         login = cursor.fetchone()[0]
@@ -396,7 +391,12 @@ def IsRegistred():
                         sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
+                        sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
+                        cursor.execute(sql)
 
+                        sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
+                        cursor.execute(sql)
+                        connection.commit()
                         vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.",
                                                     "keyboard": keyboards.getMainKeyboard(2),
                                                     "random_id": random.randint(1, 2147483647)})
