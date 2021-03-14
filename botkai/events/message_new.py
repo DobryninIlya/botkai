@@ -22,7 +22,7 @@ connection = classes.connection
 try:
     cursorR.execute("""CREATE TABLE storage (id INT NOT NULL PRIMARY KEY, media_id INT NOT NULL); """)
     cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
-    cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status SMALLINT NULL); """)
+    cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status INT NULL); """)
     conn.commit()
 except:
     pass
@@ -267,7 +267,7 @@ def IsRegistred():
                     sql = "UPDATE Users SET Groupp = 7777, role = 4 WHERE ID_VK = " + str(id) + ";"
                     cursor.execute(sql)
                     conn.commit()
-                    
+
                     vk.method("messages.send", {"peer_id": id, "message": "Теперь я знаю о тебе достаточно). \n Используй кнопки клавиатуры.", "keyboard" : keyboards.getMainKeyboard(role = 4),
                                     "random_id": random.randint(1, 2147483647)})
                 
@@ -350,6 +350,7 @@ def IsRegistred():
 
                     body = body.lower()
                     response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
+                    breakpoint()
                     if not len(response.json()):
                         vk.method("messages.send", {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.", "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
@@ -1434,6 +1435,11 @@ def CheckStatus():
                 print('Ошибка:\n', traceback.format_exc())
                 vk.method("messages.send", {"peer_id": id, "message": "Выберите ID комнаты :)" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
             return "ok"
+        elif status == 301:
+            id = MessageSettings.getId()
+
+            return "ok"
+
 
         connection.commit()
         conn.commit()

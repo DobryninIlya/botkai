@@ -9,7 +9,7 @@ uptime = datetime.datetime.now()
 
 def info():
     vk.method("messages.send",
-              {"peer_id": MessageSettings.getId(), "message": "Вы можете отослать своим студентам сообщение."
+              {"peer_id": MessageSettings.getId(), "message": "Вы можете отослать своим студентам сообщение. "
                                                               "Можно прикрепить медиавложения.",
                "keyboard": keyboardPrepodShareMessage, "random_id": random.randint(1, 2147483647)})
 
@@ -18,8 +18,8 @@ def info():
 
 command = command_class.Command()
 
-command.keys = ['Отправить сообщение студентам']
-command.description = 'связь со студентами'
+command.keys = ['Отправить сообщение студентам справка']
+command.description = 'связь со студентами справка'
 command.process = info
 command.payload = "prepod_share_message_info"
 command.role = [2]
