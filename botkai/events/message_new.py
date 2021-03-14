@@ -367,11 +367,11 @@ def IsRegistred():
                     print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 5:
-                print("STATUS 7")
+                print("STATUS 5")
                 try:
 
                     body = body.lower()
-                    print(body)
+                    print(str(body))
                     response = requests.post(
                         'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
                         '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
