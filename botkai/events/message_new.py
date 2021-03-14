@@ -398,7 +398,7 @@ def IsRegistred():
                                 sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                                 cursorR.execute(sql)
                                 conn.commit()
-                                sql = "UPDATE users SET name='{}', role = 2 WHERE ID_VK = ".format(name, id)
+                                sql = "UPDATE users SET name='{}', role = 2 WHERE ID_VK = {}".format(name, id)
                                 cursor.execute(sql)
 
                                 connection.commit()
