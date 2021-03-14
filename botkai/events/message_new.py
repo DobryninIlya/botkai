@@ -365,6 +365,10 @@ def IsRegistred():
                                                     "random_id": random.randint(1, 2147483647)})
                         return
                 except Exception as E:
+                    vk.method("messages.send",
+                              {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.",
+                               "keyboard": keyboards.get_undo,
+                               "random_id": random.randint(1, 2147483647)})
                     print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 5:
