@@ -393,8 +393,16 @@ def IsRegistred():
                             print(row,row["id"])
                             if row["id"] == login:
                                 name = row["lecturer"]
-                                print(row["lecturer"])
-                                break
+                                sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
+                                cursorR.execute(sql)
+                                conn.commit()
+                                sql = "UPDATE users SET name='{}', role = 2 WHERE ID_VK = ".format(name, id)
+                                cursor.execute(sql)
+
+                                connection.commit()
+                                vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.",
+                                                            "keyboard": keyboards.getMainKeyboard(2),
+                                                            "random_id": random.randint(1, 2147483647)})
                         if not name:
                             vk.method("messages.send",
                                       {"peer_id": id,
@@ -405,16 +413,7 @@ def IsRegistred():
                             cursorR.execute(sql)
                             conn.commit()
                             return
-                        sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
-                        cursorR.execute(sql)
-                        conn.commit()
-                        sql = "UPDATE users SET name='{}', role = 2 WHERE ID_VK = ".format(name, id)
-                        cursor.execute(sql)
 
-                        connection.commit()
-                        vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.",
-                                                    "keyboard": keyboards.getMainKeyboard(2),
-                                                    "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
                     return False
