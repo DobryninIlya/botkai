@@ -369,19 +369,10 @@ def IsRegistred():
                 try:
 
                     body = body.lower()
-                    response = requests.post(BASE_URL_STAFF, data="query=" + str(body.encode('utf-8')),
-                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
-                                             params={
-                                          'p_p_id': 'pubLecturerSchedule_WAR_publicLecturerSchedule10',
-                                          'p_p_lifecycle': '2',
-                                          'p_p_state': 'normal',
-                                          'p_p_resource_id': 'getLecturersURL',
-                                          'p_p_cacheability': 'cacheLevelPage',
-                                          'p_p_col_id': 'column-1',
-                                          'p_p_col_count': '1',
-                                          'Content-Type': 'application/x-www-form-urlencoded',
-                                          'Cookie': 'COOKIE_SUPPORT=true; GUEST_LANGUAGE_ID=ru_RU; JSESSIONID=73E0CB2BB70D756E511781E44987B1DE'
-                                        })
+                    response = requests.post(
+                        'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
+                        '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
+                        'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body)
                     print(response.json())
 
                     if not len(response.json()):
@@ -395,15 +386,27 @@ def IsRegistred():
                         cursor.execute(sql)
                         login = cursor.fetchone()[0]
                         print(login)
-                        print(response.json()[login])
+                        name = ""
+                        for row in response.json():
+                            if row["id"] == login:
+                                name = row["lecturer"]
+                            break
+                        if not name:
+                            vk.method("messages.send",
+                                      {"peer_id": id,
+                                       "message": "Совпадения не найдены. Повторите ввод. \nВведите логин без лишних символов.",
+                                       "keyboard": keyboards.get_undo,
+                                       "random_id": random.randint(1, 2147483647)})
+                            sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
+                            cursorR.execute(sql)
+                            conn.commit()
+                            return
                         sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
-                        sql = "UPDATE users SET login = '" + body + "' WHERE ID_VK = " + str(id)
+                        sql = "UPDATE users SET name='{}', role = 2 WHERE ID_VK = ".format(name, id)
                         cursor.execute(sql)
 
-                        sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
-                        cursor.execute(sql)
                         connection.commit()
                         vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.",
                                                     "keyboard": keyboards.getMainKeyboard(2),
