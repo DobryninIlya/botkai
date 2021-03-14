@@ -256,7 +256,7 @@ def IsRegistred():
                     vk.method("messages.send", {"peer_id": id, "message": "Введите свое имя в чат", "keyboard" : keyboards.get_undo,
                                     "random_id": random.randint(1, 2147483647)})
                 elif role == 2:
-                    sql = "UPDATE Status SET Status = 7 WHERE ID_VK = " + str(id) + ";"
+                    sql = "UPDATE Status SET Status = 4 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
                     vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию", "keyboard" : keyboards.get_undo,
@@ -360,17 +360,17 @@ def IsRegistred():
                         
                         sql = "UPDATE users SET role = 2 WHERE ID_VK = " + str(id)
                         cursor.execute(sql)
-                        
-                        sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
+                        connection.commit()
+                        sql = "UPDATE Status SET status = 5 WHERE id_vk = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
-                         
-                        vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.", "keyboard": keyboards.getMainKeyboard(2),
+
+                        vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию", "keyboard": keyboards.getMainKeyboard(2),
                                                     "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
                     return False
-            elif StatusR(id) == 7:
+            elif StatusR(id) == 5:
                 print("STATUS 7")
                 try:
 
@@ -393,13 +393,12 @@ def IsRegistred():
                         login = cursor.fetchone()[0]
                         print(login)
                         print(response.json()[login])
-                        sql = "UPDATE Status SET status = 4 WHERE id_vk = " + str(id) + ";"
+                        sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
                         cursorR.execute(sql)
                         conn.commit()
 
-                        vk.method("messages.send", {"peer_id": id,
-                                                    "message": "Введите свой логин (без лишних символов: пробелов, запятых и тп.)",
-                                                    "keyboard": keyboards.get_undo,
+                        vk.method("messages.send", {"peer_id": id, "message": "Регистрация успешно завершена.",
+                                                    "keyboard": keyboards.getMainKeyboard(2),
                                                     "random_id": random.randint(1, 2147483647)})
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
