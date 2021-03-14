@@ -378,12 +378,12 @@ def IsRegistred():
                                              headers={'Content-Type': "application/x-www-form-urlencoded"},
                                              params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                      "p_p_resource_id": "getLecturersURL",
-                                                     "p_p_lifecycle": "2", "p_p_resource_id": "schedule"})
+                                                     "p_p_lifecycle": "2"})
                     print(response.json())
 
                     if not len(response.json()):
                         vk.method("messages.send",
-                                  {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод.",
+                                  {"peer_id": id, "message": "Расписание для вас отсутствует на сайте. Повторите ввод фамилии.",
                                    "keyboard": keyboards.get_undo,
                                    "random_id": random.randint(1, 2147483647)})
                     else:
