@@ -363,6 +363,7 @@ def IsRegistred():
                         connection.commit()
                         vk.method("messages.send", {"peer_id": id, "message": "Введите свою фамилию.", "keyboard": keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
+                        return
                 except Exception as E:
                     print('Ошибка:\n', traceback.format_exc())
                     return False
