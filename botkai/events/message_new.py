@@ -1545,8 +1545,10 @@ def CheckStatus():
 
             return "ok"
         elif status == 302:
-            sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(
-                UserParams.groupId)
+            sql = "SELECT * FROM answers WHERE id_vk = {}".format(id)
+            cursorR.execute(sql)
+            groupId = cursorR.fetchone()[0]
+            sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
 
