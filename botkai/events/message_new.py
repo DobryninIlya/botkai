@@ -372,7 +372,6 @@ def IsRegistred():
                     # print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 5:
-                print("STATUS 5")
                 try:
 
                     body = body.lower()
@@ -486,7 +485,6 @@ def showGroupId(groupNumber):
     id = int(MessageSettings.id)
     try:
         response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 4)
-        print(response.status_code, response)
         if str(response.status_code) != '200':
             raise ConnectionError
             # vk.method("messages.send",
@@ -560,7 +558,6 @@ def InBase(id): ### Проверка на зарегестрированност
             login = res[1]
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())
-        print("Name", res[2])
         if login and res[2].lstrip().rstrip():
             return True
 

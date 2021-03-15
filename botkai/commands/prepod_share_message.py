@@ -23,5 +23,5 @@ command = command_class.Command()
 command.keys = ['Отправить сообщение студентам']
 command.description = 'связь со студентами'
 command.process = info
-command.payload = "prepod_share_message_info"
+command.payload = "prepod_share_message_next"
 command.role = [2]
