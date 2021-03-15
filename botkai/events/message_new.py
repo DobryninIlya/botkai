@@ -1522,12 +1522,20 @@ def CheckStatus():
 
                     # body = showGroupId(body)
                     # assert not body
-                    assert body not in groups
-                    print(body, groups)
-                except AssertionError:
-                    vk.method("messages.send", {"peer_id": id,
-                                                "message": "&#9888;Вы не преподаете у данной группы \n Введите другой номер группы или нажмите Выход.!&#9888;",
-                                                "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                    if body not in groups:
+                        vk.method("messages.send", {"peer_id": id,
+                                                    "message": "&#9888;Вы не преподаете у данной группы \n Введите другой номер группы или нажмите Выход.!&#9888;",
+                                                    "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                    else:
+                        vk.method("messages.send", {"peer_id": id,
+                                                    "message": "Введите сообщение студентам. К сообщению можно прикрепить медиавложения.",
+                                                    "keyboard": keyboards.exit,
+                                                    "random_id": random.randint(1, 2147483647)})
+                        sql = "INSERT INTO answers VALUES ({},{})".format(id, body)
+                        cursorR.execute(sql)
+                        sql = "UPDATE status SET status = 302 WHERE id_vk = {}".format(id)
+                        cursorR.execute(sql)
+                        conn.commit()
                 except:
                     vk.method("messages.send", {"peer_id": id,
                                                 "message": "&#9888;Введите корректный номер группы!&#9888;",
@@ -1535,10 +1543,9 @@ def CheckStatus():
             except Exception:
                 print('Ошибка:\n', traceback.format_exc())
 
-
-
-
-
+            return "ok"
+        elif status == 302:
+            print("STATUS")
             return "ok"
 
 
