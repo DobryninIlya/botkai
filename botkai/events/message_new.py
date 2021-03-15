@@ -1557,14 +1557,13 @@ def CheckStatus():
 
             message = """📩 Сообщение от вашего преподавателя\n{}:\n
             {}""".format(UserParams.name, body)
-            print(groupId, result_users)
             try:
                 vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,
                                             "attachment": MessageSettings.GetAttachments(),
                                             "random_id": random.randint(1, 2147483647)})
             except:
                 vk.method("messages.send", {"peer_id": id,
-                                            "message": "Пользователи данной группы не зарегистрированы!".format(len(result_users)),
+                                            "message": "Пользователи данной группы не зарегистрированы или сообщение пустое!".format(len(result_users)),
                                             "keyboard": keyboards.getMainKeyboard(2),
                                             "random_id": random.randint(1, 2147483647)})
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
@@ -1572,18 +1571,209 @@ def CheckStatus():
                 sql = "DELETE FROM prepod_users WHERE id_vk = {}".format(id)
                 cursorR.execute(sql)
                 conn.commit()
+                return "ok"
 
             cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             vk.method("messages.send", {"peer_id": id,
-                                        "message": "Сообщение разослано {} пользователям".format(len(result_users)),
+                                        "message": "Сообщение отправлено {} пользователям группы {}".format(len(result_users),groupId),
                                         "keyboard": keyboards.getMainKeyboard(2), "random_id": random.randint(1, 2147483647)})
             sql = "DELETE FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
             conn.commit()
 
             return "ok"
+        elif status == 304:
+            try:
+                id = MessageSettings.getId()
+                response = requests.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
+                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
+                                                 "p_p_lifecycle": "2", "p_p_resource_id": "schedule"})
+                if str(response.status_code) != '200':
+                    vk.method("messages.send", {"peer_id": id, "message": "&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(
+                        str(response.status_code)),
+                                                "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                    sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+                    cursorR.execute(sql)
+                    conn.commit()
+                    return "ok"
+                response = response.json()
+                if len(response) == 0:
+                    vk.method("messages.send", {"peer_id": id,
+                                                "message": "&#9888;Не удалось запросить список ваших групп. Расписание пустое.&#9888;",
+                                                "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                    sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+                    cursorR.execute(sql)
+                    conn.commit()
+                    return "ok"
+                groups = set()
 
+                for day in response.keys():
+                    for item in response[day]:
+                        groups.add(item["group"])
+                try:
+                    body = int(body)
+
+                    # body = showGroupId(body)
+                    # assert not body
+                    if str(body) not in groups:
+                        vk.method("messages.send", {"peer_id": id,
+                                                    "message": "&#9888;Вы не преподаете у данной группы \n Введите другой номер группы или нажмите Выход.!&#9888;",
+                                                    "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                    else:
+                        vk.method("messages.send", {"peer_id": id,
+                                                    "message": "Введите запланированную дату задания для студентов.",
+                                                    "keyboard": keyboards.keyboardAddTasks,
+                                                    "random_id": random.randint(1, 2147483647)})
+                        sql = "INSERT INTO prepod_users VALUES ({},{})".format(id, body)
+                        cursorR.execute(sql)
+                        sql = "UPDATE status SET status = 305 WHERE id_vk = {}".format(id)
+                        cursorR.execute(sql)
+                        conn.commit()
+                        return "ok"
+                except:
+                    print('Ошибка:\n', traceback.format_exc())
+                    vk.method("messages.send", {"peer_id": id,
+                                                "message": "&#9888;Введите корректный номер группы!&#9888;",
+                                                "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+            except Exception:
+                print('Ошибка:\n', traceback.format_exc())
+
+            return "ok"
+        elif status == 305:
+            date = str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5))
+            try:
+                try:
+                    # print(body[:2])
+
+                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2]) < 32 and (int)(
+                            body[3:]) < 13):
+                        date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
+
+                    else:
+                        pass
+                        # vk.method("messages.send", {"peer_id": id, "message": "Формат неверный!",
+                        #                "random_id": random.randint(1, 2147483647)})
+                        return "ok"
+                        # print(111)
+
+                except Exception as E:
+                    return "ok"
+
+
+
+            except Exception as E:
+                vk.method("messages.send", {"peer_id": id, "message": "Формат некорректный. Верный формат - 'дд.мм' ",
+                                            "random_id": random.randint(1, 2147483647)})
+            finally:
+
+                if date == str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(
+                        days=5)) and body != "Через неделю" and body != "Через 2 недели":
+                    vk.method("messages.send", {"peer_id": id, "message": "Формат неверный, повторите ввод",
+                                                "random_id": random.randint(1, 2147483647)})
+                    return "ok"
+
+                if body == "Через неделю":
+                    date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=7))
+                elif body == "Через 2 недели":
+                    date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=14))
+
+                else:
+                    try:
+                        # print(datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) + datetime.timedelta(days=30))
+                        if datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) > datetime.date(today.year,
+                                                                                                        today.month,
+                                                                                                        today.day) + datetime.timedelta(
+                                days=30):
+                            vk.method("messages.send", {"peer_id": id,
+                                                        "message": "Запланированная дата неверная. \n Разрешено добавлять задания только в течение следующего месяца",
+                                                        "keyboard": keyboards.keyboardAddTasks2,
+                                                        "random_id": random.randint(1, 2147483647)})
+                            return "ok"
+                        elif date == str(
+                                datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5)):
+                            vk.method("messages.send", {"peer_id": id, "message": "Формат неверный, повторите ввод",
+                                                        "random_id": random.randint(1, 2147483647)})
+                            return "ok"
+                    except Exception as E:
+                        print('Ошибка:\n', traceback.format_exc())
+
+                sql = "INSERT INTO Task VALUES(" + str(id) + ", '" + date + "')"
+                cursorR.execute(sql)
+                conn.commit()
+                vk.method("messages.send", {"peer_id": id,
+                                            "message": "Введите задание и к этому же сообщению прикрепите медиавложение (фото/видео/аудио/документ)",
+                                            "keyboard": keyboards.keyboardAddTasks2,
+                                            "random_id": random.randint(1, 2147483647)})
+                sql = "UPDATE Status SET Status = 306 WHERE ID_VK = " + str(id)
+                cursorR.execute(sql)
+                conn.commit()
+                return "ok"
+        elif status == 306:
+            id = MessageSettings.getId()
+            level = UserParams.adminLevel
+            sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(id)
+            cursor.execute(sql)
+            try:
+                count = (int)(cursor.fetchone()[0])
+            except Exception as E:
+                count = 0
+            # print(count)
+            if (count > 10 and level < 2):
+                vk.method("messages.send",
+                          {"peer_id": id, "message": "Превышено допустимое число активных заданий. Ваш лимит: 10",
+                           "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                           "random_id": random.randint(1, 2147483647)})
+                cursor.execute(sql)
+                sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+                cursorR.execute(sql)
+                sql = "DELETE FROM Task WHERE ID_VK = " + str(id)
+                cursorR.execute(sql)
+                connection.commit()
+                conn.commit()
+
+                return "ok"
+            sql = "SELECT Datee FROM Task WHERE ID_VK = " + str(id)
+            cursorR.execute(sql)
+            date = cursorR.fetchone()
+            date = str(date)[2:-3]
+            # print("DATA--------------------- " + str(date))
+            sql = "SELECT MAX(ID) FROM Task"
+            cursor.execute(sql)
+            res = cursor.fetchone()[0]
+            res = res if res != None else 0
+            # count = (int)(str(res)[1:-2]) + 1
+            # count = (int)(str(cursor.fetchone())[1:-2]) + 1
+            count = int(res) + 1
+
+            sql = "SELECT * FROM prepod_users WHERE id = {}".format(id)
+            cursorR.execute(sql)
+            groupId = cursorR.fetchone()[0]
+            groupId = showGroupId(groupId)
+            user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(
+                id, id, MessageSettings.messageId)
+
+            prefix = "\nОт преподавателя {}:\n".format(UserParams.name)
+            sql = "INSERT INTO Task VALUES ({count}, {group_id}, {id}, '{date}', '{text}', '{attachments}', 0, '{user_info}')".format(
+                count=count, group_id=groupId, id=id, date=date, text=prefix + MessageSettings.getText(),
+                attachments=MessageSettings.GetAttachments(), user_info=user_info
+            )
+            cursor.execute(sql)
+            # print(sql)
+            sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+            cursorR.execute(sql)
+            sql = "DELETE FROM Task WHERE ID_VK = " + str(id)
+            cursorR.execute(sql)
+            sql = "DELETE FROM prepod_users WHERE id = " + str(id)
+            cursorR.execute(sql)
+            connection.commit()
+            conn.commit()
+
+            vk.method("messages.send", {"peer_id": id, "message": "Задание успешно добавлено на " + date,
+                                        "keyboard": keyboards.getMainKeyboard(UserParams.role),
+                                        "random_id": random.randint(1, 2147483647)})
+            return "ok"
 
         connection.commit()
         conn.commit()

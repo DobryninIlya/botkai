@@ -1099,8 +1099,7 @@ keyboardPrepodSubmenu = {
     "buttons": [
         # [get_button(label="Сообщение студентам", color="primary")],
         [get_button(label="Сообщение студентам", payload={'button': "prepod_share_message_info"}, color="primary")],
-        [get_button(label="Объявление студентам по дате", color="primary")],
-        [get_button(label="Задание студентам по дате", color="primary")],
+        [get_button(label="Задание студентам на дате", payload={'button': "prepod_share_task_info"}, color="primary")],
         [get_button(label="Собственное расписание", color="primary")],
         [get_button(label="Выход", color="negative")]
     ]
@@ -1119,5 +1118,18 @@ keyboardPrepodShareMessage = {
 }
 keyboardPrepodShareMessage = json.dumps(keyboardPrepodShareMessage, ensure_ascii=False).encode('utf-8')
 keyboardPrepodShareMessage = str(keyboardPrepodShareMessage.decode('utf-8'))
+
+
+keyboardPrepodShareTask = {
+    "one_time": False,
+    'inline' : True,
+    "buttons": [
+        [get_button(label="Продолжить", payload={'button': "prepod_share_task_next"}, color="positive")]
+    ]
+
+}
+keyboardPrepodShareTask = json.dumps(keyboardPrepodShareTask, ensure_ascii=False).encode('utf-8')
+keyboardPrepodShareTask = str(keyboardPrepodShareTask.decode('utf-8'))
+
 
 #######################################Keyboards#####################################################
