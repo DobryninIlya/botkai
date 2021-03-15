@@ -22,7 +22,7 @@ connection = classes.connection
 try:
     cursorR.execute("""CREATE TABLE storage (id INT NOT NULL PRIMARY KEY, media_id INT NOT NULL); """)
     cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
-    cursorR.execute("""CREATE TABLE prepod_users (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
+    cursorR.execute("""CREATE TABLE prepod_users (id INT NOT NULL PRIMARY KEY, groupreal INT NOT NULL, groupid INT NOT NULL); """)
     cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status INT NULL); """)
     conn.commit()
 except:
@@ -1532,7 +1532,7 @@ def CheckStatus():
                                                     "message": "Введите сообщение студентам. К сообщению можно прикрепить медиавложения.",
                                                     "keyboard": keyboards.exit,
                                                     "random_id": random.randint(1, 2147483647)})
-                        sql = "INSERT INTO prepod_users VALUES ({},{})".format(id, body)
+                        sql = "INSERT INTO prepod_users VALUES ({},{}, 0)".format(id, body)
                         cursorR.execute(sql)
                         sql = "UPDATE status SET status = 302 WHERE id_vk = {}".format(id)
                         cursorR.execute(sql)
@@ -1608,10 +1608,12 @@ def CheckStatus():
                     conn.commit()
                     return "ok"
                 groups = set()
-
+                groupId = 0
                 for day in response.keys():
                     for item in response[day]:
                         groups.add(item["group"])
+                        if item["group"] == str(body):
+                            groupId = item["group"]
                 try:
                     body = int(body)
 
@@ -1626,7 +1628,7 @@ def CheckStatus():
                                                     "message": "Введите запланированную дату задания для студентов.",
                                                     "keyboard": keyboards.keyboardAddTasks,
                                                     "random_id": random.randint(1, 2147483647)})
-                        sql = "INSERT INTO prepod_users VALUES ({},{})".format(id, body)
+                        sql = "INSERT INTO prepod_users VALUES ({},{},{})".format(id, body, groupId)
                         cursorR.execute(sql)
                         sql = "UPDATE status SET status = 305 WHERE id_vk = {}".format(id)
                         cursorR.execute(sql)
@@ -1749,8 +1751,7 @@ def CheckStatus():
 
             sql = "SELECT * FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
-            groupId = cursorR.fetchone()[0]
-            groupId = showGroupId(groupId)
+            groupId = cursorR.fetchone()[2]
             user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(
                 id, id, MessageSettings.messageId)
 
