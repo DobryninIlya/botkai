@@ -44,7 +44,7 @@ def getGroupsResponse():
         print('Ошибка:\n', traceback.format_exc())  
     return
 
-@sched.scheduled_job('cron', hour=2)
+@sched.scheduled_job('interval', hour=2)
 def scheduled_job():
     shed_update()
 
