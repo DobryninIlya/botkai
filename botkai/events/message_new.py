@@ -1519,9 +1519,11 @@ def CheckStatus():
                         groups.add(item["group"])
                 try:
                     body = int(body)
+
                     # body = showGroupId(body)
                     # assert not body
                     assert body not in groups
+                    print(body)
                 except AssertionError:
                     vk.method("messages.send", {"peer_id": id,
                                                 "message": "&#9888;Вы не преподаете у данной группы \n Введите другой номер группы или нажмите Выход.!&#9888;",
