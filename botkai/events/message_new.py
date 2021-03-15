@@ -1550,7 +1550,7 @@ def CheckStatus():
         elif status == 302:
             sql = "SELECT * FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
-            groupId = cursorR.fetchone()[0]
+            groupId = cursorR.fetchone()[1]
             sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
@@ -1558,9 +1558,21 @@ def CheckStatus():
             message = """📩 Сообщение от вашего преподавателя\n{}:\n
             {}""".format(UserParams.name, body)
             print(groupId, result_users)
-            vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,
-                                        "attachment": MessageSettings.GetAttachments(),
-                                        "random_id": random.randint(1, 2147483647)})
+            try:
+                vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,
+                                            "attachment": MessageSettings.GetAttachments(),
+                                            "random_id": random.randint(1, 2147483647)})
+            except:
+                vk.method("messages.send", {"peer_id": id,
+                                            "message": "Пользователи данной группы не зарегистрированы!".format(len(result_users)),
+                                            "keyboard": keyboards.getMainKeyboard(2),
+                                            "random_id": random.randint(1, 2147483647)})
+                cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
+                conn.commit()
+                sql = "DELETE * FROM prepod_users WHERE id_vk = {}".format(id)
+                cursorR.execute(sql)
+                conn.commit()
+
             cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             vk.method("messages.send", {"peer_id": id,
