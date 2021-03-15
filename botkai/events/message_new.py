@@ -1545,7 +1545,7 @@ def CheckStatus():
 
             return "ok"
         elif status == 302:
-            sql = "SELECT * FROM answers WHERE id_vk = {}".format(id)
+            sql = "SELECT * FROM answers WHERE id = {}".format(id)
             cursorR.execute(sql)
             groupId = cursorR.fetchone()[0]
             sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
@@ -1560,6 +1560,9 @@ def CheckStatus():
                                         "random_id": random.randint(1, 2147483647)})
             cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
+            vk.method("messages.send", {"peer_id": id,
+                                        "message": "Сообщение разослано {} пользователям".format(len(result_users)),
+                                        "keyboard": keyboards.getMainKeyboard(2), "random_id": random.randint(1, 2147483647)})
 
             return "ok"
 
