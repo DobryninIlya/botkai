@@ -22,6 +22,7 @@ connection = classes.connection
 try:
     cursorR.execute("""CREATE TABLE storage (id INT NOT NULL PRIMARY KEY, media_id INT NOT NULL); """)
     cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
+    cursorR.execute("""CREATE TABLE prepod_users (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
     cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status INT NULL); """)
     conn.commit()
 except:
@@ -1531,7 +1532,7 @@ def CheckStatus():
                                                     "message": "Введите сообщение студентам. К сообщению можно прикрепить медиавложения.",
                                                     "keyboard": keyboards.exit,
                                                     "random_id": random.randint(1, 2147483647)})
-                        sql = "INSERT INTO answers VALUES ({},{})".format(id, body)
+                        sql = "INSERT INTO prepod_users VALUES ({},{})".format(id, body)
                         cursorR.execute(sql)
                         sql = "UPDATE status SET status = 302 WHERE id_vk = {}".format(id)
                         cursorR.execute(sql)
@@ -1545,7 +1546,7 @@ def CheckStatus():
 
             return "ok"
         elif status == 302:
-            sql = "SELECT * FROM answers WHERE id = {}".format(id)
+            sql = "SELECT * FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
             groupId = cursorR.fetchone()[0]
             sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
@@ -1563,6 +1564,7 @@ def CheckStatus():
             vk.method("messages.send", {"peer_id": id,
                                         "message": "Сообщение разослано {} пользователям".format(len(result_users)),
                                         "keyboard": keyboards.getMainKeyboard(2), "random_id": random.randint(1, 2147483647)})
+            sql = "DELETE * FROM prepod_users WHERE id_vk = {}".format(id)
 
             return "ok"
 
