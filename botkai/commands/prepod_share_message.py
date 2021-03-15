@@ -1,5 +1,5 @@
 from .. import classes as command_class
-from ..keyboards import keyboardPrepodShareMessage
+from ..keyboards import exit
 from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import datetime
@@ -11,8 +11,8 @@ def info():
     vk.method("messages.send",
               {"peer_id": MessageSettings.getId(), "message": "Введите номер группы, студентам которой "
                                                               "будет разослано сообщение",
-               "keyboard": keyboardPrepodShareMessage, "random_id": random.randint(1, 2147483647)})
-    cursor.execute("INSERT INTO Status VALUES ()".format(MessageSettings.getId(), 301))
+               "keyboard": exit, "random_id": random.randint(1, 2147483647)})
+    cursor.execute("INSERT INTO Status VALUES ({},{})".format(MessageSettings.getId(), 301))
     connection.commit()
 
     return "ok"
