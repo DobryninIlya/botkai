@@ -1511,7 +1511,6 @@ def CheckStatus():
                 cursorR.execute(sql)
                 conn.commit()
                 return "ok"
-            response = response.json()
             groups = set()
 
             for day in response.keys():
@@ -1519,6 +1518,8 @@ def CheckStatus():
                     groups.add(item["groupId"])
             try:
                 body = int(body)
+                body = showGroupId(body)
+                assert not body
                 assert body not in groups
             except AssertionError:
                 vk.method("messages.send", {"peer_id": id,
