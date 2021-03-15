@@ -1551,7 +1551,7 @@ def CheckStatus():
             sql = "SELECT * FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
             groupId = cursorR.fetchone()[1]
-            sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
+            sql = "SELECT id_vk FROM users WHERE groupReal = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
 
@@ -1569,7 +1569,7 @@ def CheckStatus():
                                             "random_id": random.randint(1, 2147483647)})
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()
-                sql = "DELETE * FROM prepod_users WHERE id_vk = {}".format(id)
+                sql = "DELETE FROM prepod_users WHERE id_vk = {}".format(id)
                 cursorR.execute(sql)
                 conn.commit()
 
@@ -1578,7 +1578,7 @@ def CheckStatus():
             vk.method("messages.send", {"peer_id": id,
                                         "message": "Сообщение разослано {} пользователям".format(len(result_users)),
                                         "keyboard": keyboards.getMainKeyboard(2), "random_id": random.randint(1, 2147483647)})
-            sql = "DELETE * FROM prepod_users WHERE id_vk = {}".format(id)
+            sql = "DELETE FROM prepod_users WHERE id_vk = {}".format(id)
             cursorR.execute(sql)
             conn.commit()
 
