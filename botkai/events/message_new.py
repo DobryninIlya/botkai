@@ -1537,7 +1537,9 @@ def CheckStatus():
                         sql = "UPDATE status SET status = 302 WHERE id_vk = {}".format(id)
                         cursorR.execute(sql)
                         conn.commit()
+                        return "ok"
                 except:
+                    print('Ошибка:\n', traceback.format_exc())
                     vk.method("messages.send", {"peer_id": id,
                                                 "message": "&#9888;Введите корректный номер группы!&#9888;",
                                                 "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
