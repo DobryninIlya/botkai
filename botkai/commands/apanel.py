@@ -24,3 +24,4 @@ command.desciption = 'админ панель'
 command.process = info
 command.payload = "apanel"
 command.admlevel = 4
+command.role.append(2)

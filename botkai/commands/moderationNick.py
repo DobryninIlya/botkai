@@ -46,3 +46,4 @@ command.desciption = ''
 command.process = info
 command.payload = "modernick"
 command.admlevel = 4
+command.role.append(2)

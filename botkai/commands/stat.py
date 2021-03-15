@@ -38,3 +38,4 @@ command.desciption = 'статистика для админов'
 command.process = info
 command.payload = "statistic"
 command.admlevel = 4
+command.role.append(2)
