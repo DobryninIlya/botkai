@@ -381,7 +381,7 @@ def IsRegistred():
                         'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
                         '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
                         'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body)
-                    # print(response.json())
+
 
                     if not len(response.json()):
                         vk.method("messages.send",
@@ -1490,8 +1490,51 @@ def CheckStatus():
                 print('Ошибка:\n', traceback.format_exc())
                 vk.method("messages.send", {"peer_id": id, "message": "Выберите ID комнаты :)" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
             return "ok"
+
         elif status == 301:
             id = MessageSettings.getId()
+            response = requests.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
+                                     headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                     params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
+                                             "p_p_lifecycle": "2", "p_p_resource_id": "schedule"})
+            if str(response.status_code) != '200':
+                vk.method("messages.send", {"peer_id": id, "message": "&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(
+                    str(response.status_code)),
+                                            "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+                cursorR.execute(sql)
+                conn.commit()
+                return "ok"
+            response = response.json()
+            if len(response) == 0:
+                vk.method("messages.send", {"peer_id": id,
+                                            "message": "&#9888;Не удалось запросить список ваших групп. Расписание пустое.&#9888;",
+                                            "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+                sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+                cursorR.execute(sql)
+                conn.commit()
+                return "ok"
+            response = response.json()
+            groups = set()
+
+            for day in response.keys():
+                for item in response[day]:
+                    groups.add(item["groupId"])
+            try:
+                body = int(body)
+                assert body not in groups
+            except AssertionError:
+                vk.method("messages.send", {"peer_id": id,
+                                            "message": "&#9888;Вы не преподаете у данной группы \n Введите другой номер группы или нажмите Выход.!&#9888;",
+                                            "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+            except:
+                vk.method("messages.send", {"peer_id": id,
+                                            "message": "&#9888;Введите корректный номер группы!&#9888;",
+                                            "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
+
+
+
+
 
             return "ok"
 
