@@ -1557,7 +1557,7 @@ def CheckStatus():
 
             message = """📩 Сообщение от вашего преподавателя\n{}:\n
             {}""".format(UserParams.name, body)
-
+            print(result_users)
             vk.method("messages.send", {"user_ids": ','.join(str(x[0]) for x in result_users), "message": message,
                                         "attachment": MessageSettings.GetAttachments(),
                                         "random_id": random.randint(1, 2147483647)})
