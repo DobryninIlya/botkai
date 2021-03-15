@@ -1097,10 +1097,10 @@ buildings_menu = str(buildings_menu.decode('utf-8'))
 keyboardPrepodSubmenu = {
     "one_time": False,
     "buttons": [
-        # [get_button(label="Сообщение студентам", color="primary")],
+        [get_button(label="Справка", color="primary")],
         [get_button(label="Сообщение студентам", payload={'button': "prepod_share_message_info"}, color="primary")],
         [get_button(label="Задание студентам на дату", payload={'button': "prepod_share_task_info"}, color="primary")],
-        [get_button(label="Собственное расписание", color="primary")],
+        # [get_button(label="Собственное расписание", color="primary")],
         [get_button(label="Выход", color="negative")]
     ]
 
@@ -1131,5 +1131,17 @@ keyboardPrepodShareTask = {
 keyboardPrepodShareTask = json.dumps(keyboardPrepodShareTask, ensure_ascii=False).encode('utf-8')
 keyboardPrepodShareTask = str(keyboardPrepodShareTask.decode('utf-8'))
 
-
+# def keyboardPrepodOwnShed():
+#     keyboardPrepodOwnShed = {
+#         "one_time": False,
+#         'inline' : True,
+#         "buttons": [
+#             [get_button(label="Справка", payload={'button': "prepod_share_task_next"}, color="positive")]
+#         ]
+#
+#     }
+#     keyboardPrepodOwnShed = json.dumps(keyboardPrepodOwnShed, ensure_ascii=False).encode('utf-8')
+#     keyboardPrepodOwnShed = str(keyboardPrepodOwnShed.decode('utf-8'))
+#
+#     return keyboardPrepodOwnShed
 #######################################Keyboards#####################################################
