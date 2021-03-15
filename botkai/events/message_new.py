@@ -1522,7 +1522,7 @@ def CheckStatus():
 
                     # body = showGroupId(body)
                     # assert not body
-                    if body not in groups:
+                    if str(body) not in groups:
                         vk.method("messages.send", {"peer_id": id,
                                                     "message": "&#9888;Вы не преподаете у данной группы \n Введите другой номер группы или нажмите Выход.!&#9888;",
                                                     "keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
