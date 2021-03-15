@@ -1578,7 +1578,7 @@ def CheckStatus():
             vk.method("messages.send", {"peer_id": id,
                                         "message": "Сообщение разослано {} пользователям".format(len(result_users)),
                                         "keyboard": keyboards.getMainKeyboard(2), "random_id": random.randint(1, 2147483647)})
-            sql = "DELETE FROM prepod_users WHERE id_vk = {}".format(id)
+            sql = "DELETE FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
             conn.commit()
 
