@@ -1,6 +1,6 @@
 from .. import classes as command_class
 from ..keyboards import exit
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
+from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
 import datetime
 
@@ -12,8 +12,8 @@ def info():
               {"peer_id": MessageSettings.getId(), "message": "Введите номер группы, студентам которой "
                                                               "будет разослано сообщение",
                "keyboard": exit, "random_id": random.randint(1, 2147483647)})
-    cursor.execute("INSERT INTO Status VALUES ({},{})".format(MessageSettings.getId(), 301))
-    connection.commit()
+    cursorR.execute("INSERT INTO Status VALUES ({},{})".format(MessageSettings.getId(), 301))
+    conn.commit()
 
     return "ok"
 
