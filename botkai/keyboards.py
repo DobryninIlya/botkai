@@ -1099,7 +1099,7 @@ keyboardPrepodSubmenu = {
     "buttons": [
         # [get_button(label="Сообщение студентам", color="primary")],
         [get_button(label="Сообщение студентам", payload={'button': "prepod_share_message_info"}, color="primary")],
-        [get_button(label="Задание студентам на дате", payload={'button': "prepod_share_task_info"}, color="primary")],
+        [get_button(label="Задание студентам на дату", payload={'button': "prepod_share_task_info"}, color="primary")],
         [get_button(label="Собственное расписание", color="primary")],
         [get_button(label="Выход", color="negative")]
     ]
