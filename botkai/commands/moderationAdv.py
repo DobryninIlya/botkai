@@ -45,3 +45,4 @@ command.desciption = ''
 command.process = info
 command.payload = "moderadv"
 command.admlevel = 4
+command.role.append(2)
