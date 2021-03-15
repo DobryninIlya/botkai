@@ -1515,11 +1515,11 @@ def CheckStatus():
 
             for day in response.keys():
                 for item in response[day]:
-                    groups.add(item["groupId"])
+                    groups.add(item["group"])
             try:
                 body = int(body)
-                body = showGroupId(body)
-                assert not body
+                # body = showGroupId(body)
+                # assert not body
                 assert body not in groups
             except AssertionError:
                 vk.method("messages.send", {"peer_id": id,
