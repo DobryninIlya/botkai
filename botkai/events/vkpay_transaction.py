@@ -4,6 +4,7 @@ cursor = classes.cursor
 connection = classes.connection
 
 def vkpay_transaction(request):
+    data = request.body
     object = data["object"]
     from_id = object["from_id"]
     amount = str(object["amount"])
