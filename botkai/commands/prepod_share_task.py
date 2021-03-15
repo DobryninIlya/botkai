@@ -20,8 +20,9 @@ def info():
 
 command = command_class.Command()
 
-command.keys = ['Отправить сообщение студентам']
-command.description = 'связь со студентами'
+command.keys = ['Отправить задание студентам']
+command.description = 'задание студентам' \
+                      ''
 command.process = info
 command.payload = "prepod_share_task_next"
 command.role = [2]
