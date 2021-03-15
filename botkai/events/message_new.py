@@ -1551,7 +1551,7 @@ def CheckStatus():
             sql = "SELECT * FROM prepod_users WHERE id = {}".format(id)
             cursorR.execute(sql)
             groupId = cursorR.fetchone()[1]
-            sql = "SELECT id_vk FROM users WHERE groupReal = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
+            sql = "SELECT id_vk FROM users WHERE groupreal = {} AND ID_VK < 2000000000 LIMIT 100".format(groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
 
