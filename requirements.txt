@@ -30,4 +30,4 @@ APScheduler==3.0.0
 ics
 openpyxl
 numba
-WhiteNoise=5.2.0
+WhiteNoise==5.2.0
