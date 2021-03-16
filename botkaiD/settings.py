@@ -26,7 +26,7 @@ SECRET_KEY = 'liu2agg0tn5b5#j8&4q#9+m9oyt()3(6%w(-82ahmtc!hu1_so'
 DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'botkaid.herokuapp.com', "127.0.0.1", "vk.com", "kaibotkai.herokuapp.com", "www.dobrynin.engineer", "dobrynin.engineer", "*.dobrynin.engineer"]
-
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -116,11 +116,26 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATICFILES_DIRS = (
-os.path.join(BASE_DIR, "static"), '/botkai/static',
-)
+# STATICFILES_DIRS = (
+# os.path.join(BASE_DIR, "static"), '/botkai/static',
+# )
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
+if DEBUG:
+    STATIC_DIR = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [
+        STATIC_DIR,
+        '/botkai/static/',
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
 
 X_FRAME_OPTIONS = 'ALLOW-FROM https://vk.com/'
+
+MEDIA_URL = '/media/'
