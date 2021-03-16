@@ -13,7 +13,7 @@ class connections:
         self.connection = psycopg2.connect(dbname=os.getenv('DB_NAME'), user= os.getenv('DB_USER'), password= os.getenv('DB_PASSWORD'), host= os.getenv('DB_HOST'))
         self.connection.autocommit=True
         self.cursor = self.connection.cursor()
-        self.conn = sqlite3.connect("bot.db")
+        self.conn = sqlite3.connect("../bot.db")
         self.cursorR = self.conn.cursor()
 
 connect = connections()
@@ -104,6 +104,9 @@ def makeFile(week, group):
     days_in_week = list(response.keys())
     days_in_week.sort()
 
+    if not isNormal:
+        return False
+
     current_week = 0
     while (current_week <= week):
         for key in days_in_week:
@@ -113,9 +116,6 @@ def makeFile(week, group):
             chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
                                     1] + chetn) % 2 else False  # Если True чет, False - неч
 
-            print("DATE ", current_date, current_week, "CHETNOST ", chetnost,
-                  datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                      1] + chetn)
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
                 prefix = ""
@@ -161,11 +161,11 @@ def makeFile(week, group):
 
 def main(groupId):
     try:
-        file = makeFile(3, groupId)
+        file = makeFile(3, int(groupId))
         if file:
             return file
         else:
-            raise Exception
+            return False
     except:
         print('Ошибка:\n', traceback.format_exc())
 

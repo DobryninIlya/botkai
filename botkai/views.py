@@ -1,20 +1,14 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
 import json
-import traceback
-import os
 import importlib
-
+import os
 from .events.confirmation import confirmation
 from .events.message_new import message_new
 from .events.vkpay_transaction import vkpay_transaction
 from .events.group_leave import group_leave
 from .events.group_join import group_join
-from make_ics_response import main as make_ics_response
-
-
-from pprint import pprint
+from botkai.fileserver.make_ics_response import main as make_ics_response
 
 events = {
     "confirmation" : confirmation,
@@ -80,10 +74,12 @@ def web_yandex(request):
 
 import os
 from django.conf import settings
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 
 def download_ics(request):
-    file = make_ics_response()
+    file = make_ics_response(request.GET.get("groupid", ""))
+    if not file:
+        raise HttpResponseForbidden
     path = "./{}".format(file)
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
