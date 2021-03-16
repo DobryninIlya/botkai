@@ -11,6 +11,7 @@ from .events.message_new import message_new
 from .events.vkpay_transaction import vkpay_transaction
 from .events.group_leave import group_leave
 from .events.group_join import group_join
+from make_ics_response import main as make_ics_response
 
 
 from pprint import pprint
@@ -77,3 +78,17 @@ def main_miniapp(request):
 def web_yandex(request):
     return render(request, 'botkaiapp/yandex_f66897e4739fe69c.html')
 
+import os
+from django.conf import settings
+from django.http import HttpResponse, Http404
+
+def download_ics(request):
+    file = make_ics_response()
+    path = "./{}".format(file)
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404

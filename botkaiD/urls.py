@@ -18,8 +18,7 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from botkai.views import index, web_yandex, miniapp, index, main_miniapp
-
+from botkai.views import index, web_yandex, miniapp, index, main_miniapp, download_ics
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +29,7 @@ urlpatterns = [
     url('botkai/', index),
     path('yandex_f66897e4739fe69c.html', web_yandex),
     path('assistent/', include("aliceskill.urls")),
+
+    url('download/<int:groupid>', download),  # {'path': "./bot.db"}),
 ]
 urlpatterns += staticfiles_urlpatterns()
