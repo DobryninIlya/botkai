@@ -9,7 +9,6 @@ virtual environment
 __pycache__
 .vscode
 local_settings.py
-/static
 topskills/settings.py
 .DS_Store
 /.idea
