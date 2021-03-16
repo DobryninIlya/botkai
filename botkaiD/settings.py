@@ -120,22 +120,22 @@ USE_TZ = True
 # os.path.join(BASE_DIR, "static"), '/botkai/static',
 # )
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 if DEBUG:
     STATIC_DIR = os.path.join(BASE_DIR, 'static')
-    STATICFILES_DIRS = [
-        STATIC_DIR,
-        '/botkai/static/',
-    ]
+    # STATICFILES_DIRS = [
+    #     STATIC_DIR,
+    #     '/botkai/static/',
+    # ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    )
-
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    # STATICFILES_FINDERS = (
+    #     'django.contrib.staticfiles.finders.FileSystemFinder',
+    #     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # )
+    pass
 X_FRAME_OPTIONS = 'ALLOW-FROM https://vk.com/'
 
 MEDIA_URL = '/media/'
