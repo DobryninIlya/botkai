@@ -49,6 +49,9 @@
                 case "#affiliate":
                     showId(9);
                     break;
+                case "#icalendar":
+                    showId(10);
+                    break;
                 default:
                     showId(0);
                     break;
@@ -422,6 +425,49 @@
         <p class="main_paragraph">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
 
 В случае успеха, загруженное расписание изменится у всей группы.</p>
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+
+
+    </div>
+
+
+    <div class="cat" id="c10">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    URL ссылка на календарь
+                </p>
+            </div>
+
+
+        <div class="breaker"></div>
+
+        <p class="main_paragraph">URL ссылка на календарь позволяет добавить ваше расписание в онлайн календари, например в Outlook.
+Такое расписание не нужно скачивать, календарь автоматически скачает его по этой ссылке.
+Просто скопируйте ссылку и вставьте в ваш календарь.</p>
+        <img src="{% static 'img/scene4.png' %}" class="standard_img">
+        <p class="main_paragraph">Расписание для Windows можно добавить через Outlook. Перейдите на сайт <a href="https://outlook.office.com/calendar/addcalendar">Outlook</a>.
+        </p>
+        <img src="{% static 'img/scene5.png' %}" class="standard_img">
+        <p class="main_paragraph" style="white-space: pre-wrap">Выберите “Подписаться с веб-страницы” и вставьте ссылку, которую вы скопировали из файла.</p>
+
+        <img src="{% static 'img/scene6.png' %}" class="standard_img">
+
+        <p class="main_paragraph">Войдите в календарь Windows под тем же аккаунтом Outlook.
+Ваше расписание готово!</p>
+        <p class="main_paragraph">Календарь на Android добавляется через Google.
+Перейдите на сайт <a href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl">Google</a></p>
+        <img src="{% static 'img/scene7.png' %}" class="standard_img">
+        <p class="main_paragraph">Зайдите в приложение Google Calendar на телефоне в пункт настройки</p>
+        <img src="{% static 'img/scene8.png' %}" class="standard_img">
+        <p class="main_paragraph">В приложение Google Calendar перейдите пункт настройки и включите синхронизацию</p>
+        <img src="{% static 'img/scene9.png' %}" class="standard_img">
+        <p class="main_paragraph">Календарь настроен! Вы можете добавить виджеты на главный экран на свой вкус и цвет. Календари в других приложениях настраиваются подобным образом.</p>
+
         <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
         <div class="clearfix"></div>
 
