@@ -1063,6 +1063,7 @@ submenu = {
         [get_button(label="Команды", color="default", payload={'button': 'commands'})],
         [get_button(label="Экспорт расписания в .docx", color="default", payload={'button': 'exportword'})],
         [get_button(label="Экспорт расписания в .ics (.ical)", color="default", payload={'button': 'exportcalendar'})],
+        [get_button(label="Ссылка на URL расписания", color="default", payload={'button': 'url_shed_ics'})],
         [get_button(label="Активности", color="default", payload={'button': 'activities'})],
         [get_button(label="Назад", color="default", payload={})]
 

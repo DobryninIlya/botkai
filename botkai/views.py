@@ -77,9 +77,9 @@ from django.conf import settings
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 
 def download_ics(request):
-    file = make_ics_response(request.GET.get("groupid", ""))
     if not request.GET.get("groupid", ""):
         raise Http404
+    file = make_ics_response(request.GET.get("groupid", ""))
     if not file:
         raise Http404
     path = "./{}".format(file)
