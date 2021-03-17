@@ -7,7 +7,7 @@ import requests
 
 def GetDocShedule(group, id):
     message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
-    with open('{}.ics'.format(group), 'w') as f:
+    with open('{}.txt'.format(group), 'w') as f:
         f.write(str(message))
     a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
     b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".txt", "rb")}).json()
