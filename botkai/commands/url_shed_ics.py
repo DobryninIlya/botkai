@@ -10,7 +10,7 @@ def GetDocShedule(group, id):
     with open('{}.ics'.format(group), 'w') as f:
         f.write(str(message))
     a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
-    b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".ics", "rb")}).json()
+    b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".txt", "rb")}).json()
     c = vk.method("docs.save", {"file" : b["file"]})
     d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
     return d
@@ -24,7 +24,8 @@ def info():
     vk.method("messages.send",
                     {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : getMainKeyboard(UserParams.role),
                         "random_id": random.randint(1, 2147483647)})
-    message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    # message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    message = "Откройте файл и скопируйте ссылку."
     vk.method("messages.send",
               {"peer_id": MessageSettings.getPeer_id(), "message": message,
                'attachment' : GetDocShedule(UserParams.groupId, MessageSettings.getId()),
