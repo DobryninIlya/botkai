@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'liu2agg0tn5b5#j8&4q#9+m9oyt()3(6%w(-82ahmtc!hu1_so'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'botkaid.herokuapp.com', "127.0.0.1", "vk.com", "kaibotkai.herokuapp.com", "www.dobrynin.engineer", "dobrynin.engineer", "*.dobrynin.engineer"]
-
 
 # Application definition
 
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -121,6 +121,24 @@ USE_TZ = True
 # )
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
 
+STATIC_URL = '/static/'
+if DEBUG:
+    STATIC_DIR = os.path.join(BASE_DIR, 'static')
+    # STATICFILES_DIRS = [
+    #     STATIC_DIR,
+    #     '/botkai/static/',
+    # ]
+else:
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    # STATICFILES_FINDERS = (
+    #     'django.contrib.staticfiles.finders.FileSystemFinder',
+    #     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # )
+    pass
 X_FRAME_OPTIONS = 'ALLOW-FROM https://vk.com/'
+
+MEDIA_URL = '/media/'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

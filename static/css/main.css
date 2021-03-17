@@ -1,0 +1,459 @@
+@font-face {
+font-family: "Pangolin";
+src: url("../fonts/Pangolin-Regular.ttf") format("truetype");
+font-style: normal;
+font-weight: normal;
+}
+@font-face {
+font-family: "Ruda";
+src: url("../fonts/Ruda.ttf") format("truetype");
+font-style: normal;
+font-weight: normal;
+}
+@font-face {
+font-family: "Roboto";
+src: url("../fonts/Roboto-Medium.ttf") format("truetype");
+font-style: normal;
+font-weight: normal;
+}
+html {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin:0px;
+}
+body {
+    width: inherit;
+    background-color: #222534;
+    margin: 0px;
+    /*align-content: center;*/
+}
+#red_up {
+    position: relative;
+    width: 102px;
+    margin-left: 34px;
+    margin-top: 18px;
+    display: inline-block;
+}
+#red_sit {
+    position: relative;
+    display: block;
+    width: 102px;
+    height: auto;
+    float: right;
+    margin-top: 20px;
+
+}
+.clearfix { clear: both;  }
+/*#red_sit:after {*/
+/*	content: "\n";*/
+/*	display: table;*/
+/*	clear: both;*/
+/*}*/
+#p1 {
+    position: relative;
+    display: inline-block;
+    width: 217px;
+    text-align: left;
+    margin-top: 60px;
+    margin-left: 15px;
+    vertical-align: top;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.76);
+}
+
+#buttons_block {
+    position: relative;
+    display: block;
+    width: 276px;
+    height: auto;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    /*left: 69px;*/
+    /*top: 171px;*/
+}
+
+.buttons {
+    width: 100%;
+    height: calc(width/(276/64));
+}
+
+
+
+#first_category {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    left: 0px;
+
+
+}
+.blue_up {
+    position: relative;
+    width: 102px;
+    height: auto;
+    display: inline-block;
+    margin: 20px;
+}
+
+.cat_name {
+    position: relative;
+    max-width: 250px;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+    font-family: Ruda;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 30px;
+    white-space: pre-line;
+    color: #FFFFFF;
+}
+.breaker {
+    position: relative;
+width: 370px;
+height: 0px;
+
+border: 1px solid #FFFFFF;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+.breaker{
+    display: block;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+#menu_1 {
+    position: relative;
+    width: auto;
+    max-width: 177px;
+    max-height: 139px;
+    height: auto;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 35px;
+    vertical-align: middle;
+}
+/*#cat_1_name {*/
+/*    position: absolute;*/
+/*    width: 250px;*/
+/*    height: 63px;*/
+/*    left: 147px;*/
+/*    top: 70px;*/
+
+/*    font-family: Ruda;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    font-size: 26px;*/
+/*    line-height: 32px;*/
+
+/*    color: #FFFFFF;*/
+
+/*    text-shadow: 0px 4px 4px rgba(27, 0, 191, 0.52);*/
+/*    margin: 0px;*/
+/*}*/
+#p2 {
+position: relative;
+/*width: 158px;*/
+height: auto;
+display: inline-block;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+    white-space: pre-line;
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+}
+#p3 {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 43px;
+    margin-right: 43px;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
+.img_blue_down {
+    position: relative;
+    width: 100px;
+    height: auto;
+    display: block;
+    float: right;
+}
+
+
+.blue_up {
+        position: relative;
+    width: 102px;
+    height: auto;
+    display: inline-block;
+    margin: 20px;
+}
+#back_bt1 {position: relative;
+    width: 112px;
+    height: auto;
+    float: right;
+    display: block;
+    top: 17px;
+}
+#back_bt2 {
+    position: absolute;
+width: 112px;
+height: 36px;
+left: 272px;
+top: 17px;
+}
+
+#p5 {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 43px;
+    margin-right: 43px;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    display: block;
+
+    color: #FFFFFF;
+}
+#p6 {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 43px;
+    margin-right: 43px;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    display: block;
+
+    color: #FFFFFF;
+}
+#menu_2 {
+
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+}
+#menu_3 {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+}
+#second_category {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+.cat {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+}
+.back_bt {
+position: relative;
+width: 112px;
+margin-left: 20px ;
+
+
+}
+#blue_up3 {
+    position: absolute;
+width: 102px;
+height: 137px;
+left: 24px;
+top: 46px;
+}
+#img_blue_down3 {
+position: absolute;
+width: 100px;
+height: 134px;
+left: 293px;
+top: 2976px;
+}
+.breaker#c3 {
+    position: absolute;
+width: 370px;
+height: 0px;
+left: 22px;
+top: 210px;
+
+border: 1px solid #FFFFFF;
+}
+p.main_paragraph {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 43px;
+    margin-right: 43px;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    display: block;
+
+    color: #FFFFFF;
+}
+
+.main_header {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 43px;
+    margin-right: 43px;
+    vertical-align: middle;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 20px;
+    display: block;
+
+    color: #FFFFFF;
+}
+
+
+
+#dialog_1 {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+}
+#dialog_2 {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+}
+#dialog_3 {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+}
+#dialog_4 {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#menu_4 {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+}
+.f_c {
+    display: flex;
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-right: 15px;
+    margin-left: 43px;
+        vertical-align: middle;
+}
+.standard_img {
+    position: relative;
+    display: block;
+    width: 90%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 414px;
+}
+
+#hideAll
+ {
+   position: fixed;
+   left: 0px;
+   right: 0px;
+   top: 0px;
+   bottom: 0px;
+   background-color: white;
+   z-index: 99; /* Higher than anything else in the document */
+
+ }

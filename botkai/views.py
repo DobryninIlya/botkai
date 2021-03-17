@@ -1,19 +1,14 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
 import json
-import traceback
-import os
 import importlib
-
+import os
 from .events.confirmation import confirmation
 from .events.message_new import message_new
 from .events.vkpay_transaction import vkpay_transaction
 from .events.group_leave import group_leave
 from .events.group_join import group_join
-
-
-from pprint import pprint
+from botkai.fileserver.make_ics_response import main as make_ics_response
 
 events = {
     "confirmation" : confirmation,
@@ -77,3 +72,21 @@ def main_miniapp(request):
 def web_yandex(request):
     return render(request, 'botkaiapp/yandex_f66897e4739fe69c.html')
 
+import os
+from django.conf import settings
+from django.http import HttpResponse, Http404, HttpResponseForbidden
+
+def download_ics(request):
+    if not request.GET.get("groupid", ""):
+        raise Http404
+    file = make_ics_response(request.GET.get("groupid", ""))
+    if not file:
+        raise Http404
+    path = "./{}".format(file)
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
