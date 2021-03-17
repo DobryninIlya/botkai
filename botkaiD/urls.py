@@ -32,7 +32,7 @@ urlpatterns = [
     path('yandex_f66897e4739fe69c.html', web_yandex),
     path('assistent/', include("aliceskill.urls")),
 
-    url('download/', download_ics),  # {'path': "./bot.db"}),
+    url('download/shedule/', download_ics),  # {'path': "./bot.db"}),
 
 url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
 url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

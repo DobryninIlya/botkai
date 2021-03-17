@@ -94,63 +94,66 @@ def getResponse(groupId):
 
 
 def makeFile(week, group):
-    c = Calendar()
-    today = datetime.date.today()
-    current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
-    isNormal, response = getResponse(group)
-    days_in_week = list(response.keys())
-    days_in_week.sort()
+    try:
+        c = Calendar()
+        today = datetime.date.today()
+        current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
+        isNormal, response = getResponse(group)
+        days_in_week = list(response.keys())
+        days_in_week.sort()
 
-    if not isNormal:
-        return False
+        if not isNormal:
+            return False
 
-    current_week = 0
-    while (current_week <= week):
-        for key in days_in_week:
-            if (current_date.month == 12 and current_date.day == 30) or (
-                    current_date.month == 7 and current_date.day == 1):
-                break
-            chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                                    1] + chetn) % 2 else False  # Если True чет, False - неч
+        current_week = 0
+        while (current_week <= week):
+            for key in days_in_week:
+                if (current_date.month == 12 and current_date.day == 30) or (
+                        current_date.month == 7 and current_date.day == 1):
+                    break
+                chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
+                                        1] + chetn) % 2 else False  # Если True чет, False - неч
 
-            for row in response[key]:
-                dayDate = row["dayDate"].rstrip().lower()
-                prefix = ""
+                for row in response[key]:
+                    dayDate = row["dayDate"].rstrip().lower()
+                    prefix = ""
 
-                if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
-                    continue
-                elif dayDate == 'чет/неч':
-                    if chetnost:
-                        prefix = " (1) гр."
-                    else:
-                        prefix = " (2) гр."
-                elif dayDate == 'неч/чет':
-                    if chetnost:
-                        prefix = " (2) гр."
-                    else:
-                        prefix = " (1) гр."
+                    if (dayDate == 'чет' and not chetnost) or (dayDate == 'неч' and chetnost):
+                        continue
+                    elif dayDate == 'чет/неч':
+                        if chetnost:
+                            prefix = " (1) гр."
+                        else:
+                            prefix = " (2) гр."
+                    elif dayDate == 'неч/чет':
+                        if chetnost:
+                            prefix = " (2) гр."
+                        else:
+                            prefix = " (1) гр."
 
-                e = Event()
-                tt = row["dayTime"].rstrip() if len(row["dayTime"].rstrip()) < 6 else row["dayTime"].rstrip()[:5]
-                tt = tt_dict[tt]
-                begin_time = str(current_date) + " {}:00".format(tt)
-                # end_time = str(current_date) + " {}:00".format(time_dict[row["dayTime"].rstrip()])
-                e.name = prefix + row["disciplType"].rstrip().upper() + " " + row["disciplName"].rstrip()
-                e.begin = begin_time
-                e.duration = datetime.timedelta(minutes=190 if row["disciplType"].rstrip().upper() == 'Л.Р.' else 90)
-                e.location = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
-                e.description = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
-                c.events.add(e)
+                    e = Event()
+                    tt = row["dayTime"].rstrip() if len(row["dayTime"].rstrip()) < 6 else row["dayTime"].rstrip()[:5]
+                    tt = tt_dict[tt]
+                    begin_time = str(current_date) + " {}:00".format(tt)
+                    # end_time = str(current_date) + " {}:00".format(time_dict[row["dayTime"].rstrip()])
+                    e.name = prefix + row["disciplType"].rstrip().upper() + " " + row["disciplName"].rstrip()
+                    e.begin = begin_time
+                    e.duration = datetime.timedelta(minutes=190 if row["disciplType"].rstrip().upper() == 'Л.Р.' else 90)
+                    e.location = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
+                    e.description = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
+                    c.events.add(e)
 
-            current_date = current_date + datetime.timedelta(days=1)
-            if str(current_date.isoweekday()) not in days_in_week:
                 current_date = current_date + datetime.timedelta(days=1)
-                continue
-        current_week += 1
-    with open('{}.ics'.format(group), 'w') as f:
-        f.write(str(c))
-        return '{}.ics'.format(group)
-    return False
+                if str(current_date.isoweekday()) not in days_in_week:
+                    current_date = current_date + datetime.timedelta(days=1)
+                    continue
+            current_week += 1
+        with open('{}.ics'.format(group), 'w') as f:
+            f.write(str(c))
+            return '{}.ics'.format(group)
+        return False
+    except:
+        return False
 
 
 
