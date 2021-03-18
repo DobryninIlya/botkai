@@ -98,7 +98,7 @@ def handle_dialog(body, request, response):
     entities = request["nlu"]["entities"]
     user_id = session['user_id']
     group_values = ""
-    if new:
+    if new and ('спроси у' not in original_utterance.lower() or 'узнай у' not in original_utterance.lower()):
         sessionStorage[user_id] = {
                     "groupId" : None
                 }
