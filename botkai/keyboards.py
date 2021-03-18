@@ -1132,6 +1132,16 @@ keyboardPrepodShareTask = {
 keyboardPrepodShareTask = json.dumps(keyboardPrepodShareTask, ensure_ascii=False).encode('utf-8')
 keyboardPrepodShareTask = str(keyboardPrepodShareTask.decode('utf-8'))
 
+keyboardicalendarGuide = {
+    "one_time": False,
+    'inline' : True,
+    "buttons": [get_button_vkminiapp(label="Гайд по настройке расписания", app_id='7505621', owner_id="182372147",
+                              hash="icalendar")]
+
+}
+keyboardicalendarGuide = json.dumps(keyboardicalendarGuide, ensure_ascii=False).encode('utf-8')
+keyboardicalendarGuide = str(keyboardicalendarGuide.decode('utf-8'))
+
 # def keyboardPrepodOwnShed():
 #     keyboardPrepodOwnShed = {
 #         "one_time": False,
