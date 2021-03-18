@@ -1,8 +1,19 @@
 from .. import classes as command_class
-from ..keyboards import getMainKeyboard
+from ..keyboards import keyboardicalendarGuide
 from ..classes import vk, MessageSettings, UserParams
 import random
+import requests
 
+
+def GetDocShedule(group, id):
+    message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    with open('{}.txt'.format(group), 'w') as f:
+        f.write(str(message))
+    a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
+    b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".txt", "rb")}).json()
+    c = vk.method("docs.save", {"file" : b["file"]})
+    d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
+    return d
 
 def info():
 
@@ -11,12 +22,13 @@ def info():
     Просто скопируйте эту ссылку и вставьте в ваш календарь.
     """
     vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : getMainKeyboard(UserParams.role),
+                    {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : keyboardicalendarGuide,
                         "random_id": random.randint(1, 2147483647)})
-    message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    # message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    message = "Откройте файл и скопируйте ссылку."
     vk.method("messages.send",
               {"peer_id": MessageSettings.getPeer_id(), "message": message,
-               "keyboard": getMainKeyboard(UserParams.role),
+               'attachment' : GetDocShedule(UserParams.groupId, MessageSettings.getId()),
                "random_id": random.randint(1, 2147483647)})
 
 info_command = command_class.Command()
