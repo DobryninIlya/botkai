@@ -1,7 +1,7 @@
-from .. import classes as command_class
-from ..keyboards import getMainKeyboard
-from ..classes import vk, MessageSettings, UserParams, cursor, connection
 import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, cursor, connection
 
 
 def info():

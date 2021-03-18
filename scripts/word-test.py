@@ -1,19 +1,6 @@
-
-import random
-import json
-
-
-import docx
-import requests
-import datetime
-import traceback
 import docx
 
 BASE_URL = 'https://kai.ru/raspisanie'
-
-import os
-
-
 
 
 class ShedRow(object):

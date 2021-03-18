@@ -1,11 +1,10 @@
-from .. import classes as command_class
-import vk_api
 import random
-import json
-import requests
-from ..keyboards import keyboard
-from ..classes import vk, MessageSettings,UserParams
 
+import requests
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams
+from ..keyboards import keyboard
 
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 

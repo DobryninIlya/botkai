@@ -1,5 +1,5 @@
-from locust import HttpUser, TaskSet, task, user
-import json
+from locust import HttpUser, TaskSet, task
+
 
 def get_pattern(payload):
     return {

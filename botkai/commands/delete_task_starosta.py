@@ -1,8 +1,8 @@
-from .. import classes as command_class
 import random
-from ..keyboards import KeyboardProfile
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import traceback
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams, cursor
 
 event_data = """{
     "type": "show_snackbar",

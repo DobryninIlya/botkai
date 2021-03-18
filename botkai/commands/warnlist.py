@@ -3,6 +3,7 @@ from ..keyboards import warnInfo
 from ..classes import vk, MessageSettings, cursor
 import random
 import datetime
+import traceback
 
 ##################################                Добавить блокировку от 3 варнов 
 def info():

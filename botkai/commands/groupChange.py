@@ -1,8 +1,10 @@
-from .. import classes as command_class
-from ..keyboards import keyboardAddTasks2
-from ..classes import vk, MessageSettings, UserParams, conn, cursorR
 import random
 import traceback
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, conn, cursorR
+from ..keyboards import keyboardAddTasks2
+
 
 def info():
     id = MessageSettings.getId()

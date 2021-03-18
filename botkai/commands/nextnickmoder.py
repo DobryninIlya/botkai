@@ -1,9 +1,12 @@
-from .. import classes as command_class
-from ..keyboards import GetModerNickButton
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import traceback
-##################################                Добавить блокировку от 3 варнов 
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, connection, cursor
+from ..keyboards import GetModerNickButton
+
+
+##################################                Добавить блокировку от 3 варнов
 def info():
     id = MessageSettings.getId()
     idAdv = MessageSettings.payload["id"]

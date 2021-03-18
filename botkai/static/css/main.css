@@ -81,9 +81,10 @@ body {
     /*top: 171px;*/
 }
 
+/*noinspection CssInvalidPropertyValue,CssInvalidPropertyValue*/
 .buttons {
     width: 100%;
-    height: calc(width/(276/64));
+    height: auto;
 }
 
 

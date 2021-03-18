@@ -1,9 +1,11 @@
+import datetime
+import random
+import traceback
+
 from .. import classes as command_class
 from .. import keyboards
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
-import random
-import datetime
-import traceback
+from ..classes import vk, MessageSettings, UserParams, cursor
+
 
 def info():
 

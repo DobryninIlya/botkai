@@ -1,8 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import keyboardPrepodSubmenu
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
-import random
 import datetime
+import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
+from ..keyboards import keyboardPrepodSubmenu
 
 uptime = datetime.datetime.now()
 

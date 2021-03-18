@@ -1,8 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import keyboarddonate, get_button
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
-import random
 import json
+import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
+from ..keyboards import keyboarddonate, get_button
 
 keyboarddonate = {
     "one_time": False,

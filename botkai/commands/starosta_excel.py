@@ -1,8 +1,8 @@
-from .. import classes as command_class
-from ..keyboards import help_starosta_upload
-from ..classes import vk, MessageSettings, UserParams, cursor, connection
 import random
-import traceback
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
+from ..keyboards import help_starosta_upload
 
 
 def info():

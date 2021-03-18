@@ -1,9 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import GetModerNickButton
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import traceback
 
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams, cursor
+from ..keyboards import GetModerNickButton
 
 chetn = UserParams.getChetn()
 

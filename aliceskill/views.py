@@ -1,20 +1,16 @@
 from __future__ import unicode_literals
-from django.http import HttpResponse
-# Импортируем модули для работы с JSON и логами.
-import json
-import logging
-from django.views.decorators.csrf import csrf_exempt
-from pprint import pprint
-import os
-import psycopg2
-import sqlite3
 
-import random
 import datetime
 import json
-import requests
+import os
+import sqlite3
 import traceback
 
+import psycopg2
+import requests
+from django.http import HttpResponse
+# Импортируем модули для работы с JSON и логами.
+from django.views.decorators.csrf import csrf_exempt
 
 sessionStorage = {}
 commands = ['расписание', "что ты умеешь", "помощь"]

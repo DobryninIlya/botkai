@@ -1,10 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import keyboard
-from ..classes import vk, MessageSettings, UserParams, conn, cursorR
-import random
 import json
+import random
 
-
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, conn, cursorR
+from ..keyboards import keyboard
 
 
 def get_button(label, color, payload=""):

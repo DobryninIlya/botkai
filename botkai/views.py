@@ -1,14 +1,15 @@
+import importlib
+import json
+
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-import json
-import importlib
-import os
+
+from botkai.fileserver.make_ics_response import main as make_ics_response
 from .events.confirmation import confirmation
+from .events.group_join import group_join
+from .events.group_leave import group_leave
 from .events.message_new import message_new
 from .events.vkpay_transaction import vkpay_transaction
-from .events.group_leave import group_leave
-from .events.group_join import group_join
-from botkai.fileserver.make_ics_response import main as make_ics_response
 
 events = {
     "confirmation" : confirmation,
@@ -74,7 +75,8 @@ def web_yandex(request):
 
 import os
 from django.conf import settings
-from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.http import HttpResponse, Http404
+
 
 def download_ics(request):
     if not request.GET.get("groupid", ""):

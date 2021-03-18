@@ -1,8 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import GetDeleteTaskButton, keyboardTasks
-from ..classes import vk, MessageSettings
 import random
-import sys, traceback
+import sys
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
+
 
 def info():
     id = MessageSettings.getId()

@@ -1,8 +1,8 @@
-from .. import classes as command_class
-from ..keyboards import GetModerTaskStarostaFirst, GetModerTaskStarosta
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
-import traceback
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams, cursor
+from ..keyboards import GetModerTaskStarosta
 
 
 def info():

@@ -1,9 +1,11 @@
-from .. import classes as command_class
-from ..keyboards import keyboardAddTasks2
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
+
 import requests
 from bs4 import BeautifulSoup
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams
+
 
 def info():
     msg = "Запрос отправлен на обработку"

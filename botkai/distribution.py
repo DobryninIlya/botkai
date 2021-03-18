@@ -1,14 +1,13 @@
 
+import datetime
+import json
+import os
 import random
 import traceback
-import json
-import datetime
+
 import requests
-from .classes import MessageSettings, UserParams, connection, cursor, vk
-import os
 
-
-
+from .classes import UserParams, connection, cursor, vk
 
 BASE_URL = 'https://kai.ru/raspisanie'
 appid = os.getenv('APP_ID')

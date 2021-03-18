@@ -1,7 +1,6 @@
-import docx
-import requests
 import datetime
-import traceback
+
+import docx
 
 today = datetime.date.today()
 

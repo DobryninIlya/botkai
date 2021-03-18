@@ -1,10 +1,10 @@
-import random
+import datetime
 import json
 import os
-import requests
-import datetime
 import traceback
-import psycopg2, sqlite3
+
+import psycopg2
+import requests
 from ics import Calendar, Event
 
 

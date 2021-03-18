@@ -1,8 +1,10 @@
-from .. import classes as command_class
-from ..keyboards import GetModerAdvButton
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 import traceback
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams, cursor
+from ..keyboards import GetModerAdvButton
+
 chetn = UserParams.getChetn()
 
 

@@ -1,10 +1,9 @@
+import datetime
 import json
+
 # from user_class import UserParams
 # from message_class import MessageSettings
-import psycopg2
-from .classes import MessageSettings, UserParams, connection, cursor
-from pprint import pprint
-import datetime
+from .classes import MessageSettings, UserParams, cursor
 
 #######################################Keyboards#####################################################
 exams_months = [1, 5, 6, 7, 8, 11, 12]
