@@ -12,67 +12,14 @@
 
         <script>
 
-        function clearall() { document.getElementById("hideAll").style.display = "none"; }
-        clearall();
+        // function clearall() { document.getElementById("hideAll").style.display = "none"; }
+        // clearall();
         // Sends event to client
         vkBridge.send('VKWebAppInit');
         // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
         </script> 
         <meta http-equiv="Content-Type"
         content="text/html; charset=utf-8">
-
-        <script>
-        function showId(id){
-            let cid = 0;
-            let categories = document.querySelectorAll("div.cat");
-
-                categories.forEach(element => {
-                        if (cid == id){
-                            element.style.display = "block";
-                        }
-                        else {
-                            element.style.display = "none";
-                        }
-                        cid++;
-
-                    })
-
-
-                }
-
-        window.onload = function() { load(); };
-
-        function load() {
-            switch (document.location.hash) {
-                case "#starosta":
-                    showId(8);
-                    break;
-                case "#affiliate":
-                    showId(9);
-                    break;
-                case "#icalendar":
-                    showId(10);
-                    break;
-                default:
-                    showId(0);
-                    break;
-            }
-        }
-
-        vkBridge.subscribe((e) => {
-
-        if (e.detail.type === 'VKWebAppGetUserInfoResult') {
-           var paragraph = document.getElementById("special_for");
-            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " "+ e.detail.data.last_name);
-            paragraph.appendChild(txt);
-           }
-        });
-
-        vkBridge.send('VKWebAppGetUserInfo', {});
-
-
-
-        </script>
 
 
         <title>Инструкция</title>
@@ -88,7 +35,7 @@
 
 
 
-        <div style="display: none" id="hideAll">&nbsp; загрузка страницы.</div>
+<!--        <div style="display: none" id="hideAll">&nbsp; загрузка страницы.</div>-->
 
 
         <div class="cat" id="c0" >
@@ -483,6 +430,59 @@
 
 
     </div>
+
+        <script>
+        function showId(id){
+            let cid = 0;
+            let categories = document.querySelectorAll("div.cat");
+
+                categories.forEach(element => {
+                        if (cid == id){
+                            element.style.display = "block";
+                        }
+                        else {
+                            element.style.display = "none";
+                        }
+                        cid++;
+
+                    })
+
+
+                }
+
+        window.onload = function() { load(); };
+
+        function load() {
+            switch (document.location.hash) {
+                case "#starosta":
+                    showId(8);
+                    break;
+                case "#affiliate":
+                    showId(9);
+                    break;
+                case "#icalendar":
+                    showId(10);
+                    break;
+                default:
+                    showId(0);
+                    break;
+            }
+        }
+
+        vkBridge.subscribe((e) => {
+
+        if (e.detail.type === 'VKWebAppGetUserInfoResult') {
+           var paragraph = document.getElementById("special_for");
+            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " "+ e.detail.data.last_name);
+            paragraph.appendChild(txt);
+           }
+        });
+
+        vkBridge.send('VKWebAppGetUserInfo', {});
+
+
+
+        </script>
 
   <script>
     window.onload = function () {
