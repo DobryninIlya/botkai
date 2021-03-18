@@ -292,9 +292,9 @@ def getResponse(groupId):
                 connection.commit()
                 return True, response.json()
             except:
-                return True, json.loads(timetable)
+                return True, timetable
         else:
-            return True, json.loads(result)
+            return True, result
             # if len(result) < 10:
             #     try:
             #         response = requests.post(BASE_URL, data="groupId=" + str(groupId),
