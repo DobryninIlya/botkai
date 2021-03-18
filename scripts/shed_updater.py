@@ -26,8 +26,14 @@ cursorR = connect.cursorR
 connection = connect.connection
 conn = connect.conn
 
+if datetime.date.today().month > 7:
+    date = "{}-12-30".format(datetime.date.today().year)
+else:
+    date = "{}-6-30".format(datetime.date.today().year)
+
+
 def shed_update():
-    sql = "SELECT DISTINCT groupp FROM saved_timetable WHERE groupp > 1000 AND groupp <1000000000"
+    sql = f"SELECT DISTINCT groupp FROM saved_timetable WHERE groupp > 1000 AND groupp <1000000000 AND date_update != {date}"
     cursor.execute(sql)
     result = cursor.fetchall()
     err = 0
