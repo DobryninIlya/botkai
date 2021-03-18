@@ -25,7 +25,6 @@ cursor = connect.cursor
 cursorR = connect.cursorR
 connection = connect.connection
 conn = connect.conn
-
 if datetime.date.today().month > 7:
     date = "{}-12-30".format(datetime.date.today().year)
 else:
