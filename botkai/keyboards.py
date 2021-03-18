@@ -1136,7 +1136,7 @@ keyboardicalendarGuide = {
     "inline": True,
     "buttons": [
         [get_button_vkminiapp(label="Гайд по настройке расписания", app_id='7505621', owner_id="182372147",
-                              hash="affiliate")]
+                              hash="icalendar")]
 
     ]
 
