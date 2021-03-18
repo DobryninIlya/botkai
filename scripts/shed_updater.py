@@ -32,7 +32,7 @@ else:
 
 
 def shed_update():
-    sql = f"SELECT DISTINCT groupp FROM saved_timetable WHERE groupp > 1000 AND groupp <1000000000 AND date_update != {date}"
+    sql = f"SELECT DISTINCT groupp FROM saved_timetable WHERE groupp > 1000 AND groupp <1000000000 AND date_update != '{date}'"
     cursor.execute(sql)
     result = cursor.fetchall()
     err = 0
