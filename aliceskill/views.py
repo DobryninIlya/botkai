@@ -98,7 +98,7 @@ def handle_dialog(body, request, response):
     entities = request["nlu"]["entities"]
     user_id = session['user_id']
     group_values = ""
-    if new:
+    if new and ('спроси у' not in original_utterance.lower() or 'узнай у' not in original_utterance.lower()):
         sessionStorage[user_id] = {
                     "groupId" : None
                 }
@@ -292,9 +292,10 @@ def getResponse(groupId):
                 connection.commit()
                 return True, response.json()
             except:
-                return True, json.loads(timetable)
+                return True, timetable
         else:
-            return True, json.loads(result)
+            return True, json.loads(timetable)
+
             # if len(result) < 10:
             #     try:
             #         response = requests.post(BASE_URL, data="groupId=" + str(groupId),
