@@ -1,9 +1,8 @@
-from .. import classes as command_class
-from ..keyboards import testButtons
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
 
-
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams
+from ..keyboards import testButtons
 
 chetn = UserParams.getChetn()
 

@@ -1,8 +1,8 @@
-from .. import classes as command_class
-from ..keyboards import make_starosta
-from ..classes import vk, MessageSettings
 import random
-import traceback
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
+from ..keyboards import make_starosta
 
 
 def info():

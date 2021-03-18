@@ -1,13 +1,14 @@
-from .. import classes as command_class
-import random
 import datetime
 import json
+import random
+
 import requests
+
+from .. import classes as command_class
 from .. import keyboards
-from ..classes import vk as vk,cursor, connection
 from ..classes import MessageSettings
 from ..classes import UserParams
-import traceback
+from ..classes import vk as vk, cursor, connection
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()

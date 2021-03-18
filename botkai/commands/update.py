@@ -1,7 +1,7 @@
+import random
+
 from .. import classes as command_class
 from ..classes import vk, MessageSettings, UserParams
-import random
-import json
 from ..keyboards import getMainKeyboard
 
 

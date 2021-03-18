@@ -1,8 +1,8 @@
-from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
-import random
 import json
+import random
 
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
 
 
 def get_button(label, color, payload=""):

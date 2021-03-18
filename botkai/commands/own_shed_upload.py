@@ -1,20 +1,16 @@
-import openpyxl
-
-from pprint import pprint
-
+import datetime
+import json
+import random
 import sqlite3
+import traceback
+
+import openpyxl
 import psycopg2
 import requests
-import json
-import traceback
-import datetime
 
 from .. import classes as command_class
-import random
-import requests
-from ..keyboards import KeyboardProfile
 from ..classes import vk, MessageSettings, UserParams
-
+from ..keyboards import KeyboardProfile
 
 weekdays = {
     "пн": 1,

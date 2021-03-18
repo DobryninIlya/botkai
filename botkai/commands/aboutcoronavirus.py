@@ -1,7 +1,8 @@
-from .. import classes as command_class
 import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
 from ..keyboards import coronavirusfull as keyboard
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 
 
 def info():

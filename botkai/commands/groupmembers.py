@@ -1,7 +1,7 @@
-from .. import classes as command_class
-from ..keyboards import keyboardAddTasks2
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
 import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams, cursor
 
 
 def info():

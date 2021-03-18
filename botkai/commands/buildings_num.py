@@ -1,8 +1,9 @@
-from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams
 import random
-import json
-# from ..keyboards import 
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings
+
+# from ..keyboards import
 
 
 buildings = {

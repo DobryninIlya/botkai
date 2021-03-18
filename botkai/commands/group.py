@@ -1,11 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import keyboarddonate, get_button
-from ..classes import vk, MessageSettings, UserParams
-import random
 import json
+import random
 
-
-
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams
+from ..keyboards import get_button
 
 keyboard = {
     "inline": True,

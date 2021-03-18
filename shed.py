@@ -1,10 +1,12 @@
-from apscheduler.schedulers.background import BackgroundScheduler
-from botkai.distribution import main as distribution
 import datetime
-import requests
 import json
 import traceback
-from botkai.classes import connection, cursor
+
+import requests
+from apscheduler.schedulers.background import BackgroundScheduler
+
+from botkai.classes import cursor
+from botkai.distribution import main as distribution
 from scripts.shed_updater import shed_update
 
 sched = BackgroundScheduler()

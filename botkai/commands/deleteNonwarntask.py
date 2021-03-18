@@ -1,11 +1,13 @@
-from .. import classes as command_class
-from ..keyboards import GetModerTaskButton
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
+import datetime
 import random
 import traceback
-import datetime
 
-##################################                Добавить блокировку от 3 варнов 
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, connection, cursor
+from ..keyboards import GetModerTaskButton
+
+
+##################################                Добавить блокировку от 3 варнов
 def info():
     id = MessageSettings.id
     today = datetime.date.today()

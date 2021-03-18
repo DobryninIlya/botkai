@@ -1,8 +1,10 @@
 from .. import classes
+import random
 
 vk = classes.vk
 
 def group_join(request):
+    data = request.body
     object = data["object"]
     user_id = object["user_id"]
     vk.method("messages.send",

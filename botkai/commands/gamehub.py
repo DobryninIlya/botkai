@@ -1,8 +1,8 @@
+import random
+
 from .. import classes as command_class
 from .. import keyboards
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
-import random
-import json
+from ..classes import vk, MessageSettings, UserParams
 
 
 def info():

@@ -1,9 +1,10 @@
-from .. import classes as command_class
-import random
-from ..keyboards import KeyboardProfile, keyboardAddTasks
-from ..classes import vk, MessageSettings, UserParams, conn, cursorR
-import sqlite3
 import datetime
+import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, conn, cursorR
+from ..keyboards import keyboardAddTasks
+
 
 def info():
     today = datetime.date.today()

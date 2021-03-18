@@ -1,11 +1,12 @@
-from .. import classes as command_class
-import random
-from ..keyboards import KeyboardProfile
-from ..classes import vk, MessageSettings, connection, cursor, UserParams
-import traceback
 import datetime
 import json
+import random
+
 import requests
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, connection, cursor, UserParams
+from ..keyboards import KeyboardProfile
 
 BASE_URL = 'https://kai.ru/raspisanie' 
 

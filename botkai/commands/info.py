@@ -1,9 +1,9 @@
-from .. import classes as command_class
-import vk_api
 import random
-from ..classes import vk as vk
+
+from .. import classes as command_class
 from ..classes import MessageSettings
 from ..classes import UserParams
+from ..classes import vk as vk
 from ..keyboards import getMainKeyboard
 
 

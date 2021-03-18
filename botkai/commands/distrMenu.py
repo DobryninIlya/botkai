@@ -1,8 +1,10 @@
-from .. import classes as command_class
-import random
-from ..keyboards import KeyboardProfile, get_button
-from ..classes import vk, MessageSettings, connection, cursor
 import json
+import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, cursor
+from ..keyboards import get_button
+
 
 def KeyboardDistr():
 

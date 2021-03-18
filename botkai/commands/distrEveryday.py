@@ -1,7 +1,8 @@
-from .. import classes as command_class
-import random
 import json
-from ..classes import vk, MessageSettings, UserParams, connection, cursor
+import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, connection, cursor
 from ..keyboards import get_button
 
 

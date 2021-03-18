@@ -1,8 +1,9 @@
-from .. import classes as command_class
 import random
-from ..keyboards import make_warn
+
+from .. import classes as command_class
 from ..classes import vk, MessageSettings
-import traceback
+from ..keyboards import make_warn
+
 
 def info():
 

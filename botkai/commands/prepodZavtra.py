@@ -1,10 +1,11 @@
-from .. import classes as command_class
-from .. import keyboards
-from ..classes import vk, MessageSettings, UserParams, conn, cursorR
-import random
 import datetime
-import requests
+import random
 import traceback
+
+import requests
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, UserParams
 
 today = datetime.date.today()
 chetn = UserParams.getChetn()

@@ -1,15 +1,15 @@
+import datetime
+import json
+import random
+import traceback
+
+import requests
+from ics import Calendar, Event
+
 from .. import classes as command_class
 from ..classes import vk, MessageSettings, UserParams, cursor, connection
-import random
-import json
 from ..keyboards import submenu
 
-import docx
-import requests
-import datetime
-import traceback
-from pprint import pprint
-from ics import Calendar, Event
 today = datetime.date.today()
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'

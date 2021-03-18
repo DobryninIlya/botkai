@@ -1,8 +1,9 @@
-from .. import classes as command_class
-from ..keyboards import exit
-from ..classes import vk, MessageSettings, UserParams, conn, cursorR
-import random
 import datetime
+import random
+
+from .. import classes as command_class
+from ..classes import vk, MessageSettings, conn, cursorR
+from ..keyboards import exit
 
 uptime = datetime.datetime.now()
 

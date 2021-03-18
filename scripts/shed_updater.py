@@ -1,13 +1,11 @@
-import psycopg2
-import vk_api
-import sqlite3
-import json
-import traceback
-import os
-import requests
 import datetime
+import json
+import os
+import sqlite3
 import time
 
+import psycopg2
+import requests
 
 start_time = time.time()
 BASE_URL = 'https://kai.ru/raspisanie'

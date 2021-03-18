@@ -1,14 +1,14 @@
-from .. import classes as command_class
-import random
 import datetime
 import json
-import requests
-from ..keyboards import getMainKeyboard
-from ..classes import vk as vk
-from ..classes import MessageSettings
-from ..classes import UserParams, cursor
-import traceback
+import random
 
+import requests
+
+from .. import classes as command_class
+from ..classes import MessageSettings
+from ..classes import UserParams, cursor, connection
+from ..classes import vk as vk
+from ..keyboards import getMainKeyboard
 
 chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie' 

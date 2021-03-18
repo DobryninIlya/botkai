@@ -1,5 +1,5 @@
 from .. import classes as command_class
-from ..keyboards import storageMain
+from ..keyboards import storageMain as keyboard
 from ..classes import vk, MessageSettings
 import random
 
