@@ -293,7 +293,7 @@ def getResponse(groupId):
                 return True, response.json()
             except:
                 return True, timetable
-        else::
+        else:
             return True, json.loads(timetable)
 
             # if len(result) < 10:
