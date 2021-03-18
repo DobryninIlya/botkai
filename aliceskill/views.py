@@ -294,7 +294,8 @@ def getResponse(groupId):
             except:
                 return True, timetable
         else:
-            return True, result
+            return True, json.loads(timetable)
+
             # if len(result) < 10:
             #     try:
             #         response = requests.post(BASE_URL, data="groupId=" + str(groupId),
