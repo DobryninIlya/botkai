@@ -11,11 +11,10 @@ from scripts.shed_updater import shed_update
 
 sched = BackgroundScheduler()
 
-# @sched.scheduled_job('interval', minutes=1)
-# @sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
-# def func():
-#     print("working sheduler")
-#     distribution()
+@sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
+def func():
+    distribution()
 
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
