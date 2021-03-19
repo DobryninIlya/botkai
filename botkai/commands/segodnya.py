@@ -78,8 +78,11 @@ def showTimetable(groupId, tomorrow=0):
                 isPotok = False
             if isPotok:
                if not user_potok:
-                   continue 
-
+                   continue
+            if '---' in (elem["audNum"]).rstrip():
+                elem["audNum"] = "-нет-"
+            if '---' in (elem["buildNum"]).rstrip():
+                elem["buildNum"] = "-нет-"
             # print(dateinstr)
             if (elem["dayDate"]).rstrip()=="чет" and ((datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] +  " " + elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() +' зд.\n'
@@ -108,7 +111,7 @@ def showTimetable(groupId, tomorrow=0):
         print('Ошибка:\n', traceback.format_exc())
 
         return ""
-    
+
 
 
 def getResponse(groupId):
@@ -138,6 +141,7 @@ def getResponse(groupId):
         except:
             return False, ""
 
+
     else:
         date_update = result[1]
         timetable = result[2]
@@ -154,14 +158,14 @@ def getResponse(groupId):
                 connection.commit()
                 return True, response.json()
             except:
-                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-                cursor.execute(sql)
-                result = cursor.fetchone()[0]
-                return True, json.loads(result)
+                # sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+                # cursor.execute(sql)
+                # result = cursor.fetchone()[0]
+                return True, json.loads(timetable)
         else:
-            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-            cursor.execute(sql)
-            result = cursor.fetchone()[0]
+            # sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+            # cursor.execute(sql)
+            result = timetable
             if len(result) < 10:
                 try:
                     response = requests.post(BASE_URL, data="groupId=" + str(groupId),
@@ -177,7 +181,6 @@ def getResponse(groupId):
                 except:
                     return True, ""
             return True, json.loads(result)
-
     return
 
 
