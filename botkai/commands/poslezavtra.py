@@ -81,6 +81,12 @@ def showTimetable(groupId, tomorrow=0):
                 if not user_potok:
                     continue
 
+            if '---' in (elem["audNum"]).rstrip():
+                elem["audNum"] = "-нет-"
+            if '---' in (elem["buildNum"]).rstrip():
+                elem["buildNum"] = "-нет-"
+
+
             # print(dateinstr)
             if (elem["dayDate"]).rstrip() == "чет" and (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
@@ -145,7 +151,7 @@ def showTimetable(groupId, tomorrow=0):
         print('Ошибка:\n', traceback.format_exc())
 
         return ""
-    
+
 
 
 def getResponse(groupId):
@@ -175,7 +181,9 @@ def getResponse(groupId):
         except:
             return False, ""
 
+
     else:
+
         date_update = result[1]
         timetable = result[2]
         if date_update + datetime.timedelta(days=2) < today:
@@ -191,14 +199,14 @@ def getResponse(groupId):
                 connection.commit()
                 return True, response.json()
             except:
-                sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-                cursor.execute(sql)
-                result = cursor.fetchone()[0]
-                return True, json.loads(result)
+                # sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+                # cursor.execute(sql)
+                # result = cursor.fetchone()[0]
+                return True, json.loads(timetable)
         else:
-            sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-            cursor.execute(sql)
-            result = cursor.fetchone()[0]
+            # sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
+            # cursor.execute(sql)
+            result = timetable
             if len(result) < 10:
                 try:
                     response = requests.post(BASE_URL, data="groupId=" + str(groupId),
