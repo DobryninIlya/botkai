@@ -341,7 +341,7 @@ def getMainKeyboard(role):
         keyboard = {
             "one_time": False,
             "buttons": [
-                [get_button(label="Команды", color="primary", payload={'button': 'infoNitik'})]
+                [get_button(label="Команды", color="primary", payload={'button': 'infoBanned'})]
             ]
         }
         keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
@@ -432,7 +432,8 @@ def KeyboardProfile():
         main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload={'button': 'name'})],
 
                         [get_button(label="Группа: " + str(Group), color=GroupColor, payload={'button': 'group'})],
-                        [get_button(label="Баланс: " + str(Balance), color="positive", payload={'button': 'donate'})],
+                        # [get_button(label="Баланс: " + str(Balance), color="positive", payload={'button': 'donate'})],
+                        [get_button(label="$ Поддержать проект", color="positive", payload={'button': 'donate'})],
                         [get_button(label="Мои задания (" + str(TaskCount) + ")", color="default",
                                     payload={'button': 'mytask'})],
                         [
@@ -511,6 +512,7 @@ def GetStarostaKeyboard(first=0):
     buttons_starosta = []
     if UserParams.adminLevel >= 2 or first:
         buttons_starosta = [
+            [get_button(label="Журнал посещения", color="primary", payload={'button': 'starosta_blank'})],
             [get_button(label="Загрзка расписания из Excel", color="default", payload={'button': 'starostaexcel'})],
             [get_button(label="Проверка заданий", color="default", payload={'button': 'starostatask'})],
             [get_button(label="Удаление объявлений", color="default", payload={'button': 'starosta_adv_delete'})],
@@ -521,6 +523,7 @@ def GetStarostaKeyboard(first=0):
             [get_button(label="Сделать рассылку", color="default", payload={'button': 'starosta_distr_info'})],
             [get_button(label="Перестать быть старостой", color="negative", payload={'button': 'starosta_leave'})],
             [get_button(label="Назад", color="primary", payload={'button': 'profile'})],
+
         ]
 
     keyboard = {
@@ -1063,7 +1066,7 @@ submenu = {
         [get_button(label="Экспорт расписания в .docx", color="default", payload={'button': 'exportword'})],
         [get_button(label="Экспорт расписания в .ics (.ical)", color="default", payload={'button': 'exportcalendar'})],
         [get_button(label="Ссылка на URL расписания", color="default", payload={'button': 'url_shed_ics'})],
-        [get_button(label="Активности", color="default", payload={'button': 'activities'})],
+        # [get_button(label="Активности", color="default", payload={'button': 'activities'})],
         [get_button(label="Назад", color="default", payload={})]
 
     ]
