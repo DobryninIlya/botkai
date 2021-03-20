@@ -1143,6 +1143,20 @@ keyboardicalendarGuide = {
 keyboardicalendarGuide = json.dumps(keyboardicalendarGuide, ensure_ascii=False).encode('utf-8')
 keyboardicalendarGuide = str(keyboardicalendarGuide.decode('utf-8'))
 
+
+keyboardInfo = {
+    "inline": True,
+    "buttons": [
+        [get_button_vkminiapp(label="Презентация", app_id='7789820', owner_id="182372147")],
+        [get_button_vkminiapp(label="Инструкция", app_id='7505621', owner_id="182372147")],
+        [get_button_vkminiapp(label="Гайд по настройке расписания", app_id='7505621', owner_id="182372147", hash="icalendar")]
+    ]
+
+}
+keyboardInfo = json.dumps(keyboardInfo, ensure_ascii=False).encode('utf-8')
+keyboardInfo = str(keyboardInfo.decode('utf-8'))
+
+
 # def keyboardPrepodOwnShed():
 #     keyboardPrepodOwnShed = {
 #         "one_time": False,
