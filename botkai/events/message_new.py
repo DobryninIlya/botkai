@@ -311,11 +311,12 @@ def IsRegistred():
                             cursorR.execute(sql)
                             conn.commit()
                             UserParams.update(int(MessageSettings.id))
-                            vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.", "keyboard" : keyboards.getMainKeyboard(1),
+                            vk.method("messages.send", {"peer_id": id, "message": "Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.",
+                                                        "keyboard" : keyboards.keyboardInfo,
                                                 "random_id": random.randint(1, 2147483647)})
-                            vk.method("messages.send",
-                                    {"peer_id": id, "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
-                            vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
+                            # vk.method("messages.send",
+                            #         {"peer_id": id, "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
+                            # vk.method("messages.send", {"peer_id": id, "random_id": random.randint(1, 2147483647), "attachment": "poll-182372147_348171795"})
 
                         elif int(body) > 10000:
                             sql = "UPDATE Users SET Groupp= " + str(showGroupId(body)) + " ,groupReal = " + str(body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
