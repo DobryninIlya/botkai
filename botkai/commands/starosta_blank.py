@@ -88,6 +88,7 @@ def createDocShedule(group, realGroup, students):
 
     i=0
     for user in users:
+        i += 1
         row = table.add_row()
         row_cells = row.cells
         # row_cells[0].height = Cm(0.3)
@@ -97,7 +98,7 @@ def createDocShedule(group, realGroup, students):
         row_cells[0].width = Cm(1.19)
         row_cells[1].text = f'{user}'
         row_cells[1].width = Cm(6)
-        i+=1
+
 
     for row in table.rows:
         row.height = Cm(0.5)
