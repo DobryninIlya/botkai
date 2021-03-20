@@ -16,6 +16,6 @@ info_command = command_class.Command()
 
 info_command.keys = ['команды']
 info_command.desciption = 'Покажу список команд'
-info_command.payload = "infoNitik"
+info_command.payload = "infoBanned"
 info_command.process = info
 info_command.role = [5]
