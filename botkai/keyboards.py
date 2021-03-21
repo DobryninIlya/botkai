@@ -1100,10 +1100,10 @@ buildings_menu = str(buildings_menu.decode('utf-8'))
 keyboardPrepodSubmenu = {
     "one_time": False,
     "buttons": [
-        [get_button(label="Справка", color="primary")],
+        # [get_button(label="Справка", color="primary")],
         [get_button(label="Сообщение студентам", payload={'button': "prepod_share_message_info"}, color="primary")],
         [get_button(label="Задание студентам на дату", payload={'button': "prepod_share_task_info"}, color="primary")],
-        # [get_button(label="Собственное расписание", color="primary")],
+        [get_button(label="Бланк посещения группы",payload={'button': "prepod_blank"}, color="primary")],
         [get_button(label="Выход", color="negative")]
     ]
 
