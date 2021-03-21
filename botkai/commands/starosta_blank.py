@@ -151,7 +151,7 @@ def info():
         att = GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id(), UserParams.RealGroup, students)
     except:
         pass
-    vk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id ,"message": "Блан посещения",  'attachment' : att})
+    vk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id ,"message": "Бланк посещения",  'attachment' : att})
 
 
     return "ok"
@@ -164,7 +164,7 @@ command = command_class.Command()
 
 
 
-command.keys = ['бланк посещения']
+command.keys = ['бланк посещения', "журнал посещения"]
 command.desciption = 'отображение полного списка группы'
 command.process = info
 command.payload = "starosta_blank"
