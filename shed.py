@@ -58,7 +58,7 @@ def scheduled_job():
     shed_update()
 
 
-# @sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', minutes=1)
 def widget_update():
     print("WIDGET UPDATE")
     try:
@@ -86,6 +86,6 @@ def widget_update():
 # widget_update()
 sched.start()
 
-if __name__ == "__main__":
-    sched.start()
-    widget_update()
+# if __name__ == "__main__":
+#     sched.start()
+#     widget_update()
