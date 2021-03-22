@@ -53,9 +53,7 @@ def getGroupsResponse():
     return
 
 
-@sched.scheduled_job('interval', hours=6)
-def scheduled_job():
-    shed_update()
+
 
 
 @sched.scheduled_job('interval', minutes=1)
@@ -65,16 +63,16 @@ def widget_update():
         sql = "SELECT COUNT(ID_VK) FROM Users;"
         cursor.execute(sql)
         delta = datetime.datetime.now() - uptime
-        text = "Состояние: активен\n Пользователей сегодня: {}\nВсего: {}\n {}".format(UserParams.statUser,
-                                                                                       cursor.fetchone()[0],
-                                                                                       delta.strptime("%H ч. %M м."))
+        text = "Состояние: активен\n Пользователей сегодня: {}\nВсего: {}".format(UserParams.statUser,
+                                                                                       cursor.fetchone()[0])
+        time = delta[:-7]
         code = f"""
         return {
         "title": "Состояние",
           "text" : {text}
           "more": "Написать сообщение",
           "more_url": "https://vk.me/botraspisanie",
-          "descr": "Статистика использования",
+          "descr": "Время работы:{time}",
             };    """
         print(code)
         response = vk_widget.method("appWidgets.update", {"type": "text", "code": code})
@@ -82,6 +80,9 @@ def widget_update():
     except:
         print('Ошибка:\n', traceback.format_exc())
 
+@sched.scheduled_job('interval', hours=6)
+def scheduled_job():
+    shed_update()
 
 # widget_update()
 sched.start()
