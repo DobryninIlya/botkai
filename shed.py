@@ -58,7 +58,7 @@ def scheduled_job():
     shed_update()
 
 
-@sched.scheduled_job('interval', minutes=1)
+# @sched.scheduled_job('interval', minutes=1)
 def widget_update():
     try:
         sql = "SELECT COUNT(ID_VK) FROM Users;"
