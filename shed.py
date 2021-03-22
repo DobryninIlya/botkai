@@ -76,7 +76,8 @@ def widget_update():
           "more_url": "https://vk.me/botraspisanie",
           "descr": "Статистика использования",
     };    """
-        vk_widget.method("appWidgets.update", {"type": "text", "code": code})
+        response = vk_widget.method("appWidgets.update", {"type": "text", "code": code})
+        print(response)
     except:
         print('Ошибка:\n', traceback.format_exc())
 
