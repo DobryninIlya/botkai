@@ -65,7 +65,7 @@ def widget_update():
         delta = datetime.datetime.now() - uptime
         text = "Состояние: активен\n Пользователей сегодня: {}\nВсего: {}".format(UserParams.statUser,
                                                                                        cursor.fetchone()[0])
-        time = delta[:-7]
+        time = str(delta)[:-7]
         code = f"""
         return {
         "title": "Состояние",
@@ -82,8 +82,8 @@ def widget_update():
 
 @sched.scheduled_job('interval', hours=6)
 def scheduled_job():
-    shed_update()
-
+    # shed_update()
+    pass
 # widget_update()
 sched.start()
 
