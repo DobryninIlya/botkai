@@ -76,6 +76,7 @@ def widget_update():
           "more_url": "https://vk.me/botraspisanie",
           "descr": "Статистика использования",
     };    """
+        print(code)
         response = vk_widget.method("appWidgets.update", {"type": "text", "code": code})
         print(response)
     except:
