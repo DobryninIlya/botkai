@@ -60,7 +60,7 @@ def scheduled_job():
 
 # @sched.scheduled_job('interval', minutes=1)
 def widget_update():
-    breakpoint()
+    print("WIDGET UPDATE")
     try:
         sql = "SELECT COUNT(ID_VK) FROM Users;"
         cursor.execute(sql)
