@@ -59,28 +59,29 @@ def scheduled_job():
 
 
 # @sched.scheduled_job('interval', minutes=1)
-def widget_update():
-    print("WIDGET UPDATE")
-    try:
-        sql = "SELECT COUNT(ID_VK) FROM Users;"
-        cursor.execute(sql)
-        delta = datetime.datetime.now() - uptime
-        text = "Состояние: активен\n Пользователей сегодня: {}\nВсего: {}\n {}".format(UserParams.statUser, cursor.fetchone()[0], delta.strptime("%H ч. %M м."))
-        code = f"""
-        return {
-        "title": "Состояние",
-          "text" : {text}
-          "more": "Написать сообщение",
-          "more_url": "https://vk.me/botraspisanie",
-          "descr": "Статистика использования",
-            };    """
-        print(code)
-        response = vk_widget.method("appWidgets.update", {"type": "text", "code": code})
-        print(response)
-    except:
-        print('Ошибка:\n', traceback.format_exc())
+# def widget_update():
+print("WIDGET UPDATE")
+try:
+    sql = "SELECT COUNT(ID_VK) FROM Users;"
+    cursor.execute(sql)
+    delta = datetime.datetime.now() - uptime
+    text = "Состояние: активен\n Пользователей сегодня: {}\nВсего: {}\n {}".format(UserParams.statUser,
+                                                                                   cursor.fetchone()[0],
+                                                                                   delta.strptime("%H ч. %M м."))
+    code = f"""
+    return {
+    "title": "Состояние",
+      "text" : {text}
+      "more": "Написать сообщение",
+      "more_url": "https://vk.me/botraspisanie",
+      "descr": "Статистика использования",
+        };    """
+    print(code)
+    response = vk_widget.method("appWidgets.update", {"type": "text", "code": code})
+    print(response)
+except:
+    print('Ошибка:\n', traceback.format_exc())
 
 
-
-widget_update()
+# widget_update()
 sched.start()
