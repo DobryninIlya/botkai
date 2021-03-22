@@ -3,14 +3,14 @@ import json
 import traceback
 
 import requests
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.background import BlockingScheduler
 
 from botkai.classes import cursor, UserParams, vk_widget
 from botkai.distribution import main as distribution
 from scripts.shed_updater import shed_update
 
 uptime = datetime.datetime.now()
-sched = BackgroundScheduler()
+sched = BlockingScheduler()
 
 
 # @sched.scheduled_job('interval', minutes=1)
