@@ -82,8 +82,9 @@ def widget_update():
 
 @sched.scheduled_job('interval', hours=6)
 def scheduled_job():
-    # shed_update()
-    pass
+    print("shed updating")
+    shed_update()
+
 # widget_update()
 sched.start()
 
