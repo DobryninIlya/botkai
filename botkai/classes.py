@@ -25,8 +25,11 @@ class vk_interface:
         self.token = os.getenv("VK_TOKEN")
         self.vk = vk_api.VkApi(token=self.token)
         self.secret_key = os.getenv("SECRET_KEY")
+        self.vk_widget_token = vk_api.VkApi(token=self.os.getenv("VK_TOKEN_WIDGET"))
+
 vk_interface_obj = vk_interface()
 vk = vk_interface_obj.vk
+vk_widget = vk_interface_obj.vk_widget_token
 secret_key = vk_interface_obj.secret_key
 
 
