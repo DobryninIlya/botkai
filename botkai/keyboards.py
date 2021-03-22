@@ -248,7 +248,7 @@ keyboard = {
         ],
         [
             get_button(label="Команды", color="default", payload={'button': 'commands'}),
-            get_button(label="Преподы", color="default", payload={'button': 'prepod'}),
+            get_button(label="Преподаватели", color="default", payload={'button': 'prepod'}),
             get_button(label="Хранилище", color="positive", payload={'button': 'storagemain'})
         ],
         [
@@ -325,7 +325,7 @@ def getMainKeyboard(role):
                 ],
                 [
                     get_button(label="Команды", color="default", payload={'button': 'commands'}, type="text"),
-                    get_button(label="👨‍🏫Преподы", color="default", payload={'button': 'prepod'}, type="text"),
+                    get_button(label="👨‍🏫Преподаватели", color="default", payload={'button': 'prepod'}, type="text"),
                 ],
                 [
                     get_button(label="💌Обратная связь", color="primary", payload="{'button': 'feedback'}",
@@ -364,7 +364,7 @@ def getMainKeyboard(role):
                 ],
                 [
                     # get_button(label="📖 Разное", color="default", payload={'button': 'submenu'}, type="text"),
-                    get_button(label="👨‍🏫 Преподы", color="default", payload={'button': 'prepod'}, type="text"),
+                    get_button(label="👨‍🏫 Преподаватели", color="default", payload={'button': 'prepod'}, type="text"),
                 ],
                 [
                     get_button(label="💌 Обратная связь", color="primary", payload={'button': 'feedback'}, type="text"),
@@ -996,6 +996,7 @@ keyboarddonate = {
     "one_time": False,
     "buttons": [
 
+        # [{"action": {"type": "vkpay", "hash": "action=transfer-to-group&group_id=182372147&aid=10"}}],
         [{"action": {"type": "vkpay", "hash": "action=transfer-to-group&group_id=182372147&aid=10"}}],
         [get_button(label="Назад", color="default")]
 
