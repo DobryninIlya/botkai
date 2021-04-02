@@ -996,6 +996,7 @@ keyboarddonate = {
     "one_time": False,
     "buttons": [
 
+        # [{"action": {"type": "vkpay", "hash": "action=transfer-to-group&group_id=182372147&aid=10"}}],
         [{"action": {"type": "vkpay", "hash": "action=transfer-to-group&group_id=182372147&aid=10"}}],
         [get_button(label="Назад", color="default")]
 
