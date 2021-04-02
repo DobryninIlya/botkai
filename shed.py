@@ -75,8 +75,8 @@ def widget_update():
           "descr": "Время работы:{time}",
             };    """
         print(code)
+
         response = vk_widget.method("appWidgets.update", {"type": "text", "code": str(code)})
-        print(response)
     except:
         print('Ошибка:\n', traceback.format_exc())
 
