@@ -112,9 +112,9 @@ var requirejs, require, define;
                     name.splice(i, 1);
                     i -= 1;
                 } else if (part === '..') {
-                    // If at the start, or previous value is still ..,
+                    // If at the start, or previous value is sill ..,
                     // keep them so that when converted to a path it may
-                    // still work when converted to a path, even though
+                    // sill work when converted to a path, even though
                     // as an ID it is less than ideal. In larger point
                     // releases, may be better to just kick out an error.
                     if (i === 0 || (i === 1 && name[2] === '..') || name[i - 1] === '..') {
@@ -1506,7 +1506,7 @@ S2.define('select2/selection/base',[
     // This needs to be delayed as the active element is the body when the tab
     // key is pressed, possibly along with others.
     window.setTimeout(function () {
-      // Don't trigger `blur` if the focus is still in the selection
+      // Don't trigger `blur` if the focus is sill in the selection
       if (
         (document.activeElement == self.$selection[0]) ||
         ($.contains(self.$selection[0], document.activeElement))

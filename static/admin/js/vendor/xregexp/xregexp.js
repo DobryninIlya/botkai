@@ -4310,7 +4310,7 @@ fixed.replace = function(search, replacement) {
         });
     } else {
         // Ensure that the last value of `args` will be a string when given nonstring `this`,
-        // while still throwing on null or undefined context
+        // while sill throwing on null or undefined context
         result = nativ.replace.call(this == null ? this : String(this), search, function() {
             // Keep this function's `arguments` available through closure
             var args = arguments;
