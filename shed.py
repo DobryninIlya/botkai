@@ -24,7 +24,7 @@ sched = BlockingScheduler()
 #     print('This job is run every weekday at 5pm.')
 
 
-@sched.scheduled_job('cron', day_of_week='mon-sat', hour=4)
+@sched.scheduled_job('cron', day_of_week='mon-sat', hour=3)
 def func():
     distribution()
     # sched.shutdown()
@@ -60,7 +60,7 @@ def getGroupsResponse():
 def widget_update():
     print("WIDGET UPDATE")
     try:
-        sql = "SELECT COUNT(ID_VK) FROM Users;"
+        sql = "SELECT COUNT(*) FROM Users;"
         cursor.execute(sql)
         delta = datetime.datetime.now() - uptime
         text = "Состояние: активен\n Пользователей сегодня: {}\nВсего: {}".format(UserParams.statUser,
