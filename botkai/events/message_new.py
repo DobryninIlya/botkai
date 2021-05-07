@@ -328,7 +328,7 @@ def IsRegistred():
                             vk.method("messages.send",
                                       {"peer_id": id,
                                        "message": "Меню"
-                                          , "keyboard": keyboards.getMainKeyboard(1),
+                                          , "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                        "random_id": random.randint(1, 2147483647)})
                             # vk.method("messages.send",
                             #         {"peer_id": id, "sticker_id" : 6880 , "random_id": random.randint(1, 2147483647)})
