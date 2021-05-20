@@ -13,10 +13,7 @@ def info():
     return "ok"
 
 
-
 command = command_class.Command()
-
-
 
 
 command.keys = ['apanel']

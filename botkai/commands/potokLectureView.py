@@ -29,19 +29,7 @@ def KeyboardDistr():
 
 
 def info():
-    # print("distrEveryday")
-    # id = MessageSettings.getId()
-    # sost = int(MessageSettings.payload["action"])
-    # if sost==-1:
-    #     cursor.execute("UPDATE users SET distr = 0 WHERE ID_VK = " + str(id))
-    #     vk.method("messages.send",
-    #                     {"peer_id": id, "message": "Включено","keyboard" : KeyboardDistr(), "random_id": random.randint(1, 2147483647)})
-    # elif sost == 0:
-    #     cursor.execute("UPDATE users SET distr = -1 WHERE ID_VK = " + str(id))
-    #     vk.method("messages.send",
-    #                     {"peer_id": id, "message": "Выключено","keyboard" : KeyboardDistr(), "random_id": random.randint(1, 2147483647)})
-    
-    # connection.commit()
+
     
     sql = "SELECT potok_lecture FROM users WHERE id_vk = {id_vk}".format(id_vk = MessageSettings.getId())
     cursor.execute(sql)
