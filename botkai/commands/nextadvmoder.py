@@ -6,7 +6,6 @@ from ..classes import vk, MessageSettings, connection, cursor
 from ..keyboards import GetModerAdvButton
 
 
-##################################                Добавить блокировку от 3 варнов
 def info():
     id = MessageSettings.getId()
     idAdv = MessageSettings.payload["id"]

@@ -37,7 +37,7 @@ def showTimetable(groupId, tomorrow=0):
     try:
         chetn = UserParams.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
-        response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"examSchedule"} )
+        response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"examSchedule"}, timeout=7)
         print("TEST")
         print("Response: ", response.status_code)
         if str(response.status_code) != '200':
@@ -50,8 +50,12 @@ def showTimetable(groupId, tomorrow=0):
         for elem in response:
             result += str(chr(10148)) + (elem["examDate"]).lstrip().rstrip() + " " + (elem["examTime"]).lstrip().rstrip() + " " + (elem["disciplName"]).lstrip().rstrip() + " " + (elem["audNum"]).lstrip().rstrip() + " ауд. " + (elem["buildNum"]).lstrip().rstrip() + " зд. \n"
         return result
-    except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
+    except ConnectionError as err:
+        return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
+    except requests.exceptions.Timeout as err:
+        return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
+    except:
+        return False, ""
 command = command_class.Command()
 
 command.keys = ['экзамены', 'расписание экзаменов', 'exams']

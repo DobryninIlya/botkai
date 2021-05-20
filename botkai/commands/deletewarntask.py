@@ -7,7 +7,6 @@ from ..classes import vk, MessageSettings, connection, cursor
 from ..keyboards import warnList, GetModerTaskButton
 
 
-##################################                Добавить блокировку от 3 варнов
 def info():
     id = MessageSettings.id
     today = datetime.date.today()
