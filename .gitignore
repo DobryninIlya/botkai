@@ -14,7 +14,8 @@ local_settings.py
 /.vscode
 *~
 Bez_imeni-1.png
-
+./idea/
+*s.xml
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/django
