@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="{% static "css/landing.css" %}">
+
+
+
+        <script>
+        vkBridge.send('VKWebAppInit');
+        // vkBridge.send('VKWebAppAllowNotifications');
+        vkBridge.send('VKWebAppAllowMessagesFromGroup');
+        </script>
+
+
+        <title>Бот расписание занятий</title>
+    </head>
+    <body>
+        <img src="{% static 'img/header_main.png' %}" class="standard_img">
+        <p class="main_header">
+            Смотри расписание с платформы чатбота ВКонтакте.
+        </p>
+        <p class="main_paragraph">Это удобно! Больше не нужно искать тот самый скриншот расписания в галерее и
+            вспоминать четность недели, потому что бот просчитает твое расписание на конкретный день, обязательно учтя
+            четность недели, дату и подгруппу.</p>
+        <img src="{% static 'img/1scene.png' %}" class="standard_img">
+        <p class="main_header">
+            Спрашивай расписание у Алисы - голосового помощника от Яндекса.
+        </p>
+        <p class="main_paragraph">Просто произнеси вслух “Алиса, запусти навык “Бот КАИ” и спроси у бота свое
+            расписание: “Какое расписание у группы 4438 на завтра?”.</p>
+        <div id="alice_badge">
+            <a id="alice_badge_ref" href="https://dialogs.yandex.ru/store/skills/6f92252f-raspisanie-kai?utm_source=site&utm_medium=badge&utm_campaign=v1&utm_term=d1" target="_blank">
+                <img alt="Алиса это умеет" id="alice_badge_img" src="https://dialogs.s3.yandex.net/badges/v1-term1.svg"/></a>
+        <div class="clearfix"></div></div>
+        <img src="{% static 'img/arrow.png' %}" class="standard_img" style="height:150px; width: 150px;">
+            <p class="main_header">
+Скачай расписание и добавь его в любое приложение Календаря        </p>
+        <p class="main_paragraph">Смотри расписание экране блокировки телефона, компьютера, на умных часах и в любимых приложениях.</p>
+        <img src="{% static 'img/scene2.png' %}" class="standard_img">
+        <p class="main_paragraph">Поддержка международного формата календарей ICS означает то, что вы можете добавить расписание в любой менеджер календарей. Например, в календарь Windows и он будет отображать расписание на заблокированном экране и на панели задач.</p>
+        <img src="{% static 'img/scene3.png' %}" class="standard_img">
+        <div class="scrool_bottom"></div>
+
+
+    </body>
+
+
+</html>
+
+
+

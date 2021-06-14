@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+{% load static %}
+<!--suppress SyntaxError -->
+<html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="{% static "css/main.css" %}">
+
+
+
+        <script>
+
+        // function clearall() { document.getElementById("hideAll").style.display = "none"; }
+        // clearall();
+        // Sends event to client
+        vkBridge.send('VKWebAppInit');
+        // document.write(vkBridge.send("VKWebAppGetCommunityToken", {"app_id": 7505621, "group_id": 182372147, "scope": "app_widget"}));
+        </script> 
+        <meta http-equiv="Content-Type"
+        content="text/html; charset=utf-8">
+
+
+        <title>Инструкция</title>
+    </head>
+    <body>
+
+    <div class="preloader">
+        <div class="preloader__row">
+        <div class="preloader__item"></div>
+        <div class="preloader__item"></div>
+    </div>
+    </div>
+
+
+
+<!--        <div style="display: none" id="hideAll">&nbsp; загрузка страницы.</div>-->
+
+
+        <div class="cat" id="c0" >
+            <img src="{% static 'img/red_up.png' %}" id="red_up">
+
+            <p id="p1">Привет, я твой персональный робот-помощник! Чтобы познакомиться с основными функциями чат-бота - выбери кнопку ниже :)
+                </p>
+            <div id="buttons_block">
+                <img src="{% static 'img/bt1.png' %}" class="buttons" onclick="showId(1)">
+                <img src="{% static 'img/bt2.png' %}" class="buttons" onclick="showId(2)">
+                <img src="{% static 'img/bt3.png' %}" class="buttons" onclick="showId(3)">
+                <img src="{% static 'img/bt4.png' %}" class="buttons" onclick="showId(4)">
+                <img src="{% static 'img/bt6.png' %}" class="buttons" onclick="showId(5)">
+                <img src="{% static 'img/bt8.png' %}" class="buttons" onclick="showId(7)">
+            </div>
+
+            <img src="{% static 'img/red_sit.png' %}" id="red_sit">
+            <div class="clearfix"></div>
+            <p class="main_paragraph" id="special_for">
+
+            </p>
+            <div class="clearfix"></div>
+        </div>
+        <div class="cat" id="c1">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Регистрация новых пользователей
+                </p>
+            </div>
+            <div class="breaker" id="br1"></div>
+            <div class="f_c">
+                <img src="{% static 'img/menu_1.png' %}" id="menu_1">
+                <p id="p2">При прохождении регистрации бот предложит вам выбрать роль</p>
+            </div>
+            <p class="main_paragraph">Студенты могут смотреть  расписание группы, импортировать расписание из Excel файла, скачивать свое расписание в разных форматах и добавлять задания на определенные дни.
+
+Преподаватели могут также смотреть свое расписание, и взаимодействовать со своими студентами.
+
+Родители могут смотреть расписание своих детей и список других родителей.
+
+Абитуриенты могут перейти в официальные источники, а в случае зачисления зарегистрироваться заново студентом.</p>
+            <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
+
+        </div>
+
+    <div class="cat" id="c2">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Расписание
+                </p>
+            </div>
+        <div class="breaker" id="br2"></div>
+
+
+        <img src="{% static 'img/menu_2.png' %}" class="standard_img">
+        <p class="main_paragraph">Просмотр расписания представлен первыми тремя строками основного меню. Здесь есть кнопки для быстрого отображения расписания на сегодня, завтра и послезавтра, причем оно будет просчитываться с учетом четности, хождения подгрупп и других особенностей ВУЗовского расписания. Также есть кнопка просмотра четности и кнопка “На неделю”, которая открывает дополнительное меню.</p>
+        <img src="{% static 'img/menu_3.png' %}" class="standard_img">
+        <p class="main_paragraph">В этом меню можно посмотреть расписание на ближайшие 7 дней, причем оно будет также просчитываться под конкретный день.
+
+Кнопка “Полностью” отобразит ваше полное расписание.</p>
+
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
+    </div>
+
+    <div class="cat" id="c3">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Собственное расписание из Excel
+                </p>
+            </div>
+
+
+        <div class="breaker"></div>
+
+        <p class="main_paragraph">Теперь расписание занятий можно менять самостоятельно в любой момент. Это может быть удобно, если у вас долгое время не обновляется расписание на сайте.
+
+Формат записи пар в таблицу достаточно простой и гибкий. Можно настроить свое расписание так, чтобы можно было учитывать четность недели, хождение подгрупп на лабораторные работы, очередность их хождения, тип пар и т.п.
+
+Для того, чтобы получить шаблон записи — введите в чат команду «добавить свое расписание».</p>
+        <img src="{% static 'img/dialog_1.png' %}" class="standard_img">
+        <p class="main_paragraph" style="white-space: pre-wrap">Открыв файл можно сразу приступить к его заполнению.
+&nbsp;
+Структура файла представляет собой колонки:
+    &nbsp;&nbsp;○ День недели
+    &nbsp;&nbsp;○ Время
+    &nbsp;&nbsp;○ Частота повторений
+    &nbsp;&nbsp;○ Название пары
+    &nbsp;&nbsp;○ Тип пары
+    &nbsp;&nbsp;○ Аудитория
+    &nbsp;&nbsp;○ Здание
+    &nbsp;&nbsp;○ Потоковая или нет
+    &nbsp;&nbsp;○ Имя преподавателя
+&nbsp;
+За основу взята структура расписания, которое рассылает деканат.
+Отличие лишь в колонке “Потоковая или нет”.  Она помечает лекцию как потоковую, отображение которых можно скрыть командой “поток”. Любое непустое значение этой ячейке означает, что пара потоковая, пустое значение же равно тому, что пара НЕпотоковая.
+Для загрузки расписания в систему просто прикрепите файл к сообщение и введите команду “Загрузить расписание”.
+В случае правильно заполненного файла, расписание сохранится. </p>
+
+        <img src="{% static 'img/dialog_2.png' %}" class="standard_img">
+
+        <p class="main_paragraph">В случае ошибки при заполнении расписания, вам будет выведено соответствующее сообщение с номером строки, в котором допущена ошибка.</p>
+
+        <img src="{% static 'img/dialog_3.png' %}" class="standard_img">
+
+        <p class="main_paragraph">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
+
+Далее, нам необходимо выбрать источник получения расписания в настройках. Для этого перейдите в профиль и отыщите кнопку «Использовать расписание группы». Она означает, что сейчас расписание будет браться как для студента группы напрямую с сайта КАИ (или из сохранения в буфере).</p>
+        <img src="{% static 'img/dialog_4.png' %}" class="standard_img">
+
+        <p class="main_paragraph">Нажав на кнопку, она поменяет текст и цвет.</p>
+        <img src="{% static 'img/menu_4.png' %}" class="standard_img">
+        <p class="main_paragraph">Готово! Теперь получение расписания из вашего Excel-файла полностью настроено!
+Чтобы вернуться к отображению общего расписания группы просто нажмите на эту кнопку еще раз.</p>
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
+
+
+    </div>
+
+    <div class="cat" id="c4">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                        Задания и объявления
+                    </p>
+                </div>
+            <div class="breaker"></div>
+
+        <img src="{% static 'img/menu_5.png' %}" class="standard_img">
+        <p class="main_paragraph">Задания и объявления - это блок функций, определяющий создание домашних заданий и объявлений группы. Такие заметки создаются на всю группу и отображаются всем участникам группы.
+        </p>
+        <img src="{% static 'img/dialog_5.png' %}" class="standard_img">
+        <p class="main_paragraph">
+            Для того, чтобы создать объявление, нажмите на кнопку “Добавить объявление” и введите дату в формате дд.мм . Например, 08.04.
+Далее, следующим сообщением введите текст объявления.
+Полученное объявление будет отображено в указаный день всем участникам группы вместе с сообщением с расписанием.
+Задания - сообщения, содержащие в себе информацию об установленном домашнем задании.
+Задания задаются любым студентом группы  и отображаются в указанный день. Получить текст задания можно нажав на кнопку “Задани”под сообщением с расписанием.
+Добавление заданий происходить аналогично добавлению объявлений. Здесь нужно:
+1. Нажать на кнопку “Добавить задание”;
+2. Ввести дату в формате дд.мм;
+3. Отправить текст задания. Можно прикрепить к сообщению медавложения (до 10 шт.)
+        </p>
+        <img src="{% static 'img/dialog_6.png' %}" class="standard_img">
+
+
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+                        <div class="clearfix"></div>
+
+
+    </div>
+
+     <div class="cat" id="c5">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                            Старосты.
+                            Управление группой
+                    </p>
+                </div>
+            <div class="breaker"></div>
+            <p class="main_paragraph">
+         Староста бота - это какой-то ответственный человек от группы, который модерирует контент в рамках своей группы.
+
+Он, ну или она),  может удалять задания и объявления, созданные другими участниками группы, исключать из группы посторонних людей, выдавать предупреждения за нарушения.
+            </p>
+         <img src="{% static 'img/menu_6.png' %}" class="standard_img">
+        <p class="main_paragraph">
+            Если должность старосты бота свободна, то любой желающий может занять ее в своем профиле. Там будет зеленая кнопка “Староста не назначен. Стать им.”. После нажатия подтвердите свои намерения и теперь у вас появится дополнительный функционал!
+В профиле появится новая кнопка - “Меню старосты”. Там собраны все основные функции старост.
+        </p>
+         <img src="{% static 'img/menu_7.png' %}" class="standard_img">
+         <p class="main_paragraph">В случае чего, должность можно покинуть нажав на кнопку “Перестать быть старостой”.
+         </p>
+         <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+     </div>
+
+     <div class="cat" id="c6">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                            Старосты.
+                            Управление группой
+                    </p>
+                </div>
+            <div class="breaker"></div>
+
+
+            <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+     </div>
+
+
+     <div class="cat" id="c7">
+            <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+                <div class="clearfix"></div>
+
+                <div class="f_c">
+                    <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                    <p class="cat_name">
+                            Яндекс Алиса. Голосовой помощник
+                    </p>
+                </div>
+            <div class="breaker"></div>
+            <p class="main_paragraph">Получить свое расписание можно также через голосового помощника Алиса от Яндекса. Для этого найдите навык “Бот КАИ” и спросите у него расписание. Не забудьте произнести номер группы.</p>
+            <img src="{% static 'img/dialog_7.png' %}" class="standard_img">
+         <p class="main_paragraph">Навык работает на всех поддерживаемых Алисой устройствах - телефоны, браузеры, умные колонки, умные наушники, автомобильные бортовые компьютеры, навигаторы и так далее.
+
+В настоящее время поддерживаются только функции получения расписания студентов на какой-либо день.
+
+
+Хорошие оценки в каталоге навыков Алисы очень сильно способствуют развитию.
+         </p>
+
+            <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+     </div>
+
+    <div class="cat" id="c8">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    Старосты. Загрузка расписания для группы из Excel
+                </p>
+            </div>
+
+
+        <div class="breaker"></div>
+
+        <p class="main_paragraph">Расписание для группы можно загрузить из Excel таблицы. Это может быть удобно, если у вас некоторые пары проходят в другое время или в других аудиториях.
+
+Формат записи пар в таблицу достаточно простой и гибкий. Можно настроить свое расписание так, чтобы можно было учитывать четность недели, хождение подгрупп на лабораторные работы, очередность их хождения, тип пар и т.п.
+
+Для того, чтобы получить шаблон записи — введите в чат команду «добавить свое расписание».</p>
+        <img src="{% static 'img/dialog_1.png' %}" class="standard_img">
+        <p class="main_paragraph" style="white-space: pre-wrap">Открыв файл можно сразу приступить к его заполнению.
+&nbsp;
+Структура файла представляет собой колонки:
+    &nbsp;&nbsp;○ День недели
+    &nbsp;&nbsp;○ Время
+    &nbsp;&nbsp;○ Частота повторений
+    &nbsp;&nbsp;○ Название пары
+    &nbsp;&nbsp;○ Тип пары
+    &nbsp;&nbsp;○ Аудитория
+    &nbsp;&nbsp;○ Здание
+    &nbsp;&nbsp;○ Потоковая или нет
+    &nbsp;&nbsp;○ Имя преподавателя
+&nbsp;
+За основу взята структура расписания, которое рассылает деканат.
+Отличие лишь в колонке “Потоковая или нет”.  Она помечает лекцию как потоковую, отображение которых можно скрыть командой “поток”. Любое непустое значение этой ячейке означает, что пара потоковая, пустое значение же равно тому, что пара НЕпотоковая.
+Для загрузки расписания в систему просто прикрепите файл к сообщение и введите команду “Загрузить расписание староста”.
+В случае правильно заполненного файла, расписание сохранится. </p>
+
+        <img src="{% static 'img/dialog_2_1.png' %}" class="standard_img">
+
+        <p class="main_paragraph">В случае ошибки при заполнении расписания, вам будет выведено соответствующее сообщение с номером строки, в котором допущена ошибка.</p>
+
+        <img src="{% static 'img/dialog_3.png' %}" class="standard_img">
+
+        <p class="main_paragraph">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
+
+В случае успеха, загруженное расписание изменится у всей группы.</p>
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+
+
+    </div>
+
+    <div class="cat" id="c9">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    ТК и филиалы. Загрузка расписания для группы из Excel
+                </p>
+            </div>
+
+
+        <div class="breaker"></div>
+
+        <p class="main_paragraph">Расписание для группы можно загрузить из Excel таблицы. Для этого необходимо получить права старосты. Перейдите в профиль и нажмите на  зеленую кнопку "Староста не назначен. Стать им."</p>
+        <img src="{% static 'img/menu_8.png' %}" class="standard_img">
+        <p class="main_paragraph">Стоит отметить, что если такой кнопки нет, то староста уже был назначен и он обязан обновлять расписание. Для обнуления прав старосты свяжитесь с разработчиком по кнопке "Обратная связь".
+        </p>
+        <p class="main_paragraph">
+Формат записи пар в таблицу достаточно простой и гибкий. Можно настроить свое расписание так, чтобы можно было учитывать четность недели, хождение подгрупп на лабораторные работы, очередность их хождения, тип пар и т.п.
+
+Для того, чтобы получить шаблон записи — введите в чат команду «добавить свое расписание».</p>
+        <img src="{% static 'img/dialog_1.png' %}" class="standard_img">
+        <p class="main_paragraph" style="white-space: pre-wrap">Открыв файл можно сразу приступить к его заполнению.
+&nbsp;
+Структура файла представляет собой колонки:
+    &nbsp;&nbsp;○ День недели
+    &nbsp;&nbsp;○ Время
+    &nbsp;&nbsp;○ Частота повторений
+    &nbsp;&nbsp;○ Название пары
+    &nbsp;&nbsp;○ Тип пары
+    &nbsp;&nbsp;○ Аудитория
+    &nbsp;&nbsp;○ Здание
+    &nbsp;&nbsp;○ Потоковая или нет
+    &nbsp;&nbsp;○ Имя преподавателя
+&nbsp;
+За основу взята структура расписания, которое рассылает деканат.
+Отличие лишь в колонке “Потоковая или нет”.  Она помечает лекцию как потоковую (онлайн-лекцию), отображение которых можно скрыть командой “поток”. Любое непустое значение этой ячейке означает, что пара потоковая, пустое значение же равно тому, что пара НЕпотоковая.
+            Для загрузки расписания в систему просто прикрепите файл к сообщение и введите команду <kbd style="background-color: #535B6B;">“Загрузить расписание староста”</kbd>.
+В случае правильно заполненного файла, расписание сохранится. </p>
+
+        <img src="{% static 'img/dialog_2_1.png' %}" class="standard_img">
+
+        <p class="main_paragraph">В случае ошибки при заполнении расписания, вам будет выведено соответствующее сообщение с номером строки, в котором допущена ошибка.</p>
+
+        <img src="{% static 'img/dialog_3.png' %}" class="standard_img">
+
+        <p class="main_paragraph">В таком случае вам необходимо исправить ошибку и отправить команду с прикрепленным к ней файлу заново.
+
+В случае успеха, загруженное расписание изменится у всей группы.</p>
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+
+
+    </div>
+
+
+    <div class="cat" id="c10">
+        <img src="{% static 'img/back_bt.png' %}" class="back_bt" onclick="showId(0)">
+            <div class="clearfix"></div>
+
+            <div class="f_c">
+                <img src="{% static 'img/blue_up.png' %}" class="blue_up">
+                <p class="cat_name">
+                    URL ссылка на календарь
+                </p>
+            </div>
+
+
+        <div class="breaker"></div>
+
+        <p class="main_paragraph">URL ссылка на календарь позволяет добавить ваше расписание в онлайн календари, например в Outlook.
+Такое расписание не нужно скачивать, календарь автоматически скачает его по этой ссылке.
+Просто скопируйте ссылку и вставьте в ваш календарь.</p>
+        <img src="{% static 'img/scene4.png' %}" class="standard_img">
+        <p class="main_paragraph">Расписание для Windows можно добавить через Outlook. Перейдите на сайт <a href="https://outlook.office.com/calendar/addcalendar">Outlook</a>.
+        </p>
+        <img src="{% static 'img/scene5.png' %}" class="standard_img">
+        <p class="main_paragraph" style="white-space: pre-wrap">Выберите “Подписаться с веб-страницы” и вставьте ссылку, которую вы скопировали из файла.</p>
+
+        <img src="{% static 'img/scene6.png' %}" class="standard_img">
+
+        <p class="main_paragraph">Войдите в календарь Windows под тем же аккаунтом Outlook.
+Ваше расписание готово!</p>
+        <p class="main_paragraph">Календарь на Android добавляется через Google.
+Перейдите на сайт <a href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl">Google</a></p>
+        <img src="{% static 'img/scene7.png' %}" class="standard_img">
+        <p class="main_paragraph">Зайдите в приложение Google Calendar на телефоне в пункт настройки</p>
+        <img src="{% static 'img/scene8.png' %}" class="standard_img">
+        <p class="main_paragraph">В приложение Google Calendar перейдите пункт настройки и включите синхронизацию</p>
+        <img src="{% static 'img/scene9.png' %}" class="standard_img">
+        <p class="main_paragraph">Календарь настроен! Вы можете добавить виджеты на главный экран на свой вкус и цвет. Календари в других приложениях настраиваются подобным образом.</p>
+
+        <img src="{% static 'img/blue_down.png' %}" class="img_blue_down">
+        <div class="clearfix"></div>
+
+
+    </div>
+
+        <script>
+        function showId(id){
+            let cid = 0;
+            let categories = document.querySelectorAll("div.cat");
+
+                categories.forEach(element => {
+                        if (cid == id){
+                            element.style.display = "block";
+                        }
+                        else {
+                            element.style.display = "none";
+                        }
+                        cid++;
+
+                    })
+
+
+                }
+
+        // window.onload = function() { load(); };
+
+        function load() {
+            switch (document.location.hash) {
+                case "#starosta":
+                    showId(8);
+                    break;
+                case "#affiliate":
+                    showId(9);
+                    break;
+                case "#icalendar":
+                    showId(10);
+                    break;
+                default:
+                    showId(0);
+                    break;
+            }
+        }
+
+        vkBridge.subscribe((e) => {
+
+        if (e.detail.type === 'VKWebAppGetUserInfoResult') {
+           var paragraph = document.getElementById("special_for");
+            txt = document.createTextNode("Сделано специально для " + e.detail.data.first_name + " "+ e.detail.data.last_name);
+            paragraph.appendChild(txt);
+           }
+        });
+
+        vkBridge.send('VKWebAppGetUserInfo', {});
+
+        load();
+
+        </script>
+
+  <script>
+    window.onload = function () {
+      document.body.classList.add('loaded_hiding');
+      window.setTimeout(function () {
+        document.body.classList.add('loaded');
+        document.body.classList.remove('loaded_hiding');
+      }, 500);
+    }
+  </script>
+
+
+
+    </body>
+
+
+</html>
+
+
+
