@@ -1,12 +1,12 @@
 from .. import classes
 from .. import keyboards
 
-
 import sqlite3
 import datetime
 import json
 import random 
 import requests
+from requests import ConnectionError
 import traceback
 import os, importlib
 import sys
@@ -512,13 +512,14 @@ def showGroupId(groupNumber):
             #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
             
             return False
+        print(response.status_code, response.json(), response)
         response = response.json()[0]
         return response['id']
     except IndexError:
         vk.method("messages.send",
                 {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
-    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
+    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError):
         try:
             group = getGroupsResponse(groupNumber)
             if group:
