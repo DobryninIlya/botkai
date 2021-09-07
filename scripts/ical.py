@@ -23,16 +23,14 @@ time_dict = {
     "18:25:00": "19:55",
     "20:00:00": "21:30"
 }
-
-time_dict_reversed = {
-    "09:30": "08:00",
-    "11:10": "09:40",
-    "12:50": "11:20",
-    "15:00": "13:30",
-    "16:40": "15:10",
-    "18:20": "16:50",
-    "19:55": "18:25",
-    "21:30": "20:00"
+time_dict_x2 = {
+    "08:00": "11:10",
+    "09:40": "12:50",
+    "11:20": "15:00",
+    "13:30": "16:40",
+    "15:10": "18:20",
+    "16:50": "19:55",
+    "18:25": "21:30"
 }
 
 tt_dict = {
@@ -88,9 +86,9 @@ def makeFile(week = 5):
                 e = Event()
                 tt = row["dayTime"].rstrip() if len(row["dayTime"].rstrip()) < 6 else row["dayTime"].rstrip()[:5]
                 begin_time = str(current_date) + " {}:00".format(tt_dict[tt])
-                end_time = str(current_date) + " {}:00".format(tt_dict[time_dict_reversed[tt]])
+                end_time = str(current_date) + " {}:00".format(tt_dict[time_dict[tt]])
                 # if row["disciplType"] == %ЛАБА%:
-                #     end_time = str(current_date) + " {}:00".format(tt_dict[time_dict_reversed[time_dict_reversed[tt]]])
+                #     end_time = str(current_date) + " {}:00".format(tt_dict[time_dict_x2[tt]])
                 e.name = prefix + row["disciplType"].rstrip().upper() + " " + row["disciplName"].rstrip()
                 e.begin = begin_time
                 e.end = end_time
