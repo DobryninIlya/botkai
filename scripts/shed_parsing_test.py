@@ -7,6 +7,7 @@ import psycopg2
 import requests
 import json
 import traceback
+from ..botkai.classes import vk, cursor, connection
 
 wb = openpyxl.load_workbook(filename='shed_example.xlsx')
 sheet = wb['Лист1']
@@ -78,14 +79,6 @@ def showGroupId(groupNumber):
 
 
 
-conn = sqlite3.connect("bot.db")
-cursorR = conn.cursor()
-
-connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye',
-                              password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9',
-                              host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-connection.autocommit = True
-cursor = connection.cursor()
 
 try:
     cursorR.execute("""CREATE TABLE saved_timetable(
