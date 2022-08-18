@@ -46,7 +46,7 @@ def info():
             mail += "kit@kai.ru"
             hours += "с 9:00 до 17:00"
             vkid += "kai_kit" + " (Дирекция)"
-        comm += "https://vk.me/join/AJQ1dxtIZRad4MxP05/B0dz0"
+        comm += "https://vk.me/join/ZvuJKb4XUUv5pKmRQPLZpO25GjR5W9lOSyw="
     elif fdigit == 5:
         header += "ИНСТИТУТ РАДИОЭЛЕКТРОНИКИ И ТЕЛЕКОММУНИКАЦИЙ"
         adress += "г. Казань, ул. Карла Маркса, 31/7 (5-е учебное здание КНИТУ-КАИ)"
