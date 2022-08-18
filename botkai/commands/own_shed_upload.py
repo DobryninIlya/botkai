@@ -28,8 +28,8 @@ weekdays = {
 BASE_URL = 'https://kai.ru/raspisanie'
 
 
-cursorR = command_class.cursorR()
-cursor = command_class.cursor()
+cursorR = command_class.cursorR
+cursor = command_class.cursor
 
 def ClearDatabase():
     try:
