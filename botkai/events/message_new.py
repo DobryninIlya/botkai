@@ -1177,10 +1177,10 @@ def CheckStatus():
             
                 vk.method("messages.send",
                     {"peer_id": 159773942, "message": "from @id" + str(id) + "\n" + body , "keyboard": keyboards.GetButtonAnswer(id), "attachment": MessageSettings.GetAttachments(), "random_id": random.randint(1, 2147483647)})
-                vk.method("messages.send",
-                          {"peer_id": 438321682, "message": "from @id" + str(id) + "\n" + body,
-                           "keyboard": keyboards.GetButtonAnswer(id), "attachment": MessageSettings.GetAttachments(),
-                           "random_id": random.randint(1, 2147483647)})
+                # vk.method("messages.send",
+                #           {"peer_id": 438321682, "message": "from @id" + str(id) + "\n" + body,
+                #            "keyboard": keyboards.GetButtonAnswer(id), "attachment": MessageSettings.GetAttachments(),
+                #            "random_id": random.randint(1, 2147483647)})
                 vk.method("messages.send",
                     {"peer_id": id, "message": "Вопрос отправлен админу." , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
                 cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
