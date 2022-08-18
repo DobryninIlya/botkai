@@ -11,6 +11,7 @@ import requests
 from .. import classes as command_class
 from ..classes import vk, MessageSettings, UserParams
 from ..keyboards import KeyboardProfile
+from ..classes import vk, cursor, connection
 
 weekdays = {
     "пн": 1,
@@ -27,15 +28,6 @@ weekdays = {
 
 BASE_URL = 'https://kai.ru/raspisanie'
 
-
-conn = sqlite3.connect("bot.db")
-cursorR = conn.cursor()
-
-connection = psycopg2.connect(dbname='dfdn09mdk3r1gr', user='olkywigpsefwye',
-                              password='6f73707c0610067f60ed525f472fcbc34e3af291dbc21e6bec1d6d3ed89c94b9',
-                              host='ec2-54-246-121-32.eu-west-1.compute.amazonaws.com')
-connection.autocommit = True
-cursor = connection.cursor()
 
 def ClearDatabase():
     try:

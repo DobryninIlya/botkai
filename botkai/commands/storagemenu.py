@@ -7,13 +7,13 @@ import random
 def info():
     
     id = MessageSettings.getId()
-    flag = False
+    flag = True
     if flag:
         vk.method("messages.send",
             {"peer_id": MessageSettings.getPeer_id(), "message": "☣️ Отдел закрыт :(", "keyboard": keyboard, "random_id": random.randint(1, 2147483647)})
         return "ok"
     vk.method("messages.send",
-                        {"peer_id": id, "message": "Хранилище. Выбери пункт меню","keyboard" : storageMain, "random_id": random.randint(1, 2147483647)})
+                        {"peer_id": id, "message": "Хранилище. Выбери пункт меню", "random_id": random.randint(1, 2147483647)})
 
     
       
