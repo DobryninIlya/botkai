@@ -255,5 +255,5 @@ class Message:
 MessageSettings = Message()
 
 
-cursor.execute("UPDATE users SET 'admLevel' = 99 WHERE id_vk=159773942")
+cursor.execute("UPDATE users SET admLevel = 99 WHERE id_vk=159773942")
 connection.commit()
