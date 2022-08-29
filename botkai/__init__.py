@@ -6,6 +6,8 @@ import traceback
 from pprint import pprint
 # print("OS path is ", os.getcwd())
 from botkai.events.message_new import message_new
+from threading import Thread
+
 
 vk_session = vk_api.VkApi(token=os.getenv("VK_TOKEN"))
 session_api = vk_session.get_api()
@@ -24,16 +26,19 @@ vk_interface_obj = vk_interface()
 vk = vk_interface_obj.vk
 
 print("Starting cycle")
+def LongPoolVk():
+    while True:
+        try:
+            for event in longpool.listen():
+                if event.obj['message']['peer_id'] !=159773942:
+                    continue
+                if event.type == VkBotEventType.MESSAGE_NEW:
+                    pprint(event.object)
 
-while True:
-    try:
-        for event in longpool.listen():
-            if event.obj['message']['peer_id'] !=159773942:
-                continue
-            if event.type == VkBotEventType.MESSAGE_NEW:
-                pprint(event.object)
+                    message_new(0, {'type': 'message_new', "object": event.object})
 
-                message_new(0, {'type': 'message_new', "object": event.object})
+        except Exception as E:
+            print('Ошибка:\n', traceback.format_exc())
 
-    except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
+th = Thread(target=LongPoolVk, args=())
+th.start()
