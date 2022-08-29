@@ -25,6 +25,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
 
+
 cursor = classes.cursor
 cursorR = classes.cursorR
 conn = classes.conn
@@ -110,13 +111,16 @@ def textMessage():
                 {"peer_id": MessageSettings.getId(), "message": "Я не понял тебя","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
 
-def message_new(request):
+def message_new(request, lp_obj=None):
 
     try:
         global message_params
-        message_params = json.loads(request.body)
+        if lp_obj:
+            message_params = lp_obj
+        else:
+            message_params = json.loads(request.body)
         MessageSettings.update(message_params)
-        if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
+        if not lp_obj and MessageSettings.secret_key != os.getenv("SECRET_KEY"):
             vk.method("messages.send",
                       {"peer_id": 159773942, "message": "Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key), "random_id": random.randint(1, 2147483647)})
             print("СЕКРЕТНЫЙ КЛЮЧ НЕ СОШЕЛСЯ")
