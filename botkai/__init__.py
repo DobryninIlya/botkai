@@ -9,7 +9,7 @@ from botkai.events.message_new import message_new
 
 vk_session = vk_api.VkApi(token=os.getenv("VK_TOKEN"))
 session_api = vk_session.get_api()
-longpool = VkBotLongPoll(vk_session, 182372147)
+longpool = VkBotLongPoll(vk_session, 196887204)
 
 
 class vk_interface:
