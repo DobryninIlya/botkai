@@ -11,7 +11,7 @@ from threading import Thread
 
 vk_session = vk_api.VkApi(token=os.getenv("VK_TOKEN"))
 session_api = vk_session.get_api()
-longpool = VkBotLongPoll(vk_session, 182372147)
+longpool = VkBotLongPoll(vk_session, 196887204)
 
 
 class vk_interface:
@@ -26,19 +26,16 @@ vk_interface_obj = vk_interface()
 vk = vk_interface_obj.vk
 
 print("Starting cycle")
-# def LongPoolVk():
 while True:
     try:
         for event in longpool.listen():
             if event.obj['message']['peer_id'] !=159773942:
                 continue
             if event.type == VkBotEventType.MESSAGE_NEW:
-                pprint(event.object)
+                # pprint(event.object)
 
                 message_new(0, {'type': 'message_new', "object": event.object})
 
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
 
-# th = Thread(target=LongPoolVk, args=())
-# th.start()
