@@ -360,6 +360,16 @@ def IsRegistred():
                                        "keyboard" : keyboards.get_undo,
                                         "random_id": random.randint(1, 2147483647)})
                         return False
+                    elif body:
+                        try:
+                            if int(body)>1000 and int(body)<100000:
+                                vk.method("messages.send",
+                                  {"peer_id": id, "message": "Такая группа не существует на сайте. Повторите ввод или выйдите в меню."
+                                                             "Такое случается, когда на сайт не подгрузили ваши данные",
+                                   "keyboard": keyboards.get_undo,
+                                   "random_id": random.randint(1, 2147483647)})
+                        except:
+                            pass
                     else:
                         vk.method("messages.send", {"peer_id": id, "message": "Что-что, а это точно не номер группы. Повтори ввод.",  "keyboard" : keyboards.get_undo,
                                                     "random_id": random.randint(1, 2147483647)})
@@ -511,7 +521,7 @@ def showGroupId(groupNumber):
         today = datetime.date.today()
         date = str(datetime.date(today.year, today.month, today.day))
         print(date, date)
-        if str(date_update) == date:
+        if date_update == datetime.strptime(date, "%Y-%m-%d").date():
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
         response = requests.post(
@@ -523,7 +533,6 @@ def showGroupId(groupNumber):
             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                     "p_p_resource_id": "schedule"}, timeout=8)
 
-        print(response.status_code, response)
         if str(response.status_code) != '200':
             raise ConnectionError
             # vk.method("messages.send",
