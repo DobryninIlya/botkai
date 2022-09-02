@@ -18,6 +18,9 @@ def info():
     # print(soup.find("ul", attrs={ "id" : "mylist"}))
     list_students = soup.find(id="p_p_id_infoClick_WAR_infoClick10_")
     result = ""
+    if not response:
+        result = "Данные не найдены на сайте КАИ."
+        vk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id, "message": result})
     for tag in list_students.find_all("td"):
         if len(tag.text) > 6:
 
