@@ -510,7 +510,8 @@ def showGroupId(groupNumber):
         group, date_update = getGroupsResponse(groupNumber)
         today = datetime.date.today()
         date = str(datetime.date(today.year, today.month, today.day))
-        if date_update == date:
+        print(date, date)
+        if str(date_update) == date:
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
         response = requests.post(
@@ -1850,8 +1851,6 @@ def CheckStatus():
             i = 1
             response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id=groupId))
             soup = BeautifulSoup(response.text, 'lxml')
-
-            # print(soup.find("ul", attrs={ "id" : "mylist"}))
             list_students = soup.find(id="p_p_id_infoClick_WAR_infoClick10_")
             students = []
             result = ""
@@ -1866,6 +1865,10 @@ def CheckStatus():
                         name = name[0][:20] + ". "
                     students.append(name)
             att = ""
+            if result == "":
+                vk.method("messages.edit",
+                          {"peer_id": MessageSettings.id, "message_id": msg_id, "message": "Данные не найдены на сайте КАИ",
+                           "keyboard": keyboards.getMainKeyboard(2)})
             try:
                 att = GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id(), int(body), students)
             except:

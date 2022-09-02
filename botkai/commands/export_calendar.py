@@ -83,7 +83,7 @@ def makeFile(week, group):
     days_in_week = list(response.keys())
     days_in_week.sort()
 
-    current_week = 0
+    current_week = 4
     while (current_week <= week):
         for key in days_in_week:
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
