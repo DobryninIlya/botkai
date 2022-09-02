@@ -199,11 +199,26 @@ def get_own_shed(groupId):
     except:
         return False, "&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в профиле способ получения расписания на 'Использовать расписание группы'"
 
+def getDayId(day):
+    if day == 'понедельник':
+        return 1
+    elif day == 'вторник':
+        return 2
+    elif day == 'среда':
+        return 3
+    elif day == 'четверг':
+        return 4
+    elif day == 'пятница':
+        return 5
+    elif day == 'суббота':
+        return 6
 
 def info():
     
     id = MessageSettings.getId()
     day = MessageSettings.payload["day"]
+    if not day:
+        day = getDayId(MessageSettings.getText().lower())
     today = datetime.date.today()
     current_day = today.isoweekday()
     date_day = 0
@@ -253,7 +268,7 @@ def info():
 
 command = command_class.Command()
 
-command.keys = []
+command.keys = ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота']
 command.desciption = ''
 command.process = info
 command.payload = "week_shed"
