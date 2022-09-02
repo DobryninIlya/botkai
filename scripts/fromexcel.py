@@ -1,9 +1,45 @@
 import openpyxl
 
 from pprint import pprint
-from ..botkai.classes import vk, cursor, connection
+# from ..botkai.classes import vk, cursor, connection
+import psycopg2
+import vk_api
+import json
+import os
+import sqlite3
+import time
+print(os.getcwd())
 
-wb = openpyxl.load_workbook(filename = 'shed.xlsx')
+
+class connections:
+    def __init__(self):
+        self.connection = psycopg2.connect(dbname=os.getenv('DB_NAME'), user= os.getenv('DB_USER'), password= os.getenv('DB_PASSWORD'), host= os.getenv('DB_HOST'))
+        self.connection.autocommit=True
+        self.cursor = self.connection.cursor()
+        self.conn = sqlite3.connect("bot.db")
+        self.cursorR = self.conn.cursor()
+
+connect = connections()
+cursor = connect.cursor
+cursorR = connect.cursorR
+connection = connect.connection
+conn = connect.conn
+
+class vk_interface:
+    def __init__(self):
+        self.token = os.getenv("VK_TOKEN")
+        self.vk = vk_api.VkApi(token=self.token)
+        self.secret_key = os.getenv("SECRET_KEY")
+        self.vk_widget_token = vk_api.VkApi(token=os.getenv("VK_TOKEN_WIDGET"))
+
+vk_interface_obj = vk_interface()
+vk = vk_interface_obj.vk
+vk_widget = vk_interface_obj.vk_widget_token
+secret_key = vk_interface_obj.secret_key
+
+
+
+wb = openpyxl.load_workbook(filename = 'scripts//shed.xlsx')
 # sheet = wb['"Лист1"']
 sheet = wb[wb.sheetnames[0]]
 # vals = [v[0].value for v in sheet.range('A1:A2')]
@@ -69,7 +105,7 @@ import requests
 import json
 import traceback
 
-BASE_URL = 'https://kai.ru/raspisanie' 
+BASE_URL = 'https://kai.ru/raspisanie'
 
 
 def getGroupsResponse(groupNumber):
@@ -92,7 +128,13 @@ def getGroupsResponse(groupNumber):
 def showGroupId(groupNumber):
     # id = int(MessageSettings.id)
     try:
-        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 4)
+        response = requests.post(
+            BASE_URL,
+            headers={'Content-Type': "application/x-www-form-urlencoded"}, timeout=8)
+        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber,
+                                  headers = {'Content-Type': "application/x-www-form-urlencoded"},
+                                  params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=8)
+
         print(response.status_code, response)
         if str(response.status_code) != '200':
             raise ConnectionError
@@ -108,7 +150,7 @@ def showGroupId(groupNumber):
         # vk.method("messages.send",
         #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
-    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout):
+    except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError):
         try:
             group = getGroupsResponse(groupNumber)
             if group:
@@ -122,6 +164,9 @@ def showGroupId(groupNumber):
             print('Ошибка:\n', traceback.format_exc())
         return False
     except:
+        group = getGroupsResponse(groupNumber)
+        if group:
+            return group
         print('Ошибка:\n', traceback.format_exc())
         return False
 
@@ -159,14 +204,15 @@ except:
         prepodname varchar(100)
         )""")
 conn.commit()
-first = False # change true
+first = True # change true
 i = 0
 for row in sheet.rows:
     if first:
         first = False
         continue
     string = ''
-
+    for item in row:
+        print(str(item.value) + " | ")
     sql = "INSERT INTO saved_timetable VALUES ({id},'{groupp}', '{daynum}', '{daydate}', '{daytime}', '{discipltype}', '{disciplname}', '{audnum}', '{buildnum}', '{prepodname}')".format(
         id = i,
         groupp = str(row[0].value), # чет неч
@@ -177,7 +223,7 @@ for row in sheet.rows:
         disciplname  = row[4].value, # название пары
         audnum = row[6].value,# аудитория
         buildnum = row[7].value,# здание
-        prepodname = row[9].value,# здание
+        prepodname = row[9].value# здание
     )
     print(sql)
     i += 1
@@ -190,6 +236,8 @@ groups = cursorR.fetchall()
 shed = {}
 for group in groups:
     group = group[0]
+    # if int(group) < 2214:
+    #     continue
     sql = "SELECT * FROM saved_timetable WHERE groupp = {group} ORDER BY daynum, daytime".format(group = group)
     print(sql)
     try:
@@ -230,17 +278,39 @@ for group in groups:
             ]
         prev_day = day
     week_shed[day] = shed_day
-    
+    # time.sleep(60)
+    # try:
+    #     GroupId = showGroupId(str(group))
+    #     sql = "SELECT date_update FROM saved_timetable WHERE groupp = {}".format(GroupId)
+    #     cursor.execute(sql)
+    #     res = cursor.fetchone()[0]
+    #     print(res, " DATE_UPDATE--------------------")
+    #     if res == '2022-08-26':
+    #         continue
+    #     connection.commit()
+    # except:
+    #     pass
     try:
-        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(showGroupId(group), '2020-12-30', (json.dumps(week_shed)).replace('None', ""))
+        GroupId = showGroupId(str(group))
+        if not GroupId:
+            print("SKIP ============ ", group, GroupId)
+            continue
+        # while not GroupId:
+        #     print("=============================\n",
+        #           "Для продолжения перезагрузи VPN и нажми клавишу",
+        #           "\n=============================\n")
+        #     input()
+        #     GroupId = showGroupId(str(group))
+        sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(GroupId, '2022-08-29', (json.dumps(week_shed)).replace('None', ""))
         cursor.execute(sql)
         connection.commit()
     except:
 
-        sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format((json.dumps(week_shed)).replace('None', ""), '2021-12-30', showGroupId(str(group)))
+        sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format((json.dumps(week_shed)).replace('None', ""), '2022-08-29', GroupId)
         cursor.execute(sql)
+        # connection.commit()
     connection.commit()
         
 
-cursorR.execute("SELECT * FROM saved_timetable WHERE groupp = '4438' AND daynum = '6'")
+cursorR.execute("SELECT * FROM saved_timetable WHERE groupp = '4115' AND daynum = '6'")
 pprint(cursorR.fetchall())

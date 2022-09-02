@@ -25,6 +25,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
 
+
 cursor = classes.cursor
 cursorR = classes.cursorR
 conn = classes.conn
@@ -110,13 +111,16 @@ def textMessage():
                 {"peer_id": MessageSettings.getId(), "message": "Я не понял тебя","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
 
-def message_new(request):
+def message_new(request, lp_obj=None):
 
     try:
         global message_params
-        message_params = json.loads(request.body)
+        if lp_obj:
+            message_params = lp_obj
+        else:
+            message_params = json.loads(request.body)
         MessageSettings.update(message_params)
-        if MessageSettings.secret_key != os.getenv("SECRET_KEY"):
+        if not lp_obj and MessageSettings.secret_key != os.getenv("SECRET_KEY"):
             vk.method("messages.send",
                       {"peer_id": 159773942, "message": "Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key), "random_id": random.randint(1, 2147483647)})
             print("СЕКРЕТНЫЙ КЛЮЧ НЕ СОШЕЛСЯ")
@@ -485,43 +489,68 @@ BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 
 def getGroupsResponse(groupNumber):
     try:
-        cursor.execute("SELECT shedule FROM saved_timetable WHERE groupp = 1")
-        result = cursor.fetchone()[0]
+        cursor.execute("SELECT shedule,date_update FROM saved_timetable WHERE groupp = 1")
+        result_query = cursor.fetchone()
+        result = result_query[0]
+        date_update = result_query[1]
         result = json.loads(result)
         for elem in result:
             if int(elem["group"]) == int(groupNumber):
 
-                return elem["id"]
+                return elem["id"],date_update
         return False
     except:
         print('Ошибка GET GROUP RESPONSE:\n', traceback.format_exc())
         return False
 
 
-
-
 def showGroupId(groupNumber):
-    id = int(MessageSettings.id)
+    # id = int(MessageSettings.id)
     try:
-        response = requests.post( BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber, headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 4)
+        group, date_update = getGroupsResponse(groupNumber)
+        today = datetime.date.today()
+        date = str(datetime.date(today.year, today.month, today.day))
+        if date_update == date:
+            print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
+            return group
+        response = requests.post(
+            BASE_URL,
+            headers={'Content-Type': "application/x-www-form-urlencoded"}, timeout=8)
+        response = requests.post(
+            BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber,
+            headers={'Content-Type': "application/x-www-form-urlencoded"},
+            params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
+                    "p_p_resource_id": "schedule"}, timeout=8)
+
+        print(response.status_code, response)
         if str(response.status_code) != '200':
             raise ConnectionError
             # vk.method("messages.send",
             #     {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
             # vk.method("messages.send",
             #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
-            
+
             return False
-        print(response.status_code, response.json(), response)
         response = response.json()[0]
         return response['id']
     except IndexError:
-        vk.method("messages.send",
-                {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
+        # vk.method("messages.send",
+        #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
+    except requests.exceptions.ConnectionError:
+        vk.method("messages.send",
+                  {"peer_id": id,
+                   "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.",
+                   "random_id": random.randint(1, 2147483647)})
+        vk.method("messages.send",
+                  {"peer_id": id, "message": "test", "sticker_id": 18486, "random_id": random.randint(1, 2147483647)})
+        vk.method("messages.send",
+                  {"peer_id": id,
+                   "message": "&#9888;Перезагружаю систему!&#9888;",
+                   "random_id": random.randint(1, 2147483647)})
     except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError):
         try:
-            group = getGroupsResponse(groupNumber)
+            group, _ = getGroupsResponse(groupNumber)
             if group:
                 return group
             vk.method("messages.send",
@@ -533,6 +562,9 @@ def showGroupId(groupNumber):
             print('Ошибка:\n', traceback.format_exc())
         return False
     except:
+        group, _ = getGroupsResponse(groupNumber)
+        if group:
+            return group
         print('Ошибка:\n', traceback.format_exc())
         return False
 

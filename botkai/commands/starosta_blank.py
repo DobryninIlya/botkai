@@ -133,6 +133,9 @@ def info():
     i = 1
     response = requests.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id = UserParams.groupId))
     soup = BeautifulSoup(response.text, 'lxml')
+    if not response:
+        vk.method("messages.edit", {"peer_id": MessageSettings.id, "message_id": msg_id, "message":
+            "Данные группы не найдены на сайте"})
 
     # print(soup.find("ul", attrs={ "id" : "mylist"}))
     list_students = soup.find(id="p_p_id_infoClick_WAR_infoClick10_")
