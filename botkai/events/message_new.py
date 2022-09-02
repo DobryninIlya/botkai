@@ -498,10 +498,10 @@ def getGroupsResponse(groupNumber):
             if int(elem["group"]) == int(groupNumber):
 
                 return elem["id"],date_update
-        return False
+        return False, False
     except:
         print('Ошибка GET GROUP RESPONSE:\n', traceback.format_exc())
-        return False
+        return False, False
 
 
 def showGroupId(groupNumber):
