@@ -6,7 +6,7 @@ import requests
 
 
 def GetDocShedule(group, id):
-    message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    message = "http://kaibotkai.herokuapp.com/download/shedule/?groupid={}".format(UserParams.groupId)
     with open('{}.txt'.format(group), 'w') as f:
         f.write(str(message))
     a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
@@ -20,6 +20,7 @@ def info():
     message = """URL ссылка на календарь позволяет добавить ваше расписание в онлайн календари, например в Outlook. 
     Такое расписание не нужно скачивать, календарь автоматически скачает его по этой ссылке.
     Просто скопируйте эту ссылку и вставьте в ваш календарь.
+    (функция временно неработает)
     """
     vk.method("messages.send",
                     {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : keyboardicalendarGuide,

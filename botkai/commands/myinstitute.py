@@ -39,14 +39,15 @@ def info():
             mail += "itki@kai.ru"
             hours += "с 9:00 до 17:00"
             vkid += "dean4" + " (Дирекция)"
-        elif ldigit > 30:
+            comm += "https://vk.me/join/ZvuJKb4XUUv5pKmRQPLZpO25GjR5W9lOSyw="
+        elif ldigit > 30 and ldigit < 50:
             header += "КОЛЛЕДЖ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ"
             adress += " г. Казань, ул. Большая Красная 55, каб. 116 - 116а,  1 этаж"
             phone += "+7 (843) 231-00-00, 231-00-05"
             mail += "kit@kai.ru"
             hours += "с 9:00 до 17:00"
             vkid += "kai_kit" + " (Дирекция)"
-        comm += "https://vk.me/join/ZvuJKb4XUUv5pKmRQPLZpO25GjR5W9lOSyw="
+            comm += "https://vk.me/join/ZvuJKb4XUUv5pKmRQPLZpO25GjR5W9lOSyw="
     elif fdigit == 5:
         header += "ИНСТИТУТ РАДИОЭЛЕКТРОНИКИ И ТЕЛЕКОММУНИКАЦИЙ"
         adress += "г. Казань, ул. Карла Маркса, 31/7 (5-е учебное здание КНИТУ-КАИ)"
@@ -85,9 +86,15 @@ def info():
         comm += "https://vk.me/join/AJQ1d/k1ehYuyfxfunfVwa8o"
     elif '569' in str(group):
         mesg = "Информация будет дополнена."
+
         
     if header:
         mesg = header + "\n" + adress + phone + mail + hours + vkid + comm
+    else:
+        mesg = "К сожалению, информация по вашему институту не дополнена. " \
+               "Вы можете отправить разработчику сообщение с указанием групп, которые относятся к вашему факультету" \
+               "Желательно так же прикрепить информацию об адресе дирекции, контакном телефоне, электронной почте, часы работы" \
+               "и ссылку на группу вконтакте"
 
     vk.method("messages.send",
                         {"peer_id": id, "message": mesg, "random_id": random.randint(1, 2147483647)})

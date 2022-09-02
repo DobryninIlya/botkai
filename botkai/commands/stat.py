@@ -17,7 +17,7 @@ def info():
     gchat = "Количество подключенных бесед: " + str(cursor.fetchall()[0][0]) + '\n'
     delta = datetime.datetime.now() - uptime
     unic_groups = "\nКоличество уникальных групп с начала года: "
-    cursor.execute("SELECT COUNT(DISTINCT groupreal) FROM users WHERE 'dateChange' > '2020.08.20'")
+    cursor.execute("SELECT COUNT(DISTINCT groupreal) FROM users WHERE 'dateChange' > '2022.08.20'")
     groups_res = cursor.fetchone()[0]
     unic_groups += str(groups_res) + '\n'
     vk.method("messages.send",
