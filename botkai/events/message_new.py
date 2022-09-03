@@ -530,6 +530,7 @@ def showGroupId(groupNumber):
         if date_update == date:
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
+
         response = requests.post(
             BASE_URL,
             headers={'Content-Type': "application/x-www-form-urlencoded"}, timeout=8)
@@ -538,7 +539,9 @@ def showGroupId(groupNumber):
             headers={'Content-Type': "application/x-www-form-urlencoded"},
             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                     "p_p_resource_id": "schedule"}, timeout=8)
-
+        cursor.execute("UPDATE saved_timetable SET shedule = {} WHERE groupp = 1".format(response))
+        connection.commit()
+        print("Расписание обновлено")
         if str(response.status_code) != '200':
             raise ConnectionError
             # vk.method("messages.send",
