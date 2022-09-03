@@ -515,46 +515,36 @@ def getGroupsResponse(groupNumber):
 
 
 def showGroupId(groupNumber):
-    print("Изменение группы")
     try:
-        try:
-            group, date_update = getGroupsResponse(groupNumber)
-            print(group, date_update)
-            today = datetime.date.today()
-            date = datetime.date(today.year, today.month, today.day)
-            print(date, date_update)
-            print(date_update == date)
+        group, date_update = getGroupsResponse(groupNumber)
+        if not group:
+            return False
+        print(group, date_update)
+        today = datetime.date.today()
+        date = datetime.date(today.year, today.month, today.day)
+        print(date, date_update)
+        print(date_update == date)
 
-            if date_update == date:
-                print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
-                return group
-            else:
-                response = requests.post(
-                    BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
-                    headers={'Content-Type': "application/x-www-form-urlencoded"},
-                    params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
-                            "p_p_resource_id": "schedule"}, timeout=8)
-                cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response.json()),date))
-                connection.commit()
-                print("Расписание обновлено")
+        if date_update == date:
+            print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
+            return group
+        else:
             response = requests.post(
-                BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber,
+                BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
                 headers={'Content-Type': "application/x-www-form-urlencoded"},
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8)
+            if str(response.status_code) != '200':
+                raise ConnectionError
+            cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response.json()),date))
+            connection.commit()
+            print("Список групп обновлен")
+        group, _ = getGroupsResponse(groupNumber)
+        if group:
+            return group
+        print('Ошибка:\n', traceback.format_exc())
+        return False
 
-        except:
-            print('Ошибка изменения группы: \n', traceback.format_exc())
-        if str(response.status_code) != '200':
-            raise ConnectionError
-            # vk.method("messages.send",
-            #     {"peer_id": id, "message": "&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию как только сайт kai.ru станет доступным.", "random_id": random.randint(1, 2147483647)})
-            # vk.method("messages.send",
-            #         {"peer_id": id, "message": "test" , "sticker_id" : 18486 , "random_id": random.randint(1, 2147483647)})
-
-            return False
-        response = response.json()[0]
-        return response['id']
     except IndexError:
         # vk.method("messages.send",
         #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
