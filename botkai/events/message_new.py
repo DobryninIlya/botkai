@@ -1153,7 +1153,7 @@ def CheckStatus():
                                       {"peer_id": id,
                                        "message": "Такая группа не существует на сайте. Повторите ввод или выйдите в меню."
                                                   "Такое случается, когда на сайт не подгрузили ваши данные",
-                                       "keyboard": keyboards.get_undo,
+                                       "keyboard": keyboards.exit,
                                        "random_id": random.randint(1, 2147483647)})
                     except:
                         pass
