@@ -525,6 +525,8 @@ def showGroupId(groupNumber):
             print(date, datetime.datetime.strptime(date, "%Y-%m-%d").date())
         except:
             print('Ошибка изменения группы: \n', traceback.format_exc())
+            print(bool(date_update == datetime.datetime.strptime(date, "%Y-%m-%d").date()))
+
         if date_update == datetime.datetime.strptime(date, "%Y-%m-%d").date():
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
@@ -546,7 +548,6 @@ def showGroupId(groupNumber):
 
             return False
         response = response.json()[0]
-        pprint(response)
         return response['id']
     except IndexError:
         # vk.method("messages.send",
