@@ -25,9 +25,7 @@ SECRET_KEY = os.getenv("SECRET_KEY_DJANGO")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'botkaid.herokuapp.com', "127.0.0.1", "vk.com", "kaibotkai.herokuapp.com",
-                 "www.dobrynin.engineer", "dobrynin.engineer", "*.dobrynin.engineer", "dobrynin.ddns.net",
-                 "188.162.195.201", "192.168.173.34"]
+ALLOWED_HOSTS = ['localhost', 'botkaid.herokuapp.com', "127.0.0.1", "vk.com", "kaibotkai.herokuapp.com", "www.dobrynin.engineer", "dobrynin.engineer", "*.dobrynin.engineer"]
 
 # Application definition
 

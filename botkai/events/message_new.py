@@ -520,7 +520,7 @@ def showGroupId(groupNumber):
         group, date_update = getGroupsResponse(groupNumber)
         today = datetime.date.today()
         date = str(datetime.date(today.year, today.month, today.day))
-        print(date, date)
+        print(date, datetime.strptime(date, "%Y-%m-%d").date())
         if date_update == datetime.strptime(date, "%Y-%m-%d").date():
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
@@ -558,6 +558,7 @@ def showGroupId(groupNumber):
                   {"peer_id": id,
                    "message": "&#9888;Перезагружаю систему!&#9888;",
                    "random_id": random.randint(1, 2147483647)})
+        sys.exit(0)
     except (ConnectionError, TimeoutError, requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError):
         try:
             group, _ = getGroupsResponse(groupNumber)
