@@ -29,15 +29,21 @@ conn = connect.conn
 
 
 
-
+shed = ""
 def getGroupsResponse(groupNumber):
+    global shed
     try:
-        cursor.execute("SELECT shedule,date_update FROM saved_timetable WHERE groupp = 1")
-        result_query = cursor.fetchone()
-        result = result_query[0]
-        date_update = result_query[1]
-        result = json.loads(result)
-        for elem in result:
+        date_update = ""
+        if not shed:
+            cursor.execute("SELECT shedule,date_update FROM saved_timetable WHERE groupp = 1")
+            result_query = cursor.fetchone()
+            result = result_query[0]
+            date_update = result_query[1]
+            result = json.loads(result)
+            shed = result
+
+
+        for elem in shed:
             if int(elem["group"]) == int(groupNumber):
 
                 return elem["id"],date_update
