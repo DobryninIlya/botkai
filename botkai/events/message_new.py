@@ -510,7 +510,7 @@ def getGroupsResponse(groupNumber):
                 return elem["id"],date_update
         return False, False
     except:
-        print('Ошибка GET GROUP RESPONSE:\n', traceback.format_exc())
+        # print('Ошибка GET GROUP RESPONSE:\n', traceback.format_exc())
         return False, False
 
 
@@ -1146,6 +1146,17 @@ def CheckStatus():
                 elif (int)(body) > 10000 and False:
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
+                    elif body:
+                    try:
+                        if int(body) > 1000 and int(body) < 100000:
+                            vk.method("messages.send",
+                                      {"peer_id": id,
+                                       "message": "Такая группа не существует на сайте. Повторите ввод или выйдите в меню."
+                                                  "Такое случается, когда на сайт не подгрузили ваши данные",
+                                       "keyboard": keyboards.get_undo,
+                                       "random_id": random.randint(1, 2147483647)})
+                    except:
+                        pass
                 else:
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Повторите ввод.", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
