@@ -542,6 +542,7 @@ def showGroupId(groupNumber):
 
             return False
         response = response.json()[0]
+        pprint(response)
         return response['id']
     except IndexError:
         # vk.method("messages.send",
