@@ -537,7 +537,7 @@ def showGroupId(groupNumber):
                 headers={'Content-Type': "application/x-www-form-urlencoded"},
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8)
-            cursor.execute("UPDATE saved_timetable SET shedule = {} WHERE groupp = 1".format(response.json()[0]))
+            cursor.execute("UPDATE saved_timetable SET shedule = '{}' WHERE groupp = 1".format(response.json()))
             connection.commit()
             print("Расписание обновлено")
         except:
