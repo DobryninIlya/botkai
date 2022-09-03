@@ -522,10 +522,10 @@ def showGroupId(groupNumber):
             print(group, date_update)
             today = datetime.date.today()
             date = str(datetime.date(today.year, today.month, today.day))
-            print(date, datetime.strptime(date, "%Y-%m-%d").date())
+            print(date, datetime.datetime.strptime(date, "%Y-%m-%d").date())
         except:
             print('Ошибка изменения группы: \n', traceback.format_exc())
-        if date_update == datetime.strptime(date, "%Y-%m-%d").date():
+        if date_update == datetime.datetime.strptime(date, "%Y-%m-%d").date():
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
         response = requests.post(
