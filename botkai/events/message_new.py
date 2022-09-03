@@ -518,6 +518,7 @@ def showGroupId(groupNumber):
     # id = int(MessageSettings.id)
     try:
         group, date_update = getGroupsResponse(groupNumber)
+        pprint (group, date_update)
         today = datetime.date.today()
         date = str(datetime.date(today.year, today.month, today.day))
         print(date, datetime.strptime(date, "%Y-%m-%d").date())
