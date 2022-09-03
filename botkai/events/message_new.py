@@ -523,8 +523,6 @@ def showGroupId(groupNumber):
             today = datetime.date.today()
             date = datetime.date(today.year, today.month, today.day)
             print(date, date_update)
-
-
             print(date_update == date)
 
             if date_update == date:
