@@ -528,18 +528,21 @@ def showGroupId(groupNumber):
             if date_update == date:
                 print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
                 return group
-
-            response = requests.post(
-                BASE_URL,
-                headers={'Content-Type': "application/x-www-form-urlencoded"}, timeout=8)
+            else:
+                response = requests.post(
+                    BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
+                    headers={'Content-Type': "application/x-www-form-urlencoded"},
+                    params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
+                            "p_p_resource_id": "schedule"}, timeout=8)
+                cursor.execute('UPDATE saved_timetable SET "shedule" = "{}", date_update = "{}" WHERE groupp = 1'.format(response.json(),date))
+                connection.commit()
+                print("Расписание обновлено")
             response = requests.post(
                 BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber,
                 headers={'Content-Type': "application/x-www-form-urlencoded"},
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8)
-            cursor.execute('UPDATE saved_timetable SET shedule = "{}" WHERE groupp = 1'.format(response.json()))
-            connection.commit()
-            print("Расписание обновлено")
+
         except:
             print('Ошибка изменения группы: \n', traceback.format_exc())
         if str(response.status_code) != '200':
