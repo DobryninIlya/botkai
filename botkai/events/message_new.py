@@ -1146,7 +1146,7 @@ def CheckStatus():
                 elif (int)(body) > 10000 and False:
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
-                    elif body:
+                elif body:
                     try:
                         if int(body) > 1000 and int(body) < 100000:
                             vk.method("messages.send",
