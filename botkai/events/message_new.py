@@ -515,7 +515,7 @@ def getGroupsResponse(groupNumber):
 
 
 def showGroupId(groupNumber):
-    # id = int(MessageSettings.id)
+    print("Изменение группы")
     try:
         group, date_update = getGroupsResponse(groupNumber)
         pprint (group, date_update)
