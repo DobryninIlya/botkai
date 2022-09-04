@@ -30,10 +30,10 @@ conn = connect.conn
 
 
 shed = ""
+date_update = ""
 def getGroupsResponse(groupNumber):
-    global shed
+    global shed, date_update
     try:
-        date_update = ""
         if not shed:
             cursor.execute("SELECT shedule,date_update FROM saved_timetable WHERE groupp = 1")
             result_query = cursor.fetchone()
@@ -105,7 +105,7 @@ def showGroupId(groupNumber):
         return False
 
 
-cursor.execute("SELECT groupReal FROM users WHERE (role = 1 or role = 3) and 'dateChange' > '2022-08-15' and groupReal>0")
+cursor.execute("SELECT DISTINCT groupReal FROM users WHERE (role = 1 or role = 3) and 'dateChange' > '2022-08-15' and groupReal>0")
 res = cursor.fetchall()
 count = len(res)
 curr = 0

@@ -1162,8 +1162,12 @@ def CheckStatus():
                         {"peer_id": id, "message": "Повторите ввод.", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
 
             except Exception as E:
-                #pass
-                print('Ошибка:\n', traceback.format_exc())
+                vk.method("messages.send",
+                          {"peer_id": id,
+                           "message": "Такая группа не существует. Повторите ввод или выйдите в меню.",
+                           "keyboard": keyboards.exit,
+                           "random_id": random.randint(1, 2147483647)})
+
             return "ok"
         elif status == 57:
             id = MessageSettings.getId()
