@@ -216,7 +216,11 @@ def getDayId(day):
 def info():
     
     id = MessageSettings.getId()
-    day = MessageSettings.payload["day"]
+    day = ""
+    try:
+        day = MessageSettings.payload["day"]
+    except:
+        pass
     if not day:
         day = getDayId(MessageSettings.getText().lower())
     today = datetime.date.today()
