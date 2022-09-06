@@ -145,6 +145,7 @@ def info():
         if len(tag.text) > 6:
             name = (tag.text.strip().replace("\n", "").replace(
                 "Староста", " (🙋 Староста)")).split(" ")
+            print(name)
             try:
                 name = name[0] + " " + name[1][0].capitalize() + "." + name[2][0].capitalize() + "."
             except:
