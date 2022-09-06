@@ -1886,7 +1886,6 @@ def CheckStatus():
                     name_cor = (tag.text.strip().replace("\n", "").replace(
                         "                                                                Староста",
                         " староста")).split(" ")
-                    print("NAME IS ", name)
                     name = ""
                     try:
                         name = name_cor[0] + " " + name_cor[1][0].capitalize() + "." + name_cor[2][0].capitalize() + "."
