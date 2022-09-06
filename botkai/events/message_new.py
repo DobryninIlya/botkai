@@ -1884,13 +1884,19 @@ def CheckStatus():
             for tag in list_students.find_all("td"):
                 if len(tag.text) > 6:
                     name = (tag.text.strip().replace("\n", "").replace(
-                        "Староста",
-                        " (🙋 Староста)")).split(" ")
+                        "                                                                Староста",
+                        " (🙋 Староста)")).split(" ")
+                    print("NAME IS ", name)
                     try:
                         name = name[0] + " " + name[1][0].capitalize() + "." + name[2][0].capitalize() + "."
                     except:
                         name = name[0][:20] + ". "
+                    try:
+                        name += name[3]
+                    except:
+                        pass
                     students.append(name)
+
             att = ""
             if result == "":
                 vk.method("messages.edit",
