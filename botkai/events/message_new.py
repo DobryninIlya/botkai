@@ -1964,7 +1964,7 @@ def createDocShedule(group, realGroup, students):
     font = style.font
     font.name = 'Times New Roman'
 
-    wordDocument.add_heading(f"Журнал посещения занятий группы {groupReal}",3).alignment  = 1
+    wordDocument.add_heading(f"Создано через vk.me/botraspisanie       Журнал посещения занятий группы {groupReal}",3).alignment  = 1
 
     font.size = Pt(10)
 
@@ -2037,12 +2037,12 @@ def createDocShedule(group, realGroup, students):
     # row_cells[0].merge(row_cells[1]).text = "Подпись преподавателя\n\n"
 
     wordDocument.add_heading(f"Создано через бота vk.com/botraspisanie", 3).alignment = 2
-    wordDocument.save("starosta_blank.docx")
+    wordDocument.save(str(realGroup) + ".docx")
 
 def GetDocShedule(group, id, realGroup, students):
     createDocShedule(group, realGroup, students)
     a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
-    b = requests.post(a["upload_url"], files= { "file" : open(str("starosta_blank")+".docx", "rb")}).json()
+    b = requests.post(a["upload_url"], files= { "file" : open(str(realGroup)+".docx", "rb")}).json()
     c = vk.method("docs.save", {"file" : b["file"]})
     d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
     return d
