@@ -155,6 +155,7 @@ def info():
                 name += name_cor[3]
             except:
                 pass
+            print(name)
             students.append(name)
 
     try:
