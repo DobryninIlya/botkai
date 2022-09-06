@@ -154,7 +154,8 @@ def info():
                     name = name_cor[0][:20] + ". "
 
                 try:
-                    name += name_cor[3][0]
+                    print(name_cor)
+                    name += name_cor[3]
                 except:
                     pass
                 students.append(name)
