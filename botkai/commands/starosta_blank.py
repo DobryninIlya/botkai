@@ -42,7 +42,7 @@ def createDocShedule(group, realGroup, students):
     font = style.font
     font.name = 'Times New Roman'
 
-    wordDocument.add_heading(f"Журнал посещения занятий группы {groupReal}",3).alignment  = 1
+    wordDocument.add_heading(f"Создано через vk.me/botraspisanie       Журнал посещения занятий группы {groupReal}",3).alignment  = 1
 
     font.size = Pt(10)
 
@@ -144,12 +144,13 @@ def info():
     for tag in list_students.find_all("td"):
         if len(tag.text) > 6:
             name = (tag.text.strip().replace("\n", "").replace(
-                "                                                                Староста", " (🙋 Староста)")).split(" ")
+                "Староста", " (🙋 Староста)")).split(" ")
             try:
                 name = name[0] + " " + name[1][0].capitalize() + "." + name[2][0].capitalize() + "."
             except:
                 name = name[0][:20] +  ". "
             students.append(name)
+            print(name)
     try:
         att = GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id(), UserParams.RealGroup, students)
     except:

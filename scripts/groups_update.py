@@ -105,7 +105,8 @@ def showGroupId(groupNumber):
         return False
 
 
-cursor.execute("SELECT DISTINCT groupReal FROM users WHERE (role = 1 or role = 3) and 'dateChange' > '2022-08-15' and groupReal>0")
+cursor.execute("SELECT groupReal FROM users WHERE (role = 1 or role = 3) and 'dateChange' > '2022-08-15' and groupReal>0")
+# DISTINC в теле запроса не указывать! Мешает группы.
 res = cursor.fetchall()
 count = len(res)
 curr = 0

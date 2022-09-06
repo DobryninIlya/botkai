@@ -1884,7 +1884,7 @@ def CheckStatus():
             for tag in list_students.find_all("td"):
                 if len(tag.text) > 6:
                     name = (tag.text.strip().replace("\n", "").replace(
-                        "                                                                Староста",
+                        "Староста",
                         " (🙋 Староста)")).split(" ")
                     try:
                         name = name[0] + " " + name[1][0].capitalize() + "." + name[2][0].capitalize() + "."
