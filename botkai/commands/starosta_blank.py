@@ -144,14 +144,14 @@ def info():
     for tag in list_students.find_all("td"):
         if len(tag.text) > 6:
             name = (tag.text.strip().replace("\n", "").replace(
-                "Староста", " (🙋 Староста)")).split(" ")
-            print(name)
+                "                                                                Староста", " (🙋 Староста)")).split(" ")
+            print("NAME IS ", name)
             try:
                 name = name[0] + " " + name[1][0].capitalize() + "." + name[2][0].capitalize() + "."
             except:
                 name = name[0][:20] +  ". "
             students.append(name)
-            print(name)
+
     try:
         att = GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id(), UserParams.RealGroup, students)
     except:
