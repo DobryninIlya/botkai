@@ -148,15 +148,12 @@ def info():
                     "                                                                Староста",
                     " староста")).split(" ")
                 name = ""
-                print("NAME IS ", name)
+                print("NAME IS ", name_cor)
                 try:
                     name = name_cor[0] + " " + name_cor[1][0].capitalize() + "." + name_cor[2][0].capitalize() + "."
                 except:
                     name = name_cor[0][:20] + ". "
-                try:
-                    name += name_cor[3]
-                except:
-                    pass
+
                 students.append(name)
 
     try:
