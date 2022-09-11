@@ -96,7 +96,7 @@ def getResponse(groupId):
 def makeFile(week, group):
     try:
         c = Calendar()
-        today = datetime.date.today() + datetime.timedelta(days=2)
+        today = datetime.date.today()
         current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
         isNormal, response = getResponse(group)
         days_in_week = list(response.keys())
