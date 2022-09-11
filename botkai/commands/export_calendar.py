@@ -76,7 +76,7 @@ def getResponse(groupId):
 
 def makeFile(week, group):
     c = Calendar()
-    today = datetime.date.today() + datetime.timedelta(days=1)
+    today = datetime.date.today()
     chetn = UserParams.getChetn()
     current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
     isNormal, response = getResponse(group)
