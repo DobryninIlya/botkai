@@ -91,13 +91,15 @@ DeleteOldTask()
 
 def textMessage():
     try:
-        request = apiai.ApiAI('07ed539ee928497ebb68729e87c09ede').text_request() # Токен API к Dialogflow
-        request.lang = 'ru' # На каком языке будет послан запрос
-        request.session_id = 'kaibot' # ID Сессии диалога (нужно, чтобы потом учить бота)
-        request.query = MessageSettings.getText() # Посылаем запрос к ИИ с сообщением от юзера
-        responseJson = json.loads(request.getresponse().read().decode('utf-8'))
-        response = responseJson['result']['fulfillment']['speech'] # Разбираем JSON и вытаскиваем ответ
+        # request = apiai.ApiAI("").text_request() # Токен API к Dialogflow
+        # request.lang = 'ru' # На каком языке будет послан запрос
+        # request.session_id = 'kaibot' # ID Сессии диалога (нужно, чтобы потом учить бота)
+        # request.query = MessageSettings.getText() # Посылаем запрос к ИИ с сообщением от юзера
+        # responseJson = json.loads(request.getresponse().read().decode('utf-8'))
+        # print(responseJson)
+        # response = responseJson['result']['fulfillment']['speech'] # Разбираем JSON и вытаскиваем ответ
         # Если есть ответ от бота - присылаем юзеру, если нет - бот его не понял
+        raise Exception
         if response:
             mesg = response
             vk.method("messages.send",
@@ -109,6 +111,7 @@ def textMessage():
             vk.method("messages.send",
                     {"peer_id": MessageSettings.getId(), "message": mesg,"keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
     except Exception:
+        print('Ошибка:\n', traceback.format_exc())
         vk.method("messages.send",
                 {"peer_id": MessageSettings.getId(), "message": "Я не понял тебя","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
@@ -794,7 +797,7 @@ def CheckStatus():
                                                         "random_id": random.randint(1, 2147483647)})
                     return "ok"
                 if UserParams.adminLevel >= 2:
-                    if UserParams.groupId != student_groupId:
+                    if UserParams.groupId != student_groupId and UserParams.adminLevel <=5:
                         vk.method("messages.send", {"peer_id": id, "message": "Ошибка. Пользователь не из вашей группы",
                                                         "random_id": random.randint(1, 2147483647)})
                         return "ok"
@@ -942,7 +945,7 @@ def CheckStatus():
             except Exception as E:
                 count = 0
             #print(count)
-            if (count > 10 and level < 2):
+            if (count > 10 and level <= 2):
                 vk.method("messages.send", {"peer_id": id, "message": "Превышено допустимое число активных заданий. Ваш лимит: 10" , "keyboard": keyboards.getMainKeyboard(UserParams.role),
                                                 "random_id": random.randint(1, 2147483647)})
                 cursor.execute(sql)
@@ -964,15 +967,10 @@ def CheckStatus():
             cursor.execute(sql)
             res = cursor.fetchone()[0]
             res = res if res != None else 0
-            # count = (int)(str(res)[1:-2]) + 1
-            # count = (int)(str(cursor.fetchone())[1:-2]) + 1
             count = int(res)+1
 
             user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(id, id, MessageSettings.messageId)
 
-
-
-            # sql = "INSERT INTO Task VALUES (" + str(count) + ", " + str(UserParams.groupId) + ", " + str(id) + ", '" + str(date) + "', '" + str(MessageSettings.getText()) + "', '" + str(MessageSettings.GetAttachments()) + "', 0)"
             sql = "INSERT INTO Task VALUES ({count}, {group_id}, {id}, '{date}', '{text}', '{attachments}', 0, '{user_info}')".format(
                 count = count, group_id = UserParams.groupId, id = id, date = date, text = MessageSettings.getText(), attachments = MessageSettings.GetAttachments(), user_info = user_info
             )
@@ -1149,16 +1147,15 @@ def CheckStatus():
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
                 elif body:
-                    try:
-                        if int(body) > 1000 and int(body) < 100000:
-                            vk.method("messages.send",
-                                      {"peer_id": id,
-                                       "message": "Такая группа не существует на сайте. Повторите ввод или выйдите в меню."
-                                                  "Такое случается, когда на сайт не подгрузили ваши данные",
-                                       "keyboard": keyboards.exit,
-                                       "random_id": random.randint(1, 2147483647)})
-                    except:
-                        pass
+
+                    if int(body) > 1000 and int(body) < 100000:
+                        vk.method("messages.send",
+                                  {"peer_id": id,
+                                   "message": "Такая группа не существует на сайте. Повторите ввод или выйдите в меню."
+                                              "Такое случается, когда на сайт не подгрузили ваши данные",
+                                   "keyboard": keyboards.exit,
+                                   "random_id": random.randint(1, 2147483647)})
+
                 else:
                     vk.method("messages.send",
                         {"peer_id": id, "message": "Повторите ввод.", "keyboard": keyboards.keyboardAddTasks2, "random_id": random.randint(1, 2147483647)})
@@ -1244,7 +1241,7 @@ def CheckStatus():
                 #            "keyboard": keyboards.GetButtonAnswer(id), "attachment": MessageSettings.GetAttachments(),
                 #            "random_id": random.randint(1, 2147483647)})
                 vk.method("messages.send",
-                    {"peer_id": id, "message": "Вопрос отправлен админу." , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
+                    {"peer_id": id, "message": "Вопрос отправлен администратору." , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
                 cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
                 conn.commit()
 
@@ -1368,210 +1365,6 @@ def CheckStatus():
             except Exception as E:
 
                 print('Ошибка:\n', traceback.format_exc())
-            return "ok"
-        elif status == 183:
-            id = MessageSettings.getId()
-            body = MessageSettings.getText().lower()
-            att = MessageSettings.GetAttachments()
-            cursorR.execute("SELECT * FROM storage WHERE id = " + str(id))
-            media_id = cursorR.fetchone()[1]
-            if len(body) > 500:
-                vk.method("messages.send",
-                          {"peer_id": id, "message": "Превышена максимально допустимая длина\nПовторите ввод",
-                           "random_id": random.randint(1, 2147483647)})
-                return "ok"
-            # (id, subject, media_vk, header, description, IsCheked, ChekedBy, dateChek)
-            try:
-                cursor.execute("UPDATE storage SET description = '" + body + "' WHERE id = '" + str(media_id) + "'")
-                connection.commit()
-                cursor.execute("UPDATE storage SET ischecked = 0 WHERE id = '" + str(media_id) + "'")
-                connection.commit()
-                sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
-                cursorR.execute(sql)
-                conn.commit()
-                sql = "DELETE FROM storage WHERE id = " + str(id)
-                cursorR.execute(sql)
-                conn.commit()
-                vk.method("messages.send",
-                          {"peer_id": id, "message": "Файл отправлен на проверку. Как только его проверит администратор, вы получите вознаграждение, а другие люди смогут увидеть ваш файл.","keyboard": keyboards.getMainKeyboard(UserParams.role),
-                           "random_id": random.randint(1, 2147483647)})
-            except Exception as E:
-
-                print('Ошибка:\n', traceback.format_exc())
-            return "ok"
-
-        elif status == 190:
-            id = MessageSettings.getId()
-            try:
-                body = MessageSettings.getText().replace(",", '')
-                body = MessageSettings.getText().replace(".", '')
-                body = MessageSettings.getText().replace("?", '')
-                body = MessageSettings.getText().replace("!", '')
-                body = body.lower()
-                parts = body.split(' ')
-                sql = "SELECT * FROM storage WHERE ischecked = 1 AND ("
-                for elem in parts:
-                    sql += "subject LIKE '%" + str(elem) + "%' or "
-                    sql += "header LIKE '%" + str(elem) + "%' or "
-                    sql += "description LIKE '%" + str(elem) + "%' or "
-                    
-                sql = sql[:-3] + ")"
-
-                cursor.execute(sql)
-                msg = "Результат поиска: \n"
-                ans = ""
-                for row in cursor:
-                    ans += "id " + str(row[7]) + " ~ " + str(row[3]) + " == " + str(row[1]) + "\n"
-                if ans == "":
-                    ans = "❕ Результаты не найдены, попробуйте уточнить запрос."
-                vk.method("messages.send",
-                          {"peer_id": id, "message": msg + ans[:4095],"keyboard": keyboards.storageMain,
-                           "random_id": random.randint(1, 2147483647)})
-            except Exception as E:
-
-                print('Ошибка:\n', traceback.format_exc())
-
-
-            sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
-            cursorR.execute(sql)
-            conn.commit()
-            return "ok"
-        elif status == 191:
-            id = MessageSettings.getId()
-            try:
-                media = MessageSettings.getText()
-                try:
-                    if int(media) > 0:
-                        pass
-                    else:
-                        vk.method("messages.send", {"peer_id": id, "message": "Неверный формат, повторите ввод, либо введите 'Выход'" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-                except Exception:
-                    #print("исключение")
-                    try:
-                        if media[:len("Скачать файл №")] == "Скачать файл №":
-                            media = media[:len("Скачать файл №")]
-                        else:
-                            vk.method("messages.send", {"peer_id": id, "message": "Неверный формат, повторите ввод, либо введите 'Выход'" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-                            return "ok"
-                    except Exception:
-                        #print("исключение2")
-                        vk.method("messages.send", {"peer_id": id, "message": "Неверный формат, повторите ввод, либо введите 'Выход'" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-                
-
-                sql = "SELECT * FROM storage WHERE ischecked = 1 and id = " + str(media)
-                cursor.execute(sql)
-                res = cursor.fetchone()
-                if res:
-                    msg = "📒 id " +  str(res[7]) + " \n📝Предмет: " +  str(res[1]) + "\n📄Заголовок: " + str(res[3]) + "\n📂Описание: " + str(res[4])
-                    vk.method("messages.send", {"peer_id": id, "message": msg ,"keyboard": keyboards.getdownloadstorage(res[7]), "random_id": random.randint(1, 2147483647)})
-                else:
-                    msg = "Файл не найден."
-                    vk.method("messages.send", {"peer_id": id, "message": msg ,"keyboard": keyboards.storageMain, "random_id": random.randint(1, 2147483647)})
-                
-            except Exception as E:
-                print('Ошибка:\n', traceback.format_exc())
-
-
-            sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
-            cursorR.execute(sql)
-            conn.commit()
-            return "ok"
-
-        elif status == 199:
-            Gamehub(id, vk, button)
-            return "ok"
-
-        elif status == 205: # Мафия, создание комнаты, выбор числа игроков
-            try:
-                if int(body) >= 2 and int(body) <=20:
-                    sql = 'SELECT MAX(id) FROM mafiaRooms'
-                    cursorR.execute(sql)
-                    idRoom = 0
-                    try:
-                        idRoom = cursor.fetchone()[0]
-                    except Exception:
-                        pass
-                    sql = "INSERT INTO mafiaRooms VALUES (" + str(int(idRoom)+1) + "," + str(body) + ",0,0)"
-                    cursorR.execute(sql)
-                    sql = "INSERT INTO mafiaUsers VALUES (1," + str(int(idRoom)+1) + "," + str(id) + ",0,0)"
-                    cursorR.execute(sql)
-                    sql = "UPDATE Status SET Status = 199 WHERE ID_VK = " + str(id) + ";"
-                    cursorR.execute(sql)
-                    conn.commit()
-                    vk.method("messages.send", {"peer_id": id, "message": "[МАФИЯ]: Ожидаем подключения остальных игроков. Вы уже можете начать общаться в чате - просто отправь любое текстовое сообщение", "random_id": random.randint(1, 2147483647)})
-                else:
-                    vk.method("messages.send", {"peer_id": id, "message": "Выберите число участников от 3 до 20, либо введите 'Выход'" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-            except Exception:
-                print('Ошибка:\n', traceback.format_exc())
-                vk.method("messages.send", {"peer_id": id, "message": "Выберите число участников от 3 до 20, либо введите 'Выход'" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-            return "ok"
-        elif status == 206: # подключение к комнате, запуск игры
-            try:
-                if int(body) >= -1:
-                    sql = "SELECT * FROM mafiaRooms WHERE id = " + str(body)
-                    cursorR.execute(sql)
-                    res = cursorR.fetchone()
-                    #print("res in main - ", res)
-                    maxPlayers = 0
-                    statusGame = -1
-                    room = -1
-                    if res:
-                        maxPlayers = res[1]
-                        statusGame = res[2]
-                        room = res[0]
-                    else:
-                        vk.method("messages.send", {"peer_id": id, "message": "ID не найден. Повторите ввод, либо введите Выход" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-                    if statusGame == 0:
-                        #print(room)
-                        sql = "SELECT COUNT(*) FROM mafiaUsers WHERE room = " + str(room)
-                        #print(sql)
-                        cursorR.execute(sql)
-                        countUsers = cursorR.fetchone()[0]
-                        if countUsers < maxPlayers:
-                            sql = "SELECT MAX(id) FROM mafiaUsers WHERE room = " + str(room)
-                            cursorR.execute(sql)
-                            maxId = cursorR.fetchone()[0]
-                            currentId = int(maxId) + 1
-                            sql = "INSERT INTO mafiaUsers VALUES (" + str(currentId) + "," + str(room) + "," + str(id) + ",0,0)"
-                            cursorR.execute(sql)
-
-                            
-                            sql = "SELECT ID_VK FROM mafiaUsers WHERE room = " + str(room)
-                            cursorR.execute(sql)
-                            res = cursorR.fetchall()
-                            ids = ''
-                            for row in res:
-                                ids += str(row[0]) + ","
-                            vk.method("messages.send", {"user_ids": ids[:-1], "message": "@id" + str(id) + " (Игрок) подсоединился к игре","keyboard": keyboards.keyboardNull, "random_id": random.randint(1, 2147483647)})
-
-                            sql = "UPDATE Status SET Status = 199 WHERE ID_VK = " + str(id) + ";"
-                            #print(sql)
-                            cursorR.execute(sql)
-                            conn.commit()
-                            if countUsers + 1 >= maxPlayers:
-                                sql = "SELECT ID_VK FROM mafiaUsers WHERE room = " + str(room)
-                                cursorR.execute(sql)
-                                res = cursorR.fetchall()
-                                ids = ''
-                                for row in res:
-                                    ids += str(row[0]) + ","
-                                #print(ids)
-                                sql = "UPDATE mafiaRooms SET status = 1 WHERE id = " + str(room)
-                                cursorR.execute(sql)
-                                mesg = "\n Первый день в этом городке. Вам предстоит ВЫЖИТЬ в этой схватке закона и криминала."
-                                mesg += "\n [Подсказка] Вы можете поздороваться с другими игроками, как только вы будете готовы начать ход - нажмите на кнопку Готов"
-                                vk.method("messages.send", {"user_ids": ids[:-1], "message": "[МАФИЯ] Команда собрана! Игроков участвует: " + str(maxPlayers) + mesg,"keyboard": keyboards.mafia_acceptgame, "random_id": random.randint(1, 2147483647)})
-
-                            else:
-                                vk.method("messages.send", {"peer_id": id, "message": "[МАФИЯ]: Ожидаем подключения остальных игроков. Вы уже можете начать общаться в чате - просто отправь любое текстовое сообщение", "random_id": random.randint(1, 2147483647)})
-
-                    else:
-                         vk.method("messages.send", {"peer_id": id, "message": "Комната переполнена. Выберите ID другой комнаты :(" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-                else:
-                    vk.method("messages.send", {"peer_id": id, "message": "Выберите ID комнаты :(" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
-            except Exception:
-                print('Ошибка:\n', traceback.format_exc())
-                vk.method("messages.send", {"peer_id": id, "message": "Выберите ID комнаты :)" ,"keyboard": keyboards.exit, "random_id": random.randint(1, 2147483647)})
             return "ok"
 
         elif status == 301:

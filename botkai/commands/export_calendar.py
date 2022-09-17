@@ -85,12 +85,14 @@ def makeFile(week, group):
 
     current_week = 0
     while (current_week <= week):
+        if str(current_date.isoweekday()) not in days_in_week:
+            current_date += datetime.timedelta(days=1)
+            continue
         for key in days_in_week:
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
                 break
             chetnost = False if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
                                     1] + chetn) % 2 else True  # Если True чет, False - неч
-
 
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
@@ -120,13 +122,12 @@ def makeFile(week, group):
                 e.location = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
                 e.description = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
                 c.events.add(e)
-
             current_date = current_date + datetime.timedelta(days=1)
             if str(current_date.isoweekday()) not in days_in_week:
                 current_date = current_date + datetime.timedelta(days=1)
                 continue
         current_week += 1
-    with open('{}.ics'.format(group), 'w') as f:
+    with open('{}.ics'.format(group), 'w', encoding="utf-8") as f:
         f.write(str(c))
 
 def GetDocShedule(group, id):

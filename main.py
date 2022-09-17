@@ -26,16 +26,19 @@ vk_interface_obj = vk_interface()
 vk = vk_interface_obj.vk
 
 print("Starting cycle")
-while True:
-    try:
-        for event in longpool.listen():
-            if event.obj['message']['peer_id'] !=159773942:
-                continue
-            if event.type == VkBotEventType.MESSAGE_NEW:
-                # pprint(event.object)
+def main():
+    while True:
+        try:
+            for event in longpool.listen():
+                if event.obj['message']['peer_id'] !=159773942:
+                    continue
+                if event.type == VkBotEventType.MESSAGE_NEW:
+                    # pprint(event.object)
 
-                message_new(0, {'type': 'message_new', "object": event.object})
+                    message_new(0, {'type': 'message_new', "object": event.object})
 
-    except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
+        except Exception as E:
+            print('Ошибка:\n', traceback.format_exc())
+            main()
+main()
 
