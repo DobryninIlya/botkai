@@ -16,7 +16,7 @@ local_settings.py
 Bez_imeni-1.png
 ./idea/
 *s.xml
-
+*.ics
 
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
