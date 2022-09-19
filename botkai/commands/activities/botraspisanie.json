@@ -1,0 +1,90 @@
+{
+    "type": "carousel",
+    "elements": [{
+            "photo_id": "-196887204_457239150",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "official_group_link"},
+                    "label": "Сообщество",
+                    "link": "https://vk.com/botraspisanie"
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239154",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "admin_link"},
+                    "label": "Связаться с разработчиком",
+                    "link": "https://vk.com/ilya_dobrynin"
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239157",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "github_repo_link"},
+                    "label": "Guthub репозиторий проекта",
+                    "link": "https://github.com/DobryninIlya/botkai"
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239163",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "text",
+                    "payload": {"button": "commerce"},
+                    "label": "Подробнее"
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239164",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "commerce"},
+                    "label": "Подробнее",
+                    "link": "https://vk.com/doc159773942_600635288"
+
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239162",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_app",
+                    "app_id": "7505621",
+                    "owner_id": "182372147",
+                    "payload": "",
+                    "label": "Графическая справка",
+                    "hash": ""
+                }
+            }]
+        }
+    ]
+}

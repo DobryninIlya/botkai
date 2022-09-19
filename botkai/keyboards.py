@@ -1062,6 +1062,7 @@ submenu = {
     "inline": False,
     "buttons": [
         [get_button_vkminiapp(label="Графическая справка", app_id='7505621', owner_id="182372147")],
+        [get_button(label="Студенческие организации", color="primary", payload={'button': 'activities'})],
         [get_button(label="Здания", color="default", payload={'button': 'buildings_menu'})],
         [get_button(label="Команды", color="default", payload={'button': 'commands'})],
         [get_button(label="Экспорт расписания в .docx", color="default", payload={'button': 'exportword'})],
@@ -1161,17 +1162,19 @@ keyboardInfo = json.dumps(keyboardInfo, ensure_ascii=False).encode('utf-8')
 keyboardInfo = str(keyboardInfo.decode('utf-8'))
 
 
-# def keyboardPrepodOwnShed():
-#     keyboardPrepodOwnShed = {
-#         "one_time": False,
-#         'inline' : True,
-#         "buttons": [
-#             [get_button(label="Справка", payload={'button': "prepod_share_task_next"}, color="positive")]
-#         ]
-#
-#     }
-#     keyboardPrepodOwnShed = json.dumps(keyboardPrepodOwnShed, ensure_ascii=False).encode('utf-8')
-#     keyboardPrepodOwnShed = str(keyboardPrepodOwnShed.decode('utf-8'))
-#
-#     return keyboardPrepodOwnShed
-#######################################Keyboards#####################################################
+activities_hub = {
+    "inline": False,
+    "buttons": [
+        [get_button(label="Бот расписание занятий", color="positive", payload={'button': 'ACT_botraspisanie'})],
+        [get_button(label="Спорт", color="primary", payload={'button': 'ACT_notaviable'})],
+        [get_button(label="Медиа, ивенты, творчество", color="primary", payload={'button': 'ACT_notaviable'})],
+        [get_button(label="Студенческие советы", color="primary", payload={'button': 'ACT_notaviable'})],
+        [get_button(label="Профком", color="primary", payload={'button': 'ACT_notaviable'})],
+        [get_button(label="Волонтерство", color="default", payload={'button': 'ACT_notaviable'})],
+        [get_button(label="Назад", color="default", payload={})]
+
+    ]
+
+}
+activities_hub = json.dumps(activities_hub, ensure_ascii=False).encode('utf-8')
+activities_hub = str(activities_hub.decode('utf-8'))
