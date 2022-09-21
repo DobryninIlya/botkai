@@ -55,7 +55,7 @@ def load_modules():
     try:
         files = os.listdir("/app/botkai/commands")
     except:
-        files = os.listdir("commands")
+        files = os.listdir("botkai/commands")
     modules = filter(lambda x: x.endswith('.py'), files)
     for m in modules:
         importlib.import_module("botkai.commands." + m[0:-3])

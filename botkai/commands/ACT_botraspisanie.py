@@ -4,7 +4,8 @@ from .. import classes as command_class
 from ..classes import vk, MessageSettings
 from ..keyboards import activities_hub
 
-with open("commands/activities/botraspisanie.json", mode="rt", encoding="utf-8") as file:
+
+with open("botkai/commands/activities/botraspisanie.json", mode="rt", encoding="utf-8") as file:
     carousel = file.read()
 
 def info():
