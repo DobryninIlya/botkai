@@ -31,7 +31,8 @@ def main():
         try:
             for event in longpool.listen():
                 if event.obj['message']['peer_id'] !=159773942:
-                    continue
+                    # continue
+                    pass
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     # pprint(event.object)
 

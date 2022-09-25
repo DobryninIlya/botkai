@@ -42,7 +42,7 @@ if capthca_tag:
         '_58_doActionAfterLogin': "false",
         '_58_login': 'DobryninIS',
         '_58_password': 'a4c13shj',
-        '_58_captchaText': input("Введите капчу")
+        '_58_captchaText': input("Введите капчу: ")
     }
 else:
     data = {
@@ -55,8 +55,7 @@ else:
     }
 
 result = session.post(url, data = data, cookies = cookies)
-# print(result.text.replace("  ",'').replace("\n\n","\n").replace("\n\n","\n").replace("\n\n","\n").replace("\n\n","\n").replace("\n\n","\n"), result.status_code)
 
 url = "https://kai.ru/group/guest/common/about-me"
-page = requests.get(url)
+page = session.get(url)
 print(page.text)
