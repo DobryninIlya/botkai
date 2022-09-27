@@ -31,8 +31,7 @@ def main():
         try:
             for event in longpool.listen():
                 if event.obj['message']['peer_id'] !=159773942:
-                    # continue
-                    pass
+                    continue
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     # pprint(event.object)
 
@@ -41,5 +40,5 @@ def main():
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())
             main()
-main()
 
+main()

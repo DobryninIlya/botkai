@@ -26,6 +26,7 @@ from docx.shared import Pt
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
+import asyncio
 
 
 cursor = classes.cursor
@@ -116,7 +117,7 @@ def textMessage():
                 {"peer_id": MessageSettings.getId(), "message": "Я не понял тебя","keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
 
 
-def message_new(request, lp_obj=None):
+async def message_new(request, lp_obj=None):
 
     try:
         global message_params
@@ -152,6 +153,11 @@ def message_new(request, lp_obj=None):
             except Exception as E:
                 pass
 
+            ##########
+            if MessageSettings.button == 'exportword':
+                await asyncio.sleep(20)
+
+            ##########
             if button != "":
                 for c in command_list:
                     crole = c.role

@@ -1,0 +1,58 @@
+{
+    "type": "carousel",
+    "elements": [{
+            "photo_id": "-196887204_457239170",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "text",
+                    "payload": {"button": "act_media_debati_info"},
+                    "label": "Информация"
+
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239172",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "text",
+                    "payload": {"button": "ACT_media_debati_info_kiu"},
+                    "label": "Клуб дебатов КИУ"
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239171",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "text",
+                    "payload": {"button": "ACT_media_debati_info_kai"},
+                    "label": "Клуб дебатов КАИ"
+
+                }
+            }]
+        },
+        {
+            "photo_id": "-196887204_457239173",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "text",
+                    "payload": {"button": "ACT_media_debati_info_kpfu"},
+                    "label": "Клуб дебатов КФУ"
+                }
+            }]
+        }
+    ]
+}

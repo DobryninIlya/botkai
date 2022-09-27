@@ -80,34 +80,36 @@ def TimetableWrite(groupId):
     lis = []
 
     elem = response[str(1)]
-    lis.append("Понедельник")
-    for day in elem:
-        lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
-    elem = response[str(2)]
-    lis.append("Вторник")
-    for day in elem:
-        lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
-    rows = len(lis)
-    elem = response[str(3)]
-    lis.append("Среда")
-    for day in elem:
-        lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
-    rows = len(lis)
-    elem = response[str(4)]
-    lis.append("Четверг")
-    for day in elem:
-        lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
-    rows = len(lis)
-    elem = response[str(5)]
-    lis.append("Пятница")
-    for day in elem:
-        lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
-    rows = len(lis)
-    elem = response[str(6)]
-    lis.append("Суббота")
-    for day in elem:
-        lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
-    
+    try:
+        lis.append("Понедельник")
+        for day in elem:
+            lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
+        elem = response[str(2)]
+        lis.append("Вторник")
+        for day in elem:
+            lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
+        rows = len(lis)
+        elem = response[str(3)]
+        lis.append("Среда")
+        for day in elem:
+            lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
+        rows = len(lis)
+        elem = response[str(4)]
+        lis.append("Четверг")
+        for day in elem:
+            lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
+        rows = len(lis)
+        elem = response[str(5)]
+        lis.append("Пятница")
+        for day in elem:
+            lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
+        rows = len(lis)
+        elem = response[str(6)]
+        lis.append("Суббота")
+        for day in elem:
+            lis.append(ShedRow(day["dayTime"], day["dayDate"], day["disciplName"], day["disciplType"], day["audNum"], day["buildNum"], day["prepodName"]))
+    except:
+        pass
     return lis
 
 def createDocShedule(group):
