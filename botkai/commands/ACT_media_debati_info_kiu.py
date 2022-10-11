@@ -7,17 +7,16 @@ from ..keyboards import activities_hub
 with open("botkai/commands/activities/media_debati.json", mode="rt", encoding="utf-8") as file:
     carousel = file.read()
 
-def info():
+async def info():
     msg = """Тренировка в КИУ!
 Где? Тази Гиззата, 7а
 Когда? Вторник, 18:00
 Аудитория? 23
 Что? Дебаты!
 Подробнее: @klub_debatov_kiu"""
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": msg,
-                     "template": carousel,
-                        "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=msg,
+                           random_id=random.randint(1, 2147483647))
 
 
 info_command = command_class.Command()

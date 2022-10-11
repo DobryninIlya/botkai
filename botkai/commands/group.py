@@ -17,15 +17,16 @@ keyboard = {
 keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
-def info():
-    id = MessageSettings.getId()
+async def info():
     group = UserParams.RealGroup
     if group == 0:
-        group = "Не задано! Хочешь задать?"
+        group = "Не задано! Нажми ниже, чтобы задать"
     else:
         group = str(group) + " . Хочешь изменить?"
-    vk.method("messages.send",
-            {"peer_id": id, "message": "Твоя группа: " + str(group), "keyboard":keyboard, "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Твоя группа: " + str(group),
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=keyboard)
     return "ok"
 
 

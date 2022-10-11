@@ -7,17 +7,16 @@ from ..keyboards import activities_hub_event
 
 
 
-def info():
-
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": "Бот расписание занятий КНИТУ-КАИ",
-                     "keyboard": activities_hub_event,
-                        "random_id": random.randint(1, 2147483647)})
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Бот расписание занятий КНИТУ-КАИ",
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=activities_hub_event)
 
 
 info_command = command_class.Command()
 
 info_command.keys = ['Творческое медиа-пространство КАИ']
-info_command.desciption = ''
+info_command.desciption = 'Творческое медиа-пространство КАИ'
 info_command.payload = "ACT_media"
 info_command.process = info

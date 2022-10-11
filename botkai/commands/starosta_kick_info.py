@@ -5,10 +5,11 @@ from ..classes import vk, MessageSettings
 from ..keyboards import make_kick
 
 
-def info():
-
-    vk.method("messages.send",
-        {"peer_id": MessageSettings.id, "message": """Вы можете кикнуть человека из группы, если он вам мешает.""","keyboard": make_kick, "random_id": random.randint(1, 2147483647)})
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Вы можете кикнуть человека из группы, если он вам мешает.",
+                           keyboard=make_kick,
+                           random_id=random.randint(1, 2147483647))
 
     return "ok"
 

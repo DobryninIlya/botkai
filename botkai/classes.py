@@ -1,15 +1,16 @@
 import json
 import os
 import sqlite3
-
 import psycopg2
-import vk_api
+from aiovk import TokenSession
+from aiovk.longpoll import BotsLongPoll, API
+from aiovk.pools import AsyncVkExecuteRequestPool
 
 
 class connections:
     def __init__(self):
         self.connection = psycopg2.connect(dbname=os.getenv('DB_NAME'), user= os.getenv('DB_USER'), password= os.getenv('DB_PASSWORD'), host= os.getenv('DB_HOST'))
-        self.connection.autocommit=True
+        self.connection.autocommit = True
         self.cursor = self.connection.cursor()
         self.conn = sqlite3.connect("bot.db")
         self.cursorR = self.conn.cursor()
@@ -23,14 +24,15 @@ conn = connect.conn
 class vk_interface:
     def __init__(self):
         self.token = os.getenv("VK_TOKEN")
-        self.vk = vk_api.VkApi(token=self.token)
-        self.secret_key = os.getenv("SECRET_KEY")
-        self.vk_widget_token = vk_api.VkApi(token=os.getenv("VK_TOKEN_WIDGET"))
+        TokenSession.API_VERSION = '5.103'
+        self.session = TokenSession(access_token=self.token)
+        self.api = API(self.session)
+        self.vk_client = BotsLongPoll(self.session, group_id=196887204)
+
 
 vk_interface_obj = vk_interface()
-vk = vk_interface_obj.vk
-vk_widget = vk_interface_obj.vk_widget_token
-secret_key = vk_interface_obj.secret_key
+vk = vk_interface_obj.api
+
 
 
 

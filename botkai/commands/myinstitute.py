@@ -4,13 +4,14 @@ from ..classes import vk, MessageSettings, UserParams
 import random
 
 
-
-def info():
+async def info():
     id = MessageSettings.getId()
     group = UserParams.RealGroup
     if group == 0:
-        vk.method("messages.send",
-                {"peer_id": id, "message": "Сначала подтверди группу в профиле", "keyboard" : KeyboardProfile(), "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Сначала подтверди группу в профиле",
+                               keyboard=KeyboardProfile(),
+                               random_id=random.randint(1, 2147483647))
         return "ok"
 
     fdigit = group // 1000
@@ -19,7 +20,7 @@ def info():
     header = ""
     adress = "\nАдрес: "
     phone = "\nТелефон/факс: "
-    mail =  "\nE-mail: "
+    mail = "\nE-mail: "
     hours = "\nЧасы работы дирекции: "
     vkid = "\n@"
     comm = "\n Беседа: "
@@ -58,7 +59,7 @@ def info():
         vkid += "kai_iret" + " (Дирекция)"
         comm += "https://vk.me/join/AJQ1d6P6hxYB8ieBeomCDGEL"
     elif fdigit == 3:
-        header += "ИНСТИТУТ АВТОМАТИКИ И ЭЛЕКТРОННОГО ПРИБОРОСТРОЕНИЯ" 
+        header += "ИНСТИТУТ АВТОМАТИКИ И ЭЛЕКТРОННОГО ПРИБОРОСТРОЕНИЯ"
         adress += "г. Казань, ул. Толстого, 15 (3-е учебное здание КНИТУ-КАИ)"
         phone += """+7 (843) 231 03 94"""
         mail += "dekanat3@mail.ru"
@@ -66,7 +67,7 @@ def info():
         vkid += "public42139288" + " (Дирекция)"
         comm += "https://vk.me/join/AJQ1d6qdihb54WBjpLS0foQ9"
     elif fdigit == 2:
-        header += "ФИЗИКО-МАТЕМАТИЧЕСКИЙ ФАКУЛЬТЕТ" 
+        header += "ФИЗИКО-МАТЕМАТИЧЕСКИЙ ФАКУЛЬТЕТ"
         adress += "г. Казань, ул. Четаева, 18 ​(2-е учебное здание КНИТУ-КАИ)"
         phone += """декан: +7 (843) 231 02 04, 231 16 44;
 диспетчер: +7 (843) 231 02 08;
@@ -76,7 +77,7 @@ def info():
         vkid += "kaifmf" + " (Дирекция)"
         comm += "https://vk.me/join/AJQ1d_DGbRaDtOaV3kNl2GA7"
     elif fdigit == 1:
-        header += "ИНСТИТУТ АВИАЦИИ, НАЗЕМНОГО ТРАНСПОРТА И ЭНЕРГЕТИКИ" 
+        header += "ИНСТИТУТ АВИАЦИИ, НАЗЕМНОГО ТРАНСПОРТА И ЭНЕРГЕТИКИ"
         adress += "г. Казань, ул. Толстого, 15"
         phone += """+7 (843) 231 03 98, +7 (843) 231 03 20 (веч. отд.)"""
         mail += "iante@kai.ru"
@@ -87,7 +88,6 @@ def info():
     elif '569' in str(group):
         mesg = "Информация будет дополнена."
 
-        
     if header:
         mesg = header + "\n" + adress + phone + mail + hours + vkid + comm
     else:
@@ -96,19 +96,15 @@ def info():
                "Желательно так же прикрепить информацию об адресе дирекции, контакном телефоне, электронной почте, часы работы" \
                "и ссылку на группу вконтакте"
 
-    vk.method("messages.send",
-                        {"peer_id": id, "message": mesg, "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=mesg,
+                           keyboard=KeyboardProfile(),
+                           random_id=random.randint(1, 2147483647))
 
-    
-      
     return "ok"
 
 
-
 command = command_class.Command()
-
-
-
 
 command.keys = ["институт", "деканат", "дирекция"]
 command.desciption = ''

@@ -5,8 +5,9 @@ import random
 import datetime
 import traceback
 
-##################################                Добавить блокировку от 3 варнов 
-def info():
+
+##################################                Добавить блокировку от 3 варнов
+async def info():
     id = MessageSettings.id
     today = datetime.date.today()
     try:
@@ -18,24 +19,20 @@ def info():
         result = "У вас " + warn + " предупреждений."
         if exp:
             result += "\n Истекают: " + exp
-        vk.method("messages.send",
-                {"peer_id": id, "message": result,"keyboard" : warnInfo, "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message=result,
+                               keyboard=warnInfo,
+                               random_id=random.randint(1, 2147483647))
     except Exception:
         print('Ошибка:\n', traceback.format_exc())
 
     return "ok"
 
 
-
-
-
 command = command_class.Command()
-
-
-
 
 command.keys = ['предупреждения']
 command.desciption = ''
 command.process = info
 command.payload = "warnlist"
-command.role = [1,2,3,4,5]
+command.role = [1, 2, 3, 4, 5]

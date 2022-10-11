@@ -3,6 +3,7 @@ import json
 import random
 import traceback
 
+import aiohttp
 import requests
 
 from .. import classes as command_class
@@ -20,7 +21,7 @@ frazi = ["Можно сходить в кино 😚", "Можно почита�
          "Можно встретиться с друзьями 😚"]
 
 
-def info():
+async def info():
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=1))
     group = UserParams.getGroup()
@@ -36,29 +37,31 @@ def info():
     if advert:
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
     try:
-        Timetable = showTimetable(group, 1)
+        Timetable = await showTimetable(group, 1)
         if Timetable:
-            vk.method("messages.send",
-                      {"peer_id": id, "message": "Расписание на завтра:\n" + Timetable + adv + task,
-                       "keyboard": GetButtonTask(date), "random_id": random.randint(1, 2147483647)})
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message="Расписание на завтра:\n" + Timetable + adv + task,
+                                   keyboard=GetButtonTask(date),
+                                   random_id=random.randint(1, 2147483647))
         else:
-            vk.method("messages.send",
-                      {"peer_id": id, "message": "Завтра занятий нет 😎\n" + frazi[random.randint(0, len(frazi) - 1)],
-                       "random_id": random.randint(1, 2147483647)})
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message="Завтра занятий нет 😎\n" + frazi[random.randint(0, len(frazi) - 1)],
+                                   keyboard=GetButtonTask(date),
+                                   random_id=random.randint(1, 2147483647))
 
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
-        vk.method("messages.send",
-                  {"peer_id": id, "message": "Завтра можно отдохнуть :]", "keyboard": GetButtonTask(date),
-                   "random_id": random.randint(1, 2147483647)})
-
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Завтра можно отдохнуть :]",
+                               keyboard=GetButtonTask(date),
+                               random_id=random.randint(1, 2147483647))
     return "ok"
 
 
-def showTimetable(groupId, tomorrow=0):
+async def showTimetable(groupId, tomorrow=0):
     user_potok = UserParams.potokLecture
     try:
-        isNormal, response = getResponse(groupId)
+        isNormal, response = await getResponse(groupId)
         if not isNormal:
             return response
         chetn = UserParams.getChetn()
@@ -94,58 +97,59 @@ def showTimetable(groupId, tomorrow=0):
             if '---' in (elem["buildNum"]).rstrip():
                 elem["buildNum"] = "-нет-"
 
+            # print(dateinstr)
             if (elem["dayDate"]).rstrip() == "чет" and (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                                      "disciplType"][
                                                                                                                  :4] + " " + \
                           elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif (elem["dayDate"]).rstrip() == "неч" and not (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + elem["dayDate"][:3] + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                                      "disciplType"][
                                                                                                                  :4] + " " + \
                           elem["disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif (elem["dayDate"]).rstrip() == "неч/чет" and not (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                            "disciplType"][
                                                                                                        :4] + " " + elem[
                               "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif (elem["dayDate"]).rstrip() == "неч/чет" and (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                            "disciplType"][
                                                                                                        :4] + " " + elem[
                               "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif (elem["dayDate"]).rstrip() == "чет/неч" and (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + " 1&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                            "disciplType"][
                                                                                                        :4] + " " + elem[
                               "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif (elem["dayDate"]).rstrip() == "чет/неч" and not (
                     (datetime.date(today.year, today.month, today.day).isocalendar()[1] + chetn) % 2 == 0):
                 result += str(chr(10148)) + " 2&#8419;гр. " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                            "disciplType"][
                                                                                                        :4] + " " + elem[
                               "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif dateinstr != -1:
                 result += str(chr(10148)) + str(day) + " " + " &#8987;" + elem["dayTime"][:5] + " " + elem[
                                                                                                           "disciplType"][
                                                                                                       :4] + " " + elem[
                               "disciplName"] + " " + (elem["audNum"]).rstrip() + " " + (
-                          elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["buildNum"]).rstrip() + ' зд.\n'
             elif not ((elem["dayDate"]).rstrip() == "чет") and not ((elem["dayDate"]).rstrip() == "неч"):
                 result += str(chr(10148)) + elem["dayDate"].rstrip() + " " + " &#8987;" + elem["dayTime"][:5] + " " + \
                           elem["disciplType"][:4] + " " + elem["disciplName"] + " " + (
-                          elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
+                              elem["audNum"]).rstrip() + " " + (elem["buildNum"]).rstrip() + ' зд.\n'
         return result
     except ConnectionError as err:
         return "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
@@ -159,69 +163,74 @@ def showTimetable(groupId, tomorrow=0):
         return ""
 
 
-def getResponse(groupId):
+async def getResponse(groupId):
     if UserParams.own_shed:
         groupId = MessageSettings.getId() + 1_000_000_000
-        return get_own_shed(groupId)
+        return await get_own_shed(groupId)
 
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
     if result == None:
         try:
-
-            response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                     headers={'Content-Type': "application/x-www-form-urlencoded"},
-                                     params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
-                                             "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=7)
+            async with aiohttp.ClientSession() as session:
+                async with await session.post(BASE_URL, data="groupId=" + str(groupId),
+                                              headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                              params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                      "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
+                                              timeout=3) as response:
+                    response = await response.json(content_type='text/html')
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(),
-                                                                               json.dumps(response.json()))
+                                                                               json.dumps(response))
             cursor.execute(sql)
             connection.commit()
-            return True, response.json()
+            return True, response
         except ConnectionError as err:
             return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
-        except requests.exceptions.Timeout as err:
+        except aiohttp.ServerTimeoutError as err:
             return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
         except:
             return False, ""
 
+
     else:
+
         date_update = result[1]
         timetable = result[2]
         if date_update + datetime.timedelta(days=2) < today:
             try:
-                response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
-                                         params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
-                                                 "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
-                assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                async with aiohttp.ClientSession() as session:
+                    async with await session.post(BASE_URL, data="groupId=" + str(groupId),
+                                                  headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                                  params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                          "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
+                                                  timeout=3) as response:
+                        response = await response.json(content_type='text/html')
+                assert json.dumps(response), "Расписание имеет некорректную форму"
                 sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
-                    json.dumps(response.json()), datetime.date.today(), groupId)
+                    json.dumps(response), datetime.date.today(), groupId)
                 cursor.execute(sql)
                 connection.commit()
-                return True, response.json()
+                return True, response
             except:
-                # sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-                # cursor.execute(sql)
-                # result = cursor.fetchone()[0]
                 return True, json.loads(timetable)
         else:
-            # sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
-            # cursor.execute(sql)
             result = timetable
             if len(result) < 10:
                 try:
-                    response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
-                                             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
-                                                     "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
-                    assert json.dumps(response.json()), "Расписание имеет некорректную форму"
+                    async with aiohttp.ClientSession() as session:
+                        async with await session.post(BASE_URL, data="groupId=" + str(groupId),
+                                                      headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                                      params={
+                                                          "p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                          "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
+                                                      timeout=3) as response:
+                            response = await response.json(content_type='text/html')
                     sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(
-                        json.dumps(response.json()), datetime.date.today(), groupId)
+                        json.dumps(response), datetime.date.today(), groupId)
                     cursor.execute(sql)
                     connection.commit()
-                    return True, response.json()
+                    return True, response
                 except:
                     return True, ""
             return True, json.loads(result)
@@ -229,7 +238,7 @@ def getResponse(groupId):
     return
 
 
-def get_own_shed(groupId):
+async def get_own_shed(groupId):
     try:
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
@@ -241,9 +250,7 @@ def get_own_shed(groupId):
         else:
             return True, json.loads(result)
     except:
-        return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе " \
-                      "отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в " \
-                      "профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
+        return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
 
 
 command = command_class.Command()

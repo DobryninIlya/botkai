@@ -8,11 +8,11 @@ from ..keyboards import activities_hub
 with open("botkai/commands/activities/media_debati.json", mode="rt", encoding="utf-8") as file:
     carousel = file.read()
 
-def info():
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": "Клуб дебатов",
-                     "template": carousel,
-                        "random_id": random.randint(1, 2147483647)})
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Клуб дебатов",
+                           random_id=random.randint(1, 2147483647),
+                           template=carousel)
 
 
 info_command = command_class.Command()

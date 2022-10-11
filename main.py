@@ -35,7 +35,7 @@ def main():
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     # pprint(event.object)
 
-                    message_new(0, {'type': 'message_new', "object": event.object})
+                    await message_new(0, {'type': 'message_new', "object": event.object})
 
         except Exception as E:
             print('Ошибка:\n', traceback.format_exc())

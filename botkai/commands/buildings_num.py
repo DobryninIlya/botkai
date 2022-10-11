@@ -51,14 +51,16 @@ buildings = {
 }
 
 
-def info():
+async def info():
 
 
     num = MessageSettings.payload['number']
-    
-    vk.method("messages.send",
-                {"peer_id": MessageSettings.getPeer_id(), "message": "{} дом".format(buildings[int(num)]['chislit']), 'lat' : buildings[int(num)]['lat'], 'long' : buildings[int(num)]['long'],
-                    "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message= "{} дом".format(buildings[int(num)]['chislit']),
+                           random_id=random.randint(1, 2147483647),
+                           lat =buildings[int(num)]['lat'],
+                           long=buildings[int(num)]['long'])
+
 
 info_command = command_class.Command()
 

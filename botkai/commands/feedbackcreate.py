@@ -1,9 +1,8 @@
 import json
 import random
-
+from ..keyboards import exit
 from .. import classes as command_class
 from ..classes import vk, MessageSettings, conn, cursorR
-from ..keyboards import keyboard
 
 
 def get_button(label, color, payload=""):
@@ -17,12 +16,10 @@ def get_button(label, color, payload=""):
     }
 
 
-
 keyboard = {
     "one_time": False,
     "buttons": [
         [get_button(label="Выход", color="negative")]
-
 
     ]
 }
@@ -30,25 +27,20 @@ keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
 
-
-def info():
-
+async def info():
     id = MessageSettings.id
-    vk.method("messages.send",
-                        {"peer_id": id, "message": "Введите свой вопрос. Можно прикрепить медиавложения.", "keyboard" : keyboard,  "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Введите свой вопрос. Можно прикрепить медиавложения.",
+                           keyboard=exit,
+                           random_id=random.randint(1, 2147483647))
     sql = "INSERT INTO Status VALUES (" + str(id) + ", 58);"
     cursorR.execute(sql)
     conn.commit()
-    
-      
+
     return "ok"
 
 
-
 command = command_class.Command()
-
-
-
 
 command.keys = []
 command.desciption = ''

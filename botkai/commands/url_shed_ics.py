@@ -1,36 +1,41 @@
+import aiohttp
+
 from .. import classes as command_class
 from ..keyboards import keyboardicalendarGuide
 from ..classes import vk, MessageSettings, UserParams
 import random
-import requests
 
 
-def GetDocShedule(group, id):
+async def GetDocShedule(group, id):
     message = "http://kaibotkai.herokuapp.com/download/shedule/?groupid={}".format(UserParams.groupId)
     with open('{}.txt'.format(group), 'w') as f:
         f.write(str(message))
-    a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
-    b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".txt", "rb")}).json()
-    c = vk.method("docs.save", {"file" : b["file"]})
-    d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
+    a = await vk.docs.getMessagesUploadServer(type="doc", peer_id=id)
+    async with aiohttp.ClientSession() as session:
+        async with await session.post(a["upload_url"],
+                                      data={"file": open(str(group)+".txt", "rb")}) as response:
+            b = await response.json()
+
+    c = await vk.docs.save(file=b["file"])
+    d = "doc" + str(c["doc"]["owner_id"]) + "_" + str(c["doc"]["id"])
     return d
 
-def info():
+async def info():
 
     message = """URL ссылка на календарь позволяет добавить ваше расписание в онлайн календари, например в Outlook. 
     Такое расписание не нужно скачивать, календарь автоматически скачает его по этой ссылке.
     Просто скопируйте эту ссылку и вставьте в ваш календарь.
     (функция временно неработает)
     """
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : keyboardicalendarGuide,
-                        "random_id": random.randint(1, 2147483647)})
-    # message = "https://dobrynin.engineer/download/shedule/?groupid={}".format(UserParams.groupId)
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=message,
+                           keyboard=keyboardicalendarGuide,
+                           random_id=random.randint(1, 2147483647))
     message = "Откройте файл и скопируйте ссылку."
-    vk.method("messages.send",
-              {"peer_id": MessageSettings.getPeer_id(), "message": message,
-               'attachment' : GetDocShedule(UserParams.groupId, MessageSettings.getId()),
-               "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=message,
+                           attachment=await GetDocShedule(UserParams.groupId, MessageSettings.getId()),
+                           random_id=random.randint(1, 2147483647))
 
 info_command = command_class.Command()
 

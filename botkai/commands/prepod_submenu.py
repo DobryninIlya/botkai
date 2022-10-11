@@ -7,11 +7,12 @@ from ..keyboards import keyboardPrepodSubmenu
 
 uptime = datetime.datetime.now()
 
-def info():
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Меню",
+                           keyboard=keyboardPrepodSubmenu,
+                           random_id=random.randint(1, 2147483647))
 
-    vk.method("messages.send",
-                        {"peer_id": MessageSettings.getId(), "message": "Меню", "keyboard": keyboardPrepodSubmenu, "random_id": random.randint(1, 2147483647)})
-    
       
     return "ok"
 

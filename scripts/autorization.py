@@ -10,8 +10,8 @@ data = {
     '_58_saveLastPath': "false",
     '_58_redirect': '',
     '_58_doActionAfterLogin': "false",
-    '_58_login': 'DobryninIS',
-    '_58_password': 'a4c13shj',
+    '_58_login': '',
+    '_58_password': '',
 }
 session = requests.Session()
 res = session.get(login_url, data=data)
@@ -40,8 +40,8 @@ if capthca_tag:
         '_58_saveLastPath': "false",
         '_58_redirect': '',
         '_58_doActionAfterLogin': "false",
-        '_58_login': 'DobryninIS',
-        '_58_password': 'a4c13shj',
+        '_58_login': '',
+        '_58_password': '',
         '_58_captchaText': input("Введите капчу: ")
     }
 else:

@@ -6,13 +6,12 @@ from ..classes import vk as vk
 from ..keyboards import KeyboardProfile
 
 
-def info():
-    id = MessageSettings.getPeer_id()
-    message = "Профиль"
-    vk.method("messages.send",
-                    {"peer_id": id, "message": message, "keyboard" : KeyboardProfile(),
-                        "random_id": random.randint(1, 2147483647)})
-    
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Профиль",
+                           keyboard=KeyboardProfile(),
+                           random_id=random.randint(1, 2147483647))
+
 
 command = command_class.Command()
 

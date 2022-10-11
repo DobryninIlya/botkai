@@ -4,13 +4,15 @@ from ..classes import vk, MessageSettings, UserParams
 import random
 
 
-def info():
+async def info():
 
     message = """расписание - показать расписание
     """
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": message, "keyboard" : getMainKeyboard(UserParams.role),
-                        "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=message,
+                           keyboard=getMainKeyboard(UserParams.role),
+                           random_id=random.randint(1, 2147483647))
+
 
 info_command = command_class.Command()
 

@@ -10,7 +10,7 @@ chetn = UserParams.getChetn()
 
 
 
-def info():
+async def info():
 
     id = MessageSettings.getId()
 
@@ -34,9 +34,9 @@ def info():
                 {"peer_id": id, "message": "Все проверено", "random_id": random.randint(1, 2147483647)})
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
-        conn.rollback()
-        vk.method("messages.send",
-            {"peer_id": id, "message": "Произошла ошибка. Модерация", "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Произошла ошибка. Модерация",
+                               random_id=random.randint(1, 2147483647))
 
     return "ok"
 

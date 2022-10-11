@@ -6,10 +6,10 @@ from ..keyboards import activities_hub
 
 
 
-def info():
-    vk.method("messages.send",
-          {"peer_id": MessageSettings.getPeer_id(), "message": "В данном разделе временно нет данных.",
-           "random_id": random.randint(1, 2147483647)})
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="В данном разделе временно нет данных.",
+                           random_id=random.randint(1, 2147483647))
 
 
 info_command = command_class.Command()

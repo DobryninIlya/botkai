@@ -4,18 +4,15 @@ from ..keyboards import GetAdminPanel
 from ..classes import vk, MessageSettings, UserParams
 
 
-def info():
-    id = MessageSettings.getId()
-
-    vk.method("messages.send",
-                        {"peer_id": id, "message": "Apanel","keyboard": GetAdminPanel(UserParams.getAdminLevel()), "random_id": random.randint(1, 2147483647)})
-
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Apanel",
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=GetAdminPanel(UserParams.getAdminLevel()))
     return "ok"
 
 
 command = command_class.Command()
-
-
 command.keys = ['apanel']
 command.desciption = 'админ панель'
 command.process = info

@@ -17,12 +17,11 @@ class Poller:
     async def _worker(self):
         while True:
             async for event in self.vk_client.iter():
-                print(event)
                 self.queue.put_nowait(event)
 
     async def start(self):
         self._task = asyncio.create_task(self._worker())
-        print("poller has been started")
+
 
     async def stop(self):
         self._task.cancel()

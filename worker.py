@@ -17,17 +17,13 @@ class Worker:
         self._tasks: List[asyncio.Task] = []
 
     async def handle_update(self, event):
-        print("handle update")
         try:
             if event["type"] == 'message_new':
                 await message_new(0, event)
 
         except:
             print('Ошибка:\n', traceback.format_exc())
-        # print("before", datetime.datetime.now())
-        # await asyncio.sleep(10)
-        # print("after", datetime.datetime.now())
-        # await self.vk_client.send_message(upd.message.chat.id, upd.message.text)
+
 
     async def _worker(self):
         while True:
@@ -39,7 +35,8 @@ class Worker:
 
     async def start(self):
         self._tasks = [asyncio.create_task(self._worker()) for _ in range(self.concurrent_workers)]
-        print("poller has been started")
+        print("Started {} workers".format(self.concurrent_workers))
+
 
 
     async def stop(self):

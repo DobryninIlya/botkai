@@ -5,12 +5,11 @@ from ..classes import vk, MessageSettings
 from ..keyboards import activities_hub
 
 
-def info():
-
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": "Студенческие организации и самоуправления\n Глава такого объединения? Напиши мне ( @ilya_dobrynin ), чтобы оказаться здесь и о тебе узнали люди",
-                    "keyboard" : activities_hub,
-                        "random_id": random.randint(1, 2147483647)})
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Студенческие организации и самоуправления\n Глава такого объединения? Напиши мне ( @ilya_dobrynin ), чтобы оказаться здесь и о тебе узнали люди",
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=activities_hub)
 
 info_command = command_class.Command()
 

@@ -228,40 +228,6 @@ def GetModerTaskStarosta(id, next_id, prev_id, pos_id):
     keyboard = str(keyboard.decode('utf-8'))
     return keyboard
 
-
-keyboard = {
-    "one_time": False,
-    "buttons": [
-        [get_button(label="Карантин, коронавирус...", color="negative", payload={'button': 'coronavirusfull'})],
-        [
-            get_button(label="На завтра", color="primary", payload={'button': 'tomorrow'}),
-            get_button(label="Экзамены", color="positive", payload={'button': 'exams'})
-        ],
-        [
-            get_button(label="На сегодня", color="primary", payload={'button': 'today'}),
-            get_button(label="На послезавтра", color="primary", payload={'button': 'after'}),
-            get_button(label="Полностью", color="primary", payload={'button': 'all'})
-        ],
-        [
-            get_button(label="Четность недели", color="default", payload={'button': 'chetnost'}),
-            get_button(label="Задания и объявления", color="primary", payload={'button': 'task menu'})
-        ],
-        [
-            get_button(label="Команды", color="default", payload={'button': 'commands'}),
-            get_button(label="Преподаватели", color="default", payload={'button': 'prepod'}),
-            get_button(label="Хранилище", color="positive", payload={'button': 'storagemain'})
-        ],
-        [
-            get_button(label="Обратная связь", color="primary", payload={'button': 'feedback'}),
-            get_button(label="Профиль", color="positive", payload={'button': 'profile'})
-        ]
-
-    ]
-}
-keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
-keyboard = str(keyboard.decode('utf-8'))
-
-
 def getMainKeyboard(role):
     if role == 2:
         keyboard = {
@@ -1192,3 +1158,14 @@ activities_hub_event = {
 }
 activities_hub_event = json.dumps(activities_hub_event, ensure_ascii=False).encode('utf-8')
 activities_hub_event = str(activities_hub_event.decode('utf-8'))
+
+verification = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Подтвердить", color="default", payload={'button': 'verification'})]
+
+    ]
+
+}
+verification = json.dumps(verification, ensure_ascii=False).encode('utf-8')
+verification = str(verification.decode('utf-8'))

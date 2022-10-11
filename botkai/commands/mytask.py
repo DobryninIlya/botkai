@@ -5,7 +5,7 @@ from ..classes import vk, MessageSettings, cursor
 from ..keyboards import GetDeleteTaskButton, keyboardTasks
 
 
-def info():
+async def info():
     UserID = MessageSettings.getId()
     sql = "SELECT * FROM Task WHERE" + " UserID = " + str(UserID)
     cursor.execute(sql)
@@ -14,25 +14,27 @@ def info():
 
     curs = cursor.fetchall()
     if len(curs) == 0:
-        vk.method("messages.send", {"peer_id": UserID, "message": "Заданий нет. Самое время добавить!" , "keyboard": keyboardTasks, "random_id": random.randint(1, 2147483647)})
-    
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Заданий нет. Самое время добавить!",
+                               keyboard=keyboardTasks,
+                               random_id=random.randint(1, 2147483647))
+
     for row in curs:
         task = "❗зᴀдᴀниᴇ❗\n"
         task += str(row[4])
         idvk = "@id" + str(row[2])
         task += "\n" + idvk + " (Автор) | ID: " + str(row[0])
         att = str(row[5])
-        vk.method("messages.send", {"peer_id": UserID, "message": task , "keyboard": GetDeleteTaskButton((int)(row[0])), "attachment" : att, "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message=task,
+                               keyboard=GetDeleteTaskButton((int)(row[0])),
+                               attachment=att,
+                               random_id=random.randint(1, 2147483647))
 
     return "ok"
 
 
-
-
 command = command_class.Command()
-
-
-
 
 command.keys = ['мои задания', 'мои задачи']
 command.desciption = 'отображение списка заданий'

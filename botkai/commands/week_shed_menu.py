@@ -5,23 +5,16 @@ from ..classes import vk, MessageSettings
 from ..keyboards import week_shed_kbrd
 
 
-def info():
-    
-    id = MessageSettings.getId()
-    
-    vk.method("messages.send",
-                        {"peer_id": id, "message": "Меню","keyboard" : week_shed_kbrd, "random_id": random.randint(1, 2147483647)})
+async def info():
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Меню",
+                           keyboard=week_shed_kbrd,
+                           random_id=random.randint(1, 2147483647))
 
-    
-      
     return "ok"
 
 
-
 command = command_class.Command()
-
-
-
 
 command.keys = []
 command.desciption = ''

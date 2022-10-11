@@ -5,11 +5,12 @@ from ..classes import vk, MessageSettings, UserParams, cursor
 from ..keyboards import GetModerTaskStarosta
 
 
-def info():
-
+async def info():
     UserID = MessageSettings.getId()
     if "callback" not in MessageSettings.buttons:
-        vk.method("messages.send", {"peer_id": UserID, "message": "Команда доступна только в мобильной версии сайта m.vk.com и в последней версии официального мобильного приложения." , "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Команда доступна только в мобильной версии сайта m.vk.com и в последней версии официального мобильного приложения.",
+                               random_id=random.randint(1, 2147483647))
         return
     groupId = UserParams.getGroup()
     sql = "SELECT * FROM Task WHERE" + " groupid = " + str(groupId) + " LIMIT 2"
@@ -20,10 +21,12 @@ def info():
     curs = cursor.fetchall()
     # print(curs)
     if len(curs) == 0:
-       vk.method("messages.send", {"peer_id": UserID, "message": "Заданий не создано" , "random_id": random.randint(1, 2147483647)})
-       return "ok"
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Заданий не создано",
+                               random_id=random.randint(1, 2147483647))
+        return "ok"
     first = True
-    next_task_id = -1 
+    next_task_id = -1
     for row in curs:
         if first:
             task = "❗зᴀдᴀниᴇ❗\n"
@@ -35,10 +38,15 @@ def info():
         else:
             next_task_id = int(row[0])
 
-        
-    vk.method("messages.send", {"peer_id": UserID, "message": task ,"content_source": row[7], "keyboard": GetModerTaskStarosta(id = (int)(row[0]), next_id = next_task_id, pos_id = 0, prev_id = 0), "attachment" : att, "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=task,
+                           content_source=row[7],
+                           keyboard=GetModerTaskStarosta(id=int(row[0]), next_id=next_task_id, pos_id=0, prev_id=0),
+                           attachment=att,
+                           random_id=random.randint(1, 2147483647))
 
     return "ok"
+
 
 command = command_class.Command()
 
