@@ -57,7 +57,7 @@ MessageSettings=classes.MessageSettings
 
 def load_modules():
     try:
-        files = os.listdir("/app/botkai/commands")
+        files = os.listdir('/home/u_botkai/botraspisanie/botkai_telegram/bot/commands')
     except:
         files = os.listdir("botkai/commands")
     modules = filter(lambda x: x.endswith('.py'), files)
