@@ -3,7 +3,7 @@ from .. import classes as command_class
 from ..classes import vk, MessageSettings
 
 
-with open("botkai/commands/activities/botraspisanie.json", mode="rt", encoding="utf-8") as file:
+with open("/home/u_botkai/botraspisanie/botkai/botkai/commands/activities/botraspisanie.json", mode="rt", encoding="utf-8") as file:
     carousel = file.read()
 
 async def info():
