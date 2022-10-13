@@ -9,7 +9,7 @@ from ..keyboards import activities_hub_event
 
 async def info():
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                           message="Бот расписание занятий КНИТУ-КАИ",
+                           message="Медиа проекты КАИ",
                            random_id=random.randint(1, 2147483647),
                            keyboard=activities_hub_event)
 
