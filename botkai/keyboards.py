@@ -1133,7 +1133,7 @@ activities_hub = {
     "buttons": [
         [get_button(label="Бот расписание занятий", color="positive", payload={'button': 'ACT_botraspisanie'})],
         [get_button(label="Спорт", color="primary", payload={'button': 'ACT_notaviable'})],
-        [get_button(label="Медиа, ивенты, творчество", color="primary", payload={'button': 'ACT_media'})],
+        [get_button(label="Медиа, ивенты, творчество", color="positive", payload={'button': 'ACT_media'})],
         [get_button(label="Студенческие советы", color="primary", payload={'button': 'ACT_notaviable'})],
         [get_button(label="Профком", color="primary", payload={'button': 'ACT_notaviable'})],
         [get_button(label="Волонтерство", color="default", payload={'button': 'ACT_notaviable'})],
@@ -1151,7 +1151,7 @@ activities_hub_event = {
         [get_button(label="Клуб дебатов", color="primary", payload={'button': 'ACT_media_debati'})],
         [get_button(label="танцы шманцы", color="default", payload={'button': 'ACT_notaviable'})],
         [get_button(label="пение", color="default", payload={'button': 'activities_hub_event'})],
-        [get_button(label="еще что нибудь", color="default", payload={'button': 'ACT_notaviable'})]
+        [get_button(label="Выход", color="default")]
 
     ]
 

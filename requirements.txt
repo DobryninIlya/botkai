@@ -36,3 +36,4 @@ numba
 python-docx
 aiovk
 apiai
+ics
