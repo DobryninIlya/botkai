@@ -1137,7 +1137,7 @@ activities_hub = {
         [get_button(label="Студенческие советы", color="primary", payload={'button': 'ACT_notaviable'})],
         [get_button(label="Профком", color="primary", payload={'button': 'ACT_notaviable'})],
         [get_button(label="Волонтерство", color="default", payload={'button': 'ACT_notaviable'})],
-        [get_button(label="Назад", color="default", payload={})]
+        [get_button(label="Назaд", color="default", payload={'button': 'submenu'})]
 
     ]
 
@@ -1150,8 +1150,8 @@ activities_hub_event = {
     "buttons": [
         [get_button(label="Клуб дебатов", color="primary", payload={'button': 'ACT_media_debati'})],
         [get_button(label="танцы шманцы", color="default", payload={'button': 'ACT_notaviable'})],
-        [get_button(label="пение", color="default", payload={'button': 'activities_hub_event'})],
-        [get_button(label="Назад", color="default", payload={'button': 'activities'})]
+        [get_button(label="пение", color="default", payload={'button': 'ACT_notaviable'})],
+        [get_button(label="Назaд", color="default", payload={'button': 'activities'})]
 
     ]
 

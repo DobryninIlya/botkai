@@ -1,6 +1,8 @@
 {
     "type": "carousel",
     "elements": [{
+            "title": "Казанские дебаты",
+            "description": " ",
             "photo_id": "-196887204_457239170",
             "action": {
                 "type": "open_photo"
@@ -15,6 +17,8 @@
             }]
         },
         {
+            "title": "Клуб дебатов КИУ",
+            "description": " ",
             "photo_id": "-196887204_457239172",
             "action": {
                 "type": "open_photo"
@@ -28,6 +32,8 @@
             }]
         },
         {
+            "title": "Клуб дебатов КНИТУ-КАИ",
+            "description": " ",
             "photo_id": "-196887204_457239171",
             "action": {
                 "type": "open_photo"
@@ -42,6 +48,8 @@
             }]
         },
         {
+            "title": "Клуб дебатов КФУ",
+            "description": " ",
             "photo_id": "-196887204_457239173",
             "action": {
                 "type": "open_photo"

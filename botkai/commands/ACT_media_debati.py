@@ -4,9 +4,14 @@ from .. import classes as command_class
 from ..classes import vk, MessageSettings
 from ..keyboards import activities_hub
 
+try:
+    with open("/home/u_botkai/botraspisanie/botkai/botkai/commands/activities/media_debati.json", mode="rt",
+              encoding="utf-8") as file:
+        carousel = file.read()
+except:
+    with open("botkai/commands/activities/media_debati.json", mode="rt", encoding="utf-8") as file:
+        carousel = file.read()
 
-with open("/home/u_botkai/botraspisanie/botkai/botkai/commands/activities/media_debati.json", mode="rt", encoding="utf-8") as file:
-    carousel = file.read()
 
 async def info():
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),

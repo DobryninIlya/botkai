@@ -1,6 +1,8 @@
 {
     "type": "carousel",
     "elements": [{
+            "title": "Сообщество",
+            "description": "Сообщество во ВКонтакте",
             "photo_id": "-196887204_457239150",
             "action": {
                 "type": "open_photo"
@@ -15,6 +17,8 @@
             }]
         },
         {
+            "title": "Разработчик",
+            "description": "Написать разработчику",
             "photo_id": "-196887204_457239154",
             "action": {
                 "type": "open_photo"
@@ -29,6 +33,23 @@
             }]
         },
         {
+            "title": "Телеграм",
+            "description": "Бот в телеграме",
+            "photo_id": "-196887204_457239177",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "telegram_repo_link"},
+                    "label": "Telegram bot",
+                    "link": "https://t.me/knrtukaibot"
+                }
+            }]
+        },        {
+            "title": "GitHub",
+            "description": "Open-Source репозиторий",
             "photo_id": "-196887204_457239157",
             "action": {
                 "type": "open_photo"
@@ -43,6 +64,8 @@
             }]
         },
         {
+            "title": "Помощь",
+            "description": "Помощь в написании дипломных работ",
             "photo_id": "-196887204_457239163",
             "action": {
                 "type": "open_photo"
@@ -56,6 +79,8 @@
             }]
         },
         {
+            "title": "Дипломная работа",
+            "description": "Полный текст дипломной работы данного проекта",
             "photo_id": "-196887204_457239164",
             "action": {
                 "type": "open_photo"
@@ -63,7 +88,7 @@
             "buttons": [{
                 "action": {
                     "type": "open_link",
-                    "payload": {"button": "commerce"},
+                    "payload": {"button": "diploma"},
                     "label": "Подробнее",
                     "link": "https://vk.com/doc159773942_600635288"
 
@@ -71,6 +96,8 @@
             }]
         },
         {
+            "title": "Справка",
+            "description": "Ответы на многие вопросы содержаться здесь",
             "photo_id": "-196887204_457239162",
             "action": {
                 "type": "open_photo"
