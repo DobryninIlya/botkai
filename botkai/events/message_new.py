@@ -73,11 +73,6 @@ def DeleteOldTask():
     cursor.execute("SELECT * FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
 
     result = cursor.fetchall()
-    #print(result)
-    # for part in result:
-
-        # vk.method("messages.send", {"peer_id": (int)(str(part[2])), "message": "Ваше задание " + (str(part[4]))[:10] + "... было автоматически удалено.", "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
-
     cursor.execute("DELETE FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
     cursor.execute('DELETE FROM "Adv" WHERE date < ' + "'" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
     cursorR.execute("DELETE FROM verification WHERE id>0")
@@ -87,9 +82,11 @@ def DeleteOldTask():
     connection.commit()
     if count == 0:
         return
-    # vk.method("messages.send", {"peer_id": 159773942, "message": "Удалено заданий: " + str(count) , "keyboard": keyboards.getMainKeyboard(UserParams.role), "random_id": random.randint(1, 2147483647)})
-    
-DeleteOldTask()
+
+try:
+    DeleteOldTask()
+except:
+    pass
 
 
 async def textMessage():

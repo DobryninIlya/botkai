@@ -176,7 +176,7 @@ Thumbs.db #thumbnail cache on Windows
 .prof
 
 --wait.txt
-
+.db
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 
