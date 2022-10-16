@@ -86,7 +86,7 @@ def DeleteOldTask():
 try:
     DeleteOldTask()
 except:
-    pass
+    print('Ошибка:\n', traceback.format_exc())
 
 
 async def textMessage():

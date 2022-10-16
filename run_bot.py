@@ -2,9 +2,10 @@ import asyncio
 import datetime
 import os
 import traceback
+import signal
 
 from base import Bot
-
+from botkai.classes import conn, cursor, cursorR, connection
 
 
 def run():
@@ -23,5 +24,22 @@ def run():
         print('Ошибка:\n', traceback.format_exc())
 
 
+def signal_handler(signal, frame):
+    print('programm is down ', signal)
+    cursor.close()
+    cursorR.close()
+    conn.close()
+    connection.close()
+
+
+signal.signal(signal.SIGINT, signal_handler)
+
 if __name__ == '__main__':
-    run()
+    try:
+        run()
+    finally:
+        cursor.close()
+        cursorR.close()
+        conn.close()
+        connection.close()
+        print('programm is down')
