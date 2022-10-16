@@ -28,7 +28,6 @@ class Spam_Handler:
                                             message="[chat-guardian]: Удален спам.",
                                             random_id=random.randint(1, 2147483647))
             except:
-                print('Ошибка:\n', traceback.format_exc())
                 await self.vk.messages.send(peer_id=self.peer_id,
                                             message="Это сообщение помечено как СПАМ, но пока я не могу его удалить :(",
                                             random_id=random.randint(1, 2147483647))
