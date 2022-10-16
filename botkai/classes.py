@@ -137,7 +137,7 @@ class Message:
        self.payload = []
        self.button = ""
        self.messageId = 0
-       
+       self.from_id = 0
        self.allCommands = 0
 
        self.event_id = ""
@@ -209,13 +209,14 @@ class Message:
         self.button = ""
 
         return
-    def update(self, message_params):
+    async def update(self, message_params):
         if message_params["type"] == "message_event":
             self.event_id = message_params["object"]["event_id"]
             self.id = message_params["object"]["user_id"]
             self.peer_id = message_params["object"]["peer_id"]
             self.buttons = []
             self.conversation_message_id = int(message_params["object"]["conversation_message_id"])
+            self.from_id = int(message_params["object"]["from_id"])
             try:
                 self.payload = message_params["object"]["payload"]
             except KeyError:
@@ -237,8 +238,8 @@ class Message:
             self.messageId = message_params["object"]["message"]["id"]
         except:
             pass
-        if message_params["object"]["message"]["attachments"]:
-            res = vk.method("messages.getById",{"message_ids": self.messageId})
+        if message_params["object"]["message"]["attachments"] and self.peer_id < 2_000_000_000:
+            res = await vk.messages.getById(message_ids=self.messageId)
             res = res["items"][0]["attachments"]
             self.att = res
         else:
@@ -249,7 +250,7 @@ class Message:
         self.allCommands = self.allCommands + 1 if self.peer_id < 2000000000 else self.allCommands
         if message_params["type"] == "message_new":
             self.buttons = message_params["object"]["client_info"]["button_actions"]
-            self.conversation_message_id = 0
+            self.conversation_message_id = message_params["object"]["message"]["conversation_message_id"]
         try:
             self.secret_key = message_params["secret"]
         except:

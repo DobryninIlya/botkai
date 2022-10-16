@@ -27,6 +27,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from ..commands.tools.kai_autorization import get_autorization_captcha, get_data
 from psycopg2.extensions import AsIs
+from ..spam_handler import Spam_Handler
 import asyncio
 import aiohttp
 
@@ -129,7 +130,7 @@ async def message_new(request, lp_obj=None):
             message_params = lp_obj
         else:
             message_params = json.loads(request.body)
-        MessageSettings.update(message_params)
+        await MessageSettings.update(message_params)
         if not lp_obj and MessageSettings.secret_key != os.getenv("SECRET_KEY"):
             await vk.messages.send(peer_id=159773942,
                                    message="Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key),
@@ -139,6 +140,7 @@ async def message_new(request, lp_obj=None):
             return "У тебя почти получилось :)"
         if await IsRegistred():
             if MessageSettings.peer_id > 2000000000:
+                sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
                 return "ok"
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
@@ -226,7 +228,9 @@ async def IsRegistred():
         if await InBase(id):
             return True
         else:
-            if InBaseR(id):
+            if MessageSettings.peer_id > 2_000_000_000:
+                return True
+            if await InBaseR(id):
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        sticker_id=6864,
                                        random_id=random.randint(1, 2147483647))
