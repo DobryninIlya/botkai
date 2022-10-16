@@ -230,7 +230,7 @@ async def IsRegistred():
         else:
             if MessageSettings.peer_id > 2_000_000_000:
                 return True
-            if await InBaseR(id):
+            if InBaseR(id):
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        sticker_id=6864,
                                        random_id=random.randint(1, 2147483647))
@@ -335,12 +335,7 @@ async def IsRegistred():
                 cursorR.execute(sql)
                 conn.commit()
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                       message="Очень приятно, " + str(body) + "",
-                                       random_id=random.randint(1, 2147483647))
-                vk.method("messages.send", {"peer_id": id, "message": "Очень приятно, " + str(body) + "",
-                                    "random_id": random.randint(1, 2147483647)})
-                await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                       message="Расписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
+                                       message="Очень приятно," + str(body) + "\nРасписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
                                        keyboard=keyboards.get_undo,
                                        random_id=random.randint(1, 2147483647))
                 return False
