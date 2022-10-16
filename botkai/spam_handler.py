@@ -9,14 +9,20 @@ class Spam_Handler:
         self.text = message.text
         self.from_id = message.from_id
         self.vk = vk
-
+        self.base = ['солдат', 'слили', 'в канале', 'переходи', 'Telegram', 'кадры', 'зверский', 'мобилизация',
+                        'цензуры', 'сеть',
+                     'мобилизац', 'в канал', 'сет', 'зверск']
     async def handle_text_message(self):
         message = self.text.lower().split()
         score = 0
         for word in message:
-            if word in ['солдат', 'слили', 'в канале', 'переходи', 'Telegram', 'кадры', 'зверский', 'мобилизация',
-                        'цензуры', 'сеть']:
+            if word in self.base:
                 score += 1
+                continue
+            for word_ in self.base:
+                if word_ in word:
+                    score += 1
+                    continue
         flag = True if 't.me/+' in self.text.lower() else False
         if flag and score >= 1:
             try:
