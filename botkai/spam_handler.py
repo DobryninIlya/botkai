@@ -16,7 +16,7 @@ class Spam_Handler:
             if word in ['солдат', 'слили', 'в канале', 'переходи', 'Telegram', 'кадры', 'зверский', 'мобилизация',
                         'цензуры', 'сеть']:
                 score += 1
-        flag = True if 't.me/+' in message else False
+        flag = True if 't.me/+' in self.text.lower() else False
         if flag and score >= 1:
             try:
                 await self.vk.messages.delete(delete_for_all=1,
@@ -28,7 +28,7 @@ class Spam_Handler:
                                             random_id=random.randint(1, 2147483647))
             except:
                 await self.vk.messages.send(peer_id=self.peer_id,
-                                            message="Это сообщение помечено как СПАМ, но я не могу его удалить :(",
+                                            message="Это сообщение помечено как СПАМ, но пока я не могу его удалить :(",
                                             random_id=random.randint(1, 2147483647))
         else:
             return False
