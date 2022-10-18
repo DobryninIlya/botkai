@@ -1143,7 +1143,7 @@ async def CheckStatus(MessageSettings, UserParams):
             UserParams.update(id)
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Имя успешно изменено на: " + str(body),
-                                   keyboard=keyboards.KeyboardProfile(),
+                                   keyboard=keyboards.KeyboardProfile(MessageSettings, UserParams),
                                    random_id=random.randint(1, 2147483647))
             cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
             conn.commit()
@@ -1239,7 +1239,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 connection.commit()
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Объявления на указанную дату удалены.",
-                                       keyboard=keyboards.KeyboardProfile(),
+                                       keyboard=keyboards.KeyboardProfile(MessageSettings, UserParams),
                                        random_id=random.randint(1, 2147483647))
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()

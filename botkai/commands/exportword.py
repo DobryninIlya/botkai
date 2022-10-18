@@ -160,7 +160,7 @@ async def info(MessageSettings, user):
                            message="Твое персональное расписание",
                            random_id=random.randint(1, 2147483647),
                            keyboard=submenu,
-                           attachment=await GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id()))
+                           attachment=await GetDocShedule(user.groupId, MessageSettings.getPeer_id()))
 
 
 info_command = command_class.Command()

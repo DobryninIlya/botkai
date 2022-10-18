@@ -162,10 +162,10 @@ async def info(MessageSettings, user):
         att = await GetDocShedule(user.groupId, MessageSettings.getPeer_id(), user.RealGroup, students)
     except:
         pass
-    await vk.messages.edit(peer_id=MessageSettings.getPeer_id(),
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Бланк посещения",
-                           attachment=att,
-                           message_id=msg_id)
+                           attachment=att, random_id=random.randint(1, 2147483647))
+                           # message_id=msg_id)
 
     return "ok"
 

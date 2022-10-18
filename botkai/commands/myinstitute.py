@@ -40,7 +40,7 @@ async def info(MessageSettings, user):
             mail += "itki@kai.ru"
             hours += "с 9:00 до 17:00"
             vkid += "dean4" + " (Дирекция)"
-            comm += "https://vk.me/join/ZvuJKb4XUUv5pKmRQPLZpO25GjR5W9lOSyw="
+            comm += "https://vk.me/join/neDMT9OfwdHc9EpkpWUuRpYvElJT0zffQEU="
         elif ldigit > 30 and ldigit < 50:
             header += "КОЛЛЕДЖ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ"
             adress += " г. Казань, ул. Большая Красная 55, каб. 116 - 116а,  1 этаж"
