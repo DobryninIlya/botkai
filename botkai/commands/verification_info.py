@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import verification
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Верификация аккаунта необходима для подтверждения того, что вы являетесь студентом. Некоторые функции могут быть недоступны неверефицированным пользователям.",
                            random_id=random.randint(1, 2147483647),

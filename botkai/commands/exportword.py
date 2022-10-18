@@ -1,7 +1,7 @@
 import aiohttp
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor, connection
+from ..classes import vk, cursor, connection
 import random
 import json
 from ..keyboards import submenu
@@ -12,7 +12,6 @@ import datetime
 import traceback
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 
 class ShedRow(object):
@@ -156,7 +155,7 @@ async def GetDocShedule(group, id):
     return d
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Твое персональное расписание",
                            random_id=random.randint(1, 2147483647),

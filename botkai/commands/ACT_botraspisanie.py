@@ -1,6 +1,6 @@
 import random
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 try:
     with open("/home/u_botkai/botraspisanie/botkai/botkai/commands/activities/botraspisanie.json", mode="rt",
@@ -11,7 +11,7 @@ except:
         carousel = file.read()
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Бот расписание занятий КНИТУ-КАИ",
                            random_id=random.randint(1, 2147483647),

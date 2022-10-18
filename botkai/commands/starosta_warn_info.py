@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import make_warn
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="""Предупреждения - это наказание за определенные нарушения правил. 
         Обычно они выдаются за различные оскорбления и нецензурные выражения при создании заданий, объявлений, смене ника и т.д.

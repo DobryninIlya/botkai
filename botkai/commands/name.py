@@ -1,6 +1,6 @@
 from .. import classes as command_class
 from ..keyboards import get_button
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 import random
 import json
 
@@ -16,9 +16,9 @@ keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                           message="Твое имя: " + str(UserParams.name) + "\nХочешь сменить его?",
+                           message="Твое имя: " + str(user.name) + "\nХочешь сменить его?",
                            keyboard=keyboard,
                            random_id=random.randint(1, 2147483647))
     return "ok"

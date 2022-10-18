@@ -4,31 +4,31 @@ import traceback
 
 from .. import classes as command_class
 from .. import keyboards
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         today = datetime.date.today()
         id = MessageSettings.getId()
-        group = UserParams.getGroup()
+        group = user.getGroup()
         button = MessageSettings.button
         payload = MessageSettings.payload
         date = payload["date"]
         if date == "tomorrow":
-            await ShowTask(id, group, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=1))
+            await ShowTask(id, group, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=1), MessageSettings, user)
             return "ok"
         elif date == "today":
-            await ShowTask(id, group, datetime.date(today.year, today.month, today.day))
+            await ShowTask(id, group, datetime.date(today.year, today.month, today.day), MessageSettings, user)
             return "ok"
         elif date == "after":
-            await ShowTask(id, group, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=2))
+            await ShowTask(id, group, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=2), MessageSettings, user)
             return "ok"
         elif date == "all":
             pass
         elif button == "task":
             date = payload["date"]
-            await ShowTask(id, group, date)
+            await ShowTask(id, group, date, MessageSettings, user)
             return "ok"
 
     except Exception as E:
@@ -38,7 +38,7 @@ async def info():
     return "ok"
 
 
-async def ShowTask(id, groupId, date):
+async def ShowTask(id, groupId, date, MessageSettings, user):
     sql = "SELECT * FROM Task WHERE" + " GroupID = " + str(groupId) + " AND Datee = '" + str(date) + "'"
     cursor.execute(sql)
     task = ""
@@ -60,7 +60,7 @@ async def ShowTask(id, groupId, date):
         att = str(row[5])
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message=task,
-                               keyboard=keyboards.getMainKeyboard(UserParams.role),
+                               keyboard=keyboards.getMainKeyboard(user.role),
                                content_source=row[7],
                                attachment=att,
                                random_id=random.randint(1, 2147483647))

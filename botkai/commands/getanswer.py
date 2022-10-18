@@ -3,7 +3,7 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 
 
 def get_button(label, color, payload=""):
@@ -28,7 +28,7 @@ keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         id = MessageSettings.id
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),

@@ -1,14 +1,14 @@
 from .. import classes as command_class
 import random
 from ..keyboards import GetAdminPanel
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Apanel",
                            random_id=random.randint(1, 2147483647),
-                           keyboard=GetAdminPanel(UserParams.getAdminLevel()))
+                           keyboard=GetAdminPanel(user.getAdminLevel()))
     return "ok"
 
 

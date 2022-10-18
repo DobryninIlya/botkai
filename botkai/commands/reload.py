@@ -2,12 +2,10 @@ import random
 import sys
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 
-async def info():
-    id = MessageSettings.getId()
-
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Перезагрузка...",
                            random_id=random.randint(1, 2147483647))

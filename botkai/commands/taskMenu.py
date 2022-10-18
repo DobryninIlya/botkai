@@ -1,11 +1,11 @@
 from .. import classes as command_class
 from ..keyboards import keyboardTasks
-from ..classes import vk, MessageSettings
+from ..classes import vk
 import random
 import traceback
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         id = MessageSettings.getPeer_id()
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),

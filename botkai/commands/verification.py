@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 from ..keyboards import exit, verification
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         cursorR.execute("INSERT INTO Status VALUES ({}, 100);".format(MessageSettings.getId()))
         conn.commit()

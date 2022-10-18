@@ -1,15 +1,14 @@
 from .. import classes as command_class
 from ..keyboards import warnInfo
-from ..classes import vk, MessageSettings, cursor
+from ..classes import vk, cursor
 import random
 import datetime
 import traceback
 
 
 ##################################                Добавить блокировку от 3 варнов
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.id
-    today = datetime.date.today()
     try:
 
         cursor.execute('SELECT warn, expiration FROM Users WHERE ID_VK = ' + str(id))

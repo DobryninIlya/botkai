@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, cursor
+from ..classes import vk, cursor
 from ..keyboards import GetDeleteTaskButton, keyboardTasks
 
 
-async def info():
+async def info(MessageSettings, user):
     UserID = MessageSettings.getId()
     sql = "SELECT * FROM Task WHERE" + " UserID = " + str(UserID)
     cursor.execute(sql)

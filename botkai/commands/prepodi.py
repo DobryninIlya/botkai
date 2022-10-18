@@ -6,39 +6,38 @@ import aiohttp
 import requests
 
 from .. import classes as command_class
-from ..classes import MessageSettings
-from ..classes import UserParams, cursor, connection
+
+from .. classes import cursor, connection
 from ..classes import vk as vk
 from ..keyboards import getMainKeyboard
 
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 prepodList = []
 
 
-async def info():
-    prepodList = await GetPrepodList()
+async def info(MessageSettings, user):
+    prepodList = await GetPrepodList(MessageSettings, user)
     if not len(prepodList):
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="\n&#10060;\tРасписание еще не доступно.&#10060;",
-                               keyboard=getMainKeyboard(UserParams.role),
+                               keyboard=getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
         return "ok"
     try:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message=prepodList,
-                               keyboard=getMainKeyboard(UserParams.role),
+                               keyboard=getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
     except:
         st = "&#128104;&#8205;&#127979;"
         pos = prepodList[2400:].rfind(st)
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message=prepodList[:pos],
-                               keyboard=getMainKeyboard(UserParams.role),
+                               keyboard=getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message=prepodList[pos:],
-                               keyboard=getMainKeyboard(UserParams.role),
+                               keyboard=getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
     return "ok"
 
@@ -50,11 +49,11 @@ class Prepodi:
         self.prepodName = ""
 
 
-async def getResponse(groupId):
+async def getResponse(groupId, MessageSettings, user):
     today = datetime.date.today()
-    if UserParams.own_shed:
+    if user.own_shed:
         groupId = MessageSettings.getId() + 1_000_000_000
-        return await get_own_shed(groupId)
+        return await get_own_shed(groupId, user)
 
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
@@ -131,14 +130,14 @@ async def getResponse(groupId):
     return
 
 
-async def get_own_shed(groupId):
+async def get_own_shed(groupId, user):
     try:
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()[0]
         # print(result)
         if not result:
-            UserParams.own_shed = 0
+            user.own_shed = 0
             info()
         else:
             return True, json.loads(result)
@@ -146,11 +145,11 @@ async def get_own_shed(groupId):
         return False, "\n&#9888; Вы выбрали отображать собственное расписание, загруженное из Excele таблицы. В базе отсутствует такое расписание. Чтобы это исправить - либо загрузите расписание, либо смените в профиле способ получения расписания на 'Использовать расписание группы' &#9888;\n"
 
 
-async def GetPrepodList():
+async def GetPrepodList(MessageSettings, user):
     prepodList.clear()
     resultList = []
-    groupId = UserParams.getGroup()
-    isNormal, response = await getResponse(groupId)
+    groupId = user.getGroup()
+    isNormal, response = await getResponse(groupId, MessageSettings, user)
     if not isNormal:
         return response
     if len(response) == 0:

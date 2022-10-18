@@ -1,16 +1,16 @@
 from .. import classes as command_class
 from ..keyboards import getMainKeyboard
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 import random
 
 
-async def info():
+async def info(MessageSettings, user):
 
     message = """расписание - показать расписание
     """
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message=message,
-                           keyboard=getMainKeyboard(UserParams.role),
+                           keyboard=getMainKeyboard(user.role),
                            random_id=random.randint(1, 2147483647))
 
 

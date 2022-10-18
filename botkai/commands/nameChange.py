@@ -1,11 +1,11 @@
 from .. import classes as command_class
 from ..keyboards import keyboardNull
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 import random
 
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     sql = "INSERT INTO Status VALUES (" + str(id) + ", 55);"
     cursorR.execute(sql)

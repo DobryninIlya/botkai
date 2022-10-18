@@ -2,13 +2,13 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 from ..keyboards import GetModerAdvButton
 
-chetn = UserParams.getChetn()
 
 
-async def info():
+
+async def info(MessageSettings, user):
     try:
         cursor.execute('SELECT * FROM "Adv" WHERE ischeked < 1 LIMIT 1')
         res = cursor.fetchone()

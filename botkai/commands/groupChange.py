@@ -2,11 +2,11 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 from ..keyboards import keyboardAddTasks2
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
 
     try:

@@ -2,12 +2,12 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor
+from ..classes import vk, connection, cursor
 from ..keyboards import GetModerTaskButton
 
 
 ##################################                Добавить блокировку от 3 варнов
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     idAdv = MessageSettings.payload["id"]
     cursor.execute('UPDATE Task SET "IsCheked" = 1 WHERE id = ' + str(idAdv))

@@ -2,7 +2,7 @@ import json
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 
 def get_button(label, color, payload=""):
@@ -27,7 +27,7 @@ keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Здесь ты можешь задать свой вопрос, предложить улучшение для бота"
                                    " или сообщить об ошибке. Учтите, что принимаются вопросы ТОЛЬКО по вопросом, касательно работы чат-бота."

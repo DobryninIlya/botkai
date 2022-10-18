@@ -5,17 +5,17 @@ import requests
 from bs4 import BeautifulSoup
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 
 
-async def info():
+async def info(MessageSettings, user):
     msg = "Запрос отправлен на обработку"
     msg_id = await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message=msg,
                            random_id=random.randint(1, 2147483647))
     i = 1
     async with aiohttp.ClientSession() as session:
-        async with await session.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id=UserParams.groupId)) as response:
+        async with await session.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id=user.groupId)) as response:
             response = await response.text()
     soup = BeautifulSoup(response, 'lxml')
 

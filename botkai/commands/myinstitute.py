@@ -1,16 +1,16 @@
 from .. import classes as command_class
 from ..keyboards import KeyboardProfile
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 import random
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
-    group = UserParams.RealGroup
+    group = user.RealGroup
     if group == 0:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Сначала подтверди группу в профиле",
-                               keyboard=KeyboardProfile(),
+                               keyboard=KeyboardProfile(MessageSettings, user),
                                random_id=random.randint(1, 2147483647))
         return "ok"
 
@@ -98,7 +98,7 @@ async def info():
 
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message=mesg,
-                           keyboard=KeyboardProfile(),
+                           keyboard=KeyboardProfile(MessageSettings, user),
                            random_id=random.randint(1, 2147483647))
 
     return "ok"

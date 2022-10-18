@@ -2,24 +2,24 @@ from .. import classes as command_class
 import random
 import aiohttp
 from ..classes import vk as vk
-from ..classes import MessageSettings
-from ..classes import UserParams
+
+
 import traceback
 import datetime
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
+
 BASE_URL = 'https://kai.ru/raspisanie'
 
 
-async def info():
+async def info(MessageSettings, user):
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=1))
-    group = UserParams.getGroup()
+    group = user.getGroup()
     id = MessageSettings.getId()
 
     try:
-        Timetable = await showTimetable(group, 0)
+        Timetable = await showTimetable(group)
         if Timetable:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание экзаменов:\n" + Timetable,

@@ -2,11 +2,11 @@ import datetime
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 from ..keyboards import keyboardAddTasks
 
 
-async def info():
+async def info(MessageSettings, user):
     today = datetime.date.today()
     id = MessageSettings.getId()
     date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=7))[5:]

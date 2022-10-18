@@ -2,12 +2,12 @@ import datetime
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 
 uptime = datetime.datetime.now()
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     sql = "SELECT COUNT(ID_VK) FROM Users;"
     cursor.execute(sql)
@@ -23,7 +23,7 @@ async def info():
     unic_groups += str(groups_res) + '\n'
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Число активных пользователей сегодня: {0}\n{1}{2}\n Всего обращений: {3}\nВремя работы {4}".format(
-                               str(len(UserParams.statUser)), res, unic_groups, str(MessageSettings.allCommands),
+                               str(len(user.statUser)), res, unic_groups, str(MessageSettings.allCommands),
                                (str(delta))[:-7]),
                            random_id=random.randint(1, 2147483647))
 

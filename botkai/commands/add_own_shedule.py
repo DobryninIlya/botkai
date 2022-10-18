@@ -1,7 +1,7 @@
 import random
 import aiohttp
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 
 async def GetDocShedule(id):
@@ -16,7 +16,7 @@ async def GetDocShedule(id):
     return d
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     msg = "Заполните бланк расписания. Инструкции по заполнению указаны в файле (колонка справа)" \
           "Как заполните расписание - прикрепите файл к сообщению с текстом 'загрузить расписание' и отправьте его"

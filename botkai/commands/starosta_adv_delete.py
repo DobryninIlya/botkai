@@ -1,11 +1,11 @@
 from .. import classes as command_class
 import random
 from ..keyboards import GetButtonDeleteByDate
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 import traceback
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         sql = "INSERT INTO Status VALUES (" + str(MessageSettings.id) + ", 57);"
         print(sql)

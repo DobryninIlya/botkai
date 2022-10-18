@@ -6,21 +6,21 @@ import requests
 
 from .. import classes as command_class
 from .. import keyboards
-from ..classes import MessageSettings
-from ..classes import UserParams
+
+
 from ..classes import vk as vk
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
+
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 
 
-async def info():
-    group = UserParams.getGroup()
+async def info(MessageSettings, user):
+    group = user.getGroup()
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                           message=await showAllTimetable(group, UserParams.login),
-                           keyboard=keyboards.getMainKeyboard(UserParams.role),
+                           message=await showAllTimetable(group, user.login),
+                           keyboard=keyboards.getMainKeyboard(user.role),
                            random_id=random.randint(1, 2147483647))
     return "ok"
 

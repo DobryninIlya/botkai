@@ -1,10 +1,10 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, cursor, connection
+from ..classes import vk, cursor, connection
 
 
-async def info():
+async def info(MessageSettings, user):
     cursor.execute("DELETE FROM users WHERE id_vk = {}".format(MessageSettings.getPeer_id()))
     connection.commit()
     message = """Ваш аккаунт был удален. Теперь вы можете пройти регистрацию заново! 

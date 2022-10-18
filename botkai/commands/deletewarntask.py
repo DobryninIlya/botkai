@@ -3,11 +3,11 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor
+from ..classes import vk, connection, cursor
 from ..keyboards import warnList, GetModerTaskButton
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.id
     today = datetime.date.today()
     try:

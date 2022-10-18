@@ -2,11 +2,11 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor
+from ..classes import vk, connection, cursor
 from ..keyboards import GetModerAdvButton
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     idAdv = MessageSettings.payload["id"]
     cursor.execute('UPDATE "Adv" SET ischeked = 1 WHERE id = ' + str(idAdv))

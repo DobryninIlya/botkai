@@ -2,11 +2,11 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 from ..keyboards import GetModerTaskStarosta
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         UserID = MessageSettings.getId()
         if "callback" not in MessageSettings.buttons and False:
@@ -14,7 +14,7 @@ async def info():
                                    message="Команда доступна только в мобильной версии сайта m.vk.com и в последней версии официального мобильного приложения.",
                                    random_id=random.randint(1, 2147483647))
             return
-        groupId = UserParams.getGroup()
+        groupId = user.getGroup()
         val_id = MessageSettings.payload["id"]
         pos_id = MessageSettings.payload["pos_id"]
         # message_id = MessageSettings.payload["msg_id"]

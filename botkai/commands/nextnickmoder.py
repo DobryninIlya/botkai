@@ -2,12 +2,12 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor
+from ..classes import vk, connection, cursor
 from ..keyboards import GetModerNickButton
 
 
 ##################################                Добавить блокировку от 3 варнов
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     idAdv = MessageSettings.payload["id"]
     cursor.execute('UPDATE users SET ischeked = 1 WHERE ID_VK = ' + str(idAdv))
@@ -37,13 +37,7 @@ async def info():
     return "ok"
 
 
-
-
-
 command = command_class.Command()
-
-
-
 
 command.keys = ['']
 command.desciption = ''

@@ -9,7 +9,7 @@ import psycopg2
 import requests
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 from ..keyboards import KeyboardProfile
 from ..classes import vk, cursor, connection
 
@@ -86,7 +86,7 @@ def isValid(row):
         return True, ""
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         id = MessageSettings.getId()
         ClearDatabase()
@@ -203,17 +203,17 @@ async def info():
                                    random_id=random.randint(1, 2147483647))
         group = 999999999
         if MessageSettings.command_key == "загрузить расписание староста":
-            if UserParams.adminLevel < 2:
+            if user.adminLevel < 2:
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Ошибка. Вы не являетесь старостой\nВы можете добавить свое расписание командой 'загрузить расписание'",
-                                       keyboard=KeyboardProfile(),
+                                       keyboard=KeyboardProfile(MessageSettings, user),
                                        random_id=random.randint(1, 2147483647))
                 return
-            group = UserParams.groupId
+            group = user.groupId
         else:
             group = 1000000000 + int(id)
-            if UserParams.role == 6:
-                group = UserParams.groupId
+            if user.role == 6:
+                group = user.groupId
         date = ""
         if datetime.date.today().month > 7:
             date = "{}-12-30".format(datetime.date.today().year)
@@ -228,7 +228,7 @@ async def info():
             connection.commit()
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание успешно загружено.",
-                                   keyboard=KeyboardProfile(),
+                                   keyboard=KeyboardProfile(MessageSettings, user),
                                    random_id=random.randint(1, 2147483647))
 
         except:
@@ -239,7 +239,7 @@ async def info():
             connection.commit()
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание успешно обновлено.",
-                                   keyboard=KeyboardProfile(),
+                                   keyboard=KeyboardProfile(MessageSettings, user),
                                    random_id=random.randint(1, 2147483647))
 
         if group < 1000000000:
@@ -252,7 +252,7 @@ async def info():
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Оповещение! Староста изменил расписание группы. Теперь расписание "
                                            "берется из Excel-файла до наступления {}".format(date),
-                                   keyboard=KeyboardProfile(),
+                                   keyboard=KeyboardProfile(MessageSettings, user),
                                    random_id=random.randint(1, 2147483647))
 
     except:

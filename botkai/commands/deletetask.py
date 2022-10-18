@@ -2,12 +2,12 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 from ..keyboards import KeyboardProfile
 
 
-async def info():
-    groupId = UserParams.groupId
+async def info(MessageSettings, user):
+    groupId = user.groupId
     payload = MessageSettings.payload
     id = payload["id"]
     # print(id)
@@ -20,7 +20,7 @@ async def info():
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Удалено",
                            random_id=random.randint(1, 2147483647),
-                           keyboard=KeyboardProfile())
+                           keyboard=KeyboardProfile(MessageSettings, user))
 
     return "ok"
 

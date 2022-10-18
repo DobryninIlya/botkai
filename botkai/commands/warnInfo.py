@@ -1,10 +1,10 @@
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 import random
 
 
 ##################################                Добавить блокировку от 3 варнов
-async def info():
+async def info(MessageSettings, user):
     res = """
     Предупреждения выдаются за различные нарушения на личное усмотрение администратора.
     Предупреждения обнуляются через 30 дней после его получения.

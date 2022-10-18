@@ -1,12 +1,12 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor, connection
+from ..classes import vk, cursor, connection
 from ..keyboards import GetStarostaKeyboard, getMainKeyboard
 
 
-async def info():
-    sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
+async def info(MessageSettings, user):
+    sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(user.groupId)
     cursor.execute(sql)
     starosta_count = cursor.fetchone()[0]
     if starosta_count < 1:
@@ -15,14 +15,14 @@ async def info():
         connection.commit()
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="✅ Поздравляю! Теперь ты староста!",
-                               keyboard=GetStarostaKeyboard(1),
+                               keyboard=GetStarostaKeyboard(user, 1),
                                random_id=random.randint(1, 2147483647))
     else:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="""❌ Ошибка. В группе уже назначен староста. 
         Если ты настоящий староста и претендуешь на это место, напиши администратору по кнопке Обратной связи в 
         главном меню. Будь готов предоставить доказательства""",
-                               keyboard=getMainKeyboard(UserParams.role),
+                               keyboard=getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
     return "ok"
 

@@ -1,18 +1,18 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 from ..keyboards import GetModerTaskStarosta
 
 
-async def info():
+async def info(MessageSettings, user):
     UserID = MessageSettings.getId()
     if "callback" not in MessageSettings.buttons:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Команда доступна только в мобильной версии сайта m.vk.com и в последней версии официального мобильного приложения.",
                                random_id=random.randint(1, 2147483647))
         return
-    groupId = UserParams.getGroup()
+    groupId = user.getGroup()
     sql = "SELECT * FROM Task WHERE" + " groupid = " + str(groupId) + " LIMIT 2"
     cursor.execute(sql)
     task = ""

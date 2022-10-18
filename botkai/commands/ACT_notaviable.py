@@ -1,12 +1,12 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import activities_hub
 
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="В данном разделе временно нет данных.",
                            random_id=random.randint(1, 2147483647))

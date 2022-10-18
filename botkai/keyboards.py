@@ -3,7 +3,7 @@ import json
 
 # from user_class import UserParams
 # from message_class import MessageSettings
-from .classes import MessageSettings, UserParams, cursor
+from .classes import cursor
 
 #######################################Keyboards#####################################################
 exams_months = [1, 5, 6, 7, 8, 11, 12]
@@ -376,22 +376,22 @@ def getMainKeyboard(role):
     return keyboard
 
 
-def KeyboardProfile():
-    if UserParams.role != 3:
-        Name = UserParams.name
+def KeyboardProfile(MessageSettings, user):
+    if user.role != 3:
+        Name = user.name
         keys = ["на завтра", "на сегодня", "команды", "помощь", 'начать', 'расписание']
         NameColor = "default"
         if Name.lower() in keys:
             Name = "Некорректно. Нажми, чтобы обновить"
             NameColor = "negative"
-        Group = UserParams.RealGroup
+        Group = user.RealGroup
         GroupColor = "default"
         inst = ""
         if Group == 0:
             Group = "Не указано. Нажми, чтобы указать"
             GroupColor = "negative"
             inst = ":Не указана группа"
-        Balance = UserParams.balance
+        Balance = user.balance
         sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(MessageSettings.getId())
         cursor.execute(sql)
         TaskCount = cursor.fetchone()[0]
@@ -413,22 +413,22 @@ def KeyboardProfile():
                             get_button(label="Подписки", color="default", payload={'button': 'distrMenu'})
                         ],
                         ]
-        if UserParams.role == 6 and False:
+        if user.role == 6 and False:
             main_buttons[-1].remove(main_buttons[-1][-1])
-        sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(UserParams.groupId)
+        sql = "SELECT COUNT(*) FROM users WHERE users.groupp = {} AND admLevel = 2".format(user.groupId)
         cursor.execute(sql)
         starosta_count = cursor.fetchone()[0]
         if int(starosta_count) == 0:
             main_buttons.append([get_button(label="Староста не назначен. Стать им", color="positive",
                                             payload={'button': 'get_starosta'})])
-        if UserParams.adminLevel >= 2:
+        if user.adminLevel >= 2:
             main_buttons.append(
                 [get_button(label="Меню старосты", color="default", payload={'button': 'starosta_menu'})])
 
-        if UserParams.own_shed and UserParams.role != 6:
+        if user.own_shed and user.role != 6:
             main_buttons.append([get_button(label="Использовать свое расписание", color="positive",
                                             payload={'button': 'select_own_shedule'})])
-        elif UserParams.role != 6:
+        elif user.role != 6:
             main_buttons.append([get_button(label="Использовать расписание группы", color="default",
                                             payload={'button': 'select_own_shedule'})])
 
@@ -442,20 +442,20 @@ def KeyboardProfile():
         keyboard = str(keyboard.decode('utf-8'))
         return keyboard
     else:
-        Name = UserParams.name
+        Name = user.name
         keys = ["на завтра", "на сегодня", "команды", "помощь", 'начать', 'расписание']
         NameColor = "default"
         if Name.lower() in keys:
             Name = "Некорректно. Нажми, чтобы обновить"
             NameColor = "negative"
-        Group = UserParams.RealGroup
+        Group = user.RealGroup
         GroupColor = "default"
         inst = ""
         if Group == 0:
             Group = "Не указано. Нажми, чтобы указать"
             GroupColor = "negative"
             inst = ":Не указана группа"
-        Balance = UserParams.balance
+        Balance = user.balance
 
         main_buttons = [[get_button(label="Имя: " + Name[:30], color="positive", payload={'button': 'name'})], [
             get_button(label="(Родитель) Группа: " + str(Group), color=GroupColor, payload={'button': 'group'})],
@@ -474,9 +474,9 @@ def KeyboardProfile():
         return keyboard
 
 
-def GetStarostaKeyboard(first=0):
+def GetStarostaKeyboard(user, first=0):
     buttons_starosta = []
-    if UserParams.adminLevel >= 2 or first:
+    if user.adminLevel >= 2 or first:
         buttons_starosta = [
             [get_button(label="Журнал посещения", color="primary", payload={'button': 'starosta_blank'})],
             [get_button(label="Загрзка расписания из Excel", color="default", payload={'button': 'starostaexcel'})],

@@ -6,14 +6,14 @@ import aiohttp
 import requests
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor, UserParams
+from ..classes import vk, connection, cursor
 from ..keyboards import KeyboardProfile
 
 BASE_URL = 'https://kai.ru/raspisanie'
 
 
-async def info():
-    groupId = UserParams.groupId
+async def info(MessageSettings, user):
+    groupId = user.groupId
 
     try:
         async with aiohttp.ClientSession() as session:
@@ -37,7 +37,7 @@ async def info():
         message = "Не удалось обновить расписание"
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message=message,
-                           keyboard=KeyboardProfile(),
+                           keyboard=KeyboardProfile(MessageSettings, user),
                            random_id=random.randint(1, 2147483647))
 
     return "ok"

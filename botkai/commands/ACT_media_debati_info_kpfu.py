@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import activities_hub
 
 
-async def info():
+async def info(MessageSettings, user):
     msg = """Тренировка в КФУ!
 Где? Бутлерова, 4
 Когда? Четверг, 18:30

@@ -2,13 +2,13 @@ import datetime
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 from ..keyboards import exit
 
 uptime = datetime.datetime.now()
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Введите номер группы, студентам которой "
                                    "будет разослано задание",

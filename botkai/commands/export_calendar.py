@@ -7,11 +7,10 @@ import aiohttp
 from ics import Calendar, Event
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor, connection
+from ..classes import vk, cursor, connection
 from ..keyboards import submenu
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 tt_dict = {
     "08:00": "05:00",
@@ -84,10 +83,9 @@ async def getResponse(groupId):
     return 
 
 
-async def makeFile(week, group):
+async def makeFile(week, group, chetn):
     c = Calendar()
     today = datetime.date.today()
-    chetn = UserParams.getChetn()
     current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
     isNormal, response = await getResponse(group)
     days_in_week = list(response.keys())
@@ -140,8 +138,8 @@ async def makeFile(week, group):
     with open('{}.ics'.format(group), 'w', encoding="utf-8") as f:
         f.write(str(c))
 
-async def GetDocShedule(group, id):
-    await makeFile(5, group)
+async def GetDocShedule(group, id, chetn):
+    await makeFile(5, group, chetn)
     a = await vk.docs.getMessagesUploadServer(type="doc", peer_id=id)
     async with aiohttp.ClientSession() as session:
         async with await session.post(a["upload_url"],
@@ -153,12 +151,13 @@ async def GetDocShedule(group, id):
     return d
 
 
-async def info():
+async def info(MessageSettings, user):
+    chetn = user.getChetn()
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Твое персональное расписание в .ical. \nДоступно на ближайший месяц",
                            random_id=random.randint(1, 2147483647),
                            keyboard=submenu,
-                           attachment=await GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id()))
+                           attachment=await GetDocShedule(user.groupId, MessageSettings.getPeer_id(), chetn))
 
 info_command = command_class.Command()
 

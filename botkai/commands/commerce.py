@@ -1,10 +1,10 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 
-async def info():
+async def info(MessageSettings, user):
     message= """Помогу в написании программной реализации проекта
     Напишу программу с GUI интерфейсом или чат-бота на интересную тему. Пишите с вопросами в личные сообщения.
     Все конфиденциально."""

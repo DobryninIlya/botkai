@@ -5,27 +5,26 @@ import aiohttp
 
 from .. import classes as command_class
 from .. import keyboards
-from ..classes import MessageSettings
-from ..classes import UserParams
+
+
 from ..classes import vk as vk, cursor, connection
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 
 
-async def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
-    group = UserParams.getGroup()
+    group = user.getGroup()
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                           message=await showAllTimetable(group),
+                           message=await showAllTimetable(group, MessageSettings, user),
                            random_id=random.randint(1, 2147483647),
-                           keyboard=keyboards.getMainKeyboard(UserParams.role))
+                           keyboard=keyboards.getMainKeyboard(user.role))
     return "ok"
 
 
-async def showAllTimetable(groupId):
-    isNormal, response = await getResponse(groupId)
+async def showAllTimetable(groupId, MessageSettings, user):
+    isNormal, response = await getResponse(groupId, MessageSettings, user)
     if not isNormal:
         return response
     if len(response) == 0:
@@ -108,10 +107,10 @@ async def showAllTimetable(groupId):
     return result
 
 
-async def getResponse(groupId):
-    if UserParams.own_shed:
+async def getResponse(groupId, MessageSettings, user):
+    if user.own_shed:
         groupId = MessageSettings.getId() + 1_000_000_000
-        return await get_own_shed(groupId)
+        return await get_own_shed(groupId, MessageSettings, user)
 
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
@@ -186,15 +185,15 @@ async def getResponse(groupId):
     return
 
 
-async def get_own_shed(groupId):
+async def get_own_shed(groupId, MessageSettings, user):
     try:
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()[0]
         # print(result)
         if not result:
-            UserParams.own_shed = 0
-            info()
+            user.own_shed = 0
+            info(MessageSettings, user)
         else:
             return True, json.loads(result)
     except:

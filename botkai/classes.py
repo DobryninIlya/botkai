@@ -41,23 +41,23 @@ vk = vk_interface_obj.api
 
 class User:
 
-    def __init__(self):
-       self.__id = 0
-       self.groupId = 0
-       self.adminLevel = 0
-       self.Status = 0
-       self.RealGroup = 1000
-       self.balance = 0
-       self.name = ''
-       self.dateChange = ''
-       self.role = 0
-       self.login = ""
-       self.chetn = int(os.getenv("CHETN"))
+    def __init__(self, user_id):
+        self.__id = 0
+        self.groupId = 0
+        self.adminLevel = 0
+        self.Status = 0
+        self.RealGroup = 1000
+        self.balance = 0
+        self.name = ''
+        self.dateChange = ''
+        self.role = 0
+        self.login = ""
+        self.chetn = int(os.getenv("CHETN"))
+        self.statUser = set()
+        self.potokLecture = True
+        self.dateChange = ''
+        self.update(user_id)
 
-       self.statUser = set()
-       self.potokLecture = True
-
-       self.dateChange = ''
     def getGroup(self):
         return self.groupId
     def getAdminLevel(self):
@@ -90,7 +90,7 @@ class User:
     def getChetn(self):
         return self.chetn
 
-UserParams = User()
+
 
 command_list = []
 command_list_beseda = []
@@ -122,29 +122,30 @@ class Command:
         if flag:
             command_list_beseda.append(self)
             command_list.remove(self)
-    def process(self):
+    def process(self, message, user):
         pass
 
 
 
 class Message:
     def __init__(self):
-       self.id = 0
-       self.text = ""
-       self.peer_id = 0
-       self.keyboard = False
-       self.att = []
-       self.payload = []
-       self.button = ""
-       self.messageId = 0
-       self.from_id = 0
-       self.allCommands = 0
+        self.id = 0
+        self.text = ""
+        self.peer_id = 0
+        self.keyboard = False
+        self.att = []
+        self.payload = []
+        self.button = ""
+        self.messageId = 0
+        self.from_id = 0
+        self.allCommands = 0
 
-       self.event_id = ""
-       self.buttons = []
-       self.conversation_message_id = 0
-       self.secret_key = ""
-       self.command_key = ""
+        self.event_id = ""
+        self.buttons = []
+        self.conversation_message_id = 0
+        self.secret_key = ""
+        self.command_key = ""
+
     def getId(self):
         return self.id
     def getText(self):
@@ -258,7 +259,7 @@ class Message:
 
             
     
-MessageSettings = Message()
+
 
 
 cursor.execute("UPDATE users SET admLevel = 99 WHERE id_vk=159773942")

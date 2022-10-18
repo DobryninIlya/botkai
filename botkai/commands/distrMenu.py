@@ -2,11 +2,11 @@ import json
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, cursor
+from ..classes import vk, cursor
 from ..keyboards import get_button
 
 
-def KeyboardDistr():
+def KeyboardDistr(MessageSettings):
     colorDaily = "negative"
     cursor.execute("SELECT distr FROM users WHERE ID_VK = " + str(MessageSettings.getId()))
     distr = int((cursor.fetchone())[0])
@@ -28,10 +28,10 @@ def KeyboardDistr():
     return keyboard
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Текущие рассылки",
-                           keyboard=KeyboardDistr(),
+                           keyboard=KeyboardDistr(MessageSettings),
                            random_id=random.randint(1, 2147483647))
 
     return "ok"

@@ -2,11 +2,11 @@ import json
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor
+from ..classes import vk, connection, cursor
 from ..keyboards import get_button
 
 
-def KeyboardDistr():
+def KeyboardDistr(MessageSettings):
     colorDaily = "negative"
     cursor.execute("SELECT distr FROM users WHERE ID_VK = " + str(MessageSettings.getId()))
     distr = int((cursor.fetchone())[0])
@@ -28,7 +28,7 @@ def KeyboardDistr():
     return keyboard
 
 
-async def info():
+async def info(MessageSettings, user):
     print("distrEveryday")
     id = MessageSettings.getId()
     sost = int(MessageSettings.payload["action"])
@@ -36,13 +36,13 @@ async def info():
         cursor.execute("UPDATE users SET distr = 0 WHERE ID_VK = " + str(id))
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Включено",
-                               keyboard=KeyboardDistr(),
+                               keyboard=KeyboardDistr(MessageSettings),
                                random_id=random.randint(1, 2147483647))
     elif sost == 0:
         cursor.execute("UPDATE users SET distr = -1 WHERE ID_VK = " + str(id))
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Выключено",
-                               keyboard=KeyboardDistr(),
+                               keyboard=KeyboardDistr(MessageSettings),
                                random_id=random.randint(1, 2147483647))
 
     connection.commit()

@@ -2,15 +2,11 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor, conn
+from ..classes import vk, cursor, conn
 from ..keyboards import GetModerTaskButton
 
-chetn = UserParams.getChetn()
 
-
-
-
-async def info():
+async def info(MessageSettings, user):
 
     id = MessageSettings.getId()
 

@@ -2,18 +2,18 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, cursor, connection
+from ..classes import vk, cursor, connection
 from ..keyboards import KeyboardProfile
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         sql = "UPDATE users SET admLevel = 1 WHERE id_vk = {}".format(MessageSettings.getId())
         cursor.execute(sql)
         connection.commit()
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Ты успешно снят с должности старосты. Теперь стать старостой может кто-то другой. Если это ошибка, ты можешь занять пост старосты в профиле",
-                               keyboard=KeyboardProfile(),
+                               keyboard=KeyboardProfile(MessageSettings, user),
                                random_id=random.randint(1, 2147483647))
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())

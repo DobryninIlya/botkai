@@ -2,15 +2,15 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 
 event_data = """{
     "type": "show_snackbar",
     "text": "Задание удалено"
   }"""
 
-async def info():
-    groupId = UserParams.groupId
+async def info(MessageSettings, user):
+    groupId = user.groupId
     payload = MessageSettings.payload
     id = payload["id"]
     # print(id)

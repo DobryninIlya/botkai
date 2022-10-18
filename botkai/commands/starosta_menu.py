@@ -1,14 +1,14 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import GetStarostaKeyboard
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Меню старосты",
-                           keyboard=GetStarostaKeyboard(),
+                           keyboard=GetStarostaKeyboard(user),
                            random_id=random.randint(1, 2147483647))
 
     return "ok"

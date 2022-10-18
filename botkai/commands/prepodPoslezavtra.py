@@ -2,47 +2,46 @@ import aiohttp
 
 from .. import classes as command_class
 from .. import keyboards
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 import random
 import datetime
 import requests
 import traceback
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
 
 
-async def info():
+async def info(MessageSettings, user):
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=2))
-    login = UserParams.login
+    login = user.login
     id = MessageSettings.getId()
     try:
-        Timetable = await showTimetablePrepod(login, 2)
+        Timetable = await showTimetablePrepod(login, 2, MessageSettings, user)
         if Timetable:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание на послезавтра:\n" + Timetable,
-                                   keyboard=keyboards.getMainKeyboard(UserParams.role),
+                                   keyboard=keyboards.getMainKeyboard(user.role),
                                    random_id=random.randint(1, 2147483647))
         else:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Послезавтра можно отдохнуть :)",
-                                   keyboard=keyboards.getMainKeyboard(UserParams.role),
+                                   keyboard=keyboards.getMainKeyboard(user.role),
                                    random_id=random.randint(1, 2147483647))
     except Exception as E:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Послезавтра можно отдохнуть :]",
-                               keyboard=keyboards.getMainKeyboard(UserParams.role),
+                               keyboard=keyboards.getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
 
     return "ok"
 
 
-async def showTimetablePrepod(login, tomorrow=0):
+async def showTimetablePrepod(login, tomorrow=0, MessageSettings=None, user=None):
     try:
-        chetn = UserParams.getChetn()
+        chetn = user.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
         async with aiohttp.ClientSession() as session:
             async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(login),

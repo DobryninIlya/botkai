@@ -1,7 +1,7 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 # from ..keyboards import
 
@@ -51,7 +51,7 @@ buildings = {
 }
 
 
-async def info():
+async def info(MessageSettings, user):
 
 
     num = MessageSettings.payload['number']

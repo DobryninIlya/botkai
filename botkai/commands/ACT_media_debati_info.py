@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import activities_hub
 
 
-async def info():
+async def info(MessageSettings, user):
     msg = """Казанская Лига Дебатов:
 Информацию о ближайших турнирах, о формате игры и в целом о дебатах читайте в группе казанских дебатов —
 @kazan_debate"""

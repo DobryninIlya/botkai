@@ -1,11 +1,11 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import help_starosta_upload
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message=("Для загрузки расписания из Excel таблицы ознакомьтесь с инструкцией\n"
                                     "        Чтобы расписание обновилось у всей группы, используйте команду 'Загрузить расписание староста', когда будете прикреплять заполненный Execl файл\n"),

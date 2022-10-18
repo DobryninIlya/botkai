@@ -5,7 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 import docx
 from docx.shared import Inches, Cm
-from docx.enum.section import WD_SECTION
 from docx.enum.section import WD_ORIENT
 from docx.enum.table import WD_ROW_HEIGHT_RULE, WD_TABLE_ALIGNMENT
 from docx.shared import Pt
@@ -13,7 +12,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 
 
 async def mod_document(document):
@@ -125,7 +124,7 @@ async def GetDocShedule(group, id, realGroup, students):
     return d
 
 
-async def info():
+async def info(MessageSettings, user):
     msg = "Запрос отправлен на обработку"
     msg_id = await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                     message=msg,
@@ -133,7 +132,7 @@ async def info():
     i = 1
     async with aiohttp.ClientSession() as session:
         async with await session.post(
-                "https://kai.ru/infoClick/-/info/group?id={id}".format(id=UserParams.groupId)) as response:
+                "https://kai.ru/infoClick/-/info/group?id={id}".format(id=user.groupId)) as response:
             response = await response.text()
     soup = BeautifulSoup(response, 'lxml')
     if not response:
@@ -160,7 +159,7 @@ async def info():
             students.append(name)
 
     try:
-        att = await GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id(), UserParams.RealGroup, students)
+        att = await GetDocShedule(user.groupId, MessageSettings.getPeer_id(), user.RealGroup, students)
     except:
         pass
     await vk.messages.edit(peer_id=MessageSettings.getPeer_id(),

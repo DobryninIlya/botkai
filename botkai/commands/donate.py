@@ -2,7 +2,7 @@ import json
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import keyboarddonate, get_button
 
 keyboarddonate = {
@@ -16,7 +16,7 @@ keyboarddonate = json.dumps(keyboarddonate, ensure_ascii=False).encode('utf-8')
 keyboarddonate = str(keyboarddonate.decode('utf-8'))
 
 
-async def info():
+async def info(MessageSettings, user):
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Пожертвования",
                            keyboard=keyboarddonate,

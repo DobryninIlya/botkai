@@ -2,10 +2,10 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
         sql = "INSERT INTO Status VALUES (" + str(MessageSettings.id) + ", 49);"
         print(sql)

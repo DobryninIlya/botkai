@@ -7,13 +7,12 @@ import aiohttp
 import requests
 
 from .. import classes as command_class
-from ..classes import MessageSettings
-from ..classes import UserParams
+
+
 from ..classes import vk, cursor, connection
 from ..keyboards import GetButtonTask
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 frazi = ["Можно сходить в кино 😚", "Можно почитать 😚", "Можно прогуляться в лесу 😚",
          "Можно распланировать дела на неделю 😚", "Можно заняться спортом, например. 😚",
@@ -21,23 +20,23 @@ frazi = ["Можно сходить в кино 😚", "Можно почита�
          "Можно встретиться с друзьями 😚"]
 
 
-async def info():
+async def info(MessageSettings, user):
     today = datetime.date.today()
     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=0))
-    group = UserParams.getGroup()
+    group = user.getGroup()
     id = MessageSettings.getId()
-    taskCount = (int)(MessageSettings.GetTaskCount(date, UserParams.groupId))
+    taskCount = (int)(MessageSettings.GetTaskCount(date, user.groupId))
     task = ""
     if taskCount == 0:
         task = "\n&#9993;Заданий нет"
     else:
         task = "\n&#9993;Всего " + str(taskCount) + " задания(-ий)."
-    advert = MessageSettings.GetAdv(date, UserParams.groupId)
+    advert = MessageSettings.GetAdv(date, user.groupId)
     adv = ""
     if advert:
-        adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, UserParams.groupId) + "\n"
+        adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, user.groupId) + "\n"
     try:
-        Timetable = await showTimetable(group, 0)
+        Timetable = await showTimetable(group, 0, MessageSettings, user)
         if Timetable:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание на сегодня:\n" + Timetable + adv + task,
@@ -57,18 +56,18 @@ async def info():
     return "ok"
 
 
-async def showTimetable(groupId, tomorrow=0):
-    user_potok = UserParams.potokLecture
+async def showTimetable(groupId, tomorrow=0,MessageSettings=None, user=None):
+    user_potok = user.potokLecture
     try:
-        isNormal, response = await getResponse(groupId)
+        isNormal, response = await getResponse(groupId, MessageSettings, user)
         if not isNormal:
             return response
-        chetn = UserParams.getChetn()
+        chetn = user.getChetn()
         today = datetime.date.today() + datetime.timedelta(days=tomorrow)
 
-        if len(response) < 2 and UserParams.role != 6:
+        if len(response) < 2 and user.role != 6:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
-        elif UserParams.role == 6 and len(response) < 2:
+        elif user.role == 6 and len(response) < 2:
             return "\n&#10060;Сначала необходимо загрузить расписание. Сделать это можно через меню старосты. Ознакомьтесь с инструкцией"
         try:
             response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]
@@ -163,10 +162,10 @@ async def showTimetable(groupId, tomorrow=0):
         return ""
 
 
-async def getResponse(groupId):
-    if UserParams.own_shed:
+async def getResponse(groupId,MessageSettings, user):
+    if user.own_shed:
         groupId = MessageSettings.getId() + 1_000_000_000
-        return await get_own_shed(groupId)
+        return await get_own_shed(groupId, user)
 
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
@@ -238,14 +237,14 @@ async def getResponse(groupId):
     return
 
 
-async def get_own_shed(groupId):
+async def get_own_shed(groupId, user):
     try:
         sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
         cursor.execute(sql)
         result = cursor.fetchone()[0]
         # print(result)
         if not result:
-            UserParams.own_shed = 0
+            user.own_shed = 0
             info()
         else:
             return True, json.loads(result)

@@ -1,10 +1,10 @@
 from .. import classes as command_class
 from ..keyboards import getMainKeyboard
-from ..classes import vk, MessageSettings, UserParams
+from ..classes import vk
 import random
 
 
-async def info():
+async def info(MessageSettings, user):
 
     message = """Чат-бот расписание занятий уже год служит студентам и показывает персональное расписание занятий. 
     Он используется исключительно в информационных целях, оперирует данными с сайта kai.ru и не является официальным сервисом КНИТУ-КАИ.
@@ -13,7 +13,7 @@ async def info():
     """
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message=message,
-                           keyboard=getMainKeyboard(UserParams.role),
+                           keyboard=getMainKeyboard(user.role),
                            random_id=random.randint(1, 2147483647))
 
 

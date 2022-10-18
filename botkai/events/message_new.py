@@ -51,10 +51,10 @@ message_params = {}
 
 vk = classes.vk
 
-UserParams = classes.UserParams
+
 command_list = classes.command_list
 
-MessageSettings=classes.MessageSettings
+
 
 def load_modules():
     try:
@@ -130,21 +130,18 @@ async def message_new(request, lp_obj=None):
             message_params = lp_obj
         else:
             message_params = json.loads(request.body)
-        await MessageSettings.update(message_params)
-        if not lp_obj and MessageSettings.secret_key != os.getenv("SECRET_KEY"):
-            await vk.messages.send(peer_id=159773942,
-                                   message="Попытка взлома. Секретный ключ не сошелся\n{}".format(MessageSettings.secret_key),
-                                   random_id=random.randint(1, 2147483647))
-            await command.process()
-            print("СЕКРЕТНЫЙ КЛЮЧ НЕ СОШЕЛСЯ")
-            return "У тебя почти получилось :)"
-        if await IsRegistred():
+        MessageSettings = classes.Message()
+        await MessageSettings.update(lp_obj)
+        UserParams = classes.User(MessageSettings.peer_id)
+        if MessageSettings.peer_id != 159773942:
+            return
+        if await IsRegistred(MessageSettings):
             if MessageSettings.peer_id > 2000000000:
                 sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
                 return "ok"
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
-            stat = await CheckStatus()
+            stat = await CheckStatus(MessageSettings, UserParams)
             if stat == "ok":
                 return "ok"
             
@@ -164,7 +161,7 @@ async def message_new(request, lp_obj=None):
                     crole = c.role
                     if button == c.payload and c.admlevel<=UserParams.getAdminLevel():
                         if UserParams.role in crole:
-                            await c.process()
+                            await c.process(MessageSettings, UserParams)
                         return "ok"
                 return "ok"
             else:
@@ -181,7 +178,7 @@ async def message_new(request, lp_obj=None):
                                 key = k
                                 MessageSettings.command_key = k
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
-                                    await c.process()
+                                    await c.process(MessageSettings, UserParams)
                                     return "ok"
                 if distance < len(MessageSettings.getText())*0.4 and command.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in command.role):
                     mesg = 'Я понял ваш запрос как "%s"' % key
@@ -206,7 +203,7 @@ async def message_new(request, lp_obj=None):
 
 
 
-async def IsRegistred():
+async def IsRegistred(MessageSettings):
     try:
         body = MessageSettings.getText()
         id = int(MessageSettings.id)
@@ -335,7 +332,7 @@ async def IsRegistred():
                 cursorR.execute(sql)
                 conn.commit()
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                       message="Очень приятно," + str(body) + "\nРасписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
+                                       message="Очень приятно, " + str(body) + "\nРасписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
                                        keyboard=keyboards.get_undo,
                                        random_id=random.randint(1, 2147483647))
                 return False
@@ -723,7 +720,7 @@ def damerau_levenshtein_distance(s1, s2):
 
 
 
-async def CheckStatus():
+async def CheckStatus(MessageSettings, UserParams):
     body = MessageSettings.getText()
     id = MessageSettings.getId()
     button = MessageSettings.button

@@ -2,13 +2,13 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor
+from ..classes import vk, cursor
 
 
-async def info():
+async def info(MessageSettings, user):
     try:
-        group = UserParams.groupId
-        sql = "SELECT * FROM Users WHERE Groupp = {} AND role = {}".format(str(group), UserParams.role)
+        group = user.groupId
+        sql = "SELECT * FROM Users WHERE Groupp = {} AND role = {}".format(str(group), user.role)
         cursor.execute(sql)
         result = cursor.fetchall()
         members = "Список группы: \n"
