@@ -10,8 +10,9 @@ class Spam_Handler:
         self.from_id = message.from_id
         self.vk = vk
         self.base = ['солдат', 'слили', 'в канале', 'переходи', 'Telegram', 'кадры', 'зверский', 'мобилизация',
-                        'цензуры', 'сеть',
-                     'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк']
+                     'цензуры', 'сеть', 'обман', 'правительство',
+                                        'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк']
+
     async def handle_text_message(self):
         message = self.text.lower().split()
         score = 0

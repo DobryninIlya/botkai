@@ -132,13 +132,13 @@ async def message_new(request, lp_obj=None):
             message_params = json.loads(request.body)
         MessageSettings = classes.Message()
         await MessageSettings.update(lp_obj)
+        if MessageSettings.peer_id > 2000000000:
+            sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
+            return "ok"
         UserParams = classes.User(MessageSettings.peer_id)
         if MessageSettings.peer_id != 159773942:
             return
         if await IsRegistred(MessageSettings):
-            if MessageSettings.peer_id > 2000000000:
-                sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
-                return "ok"
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
             stat = await CheckStatus(MessageSettings, UserParams)

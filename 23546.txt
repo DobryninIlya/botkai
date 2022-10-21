@@ -1,0 +1,1 @@
+http://kaibotkai.herokuapp.com/download/shedule/?groupid=23546
