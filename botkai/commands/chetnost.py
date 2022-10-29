@@ -5,7 +5,6 @@ from .. import keyboards
 from ..classes import vk as vk
 
 
-
 async def info(MessageSettings, user):
     today = datetime.date.today()
     chetn = user.getChetn()
@@ -19,10 +18,11 @@ async def info(MessageSettings, user):
                            random_id=random.randint(1, 2147483647))
     return "ok"
 
+
 command = command_class.Command()
 
 command.keys = ['четность', 'чётность', 'четность недели']
 command.desciption = 'Покажу какая неделя - четная или нет'
 command.process = info
 command.payload = "chetnost"
-command.role = [1,2,3,6]
+command.role = [1, 2, 3, 6]
