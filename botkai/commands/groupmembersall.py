@@ -19,7 +19,6 @@ async def info(MessageSettings, user):
             response = await response.text()
     soup = BeautifulSoup(response, 'lxml')
 
-    # print(soup.find("ul", attrs={ "id" : "mylist"}))
     list_students = soup.find(id="p_p_id_infoClick_WAR_infoClick10_")
     result = ""
     if not response:
