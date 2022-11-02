@@ -36,7 +36,10 @@ signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == '__main__':
     try:
+        print('programm is running')
         run()
+    except:
+        print('Ошибка (глобальная):\n', traceback.format_exc())
     finally:
         cursor.close()
         cursorR.close()
