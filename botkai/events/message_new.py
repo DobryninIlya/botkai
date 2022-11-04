@@ -90,7 +90,7 @@ except:
     print('Ошибка:\n', traceback.format_exc())
 
 
-async def textMessage():
+async def textMessage(MessageSettings):
     try:
         # request = apiai.ApiAI("").text_request() # Токен API к Dialogflow
         # request.lang = 'ru' # На каком языке будет послан запрос
@@ -100,20 +100,19 @@ async def textMessage():
         # print(responseJson)
         # response = responseJson['result']['fulfillment']['speech'] # Разбираем JSON и вытаскиваем ответ
         # Если есть ответ от бота - присылаем юзеру, если нет - бот его не понял
-        return
-        if response:
-            mesg = response
-            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message=mesg,
-                                   keyboard=keyboards.getMainKeyboard(UserParams.role),
-                                   random_id=random.randint(1, 2147483647))
-        else:
-            mesg = "Я не совсем понял тебя."
-            if not MessageSettings.keyboard:
-                mesg+="\nУ тебя неофициальный клиент, введи 'Команды', чтобы получить список основных команд"
-            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message=mesg,
-                                   random_id=random.randint(1, 2147483647))
+        # if response:
+        #     mesg = response
+        #     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+        #                            message=mesg,
+        #                            keyboard=keyboards.getMainKeyboard(UserParams.role),
+        #                            random_id=random.randint(1, 2147483647))
+        # else:
+        mesg = "Я не совсем понял тебя."
+        if not MessageSettings.keyboard:
+            mesg+="\nУ тебя неофициальный клиент, введи 'Команды', чтобы получить список основных команд"
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message=mesg,
+                               random_id=random.randint(1, 2147483647))
     except Exception:
         print('Ошибка:\n', traceback.format_exc())
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -188,7 +187,7 @@ async def message_new(request, lp_obj=None):
                                            random_id=random.randint(1, 2147483647))
                     await command.process()
                     return "ok"
-            await textMessage()
+            await textMessage(MessageSettings)
 
     except SystemExit:
         quit()
@@ -1155,10 +1154,10 @@ async def CheckStatus(MessageSettings, UserParams):
             body = MessageSettings.getText()
             try:
                 #print(body)
-                realgroup = body
+                realgroup = int(body)
                 group = await showGroupId(realgroup)
                 
-                if (int)(body) > 1000 and (int)(body) < 100000 and group:
+                if realgroup > 1000 and realgroup < 100000 and group:
                     group = str(group)
                     admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else 1
                     sql = "UPDATE users SET groupp = {}, groupreal = {}, \"dateChange\" = '{}', admlevel = {} WHERE ID_VK = {}".format(group, str(realgroup), date, admlevel, id)
@@ -1170,16 +1169,20 @@ async def CheckStatus(MessageSettings, UserParams):
                                            message="Изменено",
                                            keyboard=keyboards.getMainKeyboard(UserParams.role),
                                            random_id=random.randint(1, 2147483647))
-                elif (int)(body) > 10000 and False:
+                elif realgroup > 10000 and False:
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="Ваше расписание не поддерживается ввиду его отсутствия на сайте КНИТУ-КАИ. Если вы уверены, что расписание существует на сайте, напишите об этом в Обсуждениях @botraspisanie",
                                            keyboard=keyboards.keyboardAddTasks2,
                                            random_id=random.randint(1, 2147483647))
-                elif body:
-
-                    if int(body) > 1000 and int(body) < 100000:
+                elif realgroup:
+                    if realgroup > 1000 and realgroup < 100000:
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                message="Такая группа не существует на сайте. Повторите ввод или выйдите в меню. Такое случается, когда на сайт не подгрузили ваши данные",
+                                               keyboard=keyboards.exit,
+                                               random_id=random.randint(1, 2147483647))
+                    else:
+                        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                               message="Номер группы введен некорректно. Повторите ввод",
                                                keyboard=keyboards.exit,
                                                random_id=random.randint(1, 2147483647))
                 else:
@@ -1189,6 +1192,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                            random_id=random.randint(1, 2147483647))
 
             except Exception as E:
+                print('Ошибка:\n', traceback.format_exc())
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Такая группа не существует. Повторите ввод или выйдите в меню.",
                                        keyboard=keyboards.exit,
