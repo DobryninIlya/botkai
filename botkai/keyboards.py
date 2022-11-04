@@ -1169,3 +1169,14 @@ verification = {
 }
 verification = json.dumps(verification, ensure_ascii=False).encode('utf-8')
 verification = str(verification.decode('utf-8'))
+
+ACT_botraspisanie = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Посмотреть", color="default", payload={'button': 'ACT_botraspisanie'})]
+
+    ]
+
+}
+ACT_botraspisanie = json.dumps(ACT_botraspisanie, ensure_ascii=False).encode('utf-8')
+ACT_botraspisanie = str(ACT_botraspisanie.decode('utf-8'))

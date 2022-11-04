@@ -185,7 +185,7 @@ async def message_new(request, lp_obj=None):
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message=mesg,
                                            random_id=random.randint(1, 2147483647))
-                    await command.process()
+                    await command.process(MessageSettings, UserParams)
                     return "ok"
             await textMessage(MessageSettings)
 
@@ -349,6 +349,10 @@ async def IsRegistred(MessageSettings):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Твоя группа: " + body + "\n Теперь мне все понятно и ты можешь пользоваться ботом :)\n Настоятельно рекомендую подписаться на оффициальную группу @botraspisanie. Здесь ты сможешь получить много полезной информации.",
                                                    keyboard=keyboards.keyboardInfo,
+                                                   random_id=random.randint(1, 2147483647))
+                            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                   message='Вкратце про проект можно узнать по ссылке ниже.',
+                                                   keyboard=keyboards.ACT_botraspisanie,
                                                    random_id=random.randint(1, 2147483647))
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Меню",
