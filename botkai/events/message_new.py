@@ -138,7 +138,7 @@ async def message_new(request, lp_obj=None):
         if MessageSettings.peer_id != 159773942:
             # return
             pass
-        if await IsRegistred(MessageSettings):
+        if await IsRegistred(MessageSettings, UserParams):
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
             stat = await CheckStatus(MessageSettings, UserParams)
@@ -203,7 +203,7 @@ async def message_new(request, lp_obj=None):
 
 
 
-async def IsRegistred(MessageSettings):
+async def IsRegistred(MessageSettings, UserParams):
     try:
         body = MessageSettings.getText()
         id = int(MessageSettings.id)
@@ -352,7 +352,7 @@ async def IsRegistred(MessageSettings):
                                                    keyboard=keyboards.keyboardInfo,
                                                    random_id=random.randint(1, 2147483647))
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                                   message='Вкратце про проект можно узнать по ссылке ниже.',
+                                                   message='Вкратце про проект можно узнать по кнопке ниже.',
                                                    keyboard=keyboards.ACT_botraspisanie,
                                                    random_id=random.randint(1, 2147483647))
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
