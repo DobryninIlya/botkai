@@ -136,7 +136,8 @@ async def message_new(request, lp_obj=None):
             return "ok"
         UserParams = classes.User(MessageSettings.peer_id)
         if MessageSettings.peer_id != 159773942:
-            return
+            # return
+            pass
         if await IsRegistred(MessageSettings):
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
