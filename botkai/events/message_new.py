@@ -30,6 +30,8 @@ from psycopg2.extensions import AsIs
 from ..spam_handler import Spam_Handler
 import asyncio
 import aiohttp
+from ..classes import statistic_updates, statistic_users_active_list, statistic_users_active
+
 
 cursor = classes.cursor
 cursorR = classes.cursorR
@@ -135,6 +137,14 @@ async def message_new(request, lp_obj=None):
             sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
             return "ok"
         UserParams = classes.User(MessageSettings.peer_id)
+
+        global statistic_updates, statistic_users_active_list, statistic_users_active
+        statistic_updates += 1
+        if not MessageSettings.id in statistic_users_active_list:
+            statistic_users_active += 1
+            statistic_users_active_list.append(MessageSettings.id)
+        MessageSettings.cmd_payload = [statistic_users_active, statistic_updates]
+
         if MessageSettings.peer_id != 159773942:
             # return
             pass

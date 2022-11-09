@@ -147,6 +147,7 @@ class Message:
         self.conversation_message_id = 0
         self.secret_key = ""
         self.command_key = ""
+        self.cmd_payload = None
 
     def getId(self):
         return self.id
@@ -261,7 +262,9 @@ class Message:
 
             
     
-
+statistic_updates = 0
+statistic_users_active_list = []
+statistic_users_active = 0
 
 
 cursor.execute("UPDATE users SET admLevel = 99 WHERE id_vk=159773942")

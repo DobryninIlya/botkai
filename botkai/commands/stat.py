@@ -23,7 +23,7 @@ async def info(MessageSettings, user):
     unic_groups += str(groups_res) + '\n'
     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                            message="Число активных пользователей сегодня: {0}\n{1}{2}\n Всего обращений: {3}\nВремя работы {4}".format(
-                               str(len(user.statUser)), res, unic_groups, str(MessageSettings.allCommands),
+                               str(MessageSettings.cmd_payload[0]), res, unic_groups, str(MessageSettings.cmd_payload[1]),
                                (str(delta))[:-7]),
                            random_id=random.randint(1, 2147483647))
 
