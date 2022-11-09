@@ -11,7 +11,7 @@ from botkai.classes import conn, cursor, cursorR, connection
 def run():
     loop = asyncio.get_event_loop()
 
-    bot = Bot(os.getenv("VK_TOKEN"), 2)
+    bot = Bot(os.getenv("VK_TOKEN"), 7)
     try:
         print('bot has been started')
         loop.create_task(bot.start())
