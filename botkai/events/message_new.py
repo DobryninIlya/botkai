@@ -352,7 +352,7 @@ async def IsRegistred(MessageSettings, UserParams):
                     group = await showGroupId(realgroup)
 
                     if realgroup > 1000 and realgroup < 100000 and group:
-                        if int(body) > 1100 and int(body)<10000:
+                        if realgroup> 1100 and realgroup<10000:
                             sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
@@ -403,6 +403,11 @@ async def IsRegistred(MessageSettings, UserParams):
                                    message="Такая группа не существует на сайте. Повторите ввод или выйдите в меню.Такое случается, когда на сайт не подгрузили ваши данные",
                                    keyboard=keyboards.get_undo,
                                    random_id=random.randint(1, 2147483647))
+                            else:
+                                await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                       message="Номер группы введен некорректно. Повторите ввод",
+                                                       keyboard=keyboards.exit,
+                                                       random_id=random.randint(1, 2147483647))
                         except:
                             pass
                     else:
