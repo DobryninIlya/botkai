@@ -348,9 +348,12 @@ async def IsRegistred(MessageSettings, UserParams):
                 return False
             elif StatusR(id) == 2:
                 try:
-                    if await showGroupId(body):
+                    realgroup = int(body)
+                    group = await showGroupId(realgroup)
+
+                    if realgroup > 1000 and realgroup < 100000 and group:
                         if int(body) > 1100 and int(body)<10000:
-                            sql = "UPDATE Users SET Groupp= " + str(await showGroupId(body)) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
+                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -370,7 +373,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                                    keyboard=keyboards.getMainKeyboard(UserParams.role),
                                                    random_id=random.randint(1, 2147483647))
 
-                        elif int(body) > 10000:
+                        elif realgroup > 10000:
                             sql = "UPDATE Users SET Groupp= " + str(await showGroupId(body)) + " ,groupReal = " + str(body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
@@ -395,7 +398,7 @@ async def IsRegistred(MessageSettings, UserParams):
                         return False
                     elif body:
                         try:
-                            if int(body)>1000 and int(body)<100000:
+                            if realgroup>1000 and realgroup<100000:
                                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Такая группа не существует на сайте. Повторите ввод или выйдите в меню.Такое случается, когда на сайт не подгрузили ваши данные",
                                    keyboard=keyboards.get_undo,
@@ -408,6 +411,10 @@ async def IsRegistred(MessageSettings, UserParams):
                                                keyboard=keyboards.get_undo,
                                                random_id=random.randint(1, 2147483647))
                 except Exception as E:
+                    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                       message="Такая группа не существует. Повторите ввод или выйдите в меню.",
+                       keyboard=keyboards.exit,
+                       random_id=random.randint(1, 2147483647))
                     print('Ошибка:\n', traceback.format_exc())
                     return False
             elif StatusR(id) == 4:
