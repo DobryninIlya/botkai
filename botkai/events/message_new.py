@@ -1,5 +1,4 @@
 import os
-print("OS path is ", os.getcwd())
 from .. import classes
 from .. import keyboards
 
@@ -576,11 +575,8 @@ async def showGroupId(groupNumber):
         group, date_update = await getGroupsResponse(groupNumber)
         if not group:
             return False
-        print(group, date_update)
         today = datetime.date.today()
         date = datetime.date(today.year, today.month, today.day)
-        print(date, date_update)
-        print(date_update == date)
 
         if date_update == date:
             print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
@@ -597,7 +593,6 @@ async def showGroupId(groupNumber):
                 raise ConnectionError
             cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response),date))
             connection.commit()
-            print("Список групп обновлен")
         group, _ = await getGroupsResponse(groupNumber)
         if group:
             return group
@@ -803,7 +798,6 @@ async def CheckStatus(MessageSettings, UserParams):
             sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(UserParams.groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
-            print(result_users)
             message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
             print(','.join(str(x[0]) for x in result_users))
             await vk.messages.send(user_ids=','.join(str(x[0]) for x in result_users),
@@ -1017,7 +1011,6 @@ async def CheckStatus(MessageSettings, UserParams):
             cursorR.execute(sql)
             date = cursorR.fetchone()
             date = str(date)[2:-3]
-            #print("DATA--------------------- " + str(date))
             sql = "SELECT MAX(ID) FROM Task"
             cursor.execute(sql)
             res = cursor.fetchone()[0]
@@ -1045,7 +1038,6 @@ async def CheckStatus(MessageSettings, UserParams):
             date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
             try:
                 try:
-                    print(body[:2], body[3])
                     if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2])<32 and (int)(body[3:])<13):
                         date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
                                
@@ -1090,7 +1082,6 @@ async def CheckStatus(MessageSettings, UserParams):
 
 
                 sql = "INSERT INTO Task VALUES(" + str(id) + ", '" + date + "')"
-                #print(sql)
                 cursorR.execute(sql)
                 conn.commit()
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -1180,7 +1171,6 @@ async def CheckStatus(MessageSettings, UserParams):
             id = MessageSettings.getId()
             body = MessageSettings.getText()
             try:
-                #print(body)
                 realgroup = int(body)
                 group = await showGroupId(realgroup)
                 
@@ -1230,7 +1220,6 @@ async def CheckStatus(MessageSettings, UserParams):
             date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
             try:
                 try:
-                    print(body[:2], body[3])
                     if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2])<32 and (int)(body[3:])<13):
                         date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
                     else:
@@ -1265,7 +1254,6 @@ async def CheckStatus(MessageSettings, UserParams):
                         pass
 
                 sql = "DELETE FROM \"Adv\" WHERE date = '{}' AND groupid = {}".format(date, UserParams.groupId)
-                pprint(sql)
                 cursor.execute(sql)
                 connection.commit()
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
