@@ -24,9 +24,11 @@ class Spam_Handler:
                 if word_ in word:
                     score += 1
                     continue
-        flag = True if 't.me/+' in self.text.lower() else False
+        # flag = True if 't.me/+' in self.text.lower() else False
+        flag = False
         for word in self.text.lower():
-            if word in ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly']
+            if word in ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly']:
+                flag = True
         if flag and score >= 1:
             try:
                 await self.vk.messages.delete(delete_for_all=1,
