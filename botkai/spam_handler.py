@@ -9,8 +9,8 @@ class Spam_Handler:
         self.text = message.text
         self.from_id = message.from_id
         self.vk = vk
-        self.base = ['солдат', 'слили', 'в канале', 'переходи', 'Telegram', 'кадры', 'зверский', 'мобилизация',
-                     'цензуры', 'сеть', 'обман', 'правительство', 'nemchinowa', 'tapy.me', 'https://', 'www.'
+        self.base = ['солдат', 'слили', 'в канале', 'переходи', 'Telegram', 'кадры', 'зверский', 'мобилизация', 'предложение', 'руб'
+                     'цензуры', 'сеть', 'обман', 'правительство', 'nemchinowa', 'tapy.me', 'https://', 'www.', 'vk.cc', 'clck'
                                         'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк']
 
     async def handle_text_message(self):
@@ -25,6 +25,8 @@ class Spam_Handler:
                     score += 1
                     continue
         flag = True if 't.me/+' in self.text.lower() else False
+        for word in self.text.lower():
+            if word in ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly']
         if flag and score >= 1:
             try:
                 await self.vk.messages.delete(delete_for_all=1,
