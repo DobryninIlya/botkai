@@ -30,8 +30,6 @@ class ShedRow(object):
 
 def TimetableWrite(groupId):
     isNormal, response = getResponse(groupId)
-    if not isNormal:
-        return response
 
     rows = 0
     lis = []
