@@ -431,7 +431,8 @@ async def IsRegistred(MessageSettings, UserParams):
                                                      params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                                "p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=10) as response:
                             response = await response.json(content_type='text/html')
-                    response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
+                    print(response)
+                    # response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
                     if not len(response):
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                message="Расписание для вас отсутствует на сайте. Повторите ввод.Возможно логин введен неверно.",
@@ -479,7 +480,7 @@ async def IsRegistred(MessageSettings, UserParams):
                         login = cursor.fetchone()[0]
                         # print(login)
                         name = ""
-                        for row in response.json():
+                        for row in response:
                             # print(row,row["id"])
                             if row["id"].rstrip().lower() == login.rstrip().lower():
                                 name = row["lecturer"]
