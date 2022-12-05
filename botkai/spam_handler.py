@@ -34,39 +34,41 @@ class Spam_Handler:
         mode = 'standart'
         silent = False
         cmd = self.text.lower()
-        if cmd[0]=='!':
-            if self.from_id != 159773942:
-                await self.vk.messages.send(peer_id=self.peer_id,
-                                       sticker_id=20476,
-                                       random_id=random.randint(1, 2147483647))
-                return
-            if cmd[1:5] == 'mode':
-                mode = cmd[6:]
-                try:
-                    sql = "UPDATE g_chat SET decor_mode = '{}' WHERE id={}".format(mode, self.peer_id)
-                    cursor.execute(sql)
-                    connection.commit()
+        try:
+            if cmd[0]=='!':
+                if self.from_id != 159773942:
                     await self.vk.messages.send(peer_id=self.peer_id,
-                                                message="[chat-guardian]: Установлен режим {} в чат {}".format(mode, str(self.peer_id)[5:]),
-                                                random_id=random.randint(1, 2147483647))
-                except:
-                    print('Ошибка:\n', traceback.format_exc())
+                                           sticker_id=20476,
+                                           random_id=random.randint(1, 2147483647))
+                    return
+                if cmd[1:5] == 'mode':
+                    mode = cmd[6:]
+                    try:
+                        sql = "UPDATE g_chat SET decor_mode = '{}' WHERE id={}".format(mode, self.peer_id)
+                        cursor.execute(sql)
+                        connection.commit()
+                        await self.vk.messages.send(peer_id=self.peer_id,
+                                                    message="[chat-guardian]: Установлен режим {} в чат {}".format(mode, str(self.peer_id)[5:]),
+                                                    random_id=random.randint(1, 2147483647))
+                    except:
+                        print('Ошибка:\n', traceback.format_exc())
 
-            elif cmd[1:7] == 'silent':
-                silent = True if cmd[8:] == 'yes' else False
-                try:
-                    sql = "UPDATE g_chat SET silent_mode = {}".format(silent, self.peer_id)
-                    cursor.execute(sql)
-                    connection.commit()
-                    await self.vk.messages.send(peer_id=self.peer_id,
-                                                message="[chat-guardian]: Установлено отображение уведомлений {} в чат {}".format('ВСЕ' if not silent else 'ТИХИЙ',
-                                                                                                               str(self.peer_id)[5:]),
-                                                random_id=random.randint(1, 2147483647))
-                except:
-                    print('Ошибка:\n', traceback.format_exc())
+                elif cmd[1:7] == 'silent':
+                    silent = True if cmd[8:] == 'yes' else False
+                    try:
+                        sql = "UPDATE g_chat SET silent_mode = {}".format(silent, self.peer_id)
+                        cursor.execute(sql)
+                        connection.commit()
+                        await self.vk.messages.send(peer_id=self.peer_id,
+                                                    message="[chat-guardian]: Установлено отображение уведомлений {} в чат {}".format('ВСЕ' if not silent else 'ТИХИЙ',
+                                                                                                                   str(self.peer_id)[5:]),
+                                                    random_id=random.randint(1, 2147483647))
+                    except:
+                        print('Ошибка:\n', traceback.format_exc())
 
-        # print("mode {}\nsilent {}".format(mode, silent))
-
+            # print("mode {}\nsilent {}".format(mode, silent))
+        except:
+            return
 
         if flag and score >= 1:
             sql = "SELECT * FROM g_chat WHERE id = {}".format(self.peer_id)
