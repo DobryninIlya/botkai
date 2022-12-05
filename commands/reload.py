@@ -2,24 +2,19 @@ import random
 import sys
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 
 
-def info():
-    id = MessageSettings.getId()
-
-    vk.method("messages.send",
-                        {"peer_id": id, "message": "Перезагрузка", "random_id": random.randint(1, 2147483647)})
+async def info(MessageSettings, user):
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Перезагрузка...",
+                           random_id=random.randint(1, 2147483647))
     sys.exit(1)
-      
+
     return "ok"
 
 
-
 command = command_class.Command()
-
-
-
 
 command.keys = ['reload']
 command.desciption = 'рестарт'

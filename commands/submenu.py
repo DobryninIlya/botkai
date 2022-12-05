@@ -1,15 +1,16 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import submenu
 
 
-def info():
+async def info(MessageSettings, user):
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Меню",
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=submenu)
 
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": "Меню", "keyboard" : submenu,
-                        "random_id": random.randint(1, 2147483647)})
 
 info_command = command_class.Command()
 

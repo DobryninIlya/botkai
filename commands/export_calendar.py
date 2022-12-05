@@ -3,15 +3,14 @@ import json
 import random
 import traceback
 
-import requests
+import aiohttp
 from ics import Calendar, Event
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursor, connection
+from ..classes import vk, cursor, connection
 from ..keyboards import submenu
 
 today = datetime.date.today()
-chetn = UserParams.getChetn()
 BASE_URL = 'https://kai.ru/raspisanie'
 tt_dict = {
     "08:00": "05:00",
@@ -31,22 +30,26 @@ tt_dict = {
     "18:25:00": "15:25:00",
     "20:00:00": "17:00:00",
 }
-def getResponse(groupId):
+async def getResponse(groupId):
     
     sql = "SELECT * FROM saved_timetable WHERE groupp = {}".format(groupId)
     cursor.execute(sql)
     result = cursor.fetchone()
     if result == None:
         try:
-            
-            response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response.json()))
+            async with aiohttp.ClientSession() as session:
+                async with await session.post( BASE_URL, data="groupId=" + str(groupId),
+                                               headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                               params={"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                         "p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=3) as response:
+                    response = await response.json()
+            sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(), json.dumps(response))
             cursor.execute(sql)
             connection.commit()
-            return True, response.json()
+            return True, response
         except ConnectionError as err:
             return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
-        except requests.exceptions.Timeout as err:
+        except aiohttp.ServerTimeoutError as err:
             return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
         except:
             return False, ""
@@ -56,11 +59,17 @@ def getResponse(groupId):
         timetable = result[2]
         if date_update + datetime.timedelta(days=2) < today:
             try:
-                response = requests.post( BASE_URL, data = "groupId=" + str(groupId), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubStudentSchedule_WAR_publicStudentSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout = 3)
-                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response.json()), datetime.date.today(), groupId)
+                async with aiohttp.ClientSession() as session:
+                    async with await session.post(BASE_URL, data="groupId=" + str(groupId),
+                                                  headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                                  params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
+                                                          "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
+                                                  timeout=3) as response:
+                        response = await response.json()
+                sql = "UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = {}".format(json.dumps(response), datetime.date.today(), groupId)
                 cursor.execute(sql)
                 connection.commit()
-                return True, response.json()
+                return True, response
             except:
                 sql = "SELECT shedule FROM saved_timetable WHERE groupp = {}".format(groupId)
                 cursor.execute(sql)
@@ -74,26 +83,25 @@ def getResponse(groupId):
     return 
 
 
-def makeFile(week, group):
+async def makeFile(week, group, chetn):
     c = Calendar()
     today = datetime.date.today()
-    chetn = UserParams.getChetn()
     current_date = today - datetime.timedelta(days=today.isoweekday()) + datetime.timedelta(days=1)
-    isNormal, response = getResponse(group)
+    isNormal, response = await getResponse(group)
     days_in_week = list(response.keys())
     days_in_week.sort()
 
     current_week = 0
     while (current_week <= week):
+        if str(current_date.isoweekday()) not in days_in_week:
+            current_date += datetime.timedelta(days=1)
+            continue
         for key in days_in_week:
             if (current_date.month == 12 and current_date.day == 30) or (current_date.month == 7 and current_date.day == 1):
                 break
-            chetnost = True if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                                    1] + chetn) % 2 else False  # Если True чет, False - неч
+            chetnost = False if (datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
+                                    1] + chetn) % 2 else True  # Если True чет, False - неч
 
-            print("DATE ", current_date, current_week, "CHETNOST ", chetnost,
-                  datetime.date(current_date.year, current_date.month, current_date.day).isocalendar()[
-                      1] + chetn)
             for row in response[key]:
                 dayDate = row["dayDate"].rstrip().lower()
                 prefix = ""
@@ -122,34 +130,34 @@ def makeFile(week, group):
                 e.location = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
                 e.description = "В {} ауд. {} зд".format(row["audNum"].rstrip(), row["buildNum"].rstrip())
                 c.events.add(e)
-
             current_date = current_date + datetime.timedelta(days=1)
             if str(current_date.isoweekday()) not in days_in_week:
                 current_date = current_date + datetime.timedelta(days=1)
                 continue
         current_week += 1
-    with open('{}.ics'.format(group), 'w') as f:
+    with open('{}.ics'.format(group), 'w', encoding="utf-8") as f:
         f.write(str(c))
 
-def GetDocShedule(group, id):
-    makeFile(5, group)
-    a = vk.method("docs.getMessagesUploadServer", { "type" : "doc", "peer_id": id })
-    b = requests.post(a["upload_url"], files= { "file" : open(str(group)+".ics", "rb")}).json()
-    c = vk.method("docs.save", {"file" : b["file"]})
-    d = "doc"+str(c["doc"]["owner_id"])+"_"+str(c["doc"]["id"])
+async def GetDocShedule(group, id, chetn):
+    await makeFile(5, group, chetn)
+    a = await vk.docs.getMessagesUploadServer(type="doc", peer_id=id)
+    async with aiohttp.ClientSession() as session:
+        async with await session.post(a["upload_url"],
+                                      data={"file": open(str(group)+".ics", "rb")}) as response:
+            b = await response.json()
+
+    c = await vk.docs.save(file=b["file"])
+    d = "doc" + str(c["doc"]["owner_id"]) + "_" + str(c["doc"]["id"])
     return d
 
 
-def info():
-    groupId = UserParams.groupId
-    att = ''
-    try:
-        att = GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id())
-    except:
-        print('Ошибка:\n', traceback.format_exc())
-    vk.method("messages.send",
-                    {"peer_id": MessageSettings.getPeer_id(), "message": "Твое персональное расписание в .ical. \nДоступно на ближайший месяц", "keyboard" : submenu, 'attachment' : att,
-                        "random_id": random.randint(1, 2147483647)})
+async def info(MessageSettings, user):
+    chetn = user.getChetn()
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Твое персональное расписание в .ical. \nДоступно на ближайший месяц",
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=submenu,
+                           attachment=await GetDocShedule(user.groupId, MessageSettings.getPeer_id(), chetn))
 
 info_command = command_class.Command()
 

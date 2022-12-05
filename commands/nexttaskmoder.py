@@ -2,12 +2,12 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, connection, cursor
+from ..classes import vk, connection, cursor
 from ..keyboards import GetModerTaskButton
 
 
 ##################################                Добавить блокировку от 3 варнов
-def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     idAdv = MessageSettings.payload["id"]
     cursor.execute('UPDATE Task SET "IsCheked" = 1 WHERE id = ' + str(idAdv))
@@ -25,16 +25,19 @@ def info():
             ans += "\nid " + str(res[0]) + " from @id" + str(res[2])
             ans += "\n date: " + str(res[3])
             ans += "\n" + str(res[4])
-            vk.method("messages.send",
-                {"peer_id": id, "message": str(ans), "keyboard": GetModerTaskButton(res[0]), "attachment": str(res[5]), "random_id": random.randint(1, 2147483647)})
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message=str(ans),
+                                   keyboard=GetModerTaskButton(res[0]),
+                                   random_id=random.randint(1, 2147483647))
         else:
-            vk.method("messages.send",
-                {"peer_id": id, "message": "Все проверено", "random_id": random.randint(1, 2147483647)})
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message="Все проверено",
+                                   random_id=random.randint(1, 2147483647))
     except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
-        #conn.rollback()
-        vk.method("messages.send",
-            {"peer_id": id, "message": "Произошла ошибка. Модерация", "random_id": random.randint(1, 2147483647)})
+            print('Ошибка:\n', traceback.format_exc())
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message="Произошла ошибка. Модерация",
+                                   random_id=random.randint(1, 2147483647))
     return "ok"
 
 

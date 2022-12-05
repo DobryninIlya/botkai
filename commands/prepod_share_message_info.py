@@ -2,17 +2,18 @@ import datetime
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import keyboardPrepodShareMessage
 
 uptime = datetime.datetime.now()
 
 
-def info():
-    vk.method("messages.send",
-              {"peer_id": MessageSettings.getId(), "message": "Вы можете отослать своим студентам сообщение. "
-                                                              "Можно прикрепить медиавложения.",
-               "keyboard": keyboardPrepodShareMessage, "random_id": random.randint(1, 2147483647)})
+async def info(MessageSettings, user):
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Вы можете отослать своим студентам сообщение. "
+                                   "Можно прикрепить медиавложения.",
+                           keyboard=keyboardPrepodShareMessage,
+                           random_id=random.randint(1, 2147483647))
 
     return "ok"
 

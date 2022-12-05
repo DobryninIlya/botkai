@@ -2,32 +2,30 @@ import datetime
 import random
 
 from .. import classes as command_class
-from .. import keyboards
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..keyboards import keyboardAddTasks
+from ..classes import vk, conn, cursorR
 
 
-def info():
+async def info(MessageSettings, user):
     id = MessageSettings.getId()
     today = datetime.date.today()
-    date = str(datetime.date(today.year, today.month, today.day)  + datetime.timedelta(days=7))[5:]
+    date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=7))[5:]
     date = date.split('-')
     date = date[1] + "." + date[0]
-    vk.method("messages.send",
-            {"peer_id": id, "message": 'Хочешь добавить Объявление? Такое объявление отображается вместе с расписанием в соответствующий день\n Введите число, на которое запланировано объявление. Например, "' + date + '". Важно ввести именно в таком формате (без кавычек).', "keyboard" : keyboards.keyboardAddTasks, "random_id": random.randint(1, 2147483647)})
+    msg = 'Хочешь добавить Объявление? Такое объявление отображается вместе с расписанием в соответствующий день\n ' \
+          'Введите число, на которое запланировано объявление. Например, "' + date + '". Важно ввести именно в таком формате (без кавычек).'
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=msg,
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=keyboardAddTasks)
+
     sql = "INSERT INTO Status VALUES (" + str(id) + ", 52);"
     cursorR.execute(sql)
     conn.commit()
-    #conn.close()
     return "ok"
 
 
-
-
 command = command_class.Command()
-
-
-
-
 command.keys = ['добавить объявление']
 command.desciption = 'добавить объявление на определенный день'
 command.process = info

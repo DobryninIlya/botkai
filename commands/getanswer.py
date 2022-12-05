@@ -3,7 +3,7 @@ import random
 import traceback
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, conn, cursorR
+from ..classes import vk, conn, cursorR
 
 
 def get_button(label, color, payload=""):
@@ -17,43 +17,39 @@ def get_button(label, color, payload=""):
     }
 
 
-
 keyboard = {
     "one_time": False,
     "buttons": [
         [get_button(label="Выход", color="negative")]
-
 
     ]
 }
 keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
 keyboard = str(keyboard.decode('utf-8'))
 
-def info():
+
+async def info(MessageSettings, user):
     try:
         id = MessageSettings.id
-        vk.method("messages.send",
-                            {"peer_id": id, "message": "Введите ответ", "keyboard" : keyboard,  "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Введите ответ",
+                               random_id=random.randint(1, 2147483647),
+                               keyboard=keyboard)
         sql = "INSERT INTO Status VALUES (" + str(id) + ", 59);"
         cursorR.execute(sql)
         conn.commit()
-    
+
         sql = "INSERT INTO answers VALUES (" + str(id) + "," + str(MessageSettings.payload["id"]) + ");"
-        # print(sql)
         cursorR.execute(sql)
         conn.commit()
     except Exception:
         print('Ошибка:\n', traceback.format_exc())
-        #pass
-      
+        # pass
+
     return "ok"
 
 
-
 command = command_class.Command()
-
-
-
 
 command.keys = []
 command.desciption = ''

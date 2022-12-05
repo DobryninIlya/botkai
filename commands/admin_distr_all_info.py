@@ -1,15 +1,15 @@
 import random
 
 from .. import classes as command_class
-from ..classes import vk, MessageSettings
+from ..classes import vk
 from ..keyboards import make_admin_distr
 
 
-def info():
-    vk.method("messages.send",
-              {"peer_id": MessageSettings.id, "message": """Рассылка сообщения всем пользователям""",
-               "keyboard": make_admin_distr, "random_id": random.randint(1, 2147483647)})
-
+async def info(MessageSettings, user):
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message="Рассылка сообщения всем пользователям",
+                           random_id=random.randint(1, 2147483647),
+                           keyboard=make_admin_distr)
     return "ok"
 
 

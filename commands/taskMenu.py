@@ -1,17 +1,20 @@
 from .. import classes as command_class
 from ..keyboards import keyboardTasks
-from ..classes import vk, MessageSettings
+from ..classes import vk
 import random
 import traceback
 
 
-def info():
+async def info(MessageSettings, user):
     try:
         id = MessageSettings.getPeer_id()
-        vk.method("messages.send",
-            {"peer_id": id, "message": 'Выберите пункт меню:', "keyboard" : keyboardTasks, "random_id": random.randint(1, 2147483647)})
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message='Выберите пункт меню:',
+                               keyboard=keyboardTasks,
+                               random_id=random.randint(1, 2147483647))
     except:
         print('Ошибка:\n', traceback.format_exc())
+
 
 command = command_class.Command()
 

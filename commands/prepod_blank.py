@@ -2,13 +2,14 @@ import random
 
 from ..keyboards import exit
 from .. import classes as command_class
-from ..classes import vk, MessageSettings, UserParams, cursorR, conn
+from ..classes import vk, cursorR, conn
 
 
-def info():
+async def info(MessageSettings, user):
     msg = "Введите номер группы"
-    msg_id = vk.method("messages.send",
-                    {"peer_id": MessageSettings.id, "message": msg, "keyboard": exit, "random_id": random.randint(1, 2147483647)})
+    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                           message=msg,
+                           random_id=random.randint(1, 2147483647))
     cursorR.execute("INSERT INTO Status VALUES ({},{})".format(MessageSettings.getId(), 307))
     conn.commit()
     return "ok"
