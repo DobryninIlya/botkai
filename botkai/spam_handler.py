@@ -16,7 +16,8 @@ class Spam_Handler:
                                         'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк', 'телеграм', 'nemchinova', '100%', 'болельщи',
                      'пушк', 'карт',
                      'приз', 'букм']
-        self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com']
+        self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com',
+                        'bit.ly', 'tinyurl.com', 'tiny.one', 'rotf.lol', 'u.to']
 
 
     async def handle_text_message(self):
