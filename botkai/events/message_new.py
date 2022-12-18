@@ -241,7 +241,8 @@ async def IsRegistred(MessageSettings, UserParams):
                                        sticker_id=6864,
                                        random_id=random.randint(1, 2147483647))
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                       message="Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню",
+                                       message="Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню" +
+                                       "Временно не доступна регистрация для преподавателей и родителей :(",
                                        keyboard=keyboards.roleMenu,
                                        random_id=random.randint(1, 2147483647))
                 sql = "INSERT INTO Status VALUES (" + str(id) + ", 3);"
@@ -253,10 +254,12 @@ async def IsRegistred(MessageSettings, UserParams):
                 today = datetime.date.today()
                 role = 0
                 if body == "Преподаватель":
+                    return
                     role = 2
                 elif body == "Студент":
                     role = 1
                 elif body == "Родитель":
+                    return
                     role = 3
                 elif body == "Абитуриент (поступающий)":
                     role = 4
