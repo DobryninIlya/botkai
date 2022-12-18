@@ -9,11 +9,15 @@ class Spam_Handler:
         self.peer_id = message.peer_id
         self.text = message.text
         self.from_id = message.id
+        self.is_picture_att = 'photo' in message.GetAttachments()
         self.vk = vk
         self.base = ['солдат', 'слили', 'в канале', 'переходи', 'telegram', 'кадры', 'зверский', 'мобилизация', 'предложение', 'руб',
                      'цензуры', 'сеть', 'обман', 'правительство', 'nemchinowa', 'tapy.me', 'https://', 'www.',
-                                        'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк', 'телеграм', 'nemchinova', '100%', 'болельщи']
-        self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com']
+                                        'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк', 'телеграм', 'nemchinova', '100%', 'болельщи',
+                     'пушк', 'карт', 'лото', 'правительство', 'путин', 'pus'
+                     'приз', 'букм']
+        self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com',
+                        'bit.ly', 'tinyurl.com', 'tiny.one', 'rotf.lol', 'u.to']
 
 
     async def handle_text_message(self):
@@ -31,6 +35,7 @@ class Spam_Handler:
             for part_word in self.domains: # Проверка доменных имен
                 if part_word in word:
                     flag = True
+                    break
         mode = 'standart'
         silent = False
         cmd = self.text.lower()
@@ -70,7 +75,7 @@ class Spam_Handler:
         except:
             return
 
-        if flag and score >= 1:
+        if flag and (score >= 1 or self.is_picture_att):
             sql = "SELECT * FROM g_chat WHERE id = {}".format(self.peer_id)
             cursor.execute(sql)
             query_result = cursor.fetchone()
