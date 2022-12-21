@@ -51,11 +51,6 @@ async def showTimetable(groupId):
                                                   "p_p_lifecycle": "2", "p_p_resource_id": "examSchedule"},
                                           timeout=7) as response:
                 response = await response.json(content_type='text/html')
-        print("TEST")
-        print("Response: ", response.status_code)
-        if str(response.status_code) != '200':
-            return True, "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(
-                response.status_code) + " &#9888;"
         if len(response) == 0:
             return True, "\n&#10060;\tНет элементов для отображения.&#10060;"
 
