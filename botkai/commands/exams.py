@@ -50,7 +50,7 @@ async def showTimetable(groupId):
                                           params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                   "p_p_lifecycle": "2", "p_p_resource_id": "examSchedule"},
                                           timeout=7) as response:
-                response = await response.json()
+                response = await response.json(content_type='text/html')
         print("TEST")
         print("Response: ", response.status_code)
         if str(response.status_code) != '200':
