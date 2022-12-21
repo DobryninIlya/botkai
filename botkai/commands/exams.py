@@ -30,12 +30,12 @@ async def info(MessageSettings, user):
                                    random_id=random.randint(1, 2147483647))
     except TypeError as E:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Расписание экзаменов недоступно.",
+                               message="Расписание экзаменов недоступно. :(",
                                random_id=random.randint(1, 2147483647))
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Расписание экзаменов недоступно.",
+                               message="Расписание экзаменов недоступно.(",
                                random_id=random.randint(1, 2147483647))
 
 
