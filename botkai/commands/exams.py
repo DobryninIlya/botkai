@@ -26,7 +26,7 @@ async def info(MessageSettings, user):
                                    random_id=random.randint(1, 2147483647))
         else:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Расписание экзаменов недоступно." + str(Timetable),
+                                   message="Расписание экзаменов недоступно. " + str(Timetable),
                                    random_id=random.randint(1, 2147483647))
     except TypeError as E:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -71,7 +71,7 @@ async def showTimetable(groupId):
         return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
     except:
         print('Ошибка exam:\n', traceback.format_exc())
-        return False, "Ошибка получения расписания экзаменов :("
+        return False, "Ошибка получения расписания экзаменов :(\n" + str(traceback.format_exc())
 
 
 command = command_class.Command()
