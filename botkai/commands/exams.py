@@ -70,7 +70,8 @@ async def showTimetable(groupId):
     except aiohttp.ServerTimeoutError as err:
         return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
     except:
-        return False, ""
+        print('Ошибка exam:\n', traceback.format_exc())
+        return False, "Ошибка получения расписания экзаменов :("
 
 
 command = command_class.Command()
