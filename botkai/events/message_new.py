@@ -593,7 +593,9 @@ async def showGroupId(groupNumber):
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8) as response:
                     response = await response.json(content_type='text/html')
-            if str(response.status_code) != '200':
+            print("RESPONSE STATUS CODE: ", response.status)
+            print("RESPONSE STATUS CODE: ", response.status_code)
+            if str(response.status) != '200':
                 raise ConnectionError
             cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response),date))
             connection.commit()
@@ -608,6 +610,7 @@ async def showGroupId(groupNumber):
         #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
     except aiohttp.ServerConnectionError:
+
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.",
                                random_id=random.randint(1, 2147483647))
