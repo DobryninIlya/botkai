@@ -10,7 +10,6 @@ from aiovk.pools import AsyncVkExecuteRequestPool
 class connections:
     def __init__(self):
         self.connection = psycopg2.connect(dbname=os.getenv('DB_NAME'), user= os.getenv('DB_USER'), password= os.getenv('DB_PASSWORD'), host= os.getenv('DB_HOST'))
-        # self.connection = psycopg2.connect(dbname='botdb', user='postgres', password='nasok174', host='localhost')
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
         try:
