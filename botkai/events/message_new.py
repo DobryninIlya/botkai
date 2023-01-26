@@ -574,7 +574,7 @@ async def getGroupsResponse(groupNumber):
         return False, False
 
 
-async def showGroupId(groupNumber):
+async def showGroupId(groupNumber, MessageSettings=None):
     try:
         group, date_update = await getGroupsResponse(groupNumber)
         if not group:
@@ -593,6 +593,9 @@ async def showGroupId(groupNumber):
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8) as response:
                     response = await response.json(content_type='text/html')
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message=f"{response.status} : {response.status_code}",
+                                   random_id=random.randint(1, 2147483647))
             print("RESPONSE STATUS CODE: ", response.status)
             print("RESPONSE STATUS CODE: ", response.status_code)
             if str(response.status) != '200':
@@ -1179,7 +1182,7 @@ async def CheckStatus(MessageSettings, UserParams):
             body = MessageSettings.getText()
             try:
                 realgroup = int(body)
-                group = await showGroupId(realgroup)
+                group = await showGroupId(realgroup, MessageSettings)
                 
                 if realgroup > 1000 and realgroup < 100000 and group:
                     group = str(group)
