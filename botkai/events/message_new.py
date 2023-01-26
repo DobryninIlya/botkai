@@ -133,9 +133,6 @@ async def message_new(request, lp_obj=None):
         MessageSettings = classes.Message()
         await MessageSettings.update(lp_obj)
 
-        if MessageSettings.peer_id != 159773942: #DEBUG
-            return
-
         if MessageSettings.peer_id > 2000000000:
             sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
             return "ok"
