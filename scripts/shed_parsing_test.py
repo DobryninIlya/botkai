@@ -42,7 +42,7 @@ def showGroupId(groupNumber):
     try:
         response = requests.post(
             BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=" + groupNumber,
-            headers={'Content-Type': "application/x-www-form-urlencoded"},
+            headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
             params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                     "p_p_resource_id": "schedule"}, timeout=4)
         print(response.status_code, response)

@@ -132,6 +132,10 @@ async def message_new(request, lp_obj=None):
             message_params = json.loads(request.body)
         MessageSettings = classes.Message()
         await MessageSettings.update(lp_obj)
+
+        if MessageSettings.peer_id != 159773942: #DEBUG
+            return
+
         if MessageSettings.peer_id > 2000000000:
             sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
             return "ok"
@@ -430,12 +434,12 @@ async def IsRegistred(MessageSettings, UserParams):
                     body = body.lower()
                     async with aiohttp.ClientSession() as session:
                         async with await session.post(BASE_URL_STAFF, data = "prepodLogin=" + str(body),
-                                                     headers = {'Content-Type': "application/x-www-form-urlencoded"},
+                                                     headers = {'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                                      params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                                "p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=10) as response:
                             response = await response.json(content_type='text/html')
                     print(response)
-                    # response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
+                    # response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
                     if not len(response):
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                message="Расписание для вас отсутствует на сайте. Повторите ввод.Возможно логин введен неверно.",
@@ -463,7 +467,6 @@ async def IsRegistred(MessageSettings, UserParams):
                 try:
 
                     body = body.lower()
-                    # print(str(body))
                     async with aiohttp.ClientSession() as session:
                         async with await session.post(
                         'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
@@ -587,17 +590,12 @@ async def showGroupId(groupNumber, MessageSettings=None):
             return group
         else:
             async with aiohttp.ClientSession() as session:
-                async with await session.post(
+                async with await session.get(
                 BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
-                headers={'Content-Type': "application/x-www-form-urlencoded"},
+                headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8) as response:
                     response = await response.json(content_type='text/html')
-            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message=f"{response.status} : {response.status_code}",
-                                   random_id=random.randint(1, 2147483647))
-            print("RESPONSE STATUS CODE: ", response.status)
-            print("RESPONSE STATUS CODE: ", response.status_code)
             if str(response.status) != '200':
                 raise ConnectionError
             cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response),date))
@@ -613,7 +611,6 @@ async def showGroupId(groupNumber, MessageSettings=None):
         #         {"peer_id": id, "message": "Такой группы нет.", "random_id": random.randint(1, 2147483647)})
         return False
     except aiohttp.ServerConnectionError:
-
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="&#9888;Ошибка подключения к серверам.&#9888; \n Вероятно, на стороне kai.ru произошел сбой. Вам необходимо продолжить регистрацию (ввод номера группы) как только сайт kai.ru станет доступным.",
                                random_id=random.randint(1, 2147483647))
@@ -1337,7 +1334,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 id = MessageSettings.getId()
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                          params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                  "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
                         response = await response.json(content_type='text/html')
@@ -1437,7 +1434,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 id = MessageSettings.getId()
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                          params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                  "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
                         response = await response.json(content_type='text/html')

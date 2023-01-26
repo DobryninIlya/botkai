@@ -40,7 +40,7 @@ def shed_update():
         try:
             groupId = row[0]
             response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                     headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                     headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                      params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                              "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=10)
             assert json.dumps(response.json()), "Расписание имеет некорректную форму"

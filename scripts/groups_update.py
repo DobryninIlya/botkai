@@ -67,7 +67,7 @@ def showGroupId(groupNumber):
         else:
             response = requests.post(
                 BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
-                headers={'Content-Type': "application/x-www-form-urlencoded"},
+                headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8)
             cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response.json()),date))

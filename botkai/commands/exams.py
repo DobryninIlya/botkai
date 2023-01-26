@@ -46,7 +46,7 @@ async def showTimetable(groupId):
     try:
         async with aiohttp.ClientSession() as session:
             async with await session.post(BASE_URL, data="groupId=" + str(groupId),
-                                          headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                          headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                           params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                   "p_p_lifecycle": "2", "p_p_resource_id": "examSchedule"},
                                           timeout=7) as response:
