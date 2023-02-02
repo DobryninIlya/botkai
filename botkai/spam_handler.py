@@ -15,9 +15,9 @@ class Spam_Handler:
                      'цензуры', 'сеть', 'обман', 'правительство', 'nemchinowa', 'tapy.me', 'https://', 'www.',
                                         'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк', 'телеграм', 'nemchinova', '100%', 'болельщи',
                      'пушк', 'карт', 'лото', 'правительство', 'путин', 'pus', 'лотер', 'куплю', 'купить',
-                     'приз', 'букм']
+                     'приз', 'букм', 'перейти в бот', 'болельщиц']
         self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com',
-                        'bit.ly', 'tinyurl.com', 'tiny.one', 'rotf.lol', 'u.to']
+                        'bit.ly', 'tinyurl.com', 'tiny.one', 'rotf.lol', 'u.to', 'vk.com/im?sel=-', 'vk.com/public', 'vk.com/im']
 
 
     async def handle_text_message(self):
