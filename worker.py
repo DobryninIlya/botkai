@@ -20,9 +20,8 @@ class Worker:
         try:
             if event["type"] == 'message_new':
                 await message_new(0, event)
-
         except:
-            print('Ошибка:\n', traceback.format_exc())
+            print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
     async def _worker(self):
@@ -35,7 +34,7 @@ class Worker:
 
     async def start(self):
         self._tasks = [asyncio.create_task(self._worker()) for _ in range(self.concurrent_workers)]
-        print("Started {} workers".format(self.concurrent_workers))
+        print("Started {} workers".format(self.concurrent_workers), flush=True)
 
 
 

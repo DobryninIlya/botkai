@@ -88,7 +88,7 @@ def DeleteOldTask():
 try:
     DeleteOldTask()
 except:
-    print('Ошибка:\n', traceback.format_exc())
+    print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
 async def textMessage(MessageSettings):
@@ -115,7 +115,7 @@ async def textMessage(MessageSettings):
                                message=mesg,
                                random_id=random.randint(1, 2147483647))
     except Exception:
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Я не понял тебя",
                                keyboard=keyboards.getMainKeyboard(UserParams.role),
@@ -205,7 +205,7 @@ async def message_new(request, lp_obj=None):
         sys.exit(1)
         os.abort()
     except:  
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
 
     return "ok"
 
@@ -423,7 +423,7 @@ async def IsRegistred(MessageSettings, UserParams):
                        message="Такая группа не существует. Повторите ввод или выйдите в меню.",
                        keyboard=keyboards.exit,
                        random_id=random.randint(1, 2147483647))
-                    print('Ошибка:\n', traceback.format_exc())
+                    print('Ошибка:\n', traceback.format_exc(), flush=True)
                     return False
             elif StatusR(id) == 4:
                 try:
@@ -509,7 +509,7 @@ async def IsRegistred(MessageSettings, UserParams):
                             return
 
                 except Exception as E:
-                    print('Ошибка:\n', traceback.format_exc())
+                    print('Ошибка:\n', traceback.format_exc(), flush=True)
                     return False
 
             elif StatusR(id) == 15:
@@ -600,7 +600,7 @@ async def showGroupId(groupNumber, MessageSettings=None):
         group, _ = await getGroupsResponse(groupNumber)
         if group:
             return group
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         return False
 
     except IndexError:
@@ -627,13 +627,13 @@ async def showGroupId(groupNumber, MessageSettings=None):
                                    random_id=random.randint(1, 2147483647))
             return False
         except:
-            print('Ошибка:\n', traceback.format_exc())
+            print('Ошибка:\n', traceback.format_exc(), flush=True)
         return False
     except:
         group, _ = await getGroupsResponse(groupNumber)
         if group:
             return group
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         return False
 
 
@@ -677,7 +677,7 @@ async def InBase(id): ### Проверка на зарегестрированн
         try:
             login = res[1]
         except Exception as E:
-            print('Ошибка:\n', traceback.format_exc())
+            print('Ошибка:\n', traceback.format_exc(), flush=True)
         if login and res[2].lstrip().rstrip():
             return True
 
@@ -692,7 +692,7 @@ async def InBase(id): ### Проверка на зарегестрированн
             return True
         return False
     except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Что-то пошло не так.",
                                random_id=random.randint(1, 2147483647))
@@ -702,7 +702,7 @@ async def InBase(id): ### Проверка на зарегестрированн
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Перезагружаюсь...",
                                random_id=random.randint(1, 2147483647))
-        print("GLOBAL ERROR - RESTART ")
+        print("GLOBAL ERROR - RESTART ", flush=True)
         sys.exit(1)
 
 
@@ -769,7 +769,7 @@ async def CheckStatus(MessageSettings, UserParams):
 
             except Exception as E:
 
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
             return "ok"
         elif status == 46: # ADMIN DISTRIBUTION
 
@@ -863,7 +863,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 conn.commit()
                 return "ok"
             except:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Некорректно. Повтори ввод",
                                        random_id=random.randint(1, 2147483647))
@@ -1213,7 +1213,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                            random_id=random.randint(1, 2147483647))
 
             except Exception as E:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Такая группа не существует. Повторите ввод или выйдите в меню.",
                                        keyboard=keyboards.exit,
@@ -1378,13 +1378,13 @@ async def CheckStatus(MessageSettings, UserParams):
                         conn.commit()
                         return "ok"
                 except:
-                    print('Ошибка:\n', traceback.format_exc())
+                    print('Ошибка:\n', traceback.format_exc(), flush=True)
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="&#9888;Введите корректный номер группы!&#9888;",
                                            keyboard=keyboards.exit,
                                            random_id=random.randint(1, 2147483647))
             except Exception:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
 
             return "ok"
         elif status == 302:
@@ -1487,7 +1487,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                            keyboard=keyboards.exit,
                                            random_id=random.randint(1, 2147483647))
             except Exception:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
 
             return "ok"
         elif status == 305:
@@ -1763,7 +1763,7 @@ async def CheckStatus(MessageSettings, UserParams):
         sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
         cursorR.execute(sql)
 
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         connection.commit()
         conn.commit()
         return "no"
