@@ -3,6 +3,7 @@ import datetime
 import os
 import traceback
 import signal
+import sys
 
 from base import Bot
 from botkai.classes import conn, cursor, cursorR, connection
@@ -13,19 +14,23 @@ def run():
 
     bot = Bot(os.getenv('VK_TOKEN'), 7)
     try:
-        print('bot has been started')
+        sys.stdout.write('bot has been started')
         loop.create_task(bot.start())
         loop.run_forever()
+        sys.stdout.flush()
     except KeyboardInterrupt:
-        print("\nstopping", datetime.datetime.now())
+        sys.stdout.write("\nstopping", datetime.datetime.now())
         loop.run_until_complete(bot.stop())
-        print('bot has been stopped', datetime.datetime.now())
+        sys.stdout.write('bot has been stopped', datetime.datetime.now())
+        sys.stdout.flush()
     except:
-        print('Ошибка:\n', traceback.format_exc())
+        sys.stdout.write('Ошибка:\n', traceback.format_exc())
+        sys.stdout.flush()
 
 
 def signal_handler(signal, frame):
-    print('programm is down ', signal)
+    sys.stdout.write('programm is down ', signal)
+    sys.stdout.flush()
     cursor.close()
     cursorR.close()
     conn.close()
@@ -36,13 +41,16 @@ signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == '__main__':
     try:
-        print('programm is running')
+        sys.stdout.write('programm is running')
+        sys.stdout.flush()
         run()
     except:
-        print('Ошибка (глобальная):\n', traceback.format_exc())
+        sys.stdout.write('Ошибка (глобальная):\n', traceback.format_exc())
+        sys.stdout.flush()
     finally:
         cursor.close()
         cursorR.close()
         conn.close()
         connection.close()
-        print('programm is down')
+        sys.stdout.write('programm is crashed')
+        sys.stdout.flush()
