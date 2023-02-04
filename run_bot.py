@@ -19,17 +19,17 @@ def run():
         loop.run_forever()
         sys.stdout.flush()
     except KeyboardInterrupt:
-        sys.stdout.write("\nstopping\n", datetime.datetime.now())
+        sys.stdout.write("\nstopping\n", str(datetime.datetime.now()))
         loop.run_until_complete(bot.stop())
-        sys.stdout.write('bot has been stopped\n', datetime.datetime.now())
+        sys.stdout.write('bot has been stopped\n', str(datetime.datetime.now()))
         sys.stdout.flush()
     except:
-        sys.stdout.write('\nОшибка:\n', traceback.format_exc())
+        sys.stdout.write('\nОшибка:\n', str(traceback.format_exc()))
         sys.stdout.flush()
 
 
 def signal_handler(signal, frame):
-    sys.stdout.write('\nprogramm is down \n', signal)
+    sys.stdout.write('\nprogramm is down \n', str(signal))
     sys.stdout.flush()
     cursor.close()
     cursorR.close()
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         sys.stdout.flush()
         run()
     except:
-        sys.stdout.write('\nОшибка (глобальная):\n', traceback.format_exc())
+        sys.stdout.write('\nОшибка (глобальная):\n', str(traceback.format_exc()))
         sys.stdout.flush()
     finally:
         cursor.close()
