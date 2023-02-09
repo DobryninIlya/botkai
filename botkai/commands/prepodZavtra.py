@@ -18,20 +18,20 @@ async def info(MessageSettings, user):
     login = user.login
     id = MessageSettings.getId()
     try:
-        Timetable = await showTimetablePrepod(login, 2, user)
+        Timetable = await showTimetablePrepod(login, 1, user)
         if Timetable:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Расписание на послезавтра:\n" + Timetable,
+                                   message="Расписание на завтра:\n" + Timetable,
                                    keyboard=keyboards.getMainKeyboard(user.role),
                                    random_id=random.randint(1, 2147483647))
         else:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Послезавтра можно отдохнуть :)",
+                                   message="Завтра можно отдохнуть :)",
                                    keyboard=keyboards.getMainKeyboard(user.role),
                                    random_id=random.randint(1, 2147483647))
     except Exception as E:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Послезавтра можно отдохнуть :]",
+                               message="Завтра можно отдохнуть :]",
                                keyboard=keyboards.getMainKeyboard(user.role),
                                random_id=random.randint(1, 2147483647))
 
@@ -48,9 +48,9 @@ async def showTimetablePrepod(login, tomorrow=0, user=None):
                                           params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                   "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
                 response = await response.json(content_type='text/html')
-        if str(response.status_code) != '200':
-            return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(
-                response.status_code) + " &#9888;"
+        # if str(response.status_code) != '200':
+        #     return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(
+        #         response.status_code) + " &#9888;"
         if len(response) == 0:
             return "\n&#10060;\tРасписание еще не доступно.&#10060;"
         response = response[str(datetime.date(today.year, today.month, today.day).isoweekday())]

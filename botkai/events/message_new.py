@@ -255,7 +255,6 @@ async def IsRegistred(MessageSettings, UserParams):
                 today = datetime.date.today()
                 role = 0
                 if body == "Преподаватель":
-                    return
                     role = 2
                 elif body == "Студент":
                     role = 1

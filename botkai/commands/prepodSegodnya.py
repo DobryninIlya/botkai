@@ -18,7 +18,7 @@ async def info(MessageSettings, user):
     login = user.login
     id = MessageSettings.getId()
     try:
-        Timetable = await showTimetablePrepod(login, 2, user=None)
+        Timetable = await showTimetablePrepod(login, 0, user)
         if Timetable:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание на сегодня:\n" + Timetable,
