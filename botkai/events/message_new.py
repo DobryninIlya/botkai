@@ -356,7 +356,7 @@ async def IsRegistred(MessageSettings, UserParams):
 
                     if realgroup > 1000 and realgroup < 100000 and group:
                         if realgroup> 1100 and realgroup<10000:
-                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
+                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ ", role=1 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -435,13 +435,12 @@ async def IsRegistred(MessageSettings, UserParams):
                                                      params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                                "p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=10) as response:
                             response = await response.json(content_type='text/html')
-                    print(response)
-                    # response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
                     if not len(response):
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                message="Расписание для вас отсутствует на сайте. Повторите ввод.Возможно логин введен неверно.",
                                                keyboard=keyboards.get_undo,
                                                random_id=random.randint(1, 2147483647))
+                        return
                     else:
                         sql = "UPDATE Status SET status = 5 WHERE id_vk = " + str(id) + ";"
                         cursorR.execute(sql)
@@ -468,7 +467,10 @@ async def IsRegistred(MessageSettings, UserParams):
                         async with await session.post(
                         'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
                         '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
-                        'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body, timeout=15) as response:
+                        'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body,
+                                headers={'Content-Type': "application/x-www-form-urlencoded",
+                                         "user-agent": "BOT RASPISANIE v.1"},
+                                timeout=15) as response:
                             response = await response.json(content_type='text/html')
 
                     if not len(response):

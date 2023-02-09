@@ -8,7 +8,6 @@ import requests
 
 from .. import classes as command_class
 
-
 from ..classes import vk, cursor, connection
 from ..keyboards import GetButtonTask
 
@@ -20,7 +19,7 @@ frazi = ["Можно сходить в кино 😚", "Можно почита�
          "Можно встретиться с друзьями 😚"]
 
 
-async def showTimetable(groupId, tomorrow=0,MessageSettings=None, user=None):
+async def showTimetable(groupId, tomorrow=0, MessageSettings=None, user=None):
     user_potok = user.potokLecture
     try:
         isNormal, response = await getResponse(groupId, MessageSettings, user)
@@ -137,7 +136,8 @@ async def getResponse(groupId, MessageSettings=None, user=None):
         try:
             async with aiohttp.ClientSession() as session:
                 async with await session.post(BASE_URL, data="groupId=" + str(groupId),
-                                              headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
+                                              headers={'Content-Type': "application/x-www-form-urlencoded",
+                                                       "user-agent": "BOT RASPISANIE v.1"},
                                               params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                       "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
                                               timeout=3) as response:
@@ -163,7 +163,8 @@ async def getResponse(groupId, MessageSettings=None, user=None):
             try:
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL, data="groupId=" + str(groupId),
-                                                  headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
+                                                  headers={'Content-Type': "application/x-www-form-urlencoded",
+                                                           "user-agent": "BOT RASPISANIE v.1"},
                                                   params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                           "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
                                                   timeout=3) as response:
@@ -182,7 +183,8 @@ async def getResponse(groupId, MessageSettings=None, user=None):
                 try:
                     async with aiohttp.ClientSession() as session:
                         async with await session.post(BASE_URL, data="groupId=" + str(groupId),
-                                                      headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
+                                                      headers={'Content-Type': "application/x-www-form-urlencoded",
+                                                               "user-agent": "BOT RASPISANIE v.1"},
                                                       params={
                                                           "p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                           "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
@@ -236,7 +238,7 @@ async def info(MessageSettings, user):
     try:
         day = MessageSettings.payload["day"]
     except:
-        pass
+        return
     if not day:
         day = getDayId(MessageSettings.getText().lower())
     today = datetime.date.today()
@@ -262,7 +264,7 @@ async def info(MessageSettings, user):
         adv = "\n❗ [Объявление] " + MessageSettings.GetAdv(date, user.groupId) + "\n"
 
     try:
-        Timetable = await showTimetable(user.groupId, date_day,MessageSettings, user)
+        Timetable = await showTimetable(user.groupId, date_day, MessageSettings, user)
         if Timetable:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Расписание\n" + Timetable + adv + task,
