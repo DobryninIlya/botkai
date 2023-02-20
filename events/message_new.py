@@ -289,7 +289,7 @@ async def IsRegistred(MessageSettings, UserParams):
                     cursor.execute(sql)
                     connection.commit()
                 except Exception as E:
-                    print('Ошибка commit:\n', traceback.format_exc())
+                    print('Ошибка commit:\n', traceback.format_exc(), flush=True)
                 if role == 1 or role == 3:
                     
                     sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
@@ -590,7 +590,6 @@ async def showGroupId(groupNumber, MessageSettings=None):
         date = datetime.date(today.year, today.month, today.day)
 
         if date_update == date:
-            print("Номер группы взят из кэша, т.к. последнее обновление сегодня, ", date)
             return group
         else:
             async with aiohttp.ClientSession() as session:
@@ -700,15 +699,15 @@ async def InBase(id): ### Проверка на зарегестрированн
         return False
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc(), flush=True)
-        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Что-то пошло не так.",
-                               random_id=random.randint(1, 2147483647))
-        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               sticker_id=6890,
-                               random_id=random.randint(1, 2147483647))
-        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Перезагружаюсь...",
-                               random_id=random.randint(1, 2147483647))
+        # await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+        #                        message="Что-то пошло не так.",
+        #                        random_id=random.randint(1, 2147483647))
+        # await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+        #                        sticker_id=6890,
+        #                        random_id=random.randint(1, 2147483647))
+        # await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+        #                        message="Перезагружаюсь...",
+        #                        random_id=random.randint(1, 2147483647))
         print("GLOBAL ERROR - RESTART ", flush=True)
         sys.exit(1)
 
