@@ -1,0 +1,117 @@
+{
+    "type": "carousel",
+    "elements": [{
+            "title": "Сообщество",
+            "description": "Сообщество во ВКонтакте",
+            "photo_id": "-196887204_457239150",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "official_group_link"},
+                    "label": "Сообщество",
+                    "link": "https://vk.com/botraspisanie"
+                }
+            }]
+        },
+        {
+            "title": "Разработчик",
+            "description": "Написать разработчику",
+            "photo_id": "-196887204_457239154",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "admin_link"},
+                    "label": "Связаться с разработчиком",
+                    "link": "https://vk.com/ilya_dobrynin"
+                }
+            }]
+        },
+        {
+            "title": "Телеграм",
+            "description": "Бот в телеграме",
+            "photo_id": "-196887204_457239177",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "telegram_repo_link"},
+                    "label": "Telegram bot",
+                    "link": "https://t.me/knrtukaibot"
+                }
+            }]
+        },        {
+            "title": "GitHub",
+            "description": "Open-Source репозиторий",
+            "photo_id": "-196887204_457239157",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "github_repo_link"},
+                    "label": "Guthub репозиторий проекта",
+                    "link": "https://github.com/DobryninIlya/botkai"
+                }
+            }]
+        },
+        {
+            "title": "Помощь",
+            "description": "Помощь в написании дипломных работ",
+            "photo_id": "-196887204_457239163",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "text",
+                    "payload": {"button": "commerce"},
+                    "label": "Подробнее"
+                }
+            }]
+        },
+        {
+            "title": "Дипломная работа",
+            "description": "Полный текст дипломной работы данного проекта",
+            "photo_id": "-196887204_457239164",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_link",
+                    "payload": {"button": "diploma"},
+                    "label": "Подробнее",
+                    "link": "https://vk.com/doc159773942_600635288"
+
+                }
+            }]
+        },
+        {
+            "title": "Справка",
+            "description": "Ответы на многие вопросы содержаться здесь",
+            "photo_id": "-196887204_457239162",
+            "action": {
+                "type": "open_photo"
+            },
+            "buttons": [{
+                "action": {
+                    "type": "open_app",
+                    "app_id": "7505621",
+                    "owner_id": "182372147",
+                    "payload": "",
+                    "label": "Графическая справка",
+                    "hash": ""
+                }
+            }]
+        }
+    ]
+}
