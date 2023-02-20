@@ -42,7 +42,7 @@ def getResponse(groupId):
         try:
 
             response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                     headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                     headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                      params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                              "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
             sql = "INSERT INTO saved_timetable VALUES ({}, '{}', '{}')".format(groupId, datetime.date.today(),
@@ -64,7 +64,7 @@ def getResponse(groupId):
         if date_update + datetime.timedelta(days=2) < today:
             try:
                 response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                          params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                  "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
                 assert json.dumps(response.json()), "Расписание имеет некорректную форму"
@@ -85,7 +85,7 @@ def getResponse(groupId):
             if len(result) < 10:
                 try:
                     response = requests.post(BASE_URL, data="groupId=" + str(groupId),
-                                             headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                             headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                              params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                      "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}, timeout=3)
                     assert json.dumps(response.json()), "Расписание имеет некорректную форму"

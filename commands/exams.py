@@ -19,23 +19,23 @@ async def info(MessageSettings, user):
     id = MessageSettings.getId()
 
     try:
-        Timetable = await showTimetable(group)
-        if Timetable:
+        respCode, Timetable = await showTimetable(group)
+        if respCode:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Расписание экзаменов:\n" + Timetable,
+                                   message="Расписание экзаменов:\n" + str(Timetable),
                                    random_id=random.randint(1, 2147483647))
         else:
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Расписание экзаменов недоступно.",
+                                   message="Расписание экзаменов недоступно. " + str(Timetable),
                                    random_id=random.randint(1, 2147483647))
     except TypeError as E:
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Расписание экзаменов недоступно.",
+                               message="Расписание экзаменов недоступно. :(",
                                random_id=random.randint(1, 2147483647))
     except Exception as E:
         print('Ошибка:\n', traceback.format_exc())
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Расписание экзаменов недоступно.",
+                               message="Расписание экзаменов недоступно.(",
                                random_id=random.randint(1, 2147483647))
 
 
@@ -46,31 +46,27 @@ async def showTimetable(groupId):
     try:
         async with aiohttp.ClientSession() as session:
             async with await session.post(BASE_URL, data="groupId=" + str(groupId),
-                                          headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                          headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                           params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10",
                                                   "p_p_lifecycle": "2", "p_p_resource_id": "examSchedule"},
                                           timeout=7) as response:
-                response = await response.json()
-        print("TEST")
-        print("Response: ", response.status_code)
-        if str(response.status_code) != '200':
-            return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(
-                response.status_code) + " &#9888;"
+                response = await response.json(content_type='text/html')
         if len(response) == 0:
-            return "\n&#10060;\tНет элементов для отображения.&#10060;"
+            return True, "\n&#10060;\tНет элементов для отображения.&#10060;"
 
         result = ''
         for elem in response:
             result += str(chr(10148)) + (elem["examDate"]).lstrip().rstrip() + " " + (
             elem["examTime"]).lstrip().rstrip() + " " + (elem["disciplName"]).lstrip().rstrip() + " " + (
                       elem["audNum"]).lstrip().rstrip() + " ауд. " + (elem["buildNum"]).lstrip().rstrip() + " зд. \n"
-        return result
+        return True, result
     except ConnectionError as err:
         return False, "&#9888;Ошибка подключения к серверу типа ConnectionError. Вероятно, сервера КАИ были выведены из строя.&#9888;"
     except aiohttp.ServerTimeoutError as err:
         return False, "&#9888;Ошибка подключения к серверу типа Timeout. Вероятно, сервера КАИ перегружены.&#9888;"
     except:
-        return False, ""
+        print('Ошибка exam:\n', traceback.format_exc())
+        return False, "Ошибка получения расписания экзаменов :(\n" + str(traceback.format_exc())
 
 
 command = command_class.Command()

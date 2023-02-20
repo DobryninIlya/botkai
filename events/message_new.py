@@ -88,7 +88,7 @@ def DeleteOldTask():
 try:
     DeleteOldTask()
 except:
-    print('Ошибка:\n', traceback.format_exc())
+    print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
 async def textMessage(MessageSettings):
@@ -115,7 +115,7 @@ async def textMessage(MessageSettings):
                                message=mesg,
                                random_id=random.randint(1, 2147483647))
     except Exception:
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Я не понял тебя",
                                keyboard=keyboards.getMainKeyboard(UserParams.role),
@@ -132,6 +132,7 @@ async def message_new(request, lp_obj=None):
             message_params = json.loads(request.body)
         MessageSettings = classes.Message()
         await MessageSettings.update(lp_obj)
+
         if MessageSettings.peer_id > 2000000000:
             sh = await Spam_Handler(MessageSettings, vk).handle_text_message()
             return "ok"
@@ -204,7 +205,7 @@ async def message_new(request, lp_obj=None):
         sys.exit(1)
         os.abort()
     except:  
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
 
     return "ok"
 
@@ -241,14 +242,16 @@ async def IsRegistred(MessageSettings, UserParams):
                                        sticker_id=6864,
                                        random_id=random.randint(1, 2147483647))
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                       message="Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню",
+                                       message="Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню" +
+                                       "Временно не доступна регистрация для преподавателей и родителей :(",
                                        keyboard=keyboards.roleMenu,
                                        random_id=random.randint(1, 2147483647))
                 sql = "INSERT INTO Status VALUES (" + str(id) + ", 3);"
                 cursorR.execute(sql)
                 conn.commit()
                 return False
-            elif StatusR(id) == 3:
+            status = StatusR(id)
+            if status == 3:
                 
                 today = datetime.date.today()
                 role = 0
@@ -257,6 +260,7 @@ async def IsRegistred(MessageSettings, UserParams):
                 elif body == "Студент":
                     role = 1
                 elif body == "Родитель":
+                    return
                     role = 3
                 elif body == "Абитуриент (поступающий)":
                     role = 4
@@ -314,7 +318,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                            keyboard=keyboards.getMainKeyboard(role = 4),
                                            random_id=random.randint(1, 2147483647))
                 return False
-            elif StatusR(id) == 1:
+            elif status == 1:
                 if body.lower() == "справка":
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="По вопросам сотрудничества писать на почту mr.woodysimpson@gmail.com \n Чтобы позвать администратора, введите Позвать.",
@@ -345,14 +349,14 @@ async def IsRegistred(MessageSettings, UserParams):
                                        keyboard=keyboards.get_undo,
                                        random_id=random.randint(1, 2147483647))
                 return False
-            elif StatusR(id) == 2:
+            elif status == 2:
                 try:
                     realgroup = int(body)
                     group = await showGroupId(realgroup)
 
                     if realgroup > 1000 and realgroup < 100000 and group:
                         if realgroup> 1100 and realgroup<10000:
-                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ " WHERE ID_VK = " + str(id) + ";"
+                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ ", role=1 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -419,25 +423,24 @@ async def IsRegistred(MessageSettings, UserParams):
                        message="Такая группа не существует. Повторите ввод или выйдите в меню.",
                        keyboard=keyboards.exit,
                        random_id=random.randint(1, 2147483647))
-                    print('Ошибка:\n', traceback.format_exc())
+                    print('Ошибка:\n', traceback.format_exc(), flush=True)
                     return False
-            elif StatusR(id) == 4:
+            elif status == 4:
                 try:
 
                     body = body.lower()
                     async with aiohttp.ClientSession() as session:
                         async with await session.post(BASE_URL_STAFF, data = "prepodLogin=" + str(body),
-                                                     headers = {'Content-Type': "application/x-www-form-urlencoded"},
+                                                     headers = {'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                                      params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                                "p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=10) as response:
                             response = await response.json(content_type='text/html')
-                    print(response)
-                    # response = requests.post( BASE_URL_STAFF, data = "prepodLogin=" + str(body), headers = {'Content-Type': "application/x-www-form-urlencoded"}, params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10","p_p_lifecycle":"2","p_p_resource_id":"schedule"} )
                     if not len(response):
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                message="Расписание для вас отсутствует на сайте. Повторите ввод.Возможно логин введен неверно.",
                                                keyboard=keyboards.get_undo,
                                                random_id=random.randint(1, 2147483647))
+                        return
                     else:
                         sql = "UPDATE Status SET status = 5 WHERE id_vk = " + str(id) + ";"
                         cursorR.execute(sql)
@@ -456,16 +459,18 @@ async def IsRegistred(MessageSettings, UserParams):
                                            keyboard=keyboards.get_undo,
                                            random_id=random.randint(1, 2147483647))
                     return False
-            elif StatusR(id) == 5:
+            elif status == 5:
                 try:
 
                     body = body.lower()
-                    # print(str(body))
                     async with aiohttp.ClientSession() as session:
                         async with await session.post(
                         'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
                         '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
-                        'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body, timeout=15) as response:
+                        'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body,
+                                headers={'Content-Type': "application/x-www-form-urlencoded",
+                                         "user-agent": "BOT RASPISANIE v.1"},
+                                timeout=15) as response:
                             response = await response.json(content_type='text/html')
 
                     if not len(response):
@@ -495,6 +500,11 @@ async def IsRegistred(MessageSettings, UserParams):
                                                        message="Регистрация успешно завершена.",
                                                        keyboard=keyboards.getMainKeyboard(2),
                                                        random_id=random.randint(1, 2147483647))
+                                await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                       message="[Уведомление] Эта версия довольно нестабильна. Рекомендую пользоваться чат-ботов в Телеграм https://t.me/knrtukaibot",
+                                                       keyboard=keyboards.getMainKeyboard(2),
+                                                       random_id=random.randint(1, 2147483647))
+                                return
                         if not name:
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Совпадения не найдены. Повторите ввод. \nВведите логин без лишних символов.",
@@ -506,10 +516,10 @@ async def IsRegistred(MessageSettings, UserParams):
                             return
 
                 except Exception as E:
-                    print('Ошибка:\n', traceback.format_exc())
+                    print('Ошибка:\n', traceback.format_exc(), flush=True)
                     return False
 
-            elif StatusR(id) == 15:
+            elif status == 15:
                 try:
                     if body.lower() == "позвать":
                         await vk.messages.send(peer_id=159773942,
@@ -571,7 +581,7 @@ async def getGroupsResponse(groupNumber):
         return False, False
 
 
-async def showGroupId(groupNumber):
+async def showGroupId(groupNumber, MessageSettings=None):
     try:
         group, date_update = await getGroupsResponse(groupNumber)
         if not group:
@@ -584,20 +594,20 @@ async def showGroupId(groupNumber):
             return group
         else:
             async with aiohttp.ClientSession() as session:
-                async with await session.post(
+                async with await session.get(
                 BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
-                headers={'Content-Type': "application/x-www-form-urlencoded"},
+                headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                 params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
                         "p_p_resource_id": "schedule"}, timeout=8) as response:
                     response = await response.json(content_type='text/html')
-            if str(response.status_code) != '200':
+            if str(response.status) != '200':
                 raise ConnectionError
             cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response),date))
             connection.commit()
         group, _ = await getGroupsResponse(groupNumber)
         if group:
             return group
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         return False
 
     except IndexError:
@@ -624,13 +634,13 @@ async def showGroupId(groupNumber):
                                    random_id=random.randint(1, 2147483647))
             return False
         except:
-            print('Ошибка:\n', traceback.format_exc())
+            print('Ошибка:\n', traceback.format_exc(), flush=True)
         return False
     except:
         group, _ = await getGroupsResponse(groupNumber)
         if group:
             return group
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         return False
 
 
@@ -674,7 +684,7 @@ async def InBase(id): ### Проверка на зарегестрированн
         try:
             login = res[1]
         except Exception as E:
-            print('Ошибка:\n', traceback.format_exc())
+            print('Ошибка:\n', traceback.format_exc(), flush=True)
         if login and res[2].lstrip().rstrip():
             return True
 
@@ -689,7 +699,7 @@ async def InBase(id): ### Проверка на зарегестрированн
             return True
         return False
     except Exception as E:
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Что-то пошло не так.",
                                random_id=random.randint(1, 2147483647))
@@ -699,7 +709,7 @@ async def InBase(id): ### Проверка на зарегестрированн
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Перезагружаюсь...",
                                random_id=random.randint(1, 2147483647))
-        print("GLOBAL ERROR - RESTART ")
+        print("GLOBAL ERROR - RESTART ", flush=True)
         sys.exit(1)
 
 
@@ -766,7 +776,7 @@ async def CheckStatus(MessageSettings, UserParams):
 
             except Exception as E:
 
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
             return "ok"
         elif status == 46: # ADMIN DISTRIBUTION
 
@@ -860,7 +870,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 conn.commit()
                 return "ok"
             except:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Некорректно. Повтори ввод",
                                        random_id=random.randint(1, 2147483647))
@@ -1173,7 +1183,7 @@ async def CheckStatus(MessageSettings, UserParams):
             body = MessageSettings.getText()
             try:
                 realgroup = int(body)
-                group = await showGroupId(realgroup)
+                group = await showGroupId(realgroup, MessageSettings)
                 
                 if realgroup > 1000 and realgroup < 100000 and group:
                     group = str(group)
@@ -1210,7 +1220,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                            random_id=random.randint(1, 2147483647))
 
             except Exception as E:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Такая группа не существует. Повторите ввод или выйдите в меню.",
                                        keyboard=keyboards.exit,
@@ -1328,7 +1338,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 id = MessageSettings.getId()
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                          params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                  "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
                         response = await response.json(content_type='text/html')
@@ -1375,13 +1385,13 @@ async def CheckStatus(MessageSettings, UserParams):
                         conn.commit()
                         return "ok"
                 except:
-                    print('Ошибка:\n', traceback.format_exc())
+                    print('Ошибка:\n', traceback.format_exc(), flush=True)
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="&#9888;Введите корректный номер группы!&#9888;",
                                            keyboard=keyboards.exit,
                                            random_id=random.randint(1, 2147483647))
             except Exception:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
 
             return "ok"
         elif status == 302:
@@ -1428,7 +1438,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 id = MessageSettings.getId()
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                          params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                  "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
                         response = await response.json(content_type='text/html')
@@ -1484,7 +1494,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                            keyboard=keyboards.exit,
                                            random_id=random.randint(1, 2147483647))
             except Exception:
-                print('Ошибка:\n', traceback.format_exc())
+                print('Ошибка:\n', traceback.format_exc(), flush=True)
 
             return "ok"
         elif status == 305:
@@ -1760,7 +1770,7 @@ async def CheckStatus(MessageSettings, UserParams):
         sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
         cursorR.execute(sql)
 
-        print('Ошибка:\n', traceback.format_exc())
+        print('Ошибка:\n', traceback.format_exc(), flush=True)
         connection.commit()
         conn.commit()
         return "no"

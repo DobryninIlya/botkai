@@ -15,7 +15,8 @@ async def info(MessageSettings, user):
                            random_id=random.randint(1, 2147483647))
     i = 1
     async with aiohttp.ClientSession() as session:
-        async with await session.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id=user.groupId)) as response:
+        async with await session.post("https://kai.ru/infoClick/-/info/group?id={id}".format(id=user.groupId),
+                                      headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"}) as response:
             response = await response.text()
     soup = BeautifulSoup(response, 'lxml')
 

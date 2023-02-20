@@ -28,13 +28,13 @@ async def info(MessageSettings, user):
 async def showAllTimetable(groupId, login):
     async with aiohttp.ClientSession() as session:
         async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(login),
-                                      headers={'Content-Type': "application/x-www-form-urlencoded"},
+                                      headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                       params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                               "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
             response = await response.json(content_type='text/html')
-    if str(response.status_code) != '200':
-        return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(
-            response.status_code) + " &#9888;"
+    # if str(response.status_code) != '200':
+    #     return "&#9888; Возникла ошибка при подключении к серверам. \nКод ошибки: " + str(
+    #         response.status_code) + " &#9888;"
     if len(response) == 0:
         return "\n&#10060;\tРасписание еще не доступно.&#10060;"
     result = ''
