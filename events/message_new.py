@@ -702,14 +702,8 @@ async def InBase(id): ### Проверка на зарегестрированн
         # await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
         #                        message="Что-то пошло не так.",
         #                        random_id=random.randint(1, 2147483647))
-        # await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-        #                        sticker_id=6890,
-        #                        random_id=random.randint(1, 2147483647))
-        # await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-        #                        message="Перезагружаюсь...",
-        #                        random_id=random.randint(1, 2147483647))
+
         print("GLOBAL ERROR - RESTART ", flush=True)
-        sys.exit(1)
 
 
 
