@@ -501,7 +501,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                                        keyboard=keyboards.getMainKeyboard(2),
                                                        random_id=random.randint(1, 2147483647))
                                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                                       message="[Уведомление] Эта версия довольно нестабильна. Рекомендую пользоваться чат-ботов в Телеграм https://t.me/knrtukaibot",
+                                                       message="[Уведомление] Эта версия довольно нестабильна. Рекомендую пользоваться чат-ботом в Телеграм https://t.me/knrtukaibot . Вы также можете предложить свои идеи для развития бота для преподавателей.",
                                                        keyboard=keyboards.getMainKeyboard(2),
                                                        random_id=random.randint(1, 2147483647))
                                 return
