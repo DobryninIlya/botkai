@@ -1,5 +1,47 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
+=======
+*.pyc
+*.log
+*.pot
+db.sqlite3
+myvenv
+env
+venv
+virtual environment
+__pycache__
+.vscode
+local_settings.py
+.DS_Store
+/.idea
+/.vscode
+*~
+Bez_imeni-1.png
+./idea/
+*s.xml
+*.ics
+
+# Created by https://www.toptal.com/developers/gitignore/api/django
+# Edit at https://www.toptal.com/developers/gitignore?templates=django
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+
+# If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
+# in your Git repository. Update and uncomment the following line accordingly.
+# <django-project-name>/staticfiles/
+
+### Django.Python Stack ###
+# Byte-compiled / optimized / DLL files
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 *.py[cod]
 *$py.class
 
@@ -14,8 +56,11 @@ dist/
 downloads/
 eggs/
 .eggs/
+<<<<<<< HEAD
 lib/
 lib64/
+=======
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 parts/
 sdist/
 var/
@@ -50,6 +95,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+<<<<<<< HEAD
 
 # Translations
 *.mo
@@ -60,6 +106,14 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+=======
+pytestdebug.log
+
+# Translations
+*.mo
+
+# Django stuff:
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 
 # Flask stuff:
 instance/
@@ -70,6 +124,10 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+<<<<<<< HEAD
+=======
+doc/_build/
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 
 # PyBuilder
 target/
@@ -91,6 +149,12 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
+<<<<<<< HEAD
+=======
+# poetry
+#poetry.lock
+
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
@@ -102,13 +166,23 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+<<<<<<< HEAD
 .env
 .venv
+=======
+# .env
+.env/
+.venv/
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+<<<<<<< HEAD
+=======
+pythonenv*
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 
 # Spyder project settings
 .spyderproject
@@ -127,6 +201,26 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
 .db
 .idea
 templates/
+=======
+
+# pytype static type analyzer
+.pytype/
+
+# operating system-related files
+*.DS_Store #file properties cache/storage on macOS
+Thumbs.db #thumbnail cache on Windows
+
+# profiling data
+.prof
+
+--wait.txt
+.db
+.pyc
+# End of https://www.toptal.com/developers/gitignore/api/django
+
+
+>>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
