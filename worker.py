@@ -21,16 +21,15 @@ class Worker:
             if event["type"] == 'message_new':
                 await message_new(0, event)
         except:
-            print('Ошибка:\n', traceback.format_exc(), flush=True)
+            print('Ошибка хэндлера:\n', traceback.format_exc(), flush=True)
 
 
     async def _worker(self):
         while True:
             upd = await self.queue.get()
-            try:
-                await self.handle_update(upd)
-            finally:
-                self.queue.task_done()
+            await self.handle_update(upd)
+
+        self.queue.task_done()
 
     async def start(self):
         self._tasks = [asyncio.create_task(self._worker()) for _ in range(self.concurrent_workers)]

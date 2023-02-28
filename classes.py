@@ -30,7 +30,7 @@ class vk_interface:
         TokenSession.API_VERSION = '5.103'
         self.session = TokenSession(access_token=self.token)
         self.api = API(self.session)
-        self.vk_client = BotsLongPoll(self.session, group_id=196887204)
+        self.vk_client = BotsLongPoll(self.session, group_id=196887204, timeout=10)
 
 
 vk_interface_obj = vk_interface()

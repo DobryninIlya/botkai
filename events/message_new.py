@@ -206,6 +206,7 @@ async def message_new(request, lp_obj=None):
         os.abort()
     except:  
         print('Ошибка:\n', traceback.format_exc(), flush=True)
+        return
 
     return "ok"
 
