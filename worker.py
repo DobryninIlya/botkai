@@ -28,7 +28,7 @@ class Worker:
         while True:
             upd = await self.queue.get()
             await self.handle_update(upd)
-
+        print("Worker is done the task", flush=True)
         self.queue.task_done()
 
     async def start(self):

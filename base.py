@@ -15,5 +15,6 @@ class Bot:
         await self.worker.start()
 
     async def stop(self):
+        print("stopping Bot", flush=True)
         await self.poller.stop()
         await self.worker.stop()

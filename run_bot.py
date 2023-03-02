@@ -45,12 +45,10 @@ if __name__ == '__main__':
         sys.stdout.flush()
         run()
     except:
-        sys.stdout.write('\nОшибка (глобальная):\n', str(traceback.format_exc()))
-        sys.stdout.flush()
+        print('\nОшибка (глобальная):\n', str(traceback.format_exc()), flush=True)
     finally:
         cursor.close()
         cursorR.close()
         conn.close()
         connection.close()
-        sys.stdout.write('\nprogramm is crashed\n')
-        sys.stdout.flush()
+        print('\nprogramm is crashed\n', flush=True)
