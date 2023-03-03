@@ -188,7 +188,37 @@ async def message_new(request, lp_obj=None):
                                 key = k
                                 MessageSettings.command_key = k
                                 if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
-                                    await c.process(MessageSettings, UserParams)
+                                    try:
+                                        await c.process(MessageSettings, UserParams)
+                                    except asyncio.exceptions.TimeoutError:
+                                        print(
+                                            "ОШИБКА ERROR: Ошибка подключения к серверу ВК \n aiohttp.client_exceptions.ClientConnectorError",
+                                            flush=True)
+                                        try:
+                                            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                                   message="Что-то пошло не так.",
+                                                                   random_id=random.randint(1, 2147483647))
+                                            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                                   sticker_id=6890,
+                                                                   random_id=random.randint(1, 2147483647))
+                                        except:
+                                            pass
+                                        return
+                                    except aiohttp.client_exceptions.ClientConnectorError:
+                                        print("ОШИБКА ERROR: Ошибка подключения к интернету \n aiohttp.client_exceptions.ClientConnectorError", flush=True)
+                                        try:
+                                            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                                   message="Что-то пошло не так.",
+                                                                   random_id=random.randint(1, 2147483647))
+                                            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                                   sticker_id=6890,
+                                                                   random_id=random.randint(1, 2147483647))
+                                        except:
+                                            pass
+                                        return
+                                    except:
+                                        pass
+
                                     return "ok"
                 if distance < len(MessageSettings.getText())*0.4 and command.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in command.role):
                     mesg = 'Я понял ваш запрос как "%s"' % key
