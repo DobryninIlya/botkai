@@ -254,7 +254,7 @@ async def IsRegistred(MessageSettings, UserParams):
                     payload = MessageSettings.payload["button"]
         except:
             pass
-        if payload == "undo_regestration":
+        if payload == "undo_regestration" or body.lower() in ["выход", 'выйти', 'назад']:
             sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
             cursorR.execute(sql)
             conn.commit()
