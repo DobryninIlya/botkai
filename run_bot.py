@@ -14,22 +14,22 @@ def run():
 
     bot = Bot(os.getenv('VK_TOKEN'), 7)
     try:
-        sys.stdout.write('bot has been started\n')
+        print('bot has been started\n')
         loop.create_task(bot.start())
         loop.run_forever()
         sys.stdout.flush()
     except KeyboardInterrupt:
-        sys.stdout.write("\nstopping\n", str(datetime.datetime.now()))
+        print("\nstopping\n", str(datetime.datetime.now()))
         loop.run_until_complete(bot.stop())
-        sys.stdout.write('bot has been stopped\n', str(datetime.datetime.now()))
+        print('bot has been stopped\n', str(datetime.datetime.now()))
         sys.stdout.flush()
     except:
-        sys.stdout.write('\nОшибка:\n', str(traceback.format_exc()))
+        print('\nОшибка:\n', str(traceback.format_exc()))
         sys.stdout.flush()
 
 
 def signal_handler(signal, frame):
-    sys.stdout.write('\nprogramm is down \n', str(signal))
+    print('\nprogramm is down \n', str(signal))
     sys.stdout.flush()
     cursor.close()
     cursorR.close()
@@ -41,7 +41,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == '__main__':
     try:
-        sys.stdout.write('programm is running\n')
+        print('programm is running\n')
         sys.stdout.flush()
         run()
     except:

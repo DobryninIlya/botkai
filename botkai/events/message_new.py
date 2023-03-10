@@ -91,36 +91,6 @@ except:
     print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
-async def textMessage(MessageSettings):
-    try:
-        # request = apiai.ApiAI("").text_request() # Токен API к Dialogflow
-        # request.lang = 'ru' # На каком языке будет послан запрос
-        # request.session_id = 'kaibot' # ID Сессии диалога (нужно, чтобы потом учить бота)
-        # request.query = MessageSettings.getText() # Посылаем запрос к ИИ с сообщением от юзера
-        # responseJson = json.loads(request.getresponse().read().decode('utf-8'))
-        # print(responseJson)
-        # response = responseJson['result']['fulfillment']['speech'] # Разбираем JSON и вытаскиваем ответ
-        # Если есть ответ от бота - присылаем юзеру, если нет - бот его не понял
-        # if response:
-        #     mesg = response
-        #     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-        #                            message=mesg,
-        #                            keyboard=keyboards.getMainKeyboard(UserParams.role),
-        #                            random_id=random.randint(1, 2147483647))
-        # else:
-        mesg = "Я не совсем понял тебя."
-        if not MessageSettings.keyboard:
-            mesg+="\nУ тебя неофициальный клиент, введи 'Команды', чтобы получить список основных команд"
-        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message=mesg,
-                               random_id=random.randint(1, 2147483647))
-    except Exception:
-        print('Ошибка:\n', traceback.format_exc(), flush=True)
-        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                               message="Я не понял тебя",
-                               keyboard=keyboards.getMainKeyboard(UserParams.role),
-                               random_id=random.randint(1, 2147483647))
-
 
 async def message_new(request, lp_obj=None):
 
@@ -146,7 +116,7 @@ async def message_new(request, lp_obj=None):
         MessageSettings.cmd_payload = [statistic_users_active, statistic_updates]
 
         if MessageSettings.peer_id != 159773942:
-            # return
+            return
             pass
         if await IsRegistred(MessageSettings, UserParams):
             UserParams.update(int(MessageSettings.id))
@@ -171,7 +141,38 @@ async def message_new(request, lp_obj=None):
                     crole = c.role
                     if button == c.payload and c.admlevel<=UserParams.getAdminLevel():
                         if UserParams.role in crole:
-                            await c.process(MessageSettings, UserParams)
+                            try:
+                                await c.process(MessageSettings, UserParams)
+                            except asyncio.exceptions.TimeoutError:
+                                print(
+                                    "ОШИБКА ERROR: Ошибка подключения к серверу ВК \n aiohttp.client_exceptions.ClientConnectorError",
+                                    flush=True)
+                                try:
+                                    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                           message="Что-то пошло не так.",
+                                                           random_id=random.randint(1, 2147483647))
+                                    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                           sticker_id=6890,
+                                                           random_id=random.randint(1, 2147483647))
+                                except:
+                                    pass
+                                return
+                            except aiohttp.client_exceptions.ClientConnectorError:
+                                print(
+                                    "ОШИБКА ERROR: Ошибка подключения к интернету \n aiohttp.client_exceptions.ClientConnectorError",
+                                    flush=True)
+                                try:
+                                    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                           message="Что-то пошло не так.",
+                                                           random_id=random.randint(1, 2147483647))
+                                    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                           sticker_id=6890,
+                                                           random_id=random.randint(1, 2147483647))
+                                except:
+                                    pass
+                                return
+                            except:
+                                pass
                         return "ok"
                 return "ok"
             else:
@@ -228,7 +229,6 @@ async def message_new(request, lp_obj=None):
                                            random_id=random.randint(1, 2147483647))
                     await command.process(MessageSettings, UserParams)
                     return "ok"
-            await textMessage(MessageSettings)
 
     except SystemExit:
         quit()
@@ -1365,17 +1365,18 @@ async def CheckStatus(MessageSettings, UserParams):
                                          headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
                                          params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
                                                  "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
+                        status = response.status
                         response = await response.json(content_type='text/html')
-                if str(response.status_code) != '200':
-                    await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                           message="&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;",
-                                           keyboard=keyboards.exit,
-                                           random_id=random.randint(1, 2147483647))
-                    sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
-                    cursorR.execute(sql)
-                    conn.commit()
-                    return "ok"
-                response = response
+
+                        if status != 200:
+                            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                                   message="&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(status),
+                                                   keyboard=keyboards.exit,
+                                                   random_id=random.randint(1, 2147483647))
+                            sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
+                            cursorR.execute(sql)
+                            conn.commit()
+                            return "ok"
                 if len(response) == 0:
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="&#9888;Не удалось запросить список ваших групп. Расписание пустое.&#9888;",
@@ -1410,10 +1411,14 @@ async def CheckStatus(MessageSettings, UserParams):
                         return "ok"
                 except:
                     print('Ошибка:\n', traceback.format_exc(), flush=True)
+                    sql = "DELETE FROM prepod_users WHERE id = " + str(id)
+                    cursorR.execute(sql)
+                    conn.commit()
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                           message="&#9888;Введите корректный номер группы!&#9888;",
+                                           message="&#9888;Номер группы некорректный! Повторите ввод. &#9888;",
                                            keyboard=keyboards.exit,
                                            random_id=random.randint(1, 2147483647))
+                    return "ok"
             except Exception:
                 print('Ошибка:\n', traceback.format_exc(), flush=True)
 
@@ -1441,7 +1446,7 @@ async def CheckStatus(MessageSettings, UserParams):
 
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()
-                sql = "DELETE FROM prepod_users WHERE id_vk = {}".format(id)
+                sql = "DELETE FROM prepod_users WHERE id = {}".format(id)
                 cursorR.execute(sql)
                 conn.commit()
                 return "ok"
@@ -1654,15 +1659,23 @@ async def CheckStatus(MessageSettings, UserParams):
             sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
             cursorR.execute(sql)
             conn.commit()
-            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+            msg_id = await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Запрос отправлен на обработку",
                                    keyboard=keyboards.exit,
                                    random_id=random.randint(1, 2147483647))
             i = 1
+
             async with aiohttp.ClientSession() as session:
-                async with await session.post(("https://kai.ru/infoClick/-/info/group?id={id}").format(id=groupId),timeout = 10) as response:
+                async with await session.post(
+                        "https://kai.ru/infoClick/-/info/group?id={id}".format(id=groupId),
+                        headers={'Content-Type': "application/x-www-form-urlencoded",
+                                 "user-agent": "BOT RASPISANIE v.1"}) as response:
                     response = await response.text()
-            soup = BeautifulSoup(response.text, 'lxml')
+            soup = BeautifulSoup(response, 'lxml')
+            if not response:
+                await vk.messages.edit(peer_id=MessageSettings.getPeer_id(),
+                                       message="Данные группы не найдены на сайте",
+                                       message_id=msg_id)
             list_students = soup.find(id="p_p_id_infoClick_WAR_infoClick10_")
             students = []
             result = ""
@@ -1683,12 +1696,6 @@ async def CheckStatus(MessageSettings, UserParams):
                     students.append(name)
 
             att = ""
-            if result == "":
-                await vk.messages.edit(peer_id=MessageSettings.getPeer_id(),
-                                       message="Данные не найдены на сайте КАИ",
-                                       keyboard=keyboards.getMainKeyboard(2),
-                                       message_id=msg_id,
-                                       random_id=random.randint(1, 2147483647))
             try:
                 att = await GetDocShedule(UserParams.groupId, MessageSettings.getPeer_id(), int(body), students)
             except:
