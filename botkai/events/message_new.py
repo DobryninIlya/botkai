@@ -116,7 +116,7 @@ async def message_new(request, lp_obj=None):
         MessageSettings.cmd_payload = [statistic_users_active, statistic_updates]
 
         if MessageSettings.peer_id != 159773942:
-            return
+            # return
             pass
         if await IsRegistred(MessageSettings, UserParams):
             UserParams.update(int(MessageSettings.id))
