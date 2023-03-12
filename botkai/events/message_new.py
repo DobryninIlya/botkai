@@ -254,6 +254,9 @@ async def IsRegistred(MessageSettings, UserParams):
                     payload = MessageSettings.payload["button"]
         except:
             pass
+        if await InBase(id):
+            return True
+
         if payload == "undo_regestration" or body.lower() in ["выход", 'выйти', 'назад']:
             sql = "UPDATE Status SET Status = 3 WHERE id_vk = {}".format(id)
             cursorR.execute(sql)
@@ -262,8 +265,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                    message="Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню",
                                    keyboard=keyboards.get_undo,
                                    random_id=random.randint(1, 2147483647))
-        if await InBase(id):
-            return True
+
         else:
             if MessageSettings.peer_id > 2_000_000_000:
                 return True
@@ -281,7 +283,7 @@ async def IsRegistred(MessageSettings, UserParams):
                 conn.commit()
                 return False
             elif StatusR(id) == 3:
-                
+
                 today = datetime.date.today()
                 role = 0
                 if body == "Преподаватель":
@@ -310,7 +312,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                            keyboard=keyboards.roleMenu,
                                            random_id=random.randint(1, 2147483647))
                     return False
-                    
+
                 try:
                     sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, \"dateChange\", balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affiliate)" \
                           " VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"'"\
@@ -320,7 +322,7 @@ async def IsRegistred(MessageSettings, UserParams):
                 except Exception as E:
                     print('Ошибка commit:\n', traceback.format_exc())
                 if role == 1 or role == 3:
-                    
+
                     sql = "UPDATE Status SET Status = 1 WHERE ID_VK = " + str(id) + ";"
                     cursorR.execute(sql)
                     conn.commit()
@@ -369,7 +371,7 @@ async def IsRegistred(MessageSettings, UserParams):
                 today = datetime.date.today()
                 sql = "UPDATE users SET name = '" + str(body) + "' WHERE ID_VK = " + str(id)
                 cursor.execute(sql)
-                
+
                 sql = "UPDATE Status SET Status = 2 WHERE ID_VK = " + str(id) + ";"
                 cursorR.execute(sql)
                 conn.commit()
@@ -573,8 +575,8 @@ async def IsRegistred(MessageSettings, UserParams):
                         cursorR.execute(sql)
                         conn.commit()
                         return False
-                            
-                                
+
+
                     return False
                 except Exception as E:
                     pass
