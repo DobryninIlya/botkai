@@ -243,9 +243,12 @@ async def message_new(request, lp_obj=None):
                                            random_id=random.randint(1, 2147483647))
                     await command.process(MessageSettings, UserParams)
                     return "ok"
-
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message="Я не понял тебя",
+                                   keyboard=keyboards.getMainKeyboard(UserParams.role),
+                                   random_id=random.randint(1, 2147483647))
+            return "ok"
     except SystemExit:
-        quit()
         sys.exit(1)
         os.abort()
     except:
@@ -599,6 +602,9 @@ async def IsRegistred(MessageSettings, UserParams):
                 except Exception as E:
                     pass
                 return False
+            await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                                   message="Я тебя не понял",
+                                   random_id=random.randint(1, 2147483647))
     except SystemExit:
         sys.exit(1)
     except:
