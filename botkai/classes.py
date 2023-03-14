@@ -38,7 +38,6 @@ vk = vk_interface_obj.api
 
 
 
-
 class User:
 
     def __init__(self, user_id):

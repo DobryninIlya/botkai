@@ -5,7 +5,7 @@ from .. import keyboards
 import sqlite3
 import datetime
 import json
-import random 
+import random
 import requests
 from requests import ConnectionError
 import traceback
@@ -20,7 +20,7 @@ import docx
 from docx.shared import Inches, Cm
 from docx.enum.section import WD_SECTION
 from docx.enum.section import WD_ORIENT
-from docx.enum.table import WD_ROW_HEIGHT_RULE,WD_TABLE_ALIGNMENT
+from docx.enum.table import WD_ROW_HEIGHT_RULE, WD_TABLE_ALIGNMENT
 from docx.shared import Pt
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
@@ -31,18 +31,16 @@ import asyncio
 import aiohttp
 from ..classes import statistic_updates, statistic_users_active_list, statistic_users_active
 
-
 cursor = classes.cursor
 cursorR = classes.cursorR
 conn = classes.conn
 connection = classes.connection
 
-
-
 try:
     cursorR.execute("""CREATE TABLE verification (id INT NOT NULL PRIMARY KEY, login TEXT NOT NULL, password TEXT); """)
     cursorR.execute("""CREATE TABLE answers (id INT NOT NULL PRIMARY KEY, userId INT NOT NULL); """)
-    cursorR.execute("""CREATE TABLE prepod_users (id INT NOT NULL PRIMARY KEY, groupreal INT NOT NULL, groupid INT NOT NULL); """)
+    cursorR.execute(
+        """CREATE TABLE prepod_users (id INT NOT NULL PRIMARY KEY, groupreal INT NOT NULL, groupid INT NOT NULL); """)
     cursorR.execute("""CREATE TABLE Status (ID_VK INT NOT NULL PRIMARY KEY, Status INT NULL); """)
     conn.commit()
 except:
@@ -52,9 +50,7 @@ message_params = {}
 
 vk = classes.vk
 
-
 command_list = classes.command_list
-
 
 
 def load_modules():
@@ -69,21 +65,26 @@ def load_modules():
 
 load_modules()
 
+
 def DeleteOldTask():
-    cursor.execute("SELECT COUNT(*) FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
+    cursor.execute("SELECT COUNT(*) FROM Task WHERE Datee < '" + str(
+        datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
     count = cursor.fetchone()[0]
-    cursor.execute("SELECT * FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
+    cursor.execute("SELECT * FROM Task WHERE Datee < '" + str(
+        datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
 
     result = cursor.fetchall()
-    cursor.execute("DELETE FROM Task WHERE Datee < '" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
-    cursor.execute('DELETE FROM "Adv" WHERE date < ' + "'" + str(datetime.date(today.year, today.month, today.day)  - datetime.timedelta(days=1)) + "'")
+    cursor.execute("DELETE FROM Task WHERE Datee < '" + str(
+        datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
+    cursor.execute('DELETE FROM "Adv" WHERE date < ' + "'" + str(
+        datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=1)) + "'")
     cursorR.execute("DELETE FROM verification WHERE id>0")
     cursor.execute("DELETE FROM Users WHERE Groupp = 0 and role = 1")
-
 
     connection.commit()
     if count == 0:
         return
+
 
 try:
     DeleteOldTask()
@@ -91,9 +92,18 @@ except:
     print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
+def exceptCatcher(func):
+    async def wrapper_func(*args, **kwargs):
+        try:
+            await func(*args, **kwargs)
+        except:
+            print('ERROR in exceptCatcher:\n', traceback.format_exc(), flush=True)
 
+    return wrapper_func
+
+
+@exceptCatcher
 async def message_new(request, lp_obj=None):
-
     try:
         global message_params
         if lp_obj:
@@ -124,7 +134,7 @@ async def message_new(request, lp_obj=None):
             stat = await CheckStatus(MessageSettings, UserParams)
             if stat == "ok":
                 return "ok"
-            
+
             cursorR.execute("SELECT * FROM Status")
 
             button = ""
@@ -135,11 +145,10 @@ async def message_new(request, lp_obj=None):
             except Exception as E:
                 pass
 
-
             if button != "":
                 for c in command_list:
                     crole = c.role
-                    if button == c.payload and c.admlevel<=UserParams.getAdminLevel():
+                    if button == c.payload and c.admlevel <= UserParams.getAdminLevel():
                         if UserParams.role in crole:
                             try:
                                 await c.process(MessageSettings, UserParams)
@@ -182,13 +191,14 @@ async def message_new(request, lp_obj=None):
                 for c in command_list:
                     if UserParams.role in c.role:
                         for k in c.keys:
-                            d = damerau_levenshtein_distance(( MessageSettings.getText()).lower(), k)
+                            d = damerau_levenshtein_distance((MessageSettings.getText()).lower(), k)
                             if d < distance:
                                 distance = d
                                 command = c
                                 key = k
                                 MessageSettings.command_key = k
-                                if distance == 0 and c.admlevel<=UserParams.getAdminLevel() and (UserParams.role in c.role):
+                                if distance == 0 and c.admlevel <= UserParams.getAdminLevel() and (
+                                        UserParams.role in c.role):
                                     try:
                                         await c.process(MessageSettings, UserParams)
                                     except asyncio.exceptions.TimeoutError:
@@ -206,7 +216,9 @@ async def message_new(request, lp_obj=None):
                                             pass
                                         return
                                     except aiohttp.client_exceptions.ClientConnectorError:
-                                        print("ОШИБКА ERROR: Ошибка подключения к интернету \n aiohttp.client_exceptions.ClientConnectorError", flush=True)
+                                        print(
+                                            "ОШИБКА ERROR: Ошибка подключения к интернету \n aiohttp.client_exceptions.ClientConnectorError",
+                                            flush=True)
                                         try:
                                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                                    message="Что-то пошло не так.",
@@ -221,7 +233,9 @@ async def message_new(request, lp_obj=None):
                                         pass
 
                                     return "ok"
-                if distance < len(MessageSettings.getText())*0.4 and command.admlevel<=UserParams.getAdminLevel()  and (UserParams.role in command.role):
+                if distance < len(
+                        MessageSettings.getText()) * 0.4 and command.admlevel <= UserParams.getAdminLevel() and (
+                        UserParams.role in command.role):
                     mesg = 'Я понял ваш запрос как "%s"' % key
                     MessageSettings.command_key = key
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -234,13 +248,10 @@ async def message_new(request, lp_obj=None):
         quit()
         sys.exit(1)
         os.abort()
-    except:  
+    except:
         print('Ошибка:\n', traceback.format_exc(), flush=True)
 
     return "ok"
-
-
-
 
 
 async def IsRegistred(MessageSettings, UserParams):
@@ -275,7 +286,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                        random_id=random.randint(1, 2147483647))
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Похоже, что ты не зарегистриован. Для работы бота необходима регистрация.\nПо любым вопросам введите Справка в чат, чтобы продолжить пользоваться ботом - выполняйте инструкции.\n Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню" +
-                                       "Временно не доступна регистрация для преподавателей и родителей :(",
+                                               "Временно не доступна регистрация для преподавателей и родителей :(",
                                        keyboard=keyboards.roleMenu,
                                        random_id=random.randint(1, 2147483647))
                 sql = "INSERT INTO Status VALUES (" + str(id) + ", 3);"
@@ -315,8 +326,10 @@ async def IsRegistred(MessageSettings, UserParams):
 
                 try:
                     sql = "INSERT INTO Users (id_vk, name, groupp, distribution, admLevel, groupreal, \"dateChange\", balance, distr, warn, expiration, banhistory, ischeked, role, login, potok_lecture, has_own_shed, affiliate)" \
-                          " VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(datetime.date(today.year, today.month, today.day)) +"'"\
-                          ",0 , 0, 0, '2020-01-01', 0, 0," + str(role) + ", null, true, false, false);"
+                          " VALUES (" + str(id) + ", '" + "', " + "0 " + ", 1, 1, 0, '" + str(
+                        datetime.date(today.year, today.month, today.day)) + "'" \
+                                                                             ",0 , 0, 0, '2020-01-01', 0, 0," + str(
+                        role) + ", null, true, false, false);"
                     cursor.execute(sql)
                     connection.commit()
                 except Exception as E:
@@ -346,7 +359,7 @@ async def IsRegistred(MessageSettings, UserParams):
                     conn.commit()
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="Теперь я знаю о тебе достаточно). \n Используй кнопки клавиатуры.",
-                                           keyboard=keyboards.getMainKeyboard(role = 4),
+                                           keyboard=keyboards.getMainKeyboard(role=4),
                                            random_id=random.randint(1, 2147483647))
                 return False
             elif StatusR(id) == 1:
@@ -376,7 +389,8 @@ async def IsRegistred(MessageSettings, UserParams):
                 cursorR.execute(sql)
                 conn.commit()
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                       message="Очень приятно, " + str(body) + "\nРасписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
+                                       message="Очень приятно, " + str(
+                                           body) + "\nРасписание какой группы мне тебе показывать?\n Отправь сообщение с номером твоей группы.",
                                        keyboard=keyboards.get_undo,
                                        random_id=random.randint(1, 2147483647))
                 return False
@@ -386,8 +400,9 @@ async def IsRegistred(MessageSettings, UserParams):
                     group = await showGroupId(realgroup)
 
                     if realgroup > 1000 and realgroup < 100000 and group:
-                        if realgroup> 1100 and realgroup<10000:
-                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(body)+ ", role=1 WHERE ID_VK = " + str(id) + ";"
+                        if realgroup > 1100 and realgroup < 10000:
+                            sql = "UPDATE Users SET Groupp= " + str(group) + " ,groupReal = " + str(
+                                body) + ", role=1 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -408,7 +423,8 @@ async def IsRegistred(MessageSettings, UserParams):
                                                    random_id=random.randint(1, 2147483647))
 
                         elif realgroup > 10000:
-                            sql = "UPDATE Users SET Groupp= " + str(await showGroupId(body)) + " ,groupReal = " + str(body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
+                            sql = "UPDATE Users SET Groupp= " + str(await showGroupId(body)) + " ,groupReal = " + str(
+                                body) + ", affiliate = true, role = 6 WHERE ID_VK = " + str(id) + ";"
                             cursor.execute(sql)
                             connection.commit()
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id) + ";"
@@ -421,7 +437,7 @@ async def IsRegistred(MessageSettings, UserParams):
                                                    random_id=random.randint(1, 2147483647))
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Инструкция приложена к этому сообщению.",
-                                                   keyboard= keyboards.help_starosta_affiliate,
+                                                   keyboard=keyboards.help_starosta_affiliate,
                                                    random_id=random.randint(1, 2147483647))
 
                         else:
@@ -432,11 +448,11 @@ async def IsRegistred(MessageSettings, UserParams):
                         return False
                     elif body:
                         try:
-                            if realgroup>1000 and realgroup<100000:
+                            if realgroup > 1000 and realgroup < 100000:
                                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Такая группа не существует на сайте. Повторите ввод или выйдите в меню.Такое случается, когда на сайт не подгрузили ваши данные",
-                                   keyboard=keyboards.get_undo,
-                                   random_id=random.randint(1, 2147483647))
+                                                       message="Такая группа не существует на сайте. Повторите ввод или выйдите в меню.Такое случается, когда на сайт не подгрузили ваши данные",
+                                                       keyboard=keyboards.get_undo,
+                                                       random_id=random.randint(1, 2147483647))
                             else:
                                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                        message="Номер группы введен некорректно. Повторите ввод",
@@ -451,9 +467,9 @@ async def IsRegistred(MessageSettings, UserParams):
                                                random_id=random.randint(1, 2147483647))
                 except Exception as E:
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                       message="Такая группа не существует. Повторите ввод или выйдите в меню.",
-                       keyboard=keyboards.exit,
-                       random_id=random.randint(1, 2147483647))
+                                           message="Такая группа не существует. Повторите ввод или выйдите в меню.",
+                                           keyboard=keyboards.exit,
+                                           random_id=random.randint(1, 2147483647))
                     print('Ошибка:\n', traceback.format_exc(), flush=True)
                     return False
             elif StatusR(id) == 4:
@@ -461,10 +477,13 @@ async def IsRegistred(MessageSettings, UserParams):
 
                     body = body.lower()
                     async with aiohttp.ClientSession() as session:
-                        async with await session.post(BASE_URL_STAFF, data = "prepodLogin=" + str(body),
-                                                     headers = {'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
-                                                     params = {"p_p_id":"pubLecturerSchedule_WAR_publicLecturerSchedule10",
-                                                               "p_p_lifecycle":"2","p_p_resource_id":"schedule"}, timeout=10) as response:
+                        async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(body),
+                                                      headers={'Content-Type': "application/x-www-form-urlencoded",
+                                                               "user-agent": "BOT RASPISANIE v.1"},
+                                                      params={
+                                                          "p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
+                                                          "p_p_lifecycle": "2", "p_p_resource_id": "schedule"},
+                                                      timeout=10) as response:
                             response = await response.json(content_type='text/html')
                     if not len(response):
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -496,9 +515,9 @@ async def IsRegistred(MessageSettings, UserParams):
                     body = body.lower()
                     async with aiohttp.ClientSession() as session:
                         async with await session.post(
-                        'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
-                        '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
-                        'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query='+body,
+                                'https://kai.ru/for-staff/raspisanie?p_p_id=pubLecturerSchedule_WAR_publicLecturerSchedule10&p_p'
+                                '_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getLecturersURL&p_p_cacheability='
+                                'cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&query=' + body,
                                 headers={'Content-Type': "application/x-www-form-urlencoded",
                                          "user-agent": "BOT RASPISANIE v.1"},
                                 timeout=15) as response:
@@ -549,7 +568,7 @@ async def IsRegistred(MessageSettings, UserParams):
                 try:
                     if body.lower() == "позвать":
                         await vk.messages.send(peer_id=159773942,
-                                               message="Пользователь @id"+str(id) + " просит помощи",
+                                               message="Пользователь @id" + str(id) + " просит помощи",
                                                keyboard=keyboards.getMainKeyboard(UserParams.role),
                                                random_id=random.randint(1, 2147483647))
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -576,20 +595,19 @@ async def IsRegistred(MessageSettings, UserParams):
                         conn.commit()
                         return False
 
-
                     return False
                 except Exception as E:
                     pass
                 return False
     except SystemExit:
         sys.exit(1)
-    except:  
-        print('Ошибка:\n', traceback.format_exc())  
-
+    except:
+        print('Ошибка:\n', traceback.format_exc())
 
 
 BASE_URL = 'https://kai.ru/raspisanie'
 BASE_URL_STAFF = "https://kai.ru/for-staff/raspisanie"
+
 
 async def getGroupsResponse(groupNumber):
     try:
@@ -600,8 +618,7 @@ async def getGroupsResponse(groupNumber):
         result = json.loads(result)
         for elem in result:
             if int(elem["group"]) == int(groupNumber):
-
-                return elem["id"],date_update
+                return elem["id"], date_update
         return False, False
     except:
         return False, False
@@ -621,14 +638,16 @@ async def showGroupId(groupNumber, MessageSettings=None):
         else:
             async with aiohttp.ClientSession() as session:
                 async with await session.get(
-                BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
-                headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
-                params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
-                        "p_p_resource_id": "schedule"}, timeout=8) as response:
+                        BASE_URL + "?p_p_id=pubStudentSchedule_WAR_publicStudentSchedule10&p_p_lifecycle=2&p_p_resource_id=getGroupsURL&query=",
+                        headers={'Content-Type': "application/x-www-form-urlencoded",
+                                 "user-agent": "BOT RASPISANIE v.1"},
+                        params={"p_p_id": "pubStudentSchedule_WAR_publicStudentSchedule10", "p_p_lifecycle": "2",
+                                "p_p_resource_id": "schedule"}, timeout=8) as response:
                     response = await response.json(content_type='text/html')
             if str(response.status) != '200':
                 raise ConnectionError
-            cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(json.dumps(response),date))
+            cursor.execute("UPDATE saved_timetable SET shedule = '{}', date_update = '{}' WHERE groupp = 1".format(
+                json.dumps(response), date))
             connection.commit()
         group, _ = await getGroupsResponse(groupNumber)
         if group:
@@ -670,38 +689,35 @@ async def showGroupId(groupNumber, MessageSettings=None):
         return False
 
 
-
-
-
-
-def InBaseR(id): ### Проверка на зарегестрированность и наличие в базе Status (RAM)
-    sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id) +";"
+def InBaseR(id):  ### Проверка на зарегестрированность и наличие в базе Status (RAM)
+    sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id) + ";"
     cursorR.execute(sql)
-    res=cursorR.fetchall()
-    if len(res)==0:
+    res = cursorR.fetchall()
+    if len(res) == 0:
         return True
     else:
         return False
 
-async def InBase(id): ### Проверка на зарегестрированность и наличие в базе Users
+
+async def InBase(id):  ### Проверка на зарегестрированность и наличие в базе Users
     try:
-        #global allCommands, statUser
-        #if MessageSettings.statUser.count(id)>1:
+        # global allCommands, statUser
+        # if MessageSettings.statUser.count(id)>1:
         #    MessageSettings.statUser.remove(id)
-        #elif MessageSettings.statUser.count(id)==1:
+        # elif MessageSettings.statUser.count(id)==1:
         #    pass;
-        #else:
+        # else:
         #    MessageSettings.statUser.append(id)
-        #if statUser.count(id) == 0:
+        # if statUser.count(id) == 0:
         #    statUser.append(id)
         #    MessageSettings.statUser = len(statUser)
         #    print(MessageSettings.statUser)
-            
-        #allCommands += 1
-        #MessageSettings.allCommands = allCommands
+
+        # allCommands += 1
+        # MessageSettings.allCommands = allCommands
         sql = "SELECT Groupp, login, name FROM Users WHERE ID_VK=" + str(id) + ";"
         cursor.execute(sql)
-        res=cursor.fetchone()
+        res = cursor.fetchone()
         if res == None:
             return False
         group = res[0]
@@ -716,12 +732,12 @@ async def InBase(id): ### Проверка на зарегестрированн
 
         if len(str(group)) == 0:
             return False
-        elif int(group) == 0 and int(id)<2000000000:
+        elif int(group) == 0 and int(id) < 2000000000:
             return False
         else:
             return True
     except TypeError:
-        if int(id)>2000000000:
+        if int(id) > 2000000000:
             return True
         return False
     except Exception as E:
@@ -739,18 +755,17 @@ async def InBase(id): ### Проверка на зарегестрированн
         sys.exit(1)
 
 
-
-def StatusR(id): ### Текущий статус в таблице Status (RAM)
+def StatusR(id):  ### Текущий статус в таблице Status (RAM)
     sql = "SELECT Status FROM Status WHERE ID_VK=" + str(id)
     cursorR.execute(sql)
-    res=cursorR.fetchone()
+    res = cursorR.fetchone()
     if res == None:
         return
     if int(res[0]) > 0:
         return int(res[0])
     else:
         return
-    
+
 
 @jit(nopython=True, fastmath=True, cache=True)
 def damerau_levenshtein_distance(s1, s2):
@@ -777,7 +792,6 @@ def damerau_levenshtein_distance(s1, s2):
     return d[lenstr1 - 1, lenstr2 - 1]
 
 
-
 async def CheckStatus(MessageSettings, UserParams):
     body = MessageSettings.getText()
     id = MessageSettings.getId()
@@ -793,10 +807,10 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Главное меню",
                                        keyboard=keyboards.getMainKeyboard(UserParams.role),
                                        random_id=random.randint(1, 2147483647))
-                cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
-                cursorR.execute("DELETE FROM NoteR WHERE ID_VK="+str(id))
-                cursorR.execute("DELETE FROM Task WHERE ID_VK="+str(id))
-                cursorR.execute("DELETE FROM verification WHERE id="+str(id))
+                cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
+                cursorR.execute("DELETE FROM NoteR WHERE ID_VK=" + str(id))
+                cursorR.execute("DELETE FROM Task WHERE ID_VK=" + str(id))
+                cursorR.execute("DELETE FROM verification WHERE id=" + str(id))
                 conn.commit()
                 connection.commit()
 
@@ -804,12 +818,12 @@ async def CheckStatus(MessageSettings, UserParams):
 
                 print('Ошибка:\n', traceback.format_exc(), flush=True)
             return "ok"
-        elif status == 46: # ADMIN DISTRIBUTION
+        elif status == 46:  # ADMIN DISTRIBUTION
 
             sql = "SELECT id_vk FROM users WHERE ID_VK < 2000000000 AND role = 1".format()
             cursor.execute(sql)
             result_users = cursor.fetchall()
-            #pprint(result_users)
+            # pprint(result_users)
 
             code = """var message = '{}';
             var attachment = '{}';
@@ -820,19 +834,21 @@ async def CheckStatus(MessageSettings, UserParams):
                 current_list_users.append(each[0])
                 if len(current_list_users) == 100:
                     users_string_join = ','.join(str(x) for x in current_list_users)
-                    #print(users_string_join)
+                    # print(users_string_join)
                     current_list_users = []
-                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment,'random_id' : {} }}); \n".format(users_string_join, random.randint(1, 2147483647) )
-                    
+                    code += "API.messages.send({{ 'user_ids' : '{}', 'message' : message, 'attachment': attachment,'random_id' : {} }}); \n".format(
+                        users_string_join, random.randint(1, 2147483647))
+
             code += "return 100;"
-            #print(code)
-            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            # print(code)
+            cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             await vk.messages.execute(code=code)
             return "ok"
         elif status == 47:
-            
-            sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(UserParams.groupId)
+
+            sql = "SELECT id_vk FROM users WHERE groupp = {} AND ID_VK < 2000000000 LIMIT 100".format(
+                UserParams.groupId)
             cursor.execute(sql)
             result_users = cursor.fetchall()
             message = "📩 Сообщение от старосты:\n" + MessageSettings.getText()
@@ -841,12 +857,12 @@ async def CheckStatus(MessageSettings, UserParams):
                                    message=message,
                                    attachment=MessageSettings.GetAttachments(),
                                    random_id=random.randint(1, 2147483647))
-            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             return "ok"
         elif status == 48:
             try:
-                domain  = body.partition("vk.com/")
+                domain = body.partition("vk.com/")
                 if domain[1] == "vk.com/":
                     domain_id = domain[2]
                 elif not domain[1] and not domain[2] and domain[0]:
@@ -876,23 +892,24 @@ async def CheckStatus(MessageSettings, UserParams):
                                            random_id=random.randint(1, 2147483647))
                     return "ok"
                 if UserParams.adminLevel >= 2:
-                    if UserParams.groupId != student_groupId and UserParams.adminLevel <=5:
+                    if UserParams.groupId != student_groupId and UserParams.adminLevel <= 5:
                         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                message="Ошибка. Пользователь не из вашей группы",
                                                random_id=random.randint(1, 2147483647))
 
                         return "ok"
-                    sql = "UPDATE users SET groupreal = 0, groupp = 9999 WHERE ID_VK = {}".format( id_student )
+                    sql = "UPDATE users SET groupreal = 0, groupp = 9999 WHERE ID_VK = {}".format(id_student)
                     cursor.execute(sql)
                     connection.commit()
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                           message="@id{} (Пользователь) был кикнут из вашей группы.".format(id_student),
+                                           message="@id{} (Пользователь) был кикнут из вашей группы.".format(
+                                               id_student),
                                            random_id=random.randint(1, 2147483647))
                     await vk.messages.send(peer_id=id_student,
                                            message="Вы были кикнуты старостой из группы. Ваши настройки группы сброшены и это значит, что пока вы не установите свою группу в профиле, расписание будет недоступно",
                                            keyboard=keyboards.getMainKeyboard(1),
                                            random_id=random.randint(1, 2147483647))
-                cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+                cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()
                 return "ok"
             except:
@@ -902,8 +919,8 @@ async def CheckStatus(MessageSettings, UserParams):
                                        random_id=random.randint(1, 2147483647))
 
         elif status == 49:
-            
-            domain  = body.partition("vk.com/")
+
+            domain = body.partition("vk.com/")
             if domain[1] == "vk.com/":
                 domain_id = domain[2]
             elif not domain[1] and not domain[2] and domain[0]:
@@ -939,18 +956,23 @@ async def CheckStatus(MessageSettings, UserParams):
                                            random_id=random.randint(1, 2147483647))
                     return "ok"
                 if student_warn_count >= 2:
-                    sql = "UPDATE users SET warn = {}, expiration = '{}', role = 5 WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
+                    sql = "UPDATE users SET warn = {}, expiration = '{}', role = 5 WHERE ID_VK = {}".format(
+                        student_warn_count + 1,
+                        datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=61), id_student)
                     cursor.execute(sql)
                     connection.commit()
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                           message="@id{} (Пользователь) был заблокирован на 2 месяца".format(id_student),
+                                           message="@id{} (Пользователь) был заблокирован на 2 месяца".format(
+                                               id_student),
                                            random_id=random.randint(1, 2147483647))
                     await vk.messages.send(peer_id=id_student,
                                            message="Вы были заблокированы на 2 месяца за нарушение правил.",
                                            keyboard=keyboards.warnList,
                                            random_id=random.randint(1, 2147483647))
                 else:
-                    sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".format(student_warn_count + 1, datetime.date(today.year, today.month, today.day) + datetime.timedelta(days = 61), id_student )
+                    sql = "UPDATE users SET warn = {}, expiration = '{}' WHERE ID_VK = {}".format(
+                        student_warn_count + 1,
+                        datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=61), id_student)
                     cursor.execute(sql)
                     connection.commit()
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -961,15 +983,16 @@ async def CheckStatus(MessageSettings, UserParams):
                                            message="Вам выдано предупреждение за нарушение правил.",
                                            keyboard=keyboards.warnList,
                                            random_id=random.randint(1, 2147483647))
-            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             return "ok"
 
         elif status == 50:
-            date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
+            date = str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5))
             try:
                 try:
-                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2])<32 and (int)(body[3:])<13):
+                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2]) < 32 and (int)(
+                            body[3:]) < 13):
                         date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
                     else:
                         return "ok"
@@ -980,8 +1003,9 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Формат некорректный. Верный формат - 'дд.мм' ",
                                        random_id=random.randint(1, 2147483647))
             finally:
-                
-                if date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)) and body != "Через неделю" and body != "Через 2 недели":
+
+                if date == str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(
+                        days=5)) and body != "Через неделю" and body != "Через 2 недели":
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="Формат неверный, повторите ввод",
                                            random_id=random.randint(1, 2147483647))
@@ -990,23 +1014,26 @@ async def CheckStatus(MessageSettings, UserParams):
                     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=7))
                 elif body == "Через 2 недели":
                     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=14))
-                        
+
                 else:
                     try:
-                        if datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) > datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=30):
+                        if datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) > datetime.date(today.year,
+                                                                                                        today.month,
+                                                                                                        today.day) + datetime.timedelta(
+                            days=30):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Запланированная дата неверная. \n Разрешено добавлять задания только в течение следующего месяца",
                                                    keyboard=keyboards.keyboardAddTasks2,
                                                    random_id=random.randint(1, 2147483647))
                             return "ok"
-                        elif date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)):
+                        elif date == str(
+                                datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5)):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Формат неверный, повторите ввод",
                                                    random_id=random.randint(1, 2147483647))
                             return "ok"
                     except Exception as E:
                         print('Ошибка:\n', traceback.format_exc())
-
 
                 sql = "INSERT INTO Task VALUES(" + str(id) + ", '" + date + "')"
                 cursorR.execute(sql)
@@ -1015,20 +1042,20 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Введите задание и к этому же сообщению прикрепите медиавложение (фото/видео/аудио/документ)",
                                        keyboard=keyboards.keyboardAddTasks2,
                                        random_id=random.randint(1, 2147483647))
-                sql = "UPDATE Status SET Status = 51 WHERE ID_VK = " + str(id) 
+                sql = "UPDATE Status SET Status = 51 WHERE ID_VK = " + str(id)
                 cursorR.execute(sql)
                 conn.commit()
                 return "ok"
         elif status == 51:
             id = MessageSettings.getId()
             level = UserParams.adminLevel
-            sql="SELECT COUNT(*) FROM Task WHERE UserID = " + str(id)
+            sql = "SELECT COUNT(*) FROM Task WHERE UserID = " + str(id)
             cursor.execute(sql)
             try:
                 count = (int)(cursor.fetchone()[0])
             except Exception as E:
                 count = 0
-            #print(count)
+            # print(count)
             if (count > 10 and level <= 2):
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Превышено допустимое число активных заданий. Ваш лимит: 10",
@@ -1042,9 +1069,8 @@ async def CheckStatus(MessageSettings, UserParams):
                 connection.commit()
                 conn.commit()
 
-
                 return "ok"
-            sql = "SELECT Datee FROM Task WHERE ID_VK = " +str(id)
+            sql = "SELECT Datee FROM Task WHERE ID_VK = " + str(id)
             cursorR.execute(sql)
             date = cursorR.fetchone()
             date = str(date)[2:-3]
@@ -1052,12 +1078,14 @@ async def CheckStatus(MessageSettings, UserParams):
             cursor.execute(sql)
             res = cursor.fetchone()[0]
             res = res if res != None else 0
-            count = int(res)+1
+            count = int(res) + 1
 
-            user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(id, id, MessageSettings.messageId)
+            user_info = """{{"type" : "message","owner_id" : {},"peer_id": {},"conversation_message_id" : {}}}""".format(
+                id, id, MessageSettings.messageId)
 
             sql = "INSERT INTO Task VALUES ({count}, {group_id}, {id}, '{date}', '{text}', '{attachments}', 0, '{user_info}')".format(
-                count = count, group_id = UserParams.groupId, id = id, date = date, text = MessageSettings.getText(), attachments = MessageSettings.GetAttachments(), user_info = user_info
+                count=count, group_id=UserParams.groupId, id=id, date=date, text=MessageSettings.getText(),
+                attachments=MessageSettings.GetAttachments(), user_info=user_info
             )
             cursor.execute(sql)
             sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
@@ -1072,12 +1100,13 @@ async def CheckStatus(MessageSettings, UserParams):
                                    random_id=random.randint(1, 2147483647))
             return "ok"
         elif status == 52:
-            date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
+            date = str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5))
             try:
                 try:
-                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2])<32 and (int)(body[3:])<13):
+                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2]) < 32 and (int)(
+                            body[3:]) < 13):
                         date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
-                               
+
                     else:
                         return "ok"
                 except Exception as E:
@@ -1088,35 +1117,38 @@ async def CheckStatus(MessageSettings, UserParams):
                                        random_id=random.randint(1, 2147483647))
 
             finally:
-                
-                if date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)) and body != "Через неделю" and body != "Через 2 недели":
+
+                if date == str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(
+                        days=5)) and body != "Через неделю" and body != "Через 2 недели":
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="Формат неверный, повторите ввод",
                                            random_id=random.randint(1, 2147483647))
                     return "ok"
-                        
+
                 if body == "Через неделю":
                     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=7))
                 elif body == "Через 2 недели":
                     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=14))
-                        
+
                 else:
                     try:
-                        if datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) > datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=30):
+                        if datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) > datetime.date(today.year,
+                                                                                                        today.month,
+                                                                                                        today.day) + datetime.timedelta(
+                            days=30):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Запланированная дата неверная. \n Разрешено добавлять объявления только в течение следующего месяца",
                                                    keyboard=keyboards.keyboardAddTasks2,
                                                    random_id=random.randint(1, 2147483647))
                             return "ok"
-                        elif date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)):
+                        elif date == str(
+                                datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5)):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Формат неверный, повторите ввод",
                                                    random_id=random.randint(1, 2147483647))
                             return "ok"
                     except Exception as E:
                         pass
-
-
 
                 sql = "INSERT INTO Task VALUES(" + str(id) + ", '" + date + "')"
                 cursorR.execute(sql)
@@ -1132,7 +1164,7 @@ async def CheckStatus(MessageSettings, UserParams):
         elif status == 53:
             id = MessageSettings.getId()
             level = UserParams.adminLevel
-            sql='SELECT COUNT(*) FROM "Adv" WHERE userid = ' + str(id)
+            sql = 'SELECT COUNT(*) FROM "Adv" WHERE userid = ' + str(id)
             try:
                 sql = 'SELECT COUNT(*) FROM "Adv" WHERE userid = ' + str(id)
                 cursor.execute(sql)
@@ -1159,7 +1191,7 @@ async def CheckStatus(MessageSettings, UserParams):
                     connection.commit()
                     conn.commit()
                     return "ok"
-                sql = "SELECT Datee FROM Task WHERE ID_VK = " +str(id)
+                sql = "SELECT Datee FROM Task WHERE ID_VK = " + str(id)
                 cursorR.execute(sql)
                 date = cursorR.fetchone()
                 date = str(date)[2:-3]
@@ -1167,7 +1199,8 @@ async def CheckStatus(MessageSettings, UserParams):
                 cursor.execute(sql)
                 count = (int)(str(cursor.fetchone())[1:-2]) + 1
                 sql = 'DELETE FROM "Adv" WHERE date = ' + "'" + str(date) + "' AND groupid = " + str(UserParams.groupId)
-                sql = 'INSERT INTO "Adv" VALUES (' + str(count) + ", " + str(UserParams.groupId) + ", " + str(id) + ", '" + str(date) + "', '" + str(MessageSettings.getText()) + "')"
+                sql = 'INSERT INTO "Adv" VALUES (' + str(count) + ", " + str(UserParams.groupId) + ", " + str(
+                    id) + ", '" + str(date) + "', '" + str(MessageSettings.getText()) + "')"
                 cursor.execute(sql)
             except Exception as E:
                 print('Ошибка:\n', traceback.format_exc())
@@ -1190,7 +1223,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Длина имени не должна превышать 35 символов. Повторите ввод, либо введите Выход.",
                                        random_id=random.randint(1, 2147483647))
                 return "ok"
-            sql="UPDATE Users SET Name='" + str(body) + "' WHERE ID_VK="+str(id)
+            sql = "UPDATE Users SET Name='" + str(body) + "' WHERE ID_VK=" + str(id)
             cursor.execute(sql)
             cursor.execute('UPDATE users SET ischeked = 0 WHERE ID_VK = ' + str(id))
             connection.commit()
@@ -1199,7 +1232,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                    message="Имя успешно изменено на: " + str(body),
                                    keyboard=keyboards.KeyboardProfile(MessageSettings, UserParams),
                                    random_id=random.randint(1, 2147483647))
-            cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+            cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             return "ok"
         elif status == 56:
@@ -1210,13 +1243,14 @@ async def CheckStatus(MessageSettings, UserParams):
             try:
                 realgroup = int(body)
                 group = await showGroupId(realgroup, MessageSettings)
-                
+
                 if realgroup > 1000 and realgroup < 100000 and group:
                     group = str(group)
                     admlevel = UserParams.adminLevel if UserParams.adminLevel != 2 else 1
-                    sql = "UPDATE users SET groupp = {}, groupreal = {}, \"dateChange\" = '{}', admlevel = {} WHERE ID_VK = {}".format(group, str(realgroup), date, admlevel, id)
+                    sql = "UPDATE users SET groupp = {}, groupreal = {}, \"dateChange\" = '{}', admlevel = {} WHERE ID_VK = {}".format(
+                        group, str(realgroup), date, admlevel, id)
                     cursor.execute(sql)
-                    cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+                    cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                     conn.commit()
                     connection.commit()
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
@@ -1254,10 +1288,11 @@ async def CheckStatus(MessageSettings, UserParams):
             return "ok"
         elif status == 57:
             id = MessageSettings.getId()
-            date = str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5))
+            date = str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5))
             try:
                 try:
-                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2])<32 and (int)(body[3:])<13):
+                    if ((int)(body[:2]) and (int)(body[3:]) and body[2] == "." and (int)(body[:2]) < 32 and (int)(
+                            body[3:]) < 13):
                         date = str(datetime.datetime.now().year) + "-" + body[3:] + "-" + body[:2]
                     else:
                         return "ok"
@@ -1268,21 +1303,22 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Формат некорректный. Верный формат - 'дд.мм' ",
                                        random_id=random.randint(1, 2147483647))
             finally:
-                
-                if date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)) and body != "Через неделю" and body != "Через 2 недели":
+
+                if date == str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(
+                        days=5)) and body != "Через неделю" and body != "Через 2 недели":
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                            message="Формат неверный, повторите ввод",
                                            random_id=random.randint(1, 2147483647))
                     return "ok"
-                        
+
                 if body == "Через неделю":
                     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=7))
                 elif body == "Через 2 недели":
                     date = str(datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=14))
-                        
+
                 else:
                     try:
-                        if date == str(datetime.date(today.year, today.month, today.day) -  datetime.timedelta(days=5)):
+                        if date == str(datetime.date(today.year, today.month, today.day) - datetime.timedelta(days=5)):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Формат неверный, повторите ввод",
                                                    random_id=random.randint(1, 2147483647))
@@ -1300,14 +1336,14 @@ async def CheckStatus(MessageSettings, UserParams):
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()
                 return "ok"
-            
+
             return "ok"
         elif status == 58:
             id = MessageSettings.getId()
             body = MessageSettings.getText()
             try:
                 await vk.messages.send(peer_id=159773942,
-                                       message="from @id" + str(id) + "\n" + body ,
+                                       message="from @id" + str(id) + "\n" + body,
                                        keyboard=keyboards.GetButtonAnswer(id),
                                        attachment=MessageSettings.GetAttachments(),
                                        random_id=random.randint(1, 2147483647))
@@ -1315,7 +1351,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Вопрос отправлен администратору.",
                                        keyboard=keyboards.getMainKeyboard(UserParams.role),
                                        random_id=random.randint(1, 2147483647))
-                cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+                cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()
 
             except Exception as E:
@@ -1326,7 +1362,7 @@ async def CheckStatus(MessageSettings, UserParams):
             body = MessageSettings.getText()
             button = MessageSettings.button
             try:
-            
+
                 sql = "SELECT userId FROM answers WHERE id = " + str(id)
                 cursorR.execute(sql)
                 idUser = cursorR.fetchone()[0]
@@ -1338,7 +1374,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Ответ отправлен",
                                        keyboard=keyboards.getMainKeyboard(UserParams.role),
                                        random_id=random.randint(1, 2147483647))
-                cursorR.execute("DELETE FROM Status WHERE ID_VK="+str(id))
+                cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 cursorR.execute("DELETE FROM answers WHERE id = " + str(id))
                 conn.commit()
 
@@ -1349,7 +1385,8 @@ async def CheckStatus(MessageSettings, UserParams):
             id = MessageSettings.getId()
             body = MessageSettings.getText()
             try:
-                cursorR.execute("INSERT INTO chatListen VALUES (" + str(id) + ", " + str(MessageSettings.getText()) + ")")
+                cursorR.execute(
+                    "INSERT INTO chatListen VALUES (" + str(id) + ", " + str(MessageSettings.getText()) + ")")
                 conn.commit()
                 cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
                 conn.commit()
@@ -1364,15 +1401,18 @@ async def CheckStatus(MessageSettings, UserParams):
                 id = MessageSettings.getId()
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
-                                         params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
-                                                 "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
+                                                  headers={'Content-Type': "application/x-www-form-urlencoded",
+                                                           "user-agent": "BOT RASPISANIE v.1"},
+                                                  params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
+                                                          "p_p_lifecycle": "2",
+                                                          "p_p_resource_id": "schedule"}) as response:
                         status = response.status
                         response = await response.json(content_type='text/html')
 
                         if status != 200:
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                                   message="&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(status),
+                                                   message="&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(
+                                                       status),
                                                    keyboard=keyboards.exit,
                                                    random_id=random.randint(1, 2147483647))
                             sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
@@ -1456,7 +1496,8 @@ async def CheckStatus(MessageSettings, UserParams):
             cursorR.execute("DELETE FROM Status WHERE ID_VK=" + str(id))
             conn.commit()
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Сообщение отправлено {} пользователям группы {}".format(len(result_users),groupId),
+                                   message="Сообщение отправлено {} пользователям группы {}".format(len(result_users),
+                                                                                                    groupId),
                                    keyboard=keyboards.getMainKeyboard(2),
                                    random_id=random.randint(1, 2147483647))
             sql = "DELETE FROM prepod_users WHERE id = {}".format(id)
@@ -1469,13 +1510,16 @@ async def CheckStatus(MessageSettings, UserParams):
                 id = MessageSettings.getId()
                 async with aiohttp.ClientSession() as session:
                     async with await session.post(BASE_URL_STAFF, data="prepodLogin=" + str(UserParams.login),
-                                         headers={'Content-Type': "application/x-www-form-urlencoded", "user-agent": "BOT RASPISANIE v.1"},
-                                         params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
-                                                 "p_p_lifecycle": "2", "p_p_resource_id": "schedule"}) as response:
+                                                  headers={'Content-Type': "application/x-www-form-urlencoded",
+                                                           "user-agent": "BOT RASPISANIE v.1"},
+                                                  params={"p_p_id": "pubLecturerSchedule_WAR_publicLecturerSchedule10",
+                                                          "p_p_lifecycle": "2",
+                                                          "p_p_resource_id": "schedule"}) as response:
                         response = await response.json(content_type='text/html')
                 if str(response.status_code) != '200':
                     await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                           message="&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(str(response.status_code)),
+                                           message="&#9888; Не удалось запросить список ваших групп. Возникла ошибка при подключении к серверам. \nКод ошибки: {0} &#9888;".format(
+                                               str(response.status_code)),
                                            keyboard=keyboards.exit,
                                            random_id=random.randint(1, 2147483647))
                     sql = "DELETE FROM Status WHERE ID_VK = " + str(id)
@@ -1567,7 +1611,7 @@ async def CheckStatus(MessageSettings, UserParams):
                 else:
                     try:
                         if datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:])) > \
-                                datetime.date(today.year,today.month,today.day) + datetime.timedelta(days=30):
+                                datetime.date(today.year, today.month, today.day) + datetime.timedelta(days=30):
                             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                                    message="Запланированная дата неверная. \n Разрешено добавлять задания только в течение следующего месяца",
                                                    keyboard=keyboards.keyboardAddTasks2,
@@ -1662,9 +1706,9 @@ async def CheckStatus(MessageSettings, UserParams):
             cursorR.execute(sql)
             conn.commit()
             msg_id = await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Запрос отправлен на обработку",
-                                   keyboard=keyboards.exit,
-                                   random_id=random.randint(1, 2147483647))
+                                            message="Запрос отправлен на обработку",
+                                            keyboard=keyboards.exit,
+                                            random_id=random.randint(1, 2147483647))
             i = 1
 
             async with aiohttp.ClientSession() as session:
@@ -1709,7 +1753,7 @@ async def CheckStatus(MessageSettings, UserParams):
                                    random_id=random.randint(1, 2147483647))
 
             return "ok"
-        elif status == 100: # verification start
+        elif status == 100:  # verification start
             if len(MessageSettings.text) > 25 or len(MessageSettings.text) < 5:
                 await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                        message="Вероятно, вы ошиблись при вводе логина. Повторите ввод.",
@@ -1722,7 +1766,8 @@ async def CheckStatus(MessageSettings, UserParams):
                                                message="Вероятно, вы ошиблись при вводе логина. Повторите ввод.",
                                                random_id=random.randint(1, 2147483647))
                         return "ok"
-            cursorR.execute("INSERT INTO verification VALUES ({},'{}', '')".format(MessageSettings.getId(), MessageSettings.text))
+            cursorR.execute(
+                "INSERT INTO verification VALUES ({},'{}', '')".format(MessageSettings.getId(), MessageSettings.text))
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Введите пароль от личного кабинета:",
                                    random_id=random.randint(1, 2147483647))
@@ -1737,7 +1782,8 @@ async def CheckStatus(MessageSettings, UserParams):
                                        message="Возникла ошибка при проверке пароля. Повторите ввод",
                                        random_id=random.randint(1, 2147483647))
                 return "ok"
-            cursorR.execute("UPDATE verification SET password = '{}' WHERE id={}".format(MessageSettings.text, MessageSettings.getId()))
+            cursorR.execute("UPDATE verification SET password = '{}' WHERE id={}".format(MessageSettings.text,
+                                                                                         MessageSettings.getId()))
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Введите текст с картинки:",
                                    attachment=await get_autorization_captcha(MessageSettings.getPeer_id()),
@@ -1782,21 +1828,20 @@ async def CheckStatus(MessageSettings, UserParams):
                     continue
                 pd += "{} : {}\n".format(key_pd[key], result[key])
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
-                                   message="Ваши персональные данные: \n"+pd,
+                                   message="Ваши персональные данные: \n" + pd,
                                    random_id=random.randint(1, 2147483647))
             return "ok"
-
-
 
         connection.commit()
         conn.commit()
         body_excepts = ['Профиль', 'Изменить', 'Назад', '!группа', 'группа', 'Обратная связь']
-        if False and UserParams.dateChange < datetime.date(2020, 9, 1) and UserParams.role in [1,3] and body not in body_excepts or (body.isdigit() and UserParams.dateChange < datetime.date(2020, 9, 1) ):
+        if False and UserParams.dateChange < datetime.date(2020, 9, 1) and UserParams.role in [1,
+                                                                                               3] and body not in body_excepts or (
+                body.isdigit() and UserParams.dateChange < datetime.date(2020, 9, 1)):
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="&#9888; Кажется, номер вашей группы установлен в прошлом учебном году. Это означает, что вы не сможете получить актуальное расписание вашей группы. Обновить номер группы можно в профиле, нажав на номер группы или с помощью команды !группа",
                                    random_id=random.randint(1, 2147483647))
         # END CHECK
-
 
         return "no"
     except Exception as E:
@@ -1807,7 +1852,6 @@ async def CheckStatus(MessageSettings, UserParams):
         connection.commit()
         conn.commit()
         return "no"
-
 
 
 async def mod_document(document):
@@ -1837,7 +1881,8 @@ async def createDocShedule(group, realGroup, students):
     font = style.font
     font.name = 'Times New Roman'
 
-    wordDocument.add_heading(f"Создано через vk.me/botraspisanie       Журнал посещения занятий группы {groupReal}",3).alignment  = 1
+    wordDocument.add_heading(f"Создано через vk.me/botraspisanie       Журнал посещения занятий группы {groupReal}",
+                             3).alignment = 1
 
     font.size = Pt(10)
 
@@ -1850,19 +1895,16 @@ async def createDocShedule(group, realGroup, students):
     hdr_cells[1].alignment = 1
     hdr_cells[0].alignment = 1
 
-
-
     row = table.add_row()
     row.cells[0].merge(hdr_cells[0])
     row.cells[1].merge(hdr_cells[1])
 
-
     i = 0
     users = students
-    k=0
+    k = 0
     for i in range(columns):
-        table.cell(1,i).height = Cm(5)
-        table.cell(1,i).height_rule = WD_ROW_HEIGHT_RULE.AUTO
+        table.cell(1, i).height = Cm(5)
+        table.cell(1, i).height_rule = WD_ROW_HEIGHT_RULE.AUTO
         tr = row._tr
         trPr = tr.get_or_add_trPr()
         trHeight = OxmlElement('w:trHeight')
@@ -1870,7 +1912,7 @@ async def createDocShedule(group, realGroup, students):
         trHeight.set(qn('w:hRule'), "atLeast")
         trPr.append(trHeight)
 
-    i=0
+    i = 0
     for user in users:
         i += 1
         row = table.add_row()
@@ -1892,6 +1934,7 @@ async def createDocShedule(group, realGroup, students):
     row_cells = row.cells
     wordDocument.add_heading(f"Создано через бота vk.com/botraspisanie", 3).alignment = 2
     wordDocument.save(str(realGroup) + ".docx")
+
 
 async def GetDocShedule(group, id, realGroup, students):
     await createDocShedule(group, realGroup, students)

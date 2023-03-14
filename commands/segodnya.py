@@ -57,7 +57,6 @@ async def info(MessageSettings, user):
 
 
 async def showTimetable(groupId, tomorrow=0,MessageSettings=None, user=None):
-    user_potok = user.potokLecture
     try:
         isNormal, response = await getResponse(groupId, MessageSettings, user)
         if not isNormal:
@@ -160,6 +159,7 @@ async def showTimetable(groupId, tomorrow=0,MessageSettings=None, user=None):
         print('Ошибка:\n', traceback.format_exc())
 
         return ""
+    user_potok = user.potokLecture
 
 
 async def getResponse(groupId,MessageSettings, user):

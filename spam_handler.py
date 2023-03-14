@@ -14,9 +14,9 @@ class Spam_Handler:
         self.base = ['солдат', 'слили', 'в канале', 'переходи', 'telegram', 'кадры', 'зверский', 'мобилизация', 'предложение', 'руб',
                      'цензуры', 'сеть', 'обман', 'правительство', 'nemchinowa', 'tapy.me', 'https://', 'www.',
                                         'мобилизац', 'в канал', 'сет', 'зверск', 'ссылк', 'телеграм', 'nemchinova', '100%', 'болельщи',
-                     'пушк', 'карт', 'лото', 'правительство', 'путин', 'pus', 'лотер', 'куплю', 'купить',
+                     'пушк', 'карт', 'лото', 'правительство', 'путин', 'pus', 'лотер', 'куплю', 'купить', '18+', 'гибкий', 'регистр', 'зарабат', 'заказ'
                      'приз', 'букм', 'перейти в бот', 'болельщиц']
-        self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com',
+        self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com', 'th.link', 'link', '.to'
                         'bit.ly', 'tinyurl.com', 'tiny.one', 'rotf.lol', 'u.to', 'vk.com/im?sel=-', 'vk.com/public', 'vk.com/im', 'https://vk.com/wall-', 'vk.com/invite', 'vk.me/', 'vk.com/club']
 
 
