@@ -277,7 +277,7 @@ async def IsRegistred(MessageSettings, UserParams):
             conn.commit()
             await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                    message="Мне нужно понимать кто ты. Выбери соответствующую кнопку в меню",
-                                   keyboard=keyboards.get_undo,
+                                   keyboard=keyboards.roleMenu,
                                    random_id=random.randint(1, 2147483647))
 
         else:
