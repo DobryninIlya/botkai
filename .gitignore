@@ -1,7 +1,6 @@
-<<<<<<< HEAD
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
-=======
 *.pyc
 *.log
 *.pot
@@ -41,7 +40,6 @@ media
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 *.py[cod]
 *$py.class
 
@@ -59,8 +57,7 @@ eggs/
 <<<<<<< HEAD
 lib/
 lib64/
-=======
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
+
 parts/
 sdist/
 var/
@@ -95,7 +92,6 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
-<<<<<<< HEAD
 
 # Translations
 *.mo
@@ -106,14 +102,13 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-=======
+
 pytestdebug.log
 
 # Translations
 *.mo
 
 # Django stuff:
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 
 # Flask stuff:
 instance/
@@ -124,10 +119,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-<<<<<<< HEAD
-=======
+
 doc/_build/
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 
 # PyBuilder
 target/
@@ -149,12 +142,9 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-<<<<<<< HEAD
-=======
 # poetry
 #poetry.lock
 
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
@@ -166,23 +156,18 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-<<<<<<< HEAD
 .env
 .venv
 =======
 # .env
 .env/
 .venv/
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
-<<<<<<< HEAD
-=======
 pythonenv*
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
 
 # Spyder project settings
 .spyderproject
@@ -201,11 +186,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-<<<<<<< HEAD
 .db
 .idea
 templates/
-=======
 
 # pytype static type analyzer
 .pytype/
@@ -223,4 +206,3 @@ Thumbs.db #thumbnail cache on Windows
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 
->>>>>>> 163c86b8f85bdc96860afe673ada3ac8186209c8
