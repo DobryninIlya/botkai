@@ -24,7 +24,6 @@ from docx.enum.table import WD_ROW_HEIGHT_RULE, WD_TABLE_ALIGNMENT
 from docx.shared import Pt
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from ..commands.tools.kai_autorization import get_autorization_captcha, get_data
 from psycopg2.extensions import AsIs
 from ..spam_handler import Spam_Handler
 import asyncio
