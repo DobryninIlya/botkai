@@ -19,8 +19,21 @@ class Spam_Handler:
         self.domains = ['t.me/+', 'clck.ru', 'vk.cc', 'goo.gl', 'to.click', 'bit.do', 'ow.ly', 'socprofile.com',
                         'bit.ly', 'tinyurl.com', 'tiny.one', 'rotf.lol', 'u.to', 'vk.com/im?sel=-', 'vk.com/public', 'vk.com/im', 'https://vk.com/wall-']
 
+        self.suspect_list = []
 
     async def handle_text_message(self):
+        if self.from_id > 795353170:
+            if self.from_id not in self.suspect_list:
+                self.suspect_list.append(self.from_id)
+                await self.vk.messages.delete(delete_for_all=1,
+                                              peer_id=str(self.peer_id),
+                                              cmids=str(self.conversation_message_id)
+                                              )
+                await self.vk.messages.send(peer_id=self.peer_id,
+                                            message="[chat-guardian]: Удалено подозрительное сообщение",
+                                            random_id=random.randint(1, 2147483647))
+                return
+
         message = self.text.lower().split()
         score = 0
         flag = False
