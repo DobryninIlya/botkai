@@ -8,7 +8,8 @@ services:
 #    restart: always
     env_file:
       - EnvironmentPath.txt
-#    ports:
-#    - 80:80
+    ports:
+    - 81:80
+    - 5433:5432
 
 
