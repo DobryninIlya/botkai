@@ -1,4 +1,4 @@
-
+EnviromentPath.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
@@ -158,7 +158,6 @@ celerybeat.pid
 # Environments
 .env
 .venv
-=======
 # .env
 .env/
 .venv/
