@@ -1,4 +1,5 @@
 import asyncio
+import os
 from asyncio import Task
 from typing import Optional
 from aiovk import TokenSession
@@ -10,7 +11,7 @@ class Poller:
         TokenSession.API_VERSION = '5.103'
         self.session = TokenSession(access_token=token)
         self.api = API(self.session)
-        self.vk_client = BotsLongPoll(self.session, group_id=182372147)
+        self.vk_client = BotsLongPoll(self.session, group_id=os.getenv("VK_GROUP"))
         self.queue = queue
         self._task: Optional[Task] = None
 
