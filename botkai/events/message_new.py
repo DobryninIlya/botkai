@@ -13,7 +13,6 @@ import os, importlib
 import sys
 import apiai
 from pprint import pprint
-from numba import jit
 
 from bs4 import BeautifulSoup
 import docx
@@ -772,7 +771,6 @@ def StatusR(id):  ### Текущий статус в таблице Status (RAM)
         return
 
 
-@jit(nopython=True, fastmath=True, cache=True)
 def damerau_levenshtein_distance(s1, s2):
     d = {}
     lenstr1 = len(s1)
