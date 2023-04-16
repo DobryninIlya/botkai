@@ -29,9 +29,9 @@ class Spam_Handler:
                                               peer_id=str(self.peer_id),
                                               cmids=str(self.conversation_message_id)
                                               )
-                await self.vk.messages.send(peer_id=self.peer_id,
-                                            message="[chat-guardian]: Удалено подозрительное сообщение",
-                                            random_id=random.randint(1, 2147483647))
+                # await self.vk.messages.send(peer_id=self.peer_id,
+                #                             message="[chat-guardian]: Удалено подозрительное сообщение",
+                #                             random_id=random.randint(1, 2147483647))
                 return
 
         message = self.text.lower().split()
