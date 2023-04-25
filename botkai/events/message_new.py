@@ -90,17 +90,6 @@ except:
     print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
-def exceptCatcher(func):
-    async def wrapper_func(*args, **kwargs):
-        try:
-            await func(*args, **kwargs)
-        except:
-            print('ERROR in exceptCatcher:\n', traceback.format_exc(), flush=True)
-
-    return wrapper_func
-
-
-@exceptCatcher
 async def message_new(request, lp_obj=None):
     try:
         global message_params

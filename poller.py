@@ -1,5 +1,6 @@
 import asyncio
 import os
+import traceback
 from asyncio import Task
 from typing import Optional
 from aiovk import TokenSession
@@ -16,9 +17,12 @@ class Poller:
         self._task: Optional[Task] = None
 
     async def _worker(self):
-        while True:
-            async for event in self.vk_client.iter():
-                self.queue.put_nowait(event)
+        try:
+            while True:
+                async for event in self.vk_client.iter():
+                    self.queue.put_nowait(event)
+        except:
+            print('Ошибка хэндлера:\n', traceback.format_exc(), flush=True)
 
     async def start(self):
         self._task = asyncio.create_task(self._worker())

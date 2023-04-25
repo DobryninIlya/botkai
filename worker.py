@@ -26,8 +26,11 @@ class Worker:
 
     async def _worker(self):
         while True:
-            upd = await self.queue.get()
-            await self.handle_update(upd)
+            try:
+                upd = await self.queue.get()
+                await self.handle_update(upd)
+            except:
+                print('Ошибка воркера:\n', traceback.format_exc(), flush=True)
         print("Worker is done the task", flush=True)
         self.queue.task_done()
 
