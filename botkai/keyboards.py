@@ -400,8 +400,10 @@ def KeyboardProfile(MessageSettings, user):
                         [get_button(label="Группа: " + str(Group), color=GroupColor, payload={'button': 'group'})],
                         # [get_button(label="Баланс: " + str(Balance), color="positive", payload={'button': 'donate'})],
                         [get_button(label="$ Поддержать проект", color="positive", payload={'button': 'donate'})],
-                        [get_button(label="Мои задания (" + str(TaskCount) + ")", color="default",
-                                    payload={'button': 'mytask'})],
+                        [
+                            get_button(label="Мои задания (" + str(TaskCount) + ")", color="default",payload={'button': 'mytask'}),
+                            get_button(label="изменения в расписании", color="primary", type="text")
+                         ],
                         [
                             get_button(label="Полный список группы", color="default",
                                        payload={'button': 'groupmembersall'}),
@@ -1180,3 +1182,14 @@ ACT_botraspisanie = {
 }
 ACT_botraspisanie = json.dumps(ACT_botraspisanie, ensure_ascii=False).encode('utf-8')
 ACT_botraspisanie = str(ACT_botraspisanie.decode('utf-8'))
+
+notifier_change_btn = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Изменить", color="default", payload={'button': 'notifier_change'})]
+
+    ]
+
+}
+notifier_change_btn = json.dumps(notifier_change_btn, ensure_ascii=False).encode('utf-8')
+notifier_change_btn = str(notifier_change_btn.decode('utf-8'))

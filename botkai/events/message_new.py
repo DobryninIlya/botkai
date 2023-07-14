@@ -11,7 +11,6 @@ from requests import ConnectionError
 import traceback
 import os, importlib
 import sys
-import apiai
 from pprint import pprint
 
 from bs4 import BeautifulSoup
