@@ -402,7 +402,7 @@ def KeyboardProfile(MessageSettings, user):
                         [get_button(label="$ Поддержать проект", color="positive", payload={'button': 'donate'})],
                         [
                             get_button(label="Мои задания (" + str(TaskCount) + ")", color="default",payload={'button': 'mytask'}),
-                            get_button(label="изменения в расписании", color="primary", type="text")
+                            get_button(label="Изменения в расписании", color="primary", type="text")
                          ],
                         [
                             get_button(label="Полный список группы", color="default",

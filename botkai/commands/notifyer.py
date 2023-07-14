@@ -45,6 +45,6 @@ async def processor(MessageSettings: command_class.Message, user):
 
 command = command_class.Command()
 
-command.keys = ["изменить оповещения", "оповещения изменить", "изменения в расписании"]
+command.keys = ["изменить оповещения", "оповещения изменить", "изменения в расписании", "управление оповещениями"]
 command.process = processor
 command.payload = "notifier_change"
