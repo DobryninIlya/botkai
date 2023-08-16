@@ -89,6 +89,17 @@ except:
     print('Ошибка:\n', traceback.format_exc(), flush=True)
 
 
+async def groupid_assert(user: classes.User, MessageSettings: classes.Message, vk: classes.vk):
+    if user.groupId == 100:
+        if MessageSettings.text.lower == "изменить" or MessageSettings.button=='groupchange':
+            return True
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message="Номер вашей группы установлен в прошлом году. Для продолжения работы его необходимо актуализировать.",
+                               keyboard=keyboards.keyboardGroupChange,
+                               random_id=random.randint(1, 2147483647))
+        return False
+    return True
+
 async def message_new(request, lp_obj=None):
     try:
         global message_params
@@ -111,6 +122,8 @@ async def message_new(request, lp_obj=None):
             statistic_users_active_list.append(MessageSettings.id)
         MessageSettings.cmd_payload = [statistic_users_active, statistic_updates]
 
+
+
         if MessageSettings.peer_id != 159773942:
             # return
             pass
@@ -130,7 +143,8 @@ async def message_new(request, lp_obj=None):
                 MessageSettings.button = button
             except Exception as E:
                 pass
-
+            if not await groupid_assert(UserParams, MessageSettings, vk):
+                return
             if button != "":
                 for c in command_list:
                     crole = c.role

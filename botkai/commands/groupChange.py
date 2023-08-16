@@ -10,9 +10,12 @@ async def info(MessageSettings, user):
     id = MessageSettings.getId()
 
     try:
-        sql = "INSERT INTO Status VALUES (" + str(id) + ", 56);"
-        cursorR.execute(sql)
-        conn.commit()
+        try:
+            sql = "INSERT INTO Status VALUES (" + str(id) + ", 56);"
+            cursorR.execute(sql)
+            conn.commit()
+        except:
+            pass
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
                                message="Введи группу в чат",
                                random_id=random.randint(1, 2147483647),

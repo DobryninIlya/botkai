@@ -17,4 +17,4 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER insert_notifyer_client_vk_trigger
 AFTER INSERT ON users
 FOR EACH ROW
-EXECUTE FUNCTION insert_notifyer_client();
+EXECUTE FUNCTION insert_notifyer_client_vk();

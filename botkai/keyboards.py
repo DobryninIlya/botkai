@@ -1193,3 +1193,14 @@ notifier_change_btn = {
 }
 notifier_change_btn = json.dumps(notifier_change_btn, ensure_ascii=False).encode('utf-8')
 notifier_change_btn = str(notifier_change_btn.decode('utf-8'))
+
+keyboardGroupChange = {
+    "inline": True,
+    "buttons": [
+        [get_button(label="Изменить", color="positive", payload = {'button': 'groupchange'})]
+
+
+    ]
+}
+keyboardGroupChange = json.dumps(keyboardGroupChange, ensure_ascii=False).encode('utf-8')
+keyboardGroupChange = str(keyboardGroupChange.decode('utf-8'))
