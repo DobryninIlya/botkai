@@ -16,7 +16,7 @@ def start_of_school_year():
 async def processor(MessageSettings, user):
     if MessageSettings.payload == 'drop_groups_new_year' or MessageSettings.text == "drop_groups_new_year":
         print("ОЧИСТКА НОМЕРОВ ГРУПП СТАРОГО УЧЕБНОГО ГОДА")
-        sql = "UPDATE public.users SET groupp = 10 WHERE groupp>10 AND \"dateChange\" < '{}'".format(start_of_school_year())
+        sql = "UPDATE public.users SET groupp = 100 WHERE groupp>100 AND \"dateChange\" < '{}'".format(start_of_school_year())
         res = cursor.execute(sql)
         connection.commit()
         await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
