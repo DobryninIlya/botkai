@@ -127,6 +127,21 @@ async def message_new(request, lp_obj=None):
         if MessageSettings.peer_id != 159773942:
             # return
             pass
+
+        msg = ("К сожалению, у меня больше нет ресурсов и резона поддерживать проект \"Бот расписание занятий КНИТУ-КАИ\" на этой платформе."
+               "Глупая политика ВКонтакте, невозможность хотя бы малейшей монетизации и массовая миграция пользователей в Телеграм привели к этому."
+               "Многие пользователи уже перешли на нашего нового бота в Телеграм https://t.me/knrtukaibot , КапиПару https://capypara.kai.ru"
+               "и Яндекс Алису (Алиса, спроси у капибары КАИ расписание группы сорок три тридцать восемь)"
+               "Поэтому я принимаю решение остановить работу бота на этой платформе. Спасибо за понимание. "
+               "Надеюсь, встретимся на других площадках"
+               "R.I.P 2019-2025")
+        await vk.messages.send(peer_id=MessageSettings.getPeer_id(),
+                               message=msg,
+                               keyboard=keyboards.keyboardNull,
+                               random_id=random.randint(1, 2147483647))
+        if True:
+            return "ok"
+
         if await IsRegistred(MessageSettings, UserParams):
             UserParams.update(int(MessageSettings.id))
             UserParams.Status = StatusR(MessageSettings.getId())
